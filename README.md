@@ -3,6 +3,8 @@
 This project is done from class CS374, Introduction to Human-Computer Interaction.
 
 ## Contributor
+[Jaewoong Ahn](https://github.com/busankimchi)
+
 [Woomin Song](https://github.com/totolacky)
 
 [Gyusung Jo](https://github.com/gyusss)
