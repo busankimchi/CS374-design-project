@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import {Box, Breadcrumbs, Typography} from '@material-ui/core';
+import {Box, Breadcrumbs, Typography, Avatar} from '@material-ui/core';
 import NavigateNextIcon from '@material-ui/icons/NavigateNext';
 
 export const QnADisplay = (props: QuestionIdProps) => {
@@ -37,14 +37,25 @@ export const QnADisplay = (props: QuestionIdProps) => {
 
   return (
     <QnADisplayBox>
-      <Breadcrumbs separator={<NavigateNextIcon style={{ fontSize: 14 }}/>} aria-label="breadcrumb">
-        <BreadcrumbElem color="textSecondary">{question.topic}</BreadcrumbElem>
-        <BreadcrumbElem color="textSecondary">{question.subtopic}</BreadcrumbElem>
-      </Breadcrumbs>
-      Questions and answers are displayed here. Question {questionId} was queried.<br/>
-      Question: {question.title}<br/>
-      Answers: <br/>
-      {answersElem}
+      <Box> {/* Question */}
+        <Breadcrumbs separator={<NavigateNextIcon style={{ fontSize: 14 }}/>} aria-label="breadcrumb">
+          <BreadcrumbElem color="textSecondary">{question.topic}</BreadcrumbElem>
+          <BreadcrumbElem color="textSecondary">{question.subtopic}</BreadcrumbElem>
+        </Breadcrumbs>
+        <AskerBox>
+          <Avatar>{question.name[0]}</Avatar>
+        </AskerBox>
+        
+        Question: {question.title}<br/>
+      </Box>
+      <Box> {/* Divider */}
+
+      </Box>
+      <Box> {/* Answers */}
+        Answers: <br/>
+        {answersElem}
+      </Box>     
+      
     </QnADisplayBox>
   );
 };
@@ -54,6 +65,11 @@ const QnADisplayBox = styled(Box)`
   border-left: solid;
   padding-left: 30px;
   font-size: 20px;
+`;
+
+const AskerBox = styled(Box)`
+  margin-top: 10px;
+  margin-bottom: 10px;
 `;
 
 const BreadcrumbElem = styled(Typography)`
