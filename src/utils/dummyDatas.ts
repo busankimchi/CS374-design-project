@@ -17,7 +17,7 @@ export const dummyTopicList: Topic[] = [
   },
   {
     id: 2,
-    topicName: 'Threads',
+    topicName: 'Threadsssssssssssssssssssssssss',
     subTopic: [
       {
         id: 3,
@@ -69,7 +69,7 @@ export const dummyTopicList: Topic[] = [
       },
       {
         id: 8,
-        subTopicName: 'claimForFirstQuestion',
+        subTopicName: 'claimForFirstQuestion!!',
       },
     ],
   },

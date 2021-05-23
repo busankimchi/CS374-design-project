@@ -14,3 +14,5 @@ export enum PageType {
   ALL_QUESTONS,
   NORMAL,
 }
+
+export const MENU_ID = 'MENU_ID';

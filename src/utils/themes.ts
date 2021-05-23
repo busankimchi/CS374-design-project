@@ -10,3 +10,21 @@ export const rotation = (degree: number) =>
   css`
     transform: rotate(${degree}deg);
   `;
+
+export const FADE_IN = keyframes`
+    0% {
+        opacity: 0;
+    }
+    100% {
+        opacity: 1;
+    }
+`;
+
+export const FADE_OUT = keyframes`
+    0% {
+        opacity: 1;
+    }
+    100% {
+        opacity: 0;
+    }
+`;

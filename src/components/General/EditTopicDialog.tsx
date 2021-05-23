@@ -2,15 +2,15 @@ import { FC, useState } from 'react';
 import styled from 'styled-components';
 import { BaseDialog } from './BaseDialog';
 
-interface NewTopicDialogProp {
+interface EditTopicDialogProp {
   open: boolean;
   onClose?: () => void;
 }
 
-export const NewTopicDialog: FC<NewTopicDialogProp> = ({ open, onClose }) => {
+export const EditTopicDialog: FC<EditTopicDialogProp> = ({ open, onClose }) => {
   return (
     <BaseDialog open={open} onClose={onClose}>
-      newtopic!
+      edit topic!
     </BaseDialog>
   );
 };

@@ -19,7 +19,7 @@ export const SubTopicListItem: FC<SubTopicListItemProp> = ({ subTopic }) => {
 };
 
 const SubTopicListItemContainer = styled(ListItem)`
-  padding-left: 2em;
+  padding: 0.15em 0 0.15em 2em;
 
   :hover {
     background-color: ${PINK_3};
