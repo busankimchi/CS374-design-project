@@ -53,7 +53,7 @@ export const QnADisplay: FC<QuestionIdProp> = ({ questionId }) => {
           </CloseButton>
         </QuestionTopBox>
         <QuestionTopBox>
-          <UserInfo userName={question.name} time={question.time} />
+          <UserInfo userName={question.name} time={question.time} image={question.image} />
           <FAQButton isFaq={isFaq} changeIsFaq={changeIsFaq} />
         </QuestionTopBox>
         <QuestionBox>

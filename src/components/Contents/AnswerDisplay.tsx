@@ -12,7 +12,7 @@ interface AnswerDisplayProp {
 export const AnswerDisplay: FC<AnswerDisplayProp> = ({ answer }) => {
   return (
     <AnswerBox>
-      <UserInfo userName={answer.name} time={answer.time} />
+      <UserInfo userName={answer.name} time={answer.time} image={answer.image} />
       <AnswerContentWrapper>
         <AnswerContentBox>
           {answer.content}
