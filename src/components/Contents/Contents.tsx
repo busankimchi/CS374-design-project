@@ -10,7 +10,9 @@ interface ContentsProp { questionId: number; };
 export const Contents: FC<ContentsProp> = ({ questionId }) => {
   return (
     <ContentBox>
-      <QnADisplay questionId={questionId} />
+      <QnADisplayBox>
+        <QnADisplay questionId={questionId} />
+      </QnADisplayBox>
       <InputAreaBox>
         <AnswerForm>
           <InputTextField
@@ -34,15 +36,21 @@ const ContentBox = styled(Box)`
   flex-direction: column;
 `;
 
+const QnADisplayBox = styled(Box)`
+  height: 71vh;
+  width: auto;
+  overflow-y: scroll;
+`;
+
 const InputAreaBox = styled(Box)`
-  height: 300px;
+  height: 25vh;
   width: auto;
 `;
 
 const AnswerForm = styled.form`
-  margin: 20px;
+  margin: 2vh;
   width: auto;
-  height: 260px;
+  height: 21vh;
   border-radius: 20px;
   border: solid;
   border-color: ${LIGHT_GRAY_1};
@@ -51,10 +59,9 @@ const AnswerForm = styled.form`
 `;
 
 const InputTextField = styled(InputBase)`
-  margin: 10px;
-  margin-left: 20px;
+  margin: 1vh 1vw;
   width: auto;
-  height: 240px;
+  height: 19vh;
   font-size: 20px;
   grid-column: 1;
 `;
