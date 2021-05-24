@@ -1,6 +1,6 @@
-import { FC, useState } from 'react';
+import { FC } from 'react';
 import styled from 'styled-components';
-import { Box, List, ListItem, ListItemIcon, ListItemText, Typography } from '@material-ui/core';
+import { List, ListItem, ListItemIcon, ListItemText, Typography } from '@material-ui/core';
 import ChatBubbleIcon from '@material-ui/icons/ChatBubble';
 import ClearAllIcon from '@material-ui/icons/ClearAll';
 import AddCircleIcon from '@material-ui/icons/AddCircle';
@@ -11,10 +11,13 @@ import { TopicListItem } from './TopicListItem';
 interface TopicListProp {
   topicList: Topic[];
   onClickAdd?: () => void;
+  onContextMenu?: (event: any) => void;
 }
 
-export const TopicList: FC<TopicListProp> = ({ topicList, onClickAdd }) => {
-  const renderTopicItems = (item: Topic, index?: number) => <TopicListItem key={index} topic={item} />;
+export const TopicList: FC<TopicListProp> = ({ topicList, onClickAdd, onContextMenu }) => {
+  const renderTopicItems = (item: Topic, index?: number) => (
+    <TopicListItem key={index} topic={item} onContextMenu={onContextMenu} />
+  );
 
   return (
     <TopicListContainer>

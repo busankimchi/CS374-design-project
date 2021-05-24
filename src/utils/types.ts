@@ -14,5 +14,7 @@ export enum PageType {
   ALL_QUESTONS,
   NORMAL,
 }
-
-export const MENU_ID = 'MENU_ID';
+export interface MousePosition {
+  x: null | number;
+  y: null | number;
+}

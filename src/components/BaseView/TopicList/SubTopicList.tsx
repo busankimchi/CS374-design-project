@@ -1,6 +1,6 @@
 import { FC } from 'react';
 import styled from 'styled-components';
-import { Box, List, ListItem, Typography } from '@material-ui/core';
+import { List, ListItem, Typography } from '@material-ui/core';
 import { SubTopic } from 'utils/types';
 import { SubTopicListItem } from './SubTopicListItem';
 

@@ -2,31 +2,25 @@ import { FC, useState } from 'react';
 import styled from 'styled-components';
 import { Input, Box, ListItem, ListItemText, Collapse, Typography } from '@material-ui/core';
 import ExpandMore from '@material-ui/icons/ExpandMore';
-import { useContextMenu } from 'react-contexify';
-import { MENU_ID, Topic } from 'utils/types';
+import { Topic } from 'utils/types';
 import { PINK_3, rotation } from 'utils/themes';
 import { SubTopicList } from './SubTopicList';
 
 interface TopicListItemProp {
   topic: Topic;
+  onContextMenu?: (event: any) => void;
 }
 
-export const TopicListItem: FC<TopicListItemProp> = ({ topic }) => {
+export const TopicListItem: FC<TopicListItemProp> = ({ topic, onContextMenu }) => {
   const [open, setOpen] = useState(false);
-
-  const { show } = useContextMenu({ id: MENU_ID });
 
   return (
     <TopicListContainer>
-      <TopicListItemContainer
-        button
-        onClick={() => setOpen(!open)}
-        onContextMenu={(event) => {
-          show(event);
-        }}
-      >
+      <TopicListItemContainer button onClick={() => setOpen(!open)} onContextMenu={onContextMenu}>
         <ExpandIcon focused={open} />
-        <Typography noWrap>{topic.topicName}</Typography>
+        <ListItemText>
+          <Typography noWrap>{topic.topicName}</Typography>
+        </ListItemText>
       </TopicListItemContainer>
 
       <Collapse in={open} timeout="auto" unmountOnExit>

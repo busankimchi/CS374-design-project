@@ -8,9 +8,10 @@ import { TopicList } from './TopicList/TopicList';
 
 interface MainDrawerProp {
   onClickAdd?: () => void;
+  onContextMenu?: (event: any) => void;
 }
 
-export const MainDrawer: FC<MainDrawerProp> = ({ onClickAdd }) => {
+export const MainDrawer: FC<MainDrawerProp> = ({ onClickAdd, onContextMenu }) => {
   const [topicList, setTopicList] = useState<Topic[]>(dummyTopicList);
 
   return (
@@ -19,7 +20,7 @@ export const MainDrawer: FC<MainDrawerProp> = ({ onClickAdd }) => {
         <Typography noWrap>CS330: Operating Systems and Lab</Typography>
       </ClassText>
       <Divider />
-      <TopicList topicList={topicList} onClickAdd={onClickAdd} />
+      <TopicList topicList={topicList} onClickAdd={onClickAdd} onContextMenu={onContextMenu} />
     </MainDrawerContainer>
   );
 };
