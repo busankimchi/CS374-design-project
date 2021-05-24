@@ -11,9 +11,9 @@ interface QuestionsProp {
 export const Questions: FC<QuestionsProp> = () => {
   return (
     <QuestionsContainer>
-      <Contents questionId={1}/>
+      <Contents questionId={1} />
     </QuestionsContainer>
-    );
+  );
 };
 
 const QuestionsContainer = styled(Box)``;
