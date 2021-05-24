@@ -1,8 +1,6 @@
-import '@material-ui/core';
 import { FC } from 'react';
 import styled from 'styled-components';
-import { Drawer, Box, List, ListItem, ListItemText, Typography, Divider } from '@material-ui/core';
-import { PINK_3 } from 'utils/themes';
+import { Drawer, Box, List, ListItem, Divider } from '@material-ui/core';
 
 interface QuestionListHeaderProp {
   topic: string;
