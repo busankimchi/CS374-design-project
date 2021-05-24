@@ -1,7 +1,8 @@
 import { FC, useState } from 'react';
 import styled from 'styled-components';
 import NavigateNextIcon from '@material-ui/icons/NavigateNext';
-import { Box, Breadcrumbs, Typography } from '@material-ui/core';
+import { Box, Breadcrumbs, Typography, IconButton } from '@material-ui/core';
+import CloseIcon from '@material-ui/icons/Close';
 import { UserInfo } from './UserInfo'
 import { AnswerDivider } from './AnswerDivider'
 import { dummyQuestion, dummyAnswers } from '../../utils/dummyDatas'
@@ -28,13 +29,23 @@ export const QnADisplay: FC<QuestionIdProp> = ({questionId}) => {
     // TODO: Do some more things for firebase
   }
 
+  const closeTab = () => {
+    // TODO: Navigate to 'nothing selected' page
+    alert("Close tab!");
+  }
+
   return (
     <QnADisplayBox>
       <Box>
-        <Breadcrumbs separator={<NavigateNextIcon style={{ fontSize: 14 }} />} aria-label="breadcrumb">
-          <BreadcrumbElem color="textSecondary">{question.topic}</BreadcrumbElem>
-          <BreadcrumbElem color="textSecondary">{question.subtopic}</BreadcrumbElem>
-        </Breadcrumbs>
+        <QuestionTopBox>
+          <Breadcrumbs separator={<NavigateNextIcon style={{ fontSize: 14 }} />} aria-label="breadcrumb">
+            <BreadcrumbElem color="textSecondary">{question.topic}</BreadcrumbElem>
+            <BreadcrumbElem color="textSecondary">{question.subtopic}</BreadcrumbElem>
+          </Breadcrumbs>
+          <CloseButton aria-label="close tab" onClick={closeTab}>
+            <CloseIcon />
+          </CloseButton>
+        </QuestionTopBox>
         <QuestionTopBox>
           <UserInfo userName={question.name} time={question.time}/>
           <FAQButton isFaq={isFaq} changeIsFaq={changeIsFaq}/>
@@ -59,6 +70,7 @@ const QnADisplayBox = styled(Box)`
 
 const QuestionBox = styled(Box)`
   margin: 10px;
+  margin-top: 0px;
 `;
 
 const QuestionTopBox = styled(Box)`
@@ -78,5 +90,11 @@ const QuestionContentBox = styled(Box)`
 `;
 
 const BreadcrumbElem = styled(Typography)`
+  margin-top: 4px;
   font-size: 14px;
+`;
+
+const CloseButton = styled(IconButton)`
+  width: 30px;
+  height: 30px;
 `;
