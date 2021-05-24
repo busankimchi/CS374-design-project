@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import { Box, ListItem, ListItemText, Collapse, Typography } from '@material-ui/core';
 import ExpandMore from '@material-ui/icons/ExpandMore';
 import { Topic } from 'utils/types';
-import { PINK_3, rotation } from 'utils/themes';
+import { H4, BROWN, PINK_4, rotation } from 'utils/themes';
 import { SubTopicList } from './SubTopicList';
 
 interface TopicListItemProp {
@@ -32,7 +32,7 @@ export const TopicListItem: FC<TopicListItemProp> = ({ topic, onContextMenu, set
       >
         <ExpandIcon focused={open} />
         <ListItemText>
-          <Typography noWrap>{topic.topicName}</Typography>
+          <TopicItemText noWrap>{topic.topicName}</TopicItemText>
         </ListItemText>
       </TopicListItemContainer>
 
@@ -47,8 +47,13 @@ const TopicListContainer = styled(Box)``;
 
 const TopicListItemContainer = styled(ListItem)`
   :hover {
-    background-color: ${PINK_3} !important;
+    background-color: ${PINK_4} !important;
   }
+`;
+
+const TopicItemText = styled(Typography)`
+  color: ${BROWN};
+  ${H4}
 `;
 
 const ExpandIcon = styled(ExpandMore)<{ focused: boolean }>`

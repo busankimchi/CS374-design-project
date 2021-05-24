@@ -2,7 +2,7 @@ import { FC } from 'react';
 import styled from 'styled-components';
 import { Box, Typography, Divider as DefaultDivider } from '@material-ui/core';
 import { Topic } from 'utils/types';
-import { PINK_2, PINK_3 } from 'utils/themes';
+import { BROWN, H3, PINK_2, PINK_4 } from 'utils/themes';
 import { TopicList } from './TopicList/TopicList';
 
 interface MainDrawerProp {
@@ -14,11 +14,13 @@ interface MainDrawerProp {
 }
 
 export const MainDrawer: FC<MainDrawerProp> = ({ topicList, onClickAdd, onContextMenu, setTopic }) => {
+  const currentClass = 'CS330: Operating Systems and Lab';
+
   return (
     <MainDrawerContainer>
-      <ClassText>
-        <Typography noWrap>CS330: Operating Systems and Lab</Typography>
-      </ClassText>
+      <ClassTextContainer>
+        <ClassText noWrap>{currentClass}</ClassText>
+      </ClassTextContainer>
       <Divider />
       <TopicList topicList={topicList} onClickAdd={onClickAdd} onContextMenu={onContextMenu} setTopic={setTopic} />
     </MainDrawerContainer>
@@ -33,11 +35,16 @@ const MainDrawerContainer = styled(Box)`
   min-height: 96vh;
 `;
 
-const ClassText = styled(Box)`
+const ClassTextContainer = styled(Box)`
   padding: 1em;
 `;
 
 const Divider = styled(DefaultDivider)`
   height: 2px !important;
-  background-color: ${PINK_3} !important;
+  background-color: ${PINK_4} !important;
+`;
+
+const ClassText = styled(Typography)`
+  color: ${BROWN};
+  ${H3}
 `;

@@ -1,12 +1,12 @@
 import { FC } from 'react';
 import { Link as DefaultLink } from 'react-router-dom';
 import styled from 'styled-components';
-import { List, ListItem, ListItemIcon, ListItemText, Typography } from '@material-ui/core';
+import { List, ListItem, ListItemIcon as DefaultListItemIcon, ListItemText, Typography } from '@material-ui/core';
 import ChatBubbleIcon from '@material-ui/icons/ChatBubble';
 import ClearAllIcon from '@material-ui/icons/ClearAll';
 import AddCircleIcon from '@material-ui/icons/AddCircle';
 import { Topic } from 'utils/types';
-import { PINK_1, PINK_3 } from 'utils/themes';
+import { H4, BROWN, PINK_1, PINK_4 } from 'utils/themes';
 import { TopicListItem } from './TopicListItem';
 
 interface TopicListProp {
@@ -30,7 +30,7 @@ export const TopicList: FC<TopicListProp> = ({ topicList, onClickAdd, onContextM
             <ChatBubbleIcon />
           </ListItemIcon>
           <ListItemText>
-            <Typography noWrap>FAQ</Typography>
+            <TopicItemText noWrap>FAQ</TopicItemText>
           </ListItemText>
         </FAQ>
       </Link>
@@ -40,7 +40,7 @@ export const TopicList: FC<TopicListProp> = ({ topicList, onClickAdd, onContextM
             <ClearAllIcon />
           </ListItemIcon>
           <ListItemText>
-            <Typography noWrap>All Questions</Typography>
+            <TopicItemText noWrap>All Questions</TopicItemText>
           </ListItemText>
         </AllQuestions>
       </Link>
@@ -50,7 +50,7 @@ export const TopicList: FC<TopicListProp> = ({ topicList, onClickAdd, onContextM
           <AddCircleIcon />
         </ListItemIcon>
         <ListItemText>
-          <Typography noWrap>Add Topic</Typography>
+          <TopicItemText noWrap>Add Topic</TopicItemText>
         </ListItemText>
       </AddTopic>
     </TopicListContainer>
@@ -62,9 +62,15 @@ const Link = styled(DefaultLink)`
   text-decoration: none;
 `;
 
+const ListItemIcon = styled(DefaultListItemIcon)`
+  min-width: 2.5em;
+`;
+
 const FAQ = styled(ListItem)`
+  display: flex;
+
   :hover {
-    background-color: ${PINK_3} !important;
+    background-color: ${PINK_4} !important;
   }
 
   :focus {
@@ -72,9 +78,14 @@ const FAQ = styled(ListItem)`
   }
 `;
 
+const TopicItemText = styled(Typography)`
+  color: ${BROWN};
+  ${H4}
+`;
+
 const AllQuestions = styled(ListItem)`
   :hover {
-    background-color: ${PINK_3} !important;
+    background-color: ${PINK_4} !important;
   }
 
   :focus {
@@ -86,6 +97,6 @@ const TopicListContainer = styled(List)``;
 
 const AddTopic = styled(ListItem)`
   :hover {
-    background-color: ${PINK_3} !important;
+    background-color: ${PINK_4} !important;
   }
 `;
