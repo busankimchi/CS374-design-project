@@ -1,6 +1,7 @@
 import { FC } from 'react';
 import styled from 'styled-components';
 import { Box, Avatar } from '@material-ui/core';
+import { timeForToday } from '../../utils/functions'
 import { H3, B2 } from '../../utils/themes'
 
 interface UserInfoProp {
@@ -13,7 +14,7 @@ export const UserInfo: FC<UserInfoProp> = ({ userName, time }) => {
     <UserBox>
       <UserAvatar>{userName[0]}</UserAvatar>
       <UserNameBox>{userName}</UserNameBox>
-      <TimeBox>{time.toDateString()}</TimeBox>
+      <TimeBox>{timeForToday(time)}</TimeBox>
     </UserBox>
   );
 };

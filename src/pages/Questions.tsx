@@ -13,7 +13,7 @@ interface QuestionsProp {
 export const Questions: FC<QuestionsProp> = () => {
   return (
     <QuestionsContainer>
-      <QuestionList />
+      {/* <QuestionList /> */}
       <Contents questionId={1} />
       {/* <NotSelected /> */}
     </QuestionsContainer>
