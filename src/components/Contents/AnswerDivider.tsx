@@ -1,15 +1,15 @@
-import { makeStyles, Box } from "@material-ui/core";
-import { GRAY_1 } from '../../utils/themes'
+import { makeStyles, Box } from '@material-ui/core';
+import { GRAY } from '../../utils/themes';
 
-const useStyles = makeStyles(theme => ({
+const useStyles = makeStyles((theme) => ({
   container: {
-    display: "flex",
-    alignItems: "center"
+    display: 'flex',
+    alignItems: 'center',
   },
   border: {
-    borderBottom: "1px solid",
-    borderBottomColor: GRAY_1,
-    width: "100%"
+    borderBottom: '1px solid',
+    borderBottomColor: GRAY,
+    width: '100%',
   },
   content: {
     paddingTop: theme.spacing(0.5),
@@ -18,17 +18,17 @@ const useStyles = makeStyles(theme => ({
     paddingLeft: theme.spacing(2),
     fontWeight: 500,
     fontSize: 24,
-    color: GRAY_1
-  }
+    color: GRAY,
+  },
 }));
 
 export const AnswerDivider = () => {
- const classes = useStyles();
- return (
-  <Box className={classes.container}>
-    <Box className={classes.border} />
+  const classes = useStyles();
+  return (
+    <Box className={classes.container}>
+      <Box className={classes.border} />
       <Box className={classes.content}>Answers</Box>
-    <Box className={classes.border} />
-  </Box>
- );
+      <Box className={classes.border} />
+    </Box>
+  );
 };

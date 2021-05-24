@@ -13,7 +13,7 @@ export const PINK_4 = '#FFE8E8';
 
 export const GRAY = '#868686';
 
-export const LIGHT_GRAY_1 = '#CDCDCD';
+export const LIGHT_GRAY = '#CDCDCD';
 
 export const LIGHT_GRAY_2 = '#F2F0F0';
 
@@ -73,12 +73,6 @@ export const B3 = css`
   font-weight: 300 !important;
   font-size: 14px !important;
 `;
-
-export const GRAY_1 = '#868686';
-
-export const GRAY_2 = '#F2F0F0';
-
-export const GRAY_3 = '#CDCDCD';
 
 export const rotation = (degree: number) =>
   css`

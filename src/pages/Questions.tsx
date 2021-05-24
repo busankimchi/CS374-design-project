@@ -9,7 +9,8 @@ interface QuestionsProp {
   pageType: PageType;
 }
 
-export const Questions: FC<QuestionsProp> = () => {
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+export const Questions: FC<QuestionsProp> = ({ pageType }) => {
   return (
     <QuestionsContainer>
       <QuestionList />

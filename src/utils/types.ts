@@ -1,19 +1,19 @@
 export interface QuestionContent {
-    topic: string;
-    subtopic: string;
-    name: string;
-    image: number;
-    time: Date;
-    isFaq: boolean;
-    title: string;
-    content: string;
+  topic: string;
+  subtopic: string;
+  name: string;
+  image: number;
+  time: Date;
+  isFaq: boolean;
+  title: string;
+  content: string;
 }
 
 export interface AnswerContent {
-    name: string;
-    image: number;
-    time: Date;
-    content: string;
+  name: string;
+  image: number;
+  time: Date;
+  content: string;
 }
 
 export interface Topic {
@@ -33,6 +33,7 @@ export enum PageType {
   ALL_QUESTONS,
   NORMAL,
   DUAL,
+  SEARCH,
 }
 export interface MousePosition {
   x: null | number;
