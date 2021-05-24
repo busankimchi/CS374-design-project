@@ -6,6 +6,7 @@ import { UserInfo } from './UserInfo'
 import { AnswerDivider } from './AnswerDivider'
 import { QuestionContent, AnswerContent } from '../../utils/types'
 import { dummyQuestion, dummyAnswers } from '../../utils/dummyDatas'
+import { FAQButton } from './FAQButton'
 
 interface QuestionIdProp { questionId: number; };
 
@@ -33,7 +34,10 @@ export const QnADisplay: FC<QuestionIdProp> = ({questionId}) => {
           <BreadcrumbElem color="textSecondary">{question.topic}</BreadcrumbElem>
           <BreadcrumbElem color="textSecondary">{question.subtopic}</BreadcrumbElem>
         </Breadcrumbs>
-        <UserInfo userName={question.name} date={question.time}/>
+        <QuestionTopBox>
+          <UserInfo userName={question.name} date={question.time}/>
+          <FAQButton isFaq={false}/>
+        </QuestionTopBox>
         <QuestionBox>
           <QuestionTitleBox>
             Q{questionId}. {question.title}
@@ -66,6 +70,11 @@ const QuestionBox = styled(Box)`
   margin: 10px;
 `;
 
+const QuestionTopBox = styled(Box)`
+  display: flex;
+  justify-content: space-between;
+`;
+
 const QuestionTitleBox = styled(Box)`
   margin-left: 10px;
   font-size: 36px;
@@ -79,8 +88,4 @@ const QuestionContentBox = styled(Box)`
 
 const BreadcrumbElem = styled(Typography)`
   font-size: 14px;
-`;
-
-const QADivider = styled(Divider)`
-  
 `;

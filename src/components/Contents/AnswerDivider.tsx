@@ -1,5 +1,5 @@
-import React from "react";
-import { makeStyles } from "@material-ui/core";
+import styled from 'styled-components';
+import { makeStyles, Box } from "@material-ui/core";
 import { GRAY_1 } from '../../utils/themes'
 
 const useStyles = makeStyles(theme => ({
@@ -26,10 +26,10 @@ const useStyles = makeStyles(theme => ({
 export const AnswerDivider = () => {
  const classes = useStyles();
  return (
-  <div className={classes.container}>
-    <div className={classes.border} />
-    <span className={classes.content}>Answers</span>
-    <div className={classes.border} />
-  </div>
+  <Box className={classes.container}>
+    <Box className={classes.border} />
+      <Box className={classes.content}>Answers</Box>
+    <Box className={classes.border} />
+  </Box>
  );
 };

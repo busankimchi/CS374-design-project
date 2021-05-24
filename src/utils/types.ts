@@ -4,6 +4,7 @@ export interface QuestionContent {
     name: string;
     image: number;
     time: Date;
+    isFaq: boolean;
     title: string;
     content: string;
 }
