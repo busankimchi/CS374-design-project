@@ -4,6 +4,7 @@ import { Box } from '@material-ui/core';
 import { PageType } from 'utils/types';
 import { QuestionList } from 'components/QuestionList';
 import { Contents } from '../components/Contents/Contents';
+// import { NotSelected } from '../components/Contents/NotSelected';
 
 interface QuestionsProp {
   pageType: PageType;
@@ -12,10 +13,13 @@ interface QuestionsProp {
 export const Questions: FC<QuestionsProp> = () => {
   return (
     <QuestionsContainer>
-      {/* <QuestionList /> */}
+      <QuestionList />
       <Contents questionId={1} />
+      {/* <NotSelected /> */}
     </QuestionsContainer>
   );
 };
 
-const QuestionsContainer = styled(Box)``;
+const QuestionsContainer = styled(Box)`
+  width: 100%;
+`;
