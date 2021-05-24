@@ -102,3 +102,17 @@ export const FADE_OUT = keyframes`
         opacity: 0;
     }
 `;
+
+export const TRUNCATE_ONE = css`
+    display: -webkit-box;
+    -webkit-line-clamp: 1;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+`;
+
+export const TRUNCATE_TWO = css`
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+`;

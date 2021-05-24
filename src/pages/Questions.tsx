@@ -2,7 +2,7 @@ import { FC } from 'react';
 import styled from 'styled-components';
 import { Box } from '@material-ui/core';
 import { PageType } from 'utils/types';
-import { QuestionList } from 'components/QuestionList';
+import { QuestionList } from 'components/QuestionList/QuestionList';
 import { Contents } from '../components/Contents/Contents';
 
 interface QuestionsProp {
