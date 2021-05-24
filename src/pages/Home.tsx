@@ -22,10 +22,11 @@ export const Home: FC = () => {
 
   /* CHECK THIS FOR FETCHING FIRESTORE */
   // SAMPLE FETCHING SAMPLE
-  const [health, setHealth] = useState();
+  // const [health, setHealth] = useState();
   const fetchHealthCheck = useCallback(async () => {
     const temp = await healthCheck();
 
+    // eslint-disable-next-line no-console
     console.log('in Home', temp);
     // setHealth(temp);
   }, []);
@@ -40,6 +41,7 @@ export const Home: FC = () => {
     // TODO: fetch topicList from firebase
   }, []);
 
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const handleMenuTrigger = (event: any) => {
     event.preventDefault();
     setMouse({
@@ -95,9 +97,11 @@ export const Home: FC = () => {
               const questionId2 = searchQuery[1];
 
               if (key === 'second') {
+                // eslint-disable-next-line no-console
                 console.log('this is a double sided view and the second one is', questionId2);
                 return <Questions pageType={PageType.DUAL} />;
               }
+              // eslint-disable-next-line no-console
               console.log('query error');
               return <Questions pageType={PageType.NONE} />;
             }

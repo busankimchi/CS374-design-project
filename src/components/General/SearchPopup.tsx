@@ -1,12 +1,12 @@
 import { FC, useState } from 'react';
 import styled from 'styled-components';
 import { Box } from '@material-ui/core';
-import { dummySearchHistory } from 'utils/dummyDatas';
+// import { dummySearchHistory } from 'utils/dummyDatas';
 import { SearchBar } from './SearchBar';
 
 export const SearchPopup: FC = () => {
   const [search, setSearch] = useState('');
-  const [recent, setResent] = useState(dummySearchHistory);
+  // const [recent, setResent] = useState(dummySearchHistory);
 
   return (
     <SearchPopupContainer>
