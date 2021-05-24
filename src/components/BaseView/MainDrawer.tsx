@@ -1,26 +1,25 @@
-import { FC, useState } from 'react';
+import { FC, useEffect, useState } from 'react';
 import styled from 'styled-components';
 import { Box, Typography, Divider as DefaultDivider } from '@material-ui/core';
 import { Topic } from 'utils/types';
 import { PINK_2, PINK_3 } from 'utils/themes';
-import { dummyTopicList } from 'utils/dummyDatas';
 import { TopicList } from './TopicList/TopicList';
 
 interface MainDrawerProp {
+  topicList: Topic[];
   onClickAdd?: () => void;
   onContextMenu?: (event: any) => void;
+  setTopic?: (item: Topic) => void;
 }
 
-export const MainDrawer: FC<MainDrawerProp> = ({ onClickAdd, onContextMenu }) => {
-  const [topicList, setTopicList] = useState<Topic[]>(dummyTopicList);
-
+export const MainDrawer: FC<MainDrawerProp> = ({ topicList, onClickAdd, onContextMenu, setTopic }) => {
   return (
     <MainDrawerContainer>
       <ClassText>
         <Typography noWrap>CS330: Operating Systems and Lab</Typography>
       </ClassText>
       <Divider />
-      <TopicList topicList={topicList} onClickAdd={onClickAdd} onContextMenu={onContextMenu} />
+      <TopicList topicList={topicList} onClickAdd={onClickAdd} onContextMenu={onContextMenu} setTopic={setTopic} />
     </MainDrawerContainer>
   );
 };
@@ -34,7 +33,7 @@ const MainDrawerContainer = styled(Box)`
 `;
 
 const ClassText = styled(Box)`
-  padding: 12px;
+  padding: 1em;
 `;
 
 const Divider = styled(DefaultDivider)`

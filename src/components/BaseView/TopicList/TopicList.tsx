@@ -12,11 +12,12 @@ interface TopicListProp {
   topicList: Topic[];
   onClickAdd?: () => void;
   onContextMenu?: (event: any) => void;
+  setTopic?: (item: Topic) => void;
 }
 
-export const TopicList: FC<TopicListProp> = ({ topicList, onClickAdd, onContextMenu }) => {
+export const TopicList: FC<TopicListProp> = ({ topicList, onClickAdd, onContextMenu, setTopic }) => {
   const renderTopicItems = (item: Topic, index?: number) => (
-    <TopicListItem key={index} topic={item} onContextMenu={onContextMenu} />
+    <TopicListItem key={index} topic={item} onContextMenu={onContextMenu} setTopic={setTopic} />
   );
 
   return (

@@ -56,16 +56,16 @@ export const dummyTopicList: Topic[] = [
     ],
   },
   {
-    id: 4,
-    topicName: 'Logistics',
+    id: 5,
+    topicName: 'Logisticzzzz',
     subTopic: [
       {
         id: 6,
-        subTopicName: 'schedules',
+        subTopicName: 'scheduleszzzzzzz',
       },
       {
         id: 7,
-        subTopicName: 'score announcement',
+        subTopicName: 'score announcementzzzzzzzz',
       },
       {
         id: 8,

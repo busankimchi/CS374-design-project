@@ -5,11 +5,14 @@ import { SubTopic } from 'utils/types';
 import { SubTopicListItem } from './SubTopicListItem';
 
 interface SubTopicListProp {
+  topicId: number;
   subTopicList?: SubTopic[];
 }
 
-export const SubTopicList: FC<SubTopicListProp> = ({ subTopicList }) => {
-  const renderSubTopicItems = (item: SubTopic, index?: number) => <SubTopicListItem key={index} subTopic={item} />;
+export const SubTopicList: FC<SubTopicListProp> = ({ topicId, subTopicList }) => {
+  const renderSubTopicItems = (item: SubTopic, index?: number) => (
+    <SubTopicListItem key={index} topicId={topicId} subTopic={item} />
+  );
 
   return (
     <SubTopicListContainer disablePadding>

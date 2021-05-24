@@ -10,9 +10,11 @@ export interface SubTopic {
 }
 
 export enum PageType {
+  NONE,
   FAQ,
   ALL_QUESTONS,
   NORMAL,
+  DUAL,
 }
 export interface MousePosition {
   x: null | number;

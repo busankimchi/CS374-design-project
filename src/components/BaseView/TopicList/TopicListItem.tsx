@@ -9,14 +9,26 @@ import { SubTopicList } from './SubTopicList';
 interface TopicListItemProp {
   topic: Topic;
   onContextMenu?: (event: any) => void;
+  setTopic?: (item: Topic) => void;
 }
 
-export const TopicListItem: FC<TopicListItemProp> = ({ topic, onContextMenu }) => {
+export const TopicListItem: FC<TopicListItemProp> = ({ topic, onContextMenu, setTopic }) => {
   const [open, setOpen] = useState(false);
 
   return (
     <TopicListContainer>
-      <TopicListItemContainer button onClick={() => setOpen(!open)} onContextMenu={onContextMenu}>
+      <TopicListItemContainer
+        button
+        onClick={() => setOpen(!open)}
+        onContextMenu={(event) => {
+          if (onContextMenu !== undefined) {
+            onContextMenu(event);
+          }
+          if (setTopic !== undefined) {
+            setTopic(topic);
+          }
+        }}
+      >
         <ExpandIcon focused={open} />
         <ListItemText>
           <Typography noWrap>{topic.topicName}</Typography>
@@ -24,7 +36,7 @@ export const TopicListItem: FC<TopicListItemProp> = ({ topic, onContextMenu }) =
       </TopicListItemContainer>
 
       <Collapse in={open} timeout="auto" unmountOnExit>
-        <SubTopicList subTopicList={topic.subTopic} />
+        <SubTopicList topicId={topic.id} subTopicList={topic.subTopic} />
       </Collapse>
     </TopicListContainer>
   );

@@ -23,10 +23,12 @@ const DialogContainer = styled(Modal)`
 
 const BaseContainer = styled(Box)`
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
   height: fit-content;
   width: fit-content;
-
-  border: 2px solid #cccccc;
+  background-color: #ffffff;
+  padding: 3em;
+  border-radius: 8px;
 `;

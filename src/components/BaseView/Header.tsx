@@ -2,7 +2,7 @@ import { FC, useState } from 'react';
 import styled from 'styled-components';
 import { Box } from '@material-ui/core';
 import { TopAppBar } from 'components/General/TopAppBar';
-import { SearchDialog } from 'components/General/SearchDialog';
+import { SearchPopup } from 'components/General/SearchPopup';
 
 export const Header: FC = () => {
   const [show, setShow] = useState(false);
@@ -10,7 +10,7 @@ export const Header: FC = () => {
   return (
     <HeaderContainer>
       <TopAppBar onClick={() => setShow(!show)} />
-      {show && <SearchDialog />}
+      {show && <SearchPopup />}
     </HeaderContainer>
   );
 };

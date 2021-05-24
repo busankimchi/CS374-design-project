@@ -4,18 +4,18 @@ import { Box } from '@material-ui/core';
 import { dummySearchHistory } from 'utils/dummyDatas';
 import { SearchBar } from './SearchBar';
 
-export const SearchDialog: FC = () => {
+export const SearchPopup: FC = () => {
   const [search, setSearch] = useState('');
   const [recent, setResent] = useState(dummySearchHistory);
 
   return (
-    <SearchDialogContainer>
+    <SearchPopupContainer>
       <SearchBar value={search} onChange={(event) => setSearch(event.target.value)} />
-    </SearchDialogContainer>
+    </SearchPopupContainer>
   );
 };
 
-const SearchDialogContainer = styled(Box)`
+const SearchPopupContainer = styled(Box)`
   display: flex;
   flex-direction: column;
 `;
