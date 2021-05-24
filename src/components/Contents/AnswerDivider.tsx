@@ -1,6 +1,5 @@
 import { makeStyles, Box } from "@material-ui/core";
-import { GRAY } from '../../utils/themes'
-import { H2 } from '../../utils/themes'
+import { GRAY, H2 } from '../../utils/themes'
 
 const useStyles = makeStyles(theme => ({
   container: {
