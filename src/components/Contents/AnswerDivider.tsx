@@ -23,12 +23,12 @@ const useStyles = makeStyles(theme => ({
 }));
 
 export const AnswerDivider = () => {
- const classes = useStyles();
- return (
-  <Box className={classes.container}>
-    <Box className={classes.border} />
+  const classes = useStyles();
+  return (
+    <Box className={classes.container}>
+      <Box className={classes.border} />
       <Box className={classes.content}>Answers</Box>
-    <Box className={classes.border} />
-  </Box>
- );
+      <Box className={classes.border} />
+    </Box>
+  );
 };

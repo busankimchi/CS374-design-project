@@ -11,7 +11,7 @@ import { AnswerDisplay } from './AnswerDisplay'
 
 interface QuestionIdProp { questionId: number; };
 
-export const QnADisplay: FC<QuestionIdProp> = ({questionId}) => {
+export const QnADisplay: FC<QuestionIdProp> = ({ questionId }) => {
   // Load question content
   const question = dummyQuestion;
   const answers = dummyAnswers;
@@ -19,7 +19,7 @@ export const QnADisplay: FC<QuestionIdProp> = ({questionId}) => {
   const answersElem: Array<JSX.Element> = [];
 
   answers.forEach((answer) =>
-    answersElem.push(<AnswerDisplay answer={answer}/>),
+    answersElem.push(<AnswerDisplay answer={answer} />),
   );
 
   const [isFaq, setIsFaq] = useState(question.isFaq);
@@ -47,17 +47,17 @@ export const QnADisplay: FC<QuestionIdProp> = ({questionId}) => {
           </CloseButton>
         </QuestionTopBox>
         <QuestionTopBox>
-          <UserInfo userName={question.name} time={question.time}/>
-          <FAQButton isFaq={isFaq} changeIsFaq={changeIsFaq}/>
+          <UserInfo userName={question.name} time={question.time} />
+          <FAQButton isFaq={isFaq} changeIsFaq={changeIsFaq} />
         </QuestionTopBox>
         <QuestionBox>
           <QuestionTitleBox>Q{questionId}. {question.title}</QuestionTitleBox>
           <QuestionContentBox>{question.content}</QuestionContentBox>
         </QuestionBox>
       </Box>
-      
-      <AnswerDivider/>
-      
+
+      <AnswerDivider />
+
       <Box>{answersElem}</Box>
     </QnADisplayBox>
   );
