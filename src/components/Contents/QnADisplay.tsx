@@ -31,7 +31,7 @@ export const QnADisplay: FC<QuestionIdProp> = ({questionId}) => {
 
   const closeTab = () => {
     // TODO: Navigate to 'nothing selected' page
-    alert("Close tab!");
+    // alert("Close tab!");
   }
 
   return (

@@ -27,5 +27,5 @@ const InputBox = styled(Box)`
   left: 0px;
   right: 0px;
   bottom: 0px;
-  background-color: red;
+  // background-color: red;
 `;

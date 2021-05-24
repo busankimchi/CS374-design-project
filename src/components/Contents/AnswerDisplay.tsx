@@ -1,6 +1,6 @@
 import { FC } from 'react';
 import styled from 'styled-components';
-import {Box, Avatar} from '@material-ui/core';
+import {Box} from '@material-ui/core';
 import { AnswerContent } from '../../utils/types';
 import { UserInfo } from './UserInfo'
 
