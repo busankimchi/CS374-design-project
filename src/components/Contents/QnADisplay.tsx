@@ -8,6 +8,7 @@ import { AnswerDivider } from './AnswerDivider'
 import { dummyQuestion, dummyAnswers } from '../../utils/dummyDatas'
 import { FAQButton } from './FAQButton'
 import { AnswerDisplay } from './AnswerDisplay'
+import { NoAnswer } from './NoAnswer'
 import { H1, B1, B2 } from '../../utils/themes'
 
 interface QuestionIdProp { questionId: number; };
@@ -19,9 +20,13 @@ export const QnADisplay: FC<QuestionIdProp> = ({ questionId }) => {
 
   const answersElem: Array<JSX.Element> = [];
 
-  answers.forEach((answer) =>
-    answersElem.push(<AnswerDisplay answer={answer} />),
-  );
+  if (answers.length === 0) {
+    answersElem.push(<NoAnswer />);
+  } else {
+    answers.forEach((answer) =>
+      answersElem.push(<AnswerDisplay answer={answer} />),
+    );
+  }
 
   const [isFaq, setIsFaq] = useState(question.isFaq);
 
