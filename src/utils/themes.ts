@@ -74,12 +74,6 @@ export const B3 = css`
   font-size: 14px !important;
 `;
 
-export const GRAY_1 = '#868686';
-
-export const GRAY_2 = '#F2F0F0';
-
-export const GRAY_3 = '#CDCDCD';
-
 export const rotation = (degree: number) =>
   css`
     transform: rotate(${degree}deg) !important;

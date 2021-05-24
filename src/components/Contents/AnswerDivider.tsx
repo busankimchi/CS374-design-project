@@ -1,5 +1,5 @@
 import { makeStyles, Box } from "@material-ui/core";
-import { GRAY_1 } from '../../utils/themes'
+import { GRAY, H2 } from '../../utils/themes'
 
 const useStyles = makeStyles(theme => ({
   container: {
@@ -8,7 +8,7 @@ const useStyles = makeStyles(theme => ({
   },
   border: {
     borderBottom: "1px solid",
-    borderBottomColor: GRAY_1,
+    borderBottomColor: GRAY,
     width: "100%"
   },
   content: {
@@ -16,9 +16,8 @@ const useStyles = makeStyles(theme => ({
     paddingBottom: theme.spacing(0.5),
     paddingRight: theme.spacing(2),
     paddingLeft: theme.spacing(2),
-    fontWeight: 500,
-    fontSize: 24,
-    color: GRAY_1
+    H2,
+    color: GRAY
   }
 }));
 
