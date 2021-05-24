@@ -6,6 +6,12 @@ export const PINK_2 = '#FFB4B4';
 
 export const PINK_3 = '#FFE8E8';
 
+export const GRAY_1 = '#868686';
+
+export const GRAY_2 = '#F2F0F0';
+
+export const GRAY_3 = '#CDCDCD';
+
 export const rotation = (degree: number) =>
   css`
     transform: rotate(${degree}deg);

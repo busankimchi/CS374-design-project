@@ -8,7 +8,7 @@ interface ContentsProp { questionId: number; };
 export const Contents: FC<ContentsProp> = ({questionId}) => {
   return (
     <ContentBox>
-      <QnADisplay {...{'questionId': questionId}}/>
+      <QnADisplay questionId={questionId}/>
       <InputBox>
         Input box goes here
       </InputBox>
