@@ -38,6 +38,6 @@ const ClassText = styled(Box)`
 `;
 
 const Divider = styled(DefaultDivider)`
-  height: 2px;
-  background-color: ${PINK_3};
+  height: 2px !important;
+  background-color: ${PINK_3} !important;
 `;

@@ -1,4 +1,5 @@
 import { FC } from 'react';
+import { Link as DefaultLink } from 'react-router-dom';
 import styled from 'styled-components';
 import { List, ListItem, ListItemIcon, ListItemText, Typography } from '@material-ui/core';
 import ChatBubbleIcon from '@material-ui/icons/ChatBubble';
@@ -23,22 +24,26 @@ export const TopicList: FC<TopicListProp> = ({ topicList, onClickAdd, onContextM
 
   return (
     <TopicListContainer>
-      <FAQ button>
-        <ListItemIcon>
-          <ChatBubbleIcon />
-        </ListItemIcon>
-        <ListItemText>
-          <Typography noWrap>FAQ</Typography>
-        </ListItemText>
-      </FAQ>
-      <AllQuestions button>
-        <ListItemIcon>
-          <ClearAllIcon />
-        </ListItemIcon>
-        <ListItemText>
-          <Typography noWrap>All Questions</Typography>
-        </ListItemText>
-      </AllQuestions>
+      <Link to="/faq">
+        <FAQ button>
+          <ListItemIcon>
+            <ChatBubbleIcon />
+          </ListItemIcon>
+          <ListItemText>
+            <Typography noWrap>FAQ</Typography>
+          </ListItemText>
+        </FAQ>
+      </Link>
+      <Link to="/all_questions">
+        <AllQuestions button>
+          <ListItemIcon>
+            <ClearAllIcon />
+          </ListItemIcon>
+          <ListItemText>
+            <Typography noWrap>All Questions</Typography>
+          </ListItemText>
+        </AllQuestions>
+      </Link>
       {topicList.map((item, index) => renderTopicItems(item, index))}
       <AddTopic button onClick={onClickAdd}>
         <ListItemIcon>
@@ -52,23 +57,28 @@ export const TopicList: FC<TopicListProp> = ({ topicList, onClickAdd, onContextM
   );
 };
 
+const Link = styled(DefaultLink)`
+  color: #000000;
+  text-decoration: none;
+`;
+
 const FAQ = styled(ListItem)`
   :hover {
-    background-color: ${PINK_3};
+    background-color: ${PINK_3} !important;
   }
 
   :focus {
-    background-color: ${PINK_1};
+    background-color: ${PINK_1} !important;
   }
 `;
 
 const AllQuestions = styled(ListItem)`
   :hover {
-    background-color: ${PINK_3};
+    background-color: ${PINK_3} !important;
   }
 
   :focus {
-    background-color: ${PINK_1};
+    background-color: ${PINK_1} !important;
   }
 `;
 
@@ -76,6 +86,6 @@ const TopicListContainer = styled(List)``;
 
 const AddTopic = styled(ListItem)`
   :hover {
-    background-color: ${PINK_3};
+    background-color: ${PINK_3} !important;
   }
 `;
