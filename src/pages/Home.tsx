@@ -8,6 +8,7 @@ import { NewTopicDialog } from 'components/General/NewTopicDialog';
 import { MousePosition, PageType, Topic } from 'utils/types';
 import { ContextMenu } from 'components/General/ContextMenu';
 import { EditTopicDialog } from 'components/General/EditTopicDialog';
+import { Hover } from 'components/Contents/Hover';
 import { dummyTopicList } from 'utils/dummyDatas';
 import { healthCheck } from 'apis/healthCheck';
 import { Questions } from './Questions';
@@ -80,6 +81,7 @@ export const Home: FC = () => {
             setValue(item.topicName);
           }}
         />
+        <Hover />
         <Route exact path="/">
           <Redirect to="/faq" />
         </Route>
