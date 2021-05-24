@@ -1,19 +1,19 @@
 import { FC } from 'react';
 import styled from 'styled-components';
-import {Box, Avatar} from '@material-ui/core';
+import { Box, Avatar } from '@material-ui/core';
 
-interface UserInfoProp { 
-    userName: string,
-    time: Date,
+interface UserInfoProp {
+  userName: string,
+  time: Date,
 };
 
-export const UserInfo: FC<UserInfoProp> = ({userName, time}) => {
+export const UserInfo: FC<UserInfoProp> = ({ userName, time }) => {
   return (
-  <UserBox>
-    <UserAvatar>{userName[0]}</UserAvatar>
-    <UserNameBox>{userName}</UserNameBox>
-    <TimeBox>{time.toDateString()}</TimeBox>
-  </UserBox>
+    <UserBox>
+      <UserAvatar>{userName[0]}</UserAvatar>
+      <UserNameBox>{userName}</UserNameBox>
+      <TimeBox>{time.toDateString()}</TimeBox>
+    </UserBox>
   );
 };
 
