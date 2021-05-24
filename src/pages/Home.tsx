@@ -1,4 +1,4 @@
-import { FC, useEffect, useState } from 'react';
+import { FC, useCallback, useEffect, useState } from 'react';
 import styled from 'styled-components';
 import { Route } from 'react-router-dom';
 import { Box } from '@material-ui/core';
@@ -9,6 +9,7 @@ import { MousePosition, PageType, Topic } from 'utils/types';
 import { ContextMenu } from 'components/General/ContextMenu';
 import { EditTopicDialog } from 'components/General/EditTopicDialog';
 import { dummyTopicList } from 'utils/dummyDatas';
+import { healthCheck } from 'apis/healthCheck';
 import { Questions } from './Questions';
 
 export const Home: FC = () => {
@@ -18,6 +19,22 @@ export const Home: FC = () => {
   const [mouse, setMouse] = useState<MousePosition>({ x: null, y: null });
   const [topic, setTopic] = useState<Topic>();
   const [value, setValue] = useState('');
+
+  /* CHECK THIS FOR FETCHING FIRESTORE */
+  // SAMPLE FETCHING SAMPLE
+  const [health, setHealth] = useState();
+  const fetchHealthCheck = useCallback(async () => {
+    const temp = await healthCheck();
+
+    console.log('in Home', temp);
+    // setHealth(temp);
+  }, []);
+
+  useEffect(() => {
+    fetchHealthCheck();
+    // TODO: fetch topicList from firebase
+  }, [fetchHealthCheck]);
+  /* CHECK THIS FOR FETCHING FIRESTORE */
 
   useEffect(() => {
     // TODO: fetch topicList from firebase
