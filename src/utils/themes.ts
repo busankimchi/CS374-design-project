@@ -19,59 +19,59 @@ export const LIGHT_GRAY_2 = '#F2F0F0';
 
 /* FONTS */
 export const H1 = css`
-  font-family: 'Lato', sans-serif;
-  font-style: normal;
-  font-weight: 700;
-  font-size: 36px;
+  font-family: 'Lato', sans-serif !important;
+  font-style: normal !important;
+  font-weight: 700 !important;
+  font-size: 36px !important;
 `;
 
 export const H2 = css`
-  font-family: 'Lato', sans-serif;
-  font-style: normal;
-  font-weight: 700;
-  font-size: 24px;
+  font-family: 'Lato', sans-serif !important;
+  font-style: normal !important;
+  font-weight: 700 !important;
+  font-size: 24px !important;
 `;
 
 export const H3 = css`
-  font-family: 'Lato', sans-serif;
-  font-style: normal;
-  font-weight: 700;
-  font-size: 20px;
+  font-family: 'Lato', sans-serif !important;
+  font-style: normal !important;
+  font-weight: 700 !important;
+  font-size: 20px !important;
 `;
 
 export const H4 = css`
-  font-family: 'Lato', sans-serif;
-  font-style: normal;
-  font-weight: 700;
-  font-size: 16px;
+  font-family: 'Lato', sans-serif !important;
+  font-style: normal !important;
+  font-weight: 700 !important;
+  font-size: 16px !important;
 `;
 
 export const H5 = css`
-  font-family: 'Lato', sans-serif;
-  font-style: normal;
-  font-weight: 700;
-  font-size: 14px;
+  font-family: 'Lato', sans-serif !important;
+  font-style: normal !important;
+  font-weight: 700 !important;
+  font-size: 14px !important;
 `;
 
 export const B1 = css`
-  font-family: 'Lato', sans-serif;
-  font-style: normal;
-  font-weight: 500;
-  font-size: 20px;
+  font-family: 'Lato', sans-serif !important;
+  font-style: normal !important;
+  font-weight: 500 !important;
+  font-size: 20px !important;
 `;
 
 export const B2 = css`
-  font-family: 'Lato', sans-serif;
-  font-style: normal;
-  font-weight: 500;
-  font-size: 14px;
+  font-family: 'Lato', sans-serif !important;
+  font-style: normal !important;
+  font-weight: 500 !important;
+  font-size: 14px !important;
 `;
 
 export const B3 = css`
-  font-family: 'Lato', sans-serif;
-  font-style: normal;
-  font-weight: 300;
-  font-size: 14px;
+  font-family: 'Lato', sans-serif !important;
+  font-style: normal !important;
+  font-weight: 300 !important;
+  font-size: 14px !important;
 `;
 
 export const rotation = (degree: number) =>

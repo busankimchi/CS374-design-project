@@ -58,7 +58,7 @@ const TopicItemText = styled(Typography)`
 
 const ExpandIcon = styled(ExpandMore)<{ focused: boolean }>`
   transform: rotate(-90deg);
-  transition: transform 0.2s ease-out;
+  transition: transform 0.2s ease-out !important;
 
   ${({ focused }) => focused && rotation(0)};
 `;
