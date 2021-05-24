@@ -11,11 +11,11 @@ export const PINK_3 = '#FFDFDF';
 
 export const PINK_4 = '#FFE8E8';
 
-export const GRAY_1 = '#868686';
+export const GRAY = '#868686';
 
-export const GRAY_2 = '#CDCDCD';
+export const LIGHT_GRAY_1 = '#CDCDCD';
 
-export const GRAY_3 = '#F2F0F0';
+export const LIGHT_GRAY_2 = '#F2F0F0';
 
 /* FONTS */
 export const H1 = css`
