@@ -4,15 +4,15 @@ import {Box, Avatar} from '@material-ui/core';
 
 interface UserInfoProp { 
     userName: string,
-    date: Date,
+    time: Date,
 };
 
-export const UserInfo: FC<UserInfoProp> = ({userName, date}) => {
+export const UserInfo: FC<UserInfoProp> = ({userName, time}) => {
   return (
   <UserBox>
     <UserAvatar>{userName[0]}</UserAvatar>
     <UserNameBox>{userName}</UserNameBox>
-    <TimeBox>{date.toDateString()}</TimeBox>
+    <TimeBox>{time.toDateString()}</TimeBox>
   </UserBox>
   );
 };
