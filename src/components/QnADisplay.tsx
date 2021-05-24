@@ -1,10 +1,13 @@
+import { FC } from 'react';
 import styled from 'styled-components';
-import {Box, Breadcrumbs, Typography, Avatar} from '@material-ui/core';
 import NavigateNextIcon from '@material-ui/icons/NavigateNext';
+import {Box, Breadcrumbs, Typography} from '@material-ui/core';
+import {UserInfo} from './UserInfo'
+import {QuestionContent, AnswerContent} from '../utils/types'
 
-export const QnADisplay = (props: QuestionIdProps) => {
-  const {questionId} = props
+interface QuestionIdProp { questionId: number; };
 
+export const QnADisplay: FC<QuestionIdProp> = ({questionId}) => {
   // Load question content
   const question: QuestionContent = {
     topic: "Project 1",
@@ -42,10 +45,7 @@ export const QnADisplay = (props: QuestionIdProps) => {
           <BreadcrumbElem color="textSecondary">{question.topic}</BreadcrumbElem>
           <BreadcrumbElem color="textSecondary">{question.subtopic}</BreadcrumbElem>
         </Breadcrumbs>
-        <AskerBox>
-          <Avatar>{question.name[0]}</Avatar>
-        </AskerBox>
-        
+        <UserInfo userName={question.name} date={question.time}/>
         Question: {question.title}<br/>
       </Box>
       <Box> {/* Divider */}
@@ -61,36 +61,11 @@ export const QnADisplay = (props: QuestionIdProps) => {
 };
 
 const QnADisplayBox = styled(Box)`
-  margin-left: 30px;
-  border-left: solid;
-  padding-left: 30px;
+  margin-left: 10px;
+  padding-left: 10px;
   font-size: 20px;
-`;
-
-const AskerBox = styled(Box)`
-  margin-top: 10px;
-  margin-bottom: 10px;
 `;
 
 const BreadcrumbElem = styled(Typography)`
   font-size: 14px;
 `;
-
-type QuestionIdProps = { questionId: number; };
-
-type QuestionContent = {
-  topic: string;
-  subtopic: string;
-  name: string;
-  image: number;
-  time: Date;
-  title: string;
-  content: string;
-}
-
-type AnswerContent = {
-  name: string;
-  image: number;
-  time: Date;
-  content: string;
-}
