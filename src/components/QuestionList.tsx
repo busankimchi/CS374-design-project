@@ -1,7 +1,7 @@
 import { FC } from 'react';
 import styled from 'styled-components';
-import { Drawer, Box, List, ListItem, ListItemText, Typography, Divider as DefaultDivider } from '@material-ui/core';
-import { H3, H5, B1, B2, B3, GRAY } from 'utils/themes';
+import { Drawer, Box, List, ListItem, ListItemText, Divider as DefaultDivider } from '@material-ui/core';
+import { H3, H5, B3, GRAY } from 'utils/themes';
 
 interface QuestionListHeaderProp {
   topic: string;
