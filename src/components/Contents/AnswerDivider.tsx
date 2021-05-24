@@ -1,4 +1,3 @@
-import styled from 'styled-components';
 import { makeStyles, Box } from "@material-ui/core";
 import { GRAY_1 } from '../../utils/themes'
 

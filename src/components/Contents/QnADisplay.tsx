@@ -1,10 +1,9 @@
 import { FC } from 'react';
 import styled from 'styled-components';
 import NavigateNextIcon from '@material-ui/icons/NavigateNext';
-import { Box, Breadcrumbs, Typography, Divider } from '@material-ui/core';
+import { Box, Breadcrumbs, Typography } from '@material-ui/core';
 import { UserInfo } from './UserInfo'
 import { AnswerDivider } from './AnswerDivider'
-import { QuestionContent, AnswerContent } from '../../utils/types'
 import { dummyQuestion, dummyAnswers } from '../../utils/dummyDatas'
 import { FAQButton } from './FAQButton'
 

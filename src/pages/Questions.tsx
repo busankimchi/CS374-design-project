@@ -8,13 +8,12 @@ interface QuestionsProp {
   pageType: PageType;
 }
 
-export const Questions: FC<QuestionsProp> = ({ pageType }) => {
+export const Questions: FC<QuestionsProp> = () => {
   return (
-  <QuestionsContainer>
-    {/* {pageType} */}
-    <Contents questionId={1}/>
-  </QuestionsContainer>
-  );
+    <QuestionsContainer>
+      <Contents questionId={1}/>
+    </QuestionsContainer>
+    );
 };
 
 const QuestionsContainer = styled(Box)``;
