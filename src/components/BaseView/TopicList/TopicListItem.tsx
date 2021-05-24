@@ -47,7 +47,7 @@ const TopicListContainer = styled(Box)``;
 
 const TopicListItemContainer = styled(ListItem)`
   :hover {
-    background-color: ${PINK_3};
+    background-color: ${PINK_3} !important;
   }
 `;
 

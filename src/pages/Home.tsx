@@ -1,6 +1,6 @@
 import { FC, useCallback, useEffect, useState } from 'react';
 import styled from 'styled-components';
-import { Route } from 'react-router-dom';
+import { Redirect, Route } from 'react-router-dom';
 import { Box } from '@material-ui/core';
 import { Header } from 'components/BaseView/Header';
 import { MainDrawer } from 'components/BaseView/MainDrawer';
@@ -80,8 +80,11 @@ export const Home: FC = () => {
             setValue(item.topicName);
           }}
         />
-        <Route path="/faq" render={() => <Questions pageType={PageType.FAQ} />} />
-        <Route path="/all_questions" render={() => <Questions pageType={PageType.ALL_QUESTONS} />} />
+        <Route exact path="/">
+          <Redirect to="/faq" />
+        </Route>
+        <Route exact path="/faq" render={() => <Questions pageType={PageType.FAQ} />} />
+        <Route exact path="/all_questions" render={() => <Questions pageType={PageType.ALL_QUESTONS} />} />
         <Route
           exact
           path="/topic/:topicId/subtopic/:subTopicId"
@@ -89,7 +92,7 @@ export const Home: FC = () => {
         />
         <Route
           exact
-          path="/topic/:topicId/subtopic/:subTopicId/questions/:questionId"
+          path="/topic/:topicId/subtopic/:subTopicId/question/:questionId"
           render={({ location }) => {
             if (location.search !== '') {
               const searchQuery = location.search.split('=');
