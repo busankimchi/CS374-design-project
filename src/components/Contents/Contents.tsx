@@ -17,4 +17,5 @@ export const Contents: FC<ContentsProp> = ({questionId}) => {
 };
 
 const ContentBox = styled(Box)``;
+
 const InputBox = styled(Box)``;
