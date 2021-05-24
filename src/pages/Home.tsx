@@ -1,4 +1,4 @@
-import { FC, useEffect, useState } from 'react';
+import { FC, useCallback, useEffect, useState } from 'react';
 import styled from 'styled-components';
 import { Route } from 'react-router-dom';
 import { Box } from '@material-ui/core';
@@ -9,6 +9,7 @@ import { MousePosition, PageType, Topic } from 'utils/types';
 import { ContextMenu } from 'components/General/ContextMenu';
 import { EditTopicDialog } from 'components/General/EditTopicDialog';
 import { dummyTopicList } from 'utils/dummyDatas';
+import { healthCheck } from 'apis/healthCheck';
 import { Questions } from './Questions';
 
 export const Home: FC = () => {
@@ -19,10 +20,28 @@ export const Home: FC = () => {
   const [topic, setTopic] = useState<Topic>();
   const [value, setValue] = useState('');
 
+  /* CHECK THIS FOR FETCHING FIRESTORE */
+  // SAMPLE FETCHING SAMPLE
+  // const [health, setHealth] = useState();
+  const fetchHealthCheck = useCallback(async () => {
+    const temp = await healthCheck();
+
+    // eslint-disable-next-line no-console
+    console.log('in Home', temp);
+    // setHealth(temp);
+  }, []);
+
+  useEffect(() => {
+    fetchHealthCheck();
+    // TODO: fetch topicList from firebase
+  }, [fetchHealthCheck]);
+  /* CHECK THIS FOR FETCHING FIRESTORE */
+
   useEffect(() => {
     // TODO: fetch topicList from firebase
   }, []);
 
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const handleMenuTrigger = (event: any) => {
     event.preventDefault();
     setMouse({
@@ -78,9 +97,11 @@ export const Home: FC = () => {
               const questionId2 = searchQuery[1];
 
               if (key === 'second') {
+                // eslint-disable-next-line no-console
                 console.log('this is a double sided view and the second one is', questionId2);
                 return <Questions pageType={PageType.DUAL} />;
               }
+              // eslint-disable-next-line no-console
               console.log('query error');
               return <Questions pageType={PageType.NONE} />;
             }

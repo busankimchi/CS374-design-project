@@ -1,4 +1,4 @@
-import { FC, useEffect, useState } from 'react';
+import { FC } from 'react';
 import styled from 'styled-components';
 import { Box, Typography, Divider as DefaultDivider } from '@material-ui/core';
 import { Topic } from 'utils/types';
@@ -8,6 +8,7 @@ import { TopicList } from './TopicList/TopicList';
 interface MainDrawerProp {
   topicList: Topic[];
   onClickAdd?: () => void;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   onContextMenu?: (event: any) => void;
   setTopic?: (item: Topic) => void;
 }

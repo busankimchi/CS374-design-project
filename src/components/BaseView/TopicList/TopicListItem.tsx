@@ -1,6 +1,6 @@
 import { FC, useState } from 'react';
 import styled from 'styled-components';
-import { Input, Box, ListItem, ListItemText, Collapse, Typography } from '@material-ui/core';
+import { Box, ListItem, ListItemText, Collapse, Typography } from '@material-ui/core';
 import ExpandMore from '@material-ui/icons/ExpandMore';
 import { Topic } from 'utils/types';
 import { PINK_3, rotation } from 'utils/themes';
@@ -8,6 +8,7 @@ import { SubTopicList } from './SubTopicList';
 
 interface TopicListItemProp {
   topic: Topic;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   onContextMenu?: (event: any) => void;
   setTopic?: (item: Topic) => void;
 }
@@ -48,13 +49,6 @@ const TopicListItemContainer = styled(ListItem)`
   :hover {
     background-color: ${PINK_3};
   }
-`;
-
-const TextField = styled(Input)`
-  margin-left: 0.2em;
-  display: flex;
-  flex-direction: row;
-  text-overflow: ellipsis;
 `;
 
 const ExpandIcon = styled(ExpandMore)<{ focused: boolean }>`

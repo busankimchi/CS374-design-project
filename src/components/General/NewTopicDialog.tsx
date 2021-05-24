@@ -1,5 +1,5 @@
-import { FC, useState } from 'react';
-import styled from 'styled-components';
+import { FC } from 'react';
+// import styled from 'styled-components';
 import { BaseDialog } from './BaseDialog';
 
 interface NewTopicDialogProp {

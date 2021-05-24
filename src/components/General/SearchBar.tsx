@@ -6,6 +6,7 @@ import CloseIcon from '@material-ui/icons/Close';
 
 interface SearchBarProp {
   value: string;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   onChange?: (event: any) => void;
   onClickClose?: () => void;
 }

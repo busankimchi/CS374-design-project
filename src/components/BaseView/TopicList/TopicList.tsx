@@ -11,6 +11,7 @@ import { TopicListItem } from './TopicListItem';
 interface TopicListProp {
   topicList: Topic[];
   onClickAdd?: () => void;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   onContextMenu?: (event: any) => void;
   setTopic?: (item: Topic) => void;
 }

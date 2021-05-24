@@ -1,4 +1,4 @@
-import { FC, useState } from 'react';
+import { FC } from 'react';
 import styled from 'styled-components';
 import { Box, TextField, Button } from '@material-ui/core';
 import { BaseDialog } from './BaseDialog';
@@ -8,6 +8,7 @@ interface EditTopicDialogProp {
   onClose?: () => void;
   changeTopicName?: () => void;
   value: string;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   onChange?: (event: any) => void;
 }
 
