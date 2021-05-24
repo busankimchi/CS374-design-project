@@ -23,6 +23,7 @@ Check the following spreadsheet to check our contributions according to the task
 ## Working Process
 
 ### Dev Notes (Korean)
+[Dev Notes](https://github.com/busankimchi/CS374-design-project/blob/feature/theme/dev-notes/DEV.md)
 
 ### Git flow
 
