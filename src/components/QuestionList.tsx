@@ -46,11 +46,12 @@ const QuestionListElement = styled(ListItem)`
 `;
 const QuestionListDrawer = styled(Drawer)`
   .MuiDrawer-paperAnchorLeft {
+    width: 25%;
     left: 15%;
     right: auto;
     top: 4vh;
   }
-  width: 25%;
+  
 `;
 const QuestionListDrawerBody = styled(List)``;
 
