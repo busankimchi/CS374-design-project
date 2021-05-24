@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import { Box, InputBase, IconButton } from '@material-ui/core';
 import SendIcon from '@material-ui/icons/Send';
 import { QnADisplay } from './QnADisplay'
-import { LIGHT_GRAY_1 } from '../../utils/themes'
+import { LIGHT_GRAY_1, B1 } from '../../utils/themes'
 
 interface ContentsProp { questionId: number; };
 
@@ -17,7 +17,7 @@ export const Contents: FC<ContentsProp> = ({ questionId }) => {
         <AnswerForm>
           <InputTextField
             multiline
-            rows={10}
+            fullWidth
             placeholder="Share your thougts here!"
           />
           <SubmitButton type="submit"><SendIcon /></SubmitButton>
@@ -30,7 +30,7 @@ export const Contents: FC<ContentsProp> = ({ questionId }) => {
 const ContentBox = styled(Box)`
   padding: 0px;
   margin: 0px;
-  height: 100%;
+  height: 96vh;
   display: flex;
   justify-content: space-between;
   flex-direction: column;
@@ -55,15 +55,16 @@ const AnswerForm = styled.form`
   border: solid;
   border-color: ${LIGHT_GRAY_1};
   display: grid;
-  grid-template-columns: auto 100px;
+  grid-template-columns: auto 5vw;
 `;
 
 const InputTextField = styled(InputBase)`
   margin: 1vh 1vw;
   width: auto;
   height: 19vh;
-  font-size: 20px;
+  ${B1};
   grid-column: 1;
+  overflow-y: scroll;
 `;
 
 const SubmitButton = styled(IconButton)`

@@ -1,6 +1,7 @@
 import { FC } from 'react';
 import styled from 'styled-components';
 import { Box, Avatar } from '@material-ui/core';
+import { H3, B2 } from '../../utils/themes'
 
 interface UserInfoProp {
   userName: string,
@@ -30,14 +31,13 @@ const UserAvatar = styled(Avatar)`
 
 const UserNameBox = styled(Box)`
   margin-left: 10px;
-  margin-top: 3px;
-  font-size: 20px;
-  font-weight: Bold;
+  margin-top: 4px;
+  ${H3};
 `;
 
 const TimeBox = styled(Box)`
   margin-left: 10px;
   margin-top: 10px;
   display: flex;
-  font-size: 14px;
+  ${B2};
 `;
