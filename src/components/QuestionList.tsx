@@ -1,7 +1,9 @@
 import { FC } from 'react';
 import styled from 'styled-components';
 import { Drawer, Box, List, ListItem, ListItemText, Divider as DefaultDivider } from '@material-ui/core';
-import { H3, H5, B3, GRAY } from 'utils/themes';
+import { PINK_3, H3, H5, B3, GRAY_1, GRAY_3 } from 'utils/themes';
+import { Icon } from '@iconify/react';
+import squareHalf from '@iconify-icons/bi/square-half';
 
 interface QuestionListHeaderProp {
   topic: string;
@@ -32,14 +34,18 @@ export const QuestionList: FC = () => {
       <Divider />
       <QuestionListDrawerBody>
         <QuestionListElement button>
-          <QuestionListElementTitle>
-            <ListItemText>
-              {QuestionListElementContent.title} <br />
-            </ListItemText>
-          </QuestionListElementTitle>
-          <QuestionListElementBody>
-            <ListItemText>{QuestionListElementContent.content}</ListItemText>
-          </QuestionListElementBody>
+          <QuestionListElementText>
+            <QuestionListElementTitle>
+              <ListItemText>{QuestionListElementContent.title}</ListItemText>
+            </QuestionListElementTitle>
+            <QuestionListElementDate> {QuestionListElementContent.timestamp}</QuestionListElementDate>
+            <QuestionListElementBody>
+              <ListItemText>{QuestionListElementContent.content}</ListItemText>
+            </QuestionListElementBody>
+          </QuestionListElementText>
+          <DoubleSidedViewButton>
+            <Icon icon={squareHalf} />
+          </DoubleSidedViewButton>
         </QuestionListElement>
         <Divider />
       </QuestionListDrawerBody>
@@ -48,16 +54,29 @@ export const QuestionList: FC = () => {
 };
 
 const QuestionListElement = styled(ListItem)`
-  padding: 0.2em 0.2em 0.2em 1em;
+height: 10vh;
+  padding: 0.2em 0.5em 0.2em 1em;
   display: flex;
-  flex-direction: column;
-  alignItems: 'left';
+  alignitems: 'left';
   :hover {
-    background-color: #cdcdcd;
+    background-color: rgba(205, 205, 205, 0.3);
   }
   :focus {
-    background-color: #{PINK_3};
+    background-color: ${PINK_3};
   }
+  .MuiListItem-root {
+    align-items: flex-start;
+  }
+`;
+
+const QuestionListElementText = styled(Box)`
+  display: flex;
+  flex-direction: column;
+`;
+
+const QuestionListElementDate = styled(Box)`
+  width: 5em;
+  ${B3}
 `;
 
 const QuestionListElementBody = styled(Box)`
@@ -68,9 +87,17 @@ const QuestionListElementBody = styled(Box)`
 `;
 
 const QuestionListElementTitle = styled(Box)`
-.MuiTypography-root {
-  ${H5};
-}
+  width: 10em;
+  .MuiTypography-root {
+    ${H5};
+  }
+`;
+
+const DoubleSidedViewButton = styled(Box)`
+  padding: 1em;
+  :hover {
+    background-color: ${GRAY_3};
+  }
 `;
 
 const QuestionListDrawer = styled(Drawer)`
@@ -89,5 +116,5 @@ const QuestionListHeader = styled(Box)`
 `;
 
 const Divider = styled(DefaultDivider)`
-  background-color: ${GRAY};
+  background-color: ${GRAY_1};
 `;
