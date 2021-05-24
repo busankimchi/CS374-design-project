@@ -1,6 +1,6 @@
 import { FC } from 'react';
 import styled from 'styled-components';
-import { Box, Typography, ListItem, ListItemText, Divider as DefaultDivider, IconButton } from '@material-ui/core';
+import { Box, Typography, ListItem, ListItemText, IconButton } from '@material-ui/core';
 import { PINK_3, H5, B2, B3, GRAY_3, TRUNCATE_TWO } from 'utils/themes';
 import { Icon } from '@iconify/react';
 import squareHalf from '@iconify-icons/bi/square-half';
