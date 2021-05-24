@@ -14,7 +14,7 @@ export const GRAY_3 = '#CDCDCD';
 
 export const rotation = (degree: number) =>
   css`
-    transform: rotate(${degree}deg);
+    transform: rotate(${degree}deg) !important;
   `;
 
 export const FADE_IN = keyframes`

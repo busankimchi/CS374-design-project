@@ -26,11 +26,11 @@ const SubTopicListItemContainer = styled(ListItem)`
   padding: 0.15em 0 0.15em 2em;
 
   :hover {
-    background-color: ${PINK_3};
+    background-color: ${PINK_3} !important;
   }
 
   :focus {
-    background-color: ${PINK_1};
+    background-color: ${PINK_1} !important;
   }
 `;
 
