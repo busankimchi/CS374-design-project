@@ -1,4 +1,4 @@
-import { FC } from 'react';
+import { FC, useState } from 'react';
 import styled from 'styled-components';
 import NavigateNextIcon from '@material-ui/icons/NavigateNext';
 import { Box, Breadcrumbs, Typography } from '@material-ui/core';
@@ -24,6 +24,13 @@ export const QnADisplay: FC<QuestionIdProp> = ({questionId}) => {
     ),
   );
 
+  const [isFaq, setIsFaq] = useState(question.isFaq);
+
+  const changeIsFaq = () => {
+    setIsFaq(!isFaq);
+    // TODO: Do some more things for firebase
+  }
+
   return (
     <QnADisplayBox>
       <Box>
@@ -35,7 +42,7 @@ export const QnADisplay: FC<QuestionIdProp> = ({questionId}) => {
         </Breadcrumbs>
         <QuestionTopBox>
           <UserInfo userName={question.name} date={question.time}/>
-          <FAQButton isFaq={false}/>
+          <FAQButton isFaq={isFaq} changeIsFaq={changeIsFaq}/>
         </QuestionTopBox>
         <QuestionBox>
           <QuestionTitleBox>
