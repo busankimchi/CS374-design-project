@@ -8,7 +8,7 @@ export const PINK_3 = '#FFE8E8';
 
 export const rotation = (degree: number) =>
   css`
-    transform: rotate(${degree}deg);
+    transform: rotate(${degree}deg) !important;
   `;
 
 export const FADE_IN = keyframes`
