@@ -1562,6 +1562,11 @@
   dependencies:
     "@hapi/hoek" "^8.3.0"
 
+"@iconify-icons/akar-icons@^1.1.13":
+  version "1.1.13"
+  resolved "https://registry.yarnpkg.com/@iconify-icons/akar-icons/-/akar-icons-1.1.13.tgz#29aedc5b5d0d1582555855782b3a9a1c797e697c"
+  integrity sha512-qsMPKmT2NeB+JAWnKbJ5w6UDMrhS0YHBHBn5psJF9h9ZGW8K9pR6ZLcqOdbQ2mLD6BmyDLFhrXIxMEiMYg3Tyg==
+
 "@iconify-icons/bi@^1.1.5":
   version "1.1.5"
   resolved "https://registry.yarnpkg.com/@iconify-icons/bi/-/bi-1.1.5.tgz#2da50c5abae72eaac2014fc34b9b90ca7085765e"

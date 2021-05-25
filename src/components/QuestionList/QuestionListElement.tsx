@@ -1,18 +1,19 @@
 import { FC } from 'react';
 import styled from 'styled-components';
-import { Box, Typography, ListItem, ListItemText, IconButton } from '@material-ui/core';
-import { PINK_3, H5, B2, B3, LIGHT_GRAY_1, TRUNCATE_TWO, TRUNCATE_ONE } from 'utils/themes';
+import { Box, Typography, ListItem, ListItemText, IconButton, Divider as DefaultDivider } from '@material-ui/core';
+import { PINK_3, H5, B2, B3, LIGHT_GRAY_1, GRAY, TRUNCATE_TWO, TRUNCATE_ONE } from 'utils/themes';
 import { Icon } from '@iconify/react';
 import squareHalf from '@iconify-icons/bi/square-half';
-import { dummyQuestion } from '../../utils/dummyDatas';
+import { Question } from 'utils/types';
 
 interface QuestionListElementProp {
-  questionId: number;
+  question: Question;
 }
 
-export const QuestionListElement: FC<QuestionListElementProp> = ({ questionId }) => {
-  const question = dummyQuestion;
+export const QuestionListElement: FC<QuestionListElementProp> = ({ question }) => {
+  // console.log(question.question.time);
 
+  // console.log(TimestampToDate(DateToTimestamp(question.question.time)));
   return (
     <QuestionListElementContainer button>
       <Text>
@@ -20,16 +21,16 @@ export const QuestionListElement: FC<QuestionListElementProp> = ({ questionId })
           <Title>
             <ListItemText>
               <TitleText>
-                Q{questionId}. {question.title}
+                Q{question.questionId}. {question.question.title}
               </TitleText>
             </ListItemText>
           </Title>
-          <Time> {question.time.toDateString()}</Time>
+          <Time> {question.question.time.toDateString()}</Time>
         </Header>
 
         <Body>
           <BodyText>
-            <ListItemText>{question.content}</ListItemText>
+            <ListItemText>{question.question.content}</ListItemText>
           </BodyText>
         </Body>
       </Text>
@@ -37,6 +38,7 @@ export const QuestionListElement: FC<QuestionListElementProp> = ({ questionId })
       <DoubleSidedViewButton>
         <Icon icon={squareHalf} />
       </DoubleSidedViewButton>
+      <Divider />
     </QuestionListElementContainer>
   );
 };
@@ -119,4 +121,8 @@ const DoubleSidedViewButton = styled(IconButton)`
   :focus {
     background-color: ${PINK_3};
   }
+`;
+
+const Divider = styled(DefaultDivider)`
+  background-color: ${GRAY};
 `;

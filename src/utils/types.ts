@@ -1,12 +1,17 @@
 import firebase from 'firebase';
 
 export interface QuestionContent {
-  topic: string;
-  subtopic: string;
   name: string;
   image: number;
   time: Date;
-  isFaq: boolean;
+  title: string;
+  content: string;
+}
+
+export interface QuestionContentFB {
+  name: string;
+  image: number;
+  time: firebase.firestore.Timestamp;
   title: string;
   content: string;
 }
@@ -16,6 +21,31 @@ export interface AnswerContent {
   image: number;
   time: Date;
   content: string;
+}
+
+export interface AnswerContentFB {
+  name: string;
+  image: number;
+  time: firebase.firestore.Timestamp;
+  content: string;
+}
+
+export interface Question {
+  questionId: number;
+  topic: string;
+  subtopic: string;
+  isFaq: boolean;
+  question: QuestionContent;
+  answers: Array<AnswerContent>;
+}
+
+export interface QuestionFB {
+  questionId: number;
+  topic: string;
+  subtopic: string;
+  isFaq: boolean;
+  question: QuestionContentFB;
+  answers: Array<AnswerContentFB>;
 }
 
 export interface Topic {
