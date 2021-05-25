@@ -4,36 +4,33 @@ import { Box, Typography, ListItem, ListItemText, IconButton } from '@material-u
 import { PINK_3, H5, B2, B3, LIGHT_GRAY_1, TRUNCATE_TWO } from 'utils/themes';
 import { Icon } from '@iconify/react';
 import squareHalf from '@iconify-icons/bi/square-half';
+import { dummyQuestion } from '../../utils/dummyDatas';
 
 interface QuestionListElementProp {
-  title: string;
-  content: string;
-  timestamp: string;
+  questionId: number;
 }
 
-export const QuestionListElement: FC = () => {
-  const QuestionListElementContent: QuestionListElementProp = {
-    title: "Regarding 'disk.c'",
-    content: 'I had a question regarding disk.c. When I added line thread_yield in sema_up, disk.c failed ...',
-    timestamp: '3 hours ago',
-  };
+export const QuestionListElement: FC<QuestionListElementProp> = ({ questionId }) => {
+  const question = dummyQuestion;
 
   return (
     <QuestionListElementContainer button>
-      <QuestionListElementText>
-        <QuestionListElementHeader>
-          <QuestionListElementTitle>
-            <ListItemText>{QuestionListElementContent.title}</ListItemText>
-          </QuestionListElementTitle>
-          <QuestionListElementDate> {QuestionListElementContent.timestamp}</QuestionListElementDate>
-        </QuestionListElementHeader>
+      <Text>
+        <Header>
+          <Title>
+            <ListItemText>
+              Q{questionId}. {question.title}
+            </ListItemText>
+          </Title>
+          <Time> {question.time.toDateString()}</Time>
+        </Header>
 
-        <QuestionListElementBody>
-          <QuestionListElementBodyText>
-            <ListItemText>{QuestionListElementContent.content}</ListItemText>
-          </QuestionListElementBodyText>
-        </QuestionListElementBody>
-      </QuestionListElementText>
+        <Body>
+          <BodyText>
+            <ListItemText>{question.content}</ListItemText>
+          </BodyText>
+        </Body>
+      </Text>
 
       <DoubleSidedViewButton>
         <Icon icon={squareHalf} />
@@ -41,22 +38,6 @@ export const QuestionListElement: FC = () => {
     </QuestionListElementContainer>
   );
 };
-
-const DoubleSidedViewButton = styled(IconButton)`
-  padding: 1em 0.1em 1em 0.1em;
-  height: 100%;
-  margin-left: 0.2em;
-  .MuiIconButton-root {
-    border-radius: 0;
-}
-  :hover {
-    background-color: ${LIGHT_GRAY_1};
-  }
-  :focus {
-
-    background-color: ${PINK_3};
-  }
-`;
 
 const QuestionListElementContainer = styled(ListItem)`
   padding: 0;
@@ -75,42 +56,57 @@ const QuestionListElementContainer = styled(ListItem)`
     align-items: flex-start;
   }
 `;
-const QuestionListElementText = styled(Box)`
+const Text = styled(Box)`
   margin-left: 1em;
   margin-bottom: 0.3em;
   display: flex;
   flex-direction: column;
 `;
 
-const QuestionListElementHeader = styled(Box)`
+const Header = styled(Box)`
   display: flex;
   align-items: center;
   justify-content: space-between;
 `;
 
-const QuestionListElementTitle = styled(Box)`
+const Title = styled(Box)`
   width: 10em;
   .MuiTypography-root {
     ${H5};
   }
 `;
 
-const QuestionListElementDate = styled(Box)`
+const Time = styled(Box)`
   width: 5em;
   margin-right: 0.1em;
   ${B3}
 `;
 
-const QuestionListElementBody = styled(Box)`
+const Body = styled(Box)`
   .MuiTypography-root {
     ${B2};
   }
   white-space: pre-line;
 `;
 
-const QuestionListElementBodyText = styled(Typography)`
+const BodyText = styled(Typography)`
   .MuiTypography-root {
     ${B2};
   }
   ${TRUNCATE_TWO};
+`;
+
+const DoubleSidedViewButton = styled(IconButton)`
+  padding: 1em 0.1em 1em 0.1em;
+  height: 100%;
+  margin-left: 0.2em;
+  .MuiIconButton-root {
+    border-radius: 0;
+  }
+  :hover {
+    background-color: ${LIGHT_GRAY_1};
+  }
+  :focus {
+    background-color: ${PINK_3};
+  }
 `;

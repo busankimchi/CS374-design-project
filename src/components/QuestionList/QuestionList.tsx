@@ -1,28 +1,31 @@
 import { FC } from 'react';
 import styled from 'styled-components';
 import { Drawer, Box, List, Divider as DefaultDivider } from '@material-ui/core';
+import { Topic, SubTopic } from 'utils/types';
 import { H3, GRAY } from 'utils/themes';
+import { dummyTopicList } from 'utils/dummyDatas';
 import { QuestionListElement } from './QuestionListElement';
 
-interface QuestionListHeaderProp {
+interface QuestionListProp {
   topic: string;
   subtopic: string;
 }
+interface QuestionListHeaderProp {
+  topicID: number;
+  subTopicID: number;
+}
 
-export const QuestionList: FC = () => {
-  const QuestionListHeaderContent: QuestionListHeaderProp = {
-    topic: 'Project 1',
-    subtopic: 'Alarm-Clock',
-  };
-
+export const QuestionList: FC<QuestionListHeaderProp> = ({ topicID, subTopicID }) => {
+  const topicInfo = dummyTopicList.find((topic) => topic.id === topicID) as Topic;
+  const subTopicInfo = (topicInfo.subTopic as SubTopic[]).find((subtopic) => subtopic.id === subTopicID) as SubTopic;
   return (
     <QuestionListDrawer variant="permanent" anchor="left">
       <QuestionListHeader>
-        {QuestionListHeaderContent.topic} {'>'} {QuestionListHeaderContent.subtopic}
+        {topicInfo.topicName} {'>'} {subTopicInfo.subTopicName}
       </QuestionListHeader>
       <Divider />
       <QuestionListDrawerBody>
-        <QuestionListElement />
+        <QuestionListElement questionId={1} />
         <Divider />
       </QuestionListDrawerBody>
     </QuestionListDrawer>
