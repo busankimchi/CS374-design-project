@@ -52,6 +52,10 @@ export const Home: FC = () => {
 
   const changeTopicName = () => {
     onCloseEditDialog();
+    if ((editTopicValue === '')) {
+      return;
+    }
+
     const newTopicList = topicList.map((item) =>
       item.id === topic?.id ? { ...item, topicName: editTopicValue } : item,
     );
