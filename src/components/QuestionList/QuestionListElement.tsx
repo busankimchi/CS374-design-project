@@ -1,7 +1,7 @@
 import { FC } from 'react';
 import styled from 'styled-components';
 import { Box, Typography, ListItem, ListItemText, IconButton } from '@material-ui/core';
-import { PINK_3, H5, B2, B3, LIGHT_GRAY_1, TRUNCATE_TWO } from 'utils/themes';
+import { PINK_3, H5, B2, B3, LIGHT_GRAY_1, TRUNCATE_TWO, TRUNCATE_ONE } from 'utils/themes';
 import { Icon } from '@iconify/react';
 import squareHalf from '@iconify-icons/bi/square-half';
 import { dummyQuestion } from '../../utils/dummyDatas';
@@ -19,7 +19,9 @@ export const QuestionListElement: FC<QuestionListElementProp> = ({ questionId })
         <Header>
           <Title>
             <ListItemText>
-              Q{questionId}. {question.title}
+              <TitleText>
+                Q{questionId}. {question.title}
+              </TitleText>
             </ListItemText>
           </Title>
           <Time> {question.time.toDateString()}</Time>
@@ -42,7 +44,7 @@ export const QuestionListElement: FC<QuestionListElementProp> = ({ questionId })
 const QuestionListElementContainer = styled(ListItem)`
   padding: 0;
   display: flex;
-  alignitems: left;
+  align-items: flex-start;
   justify-content: space-between;
   :hover {
     background-color: rgba(205, 205, 205, 0.3);
@@ -60,7 +62,9 @@ const QuestionListElementContainer = styled(ListItem)`
 const Text = styled(Box)`
   margin-left: 1em;
   margin-bottom: 0.3em;
+  margin-top: 0em;
   width: 75%;
+  height: 2em;
   display: flex;
   flex-direction: column;
 `;
@@ -68,6 +72,7 @@ const Text = styled(Box)`
 const Header = styled(Box)`
   display: flex;
   align-items: center;
+  margin-bottom: 0em;
   justify-content: space-between;
 `;
 
@@ -77,7 +82,12 @@ const Title = styled(Box)`
     ${H5};
   }
 `;
-
+const TitleText = styled(Typography)`
+  .MuiTypography-root {
+    ${H5};
+  }
+  ${TRUNCATE_ONE};
+`;
 const Time = styled(Box)`
   width: 7.5em;
   margin-right: 0.1em;
@@ -88,7 +98,6 @@ const Body = styled(Box)`
   .MuiTypography-root {
     ${B2};
   }
-  white-space: pre-line;
 `;
 
 const BodyText = styled(Typography)`
@@ -99,13 +108,11 @@ const BodyText = styled(Typography)`
 `;
 
 const DoubleSidedViewButton = styled(IconButton)`
-  padding: 1em 0.1em 1em 0.1em;
+  padding: 1em 3% 1em 3%;
   height: 100%;
-  margin-left: 0.2em;
+  margin-left: 0.1em;
   margin-right: 0.1em;
-  .MuiIconButton-root {
-    border-radius: 0;
-  }
+  border-radius: 0;
   :hover {
     background-color: ${LIGHT_GRAY_1};
   }

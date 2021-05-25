@@ -2,8 +2,10 @@ import { FC } from 'react';
 import styled from 'styled-components';
 import { Box } from '@material-ui/core';
 import { PageType } from 'utils/types';
+import { useParams } from 'react-router';
 import { QuestionList } from 'components/QuestionList/QuestionList';
 import { Contents } from '../components/Contents/Contents';
+
 // import { NotSelected } from '../components/Contents/NotSelected';
 
 interface QuestionsProp {
@@ -20,7 +22,7 @@ export const Questions: FC<QuestionsProp> = ({ pageType, search, topicId, subTop
 
   return (
     <QuestionsContainer>
-      <QuestionList topicID={1} subTopicID={1} />
+      <QuestionList topicID={+urlParams.topicId} subTopicID={+urlParams.subTopicId} />
       <Contents questionId={1} />
       {/* <NotSelected /> */}
     </QuestionsContainer>
