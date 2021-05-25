@@ -12,7 +12,7 @@ interface DeleteTopicDialogProp {
 export const DeleteTopicDialog: FC<DeleteTopicDialogProp> = ({ open, onClose, onDeleteTopic }) => {
   return (
     <BaseDialog open={open} onClose={onClose}>
-      <Content>Are you sure you want to delete the topic?</Content>
+      <Content>Are you sure you want to delete the topic?<br /> You can only delete empty topics.</Content>
       <ButtonContainer>
         <Button onClick={onDeleteTopic}>Delete</Button>
         <Button onClick={onClose}>Cancel</Button>
@@ -25,4 +25,6 @@ const ButtonContainer = styled(Box)`
   margin-top: 1em;
 `;
 
-const Content = styled(Typography)``;
+const Content = styled(Typography)`
+  text-align: center;
+`;
