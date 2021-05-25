@@ -37,7 +37,7 @@ export const QuestionContentToObject = (question: QuestionContent) => {
   return {
     name: question.name,
     image: question.image,
-    time: question.time,
+    time: DateToTimestamp(question.time),
     title: question.title,
     content: question.content,
   };
@@ -47,7 +47,7 @@ export const AnswerToObject = (answer: AnswerContent) => {
   return {
     name: answer.name,
     image: answer.image,
-    time: answer.time,
+    time: DateToTimestamp(answer.time),
     content: answer.content,
   };
 }
