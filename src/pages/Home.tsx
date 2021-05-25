@@ -1,45 +1,24 @@
-import { FC, useCallback, useEffect, useState } from 'react';
+import { FC, useState } from 'react';
 import styled from 'styled-components';
 import { Redirect, Route } from 'react-router-dom';
 import { Box } from '@material-ui/core';
-import { Header } from 'components/BaseView/Header';
-import { MainDrawer } from 'components/BaseView/MainDrawer';
-import { NewTopicDialog } from 'components/General/NewTopicDialog';
+import { NewTopicDialog, EditTopicDialog, DeleteTopicDialog, ContextMenu } from 'components/General';
+import { Header, MainDrawer } from 'components/BaseView';
 import { MousePosition, PageType, Topic } from 'utils/types';
-import { ContextMenu } from 'components/General/ContextMenu';
-import { EditTopicDialog } from 'components/General/EditTopicDialog';
-import { dummyTopicList } from 'utils/dummyDatas';
-import { healthCheck } from 'apis/healthCheck';
+import { addTopic, deleteTopic, updateTopic } from 'apis/Topic';
+import { useTopicList } from 'hooks/useTopicList';
 import { Questions } from './Questions';
 
 export const Home: FC = () => {
-  const [topicList, setTopicList] = useState<Topic[]>(dummyTopicList);
   const [openNewTopic, setOpenNewTopic] = useState(false);
   const [openEditTopic, setOpenEditTopic] = useState(false);
+  const [openDeleteTopic, setOpenDeleteTopic] = useState(false);
   const [mouse, setMouse] = useState<MousePosition>({ x: null, y: null });
   const [topic, setTopic] = useState<Topic>();
-  const [value, setValue] = useState('');
-
-  /* CHECK THIS FOR FETCHING FIRESTORE */
-  // SAMPLE FETCHING SAMPLE
-  // const [health, setHealth] = useState();
-  const fetchHealthCheck = useCallback(async () => {
-    const temp = await healthCheck();
-
-    // eslint-disable-next-line no-console
-    console.log('in Home', temp);
-    // setHealth(temp);
-  }, []);
-
-  useEffect(() => {
-    fetchHealthCheck();
-    // TODO: fetch topicList from firebase
-  }, [fetchHealthCheck]);
-  /* CHECK THIS FOR FETCHING FIRESTORE */
-
-  useEffect(() => {
-    // TODO: fetch topicList from firebase
-  }, []);
+  const [editTopicValue, setEditTopicValue] = useState('');
+  const [addTopicValue, setAddTopicValue] = useState('');
+  const { topicList, setTopicList, maxTopicId, setMaxTopicId } = useTopicList();
+  const [newTopic, setNewTopic] = useState<Topic>();
 
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const handleMenuTrigger = (event: any) => {
@@ -50,21 +29,55 @@ export const Home: FC = () => {
     });
   };
 
-  const handleClose = () => {
-    setMouse({ x: null, y: null });
-  };
+  const handleClose = () => setMouse({ x: null, y: null });
 
-  const onClickItem = () => {
+  const onClickEdit = () => {
     setOpenEditTopic(true);
     handleClose();
   };
 
+  const handleDelete = () => {
+    const newTopicList = topicList.filter((item) => item.id !== topic?.id);
+    setTopicList(newTopicList);
+    deleteTopic(topic as Topic);
+  };
+
+  const onClickDelete = () => {
+    setOpenDeleteTopic(true);
+    handleClose();
+  };
+
+  const onCloseNewDialog = () => setOpenNewTopic(false);
   const onCloseEditDialog = () => setOpenEditTopic(false);
+  const onCloseDeleteDialog = () => setOpenDeleteTopic(false);
 
   const changeTopicName = () => {
     onCloseEditDialog();
-    setTopicList(topicList.map((item) => (item.id === topic?.id ? { ...item, topicName: value } : item)));
-    // TODO: update the topic name to firebase
+    const newTopicList = topicList.map((item) =>
+      item.id === topic?.id ? { ...item, topicName: editTopicValue } : item,
+    );
+
+    setTopicList(newTopicList);
+    updateTopic({ ...(topic as Topic), topicName: editTopicValue });
+  };
+
+  const onAddTopic = async () => {
+    onCloseNewDialog();
+    // TODO: add new topic to firebase
+    const newDocId = await addTopic({ topicName: addTopicValue, id: maxTopicId + 1 });
+    const newTopic: Topic = { topicName: addTopicValue, docId: newDocId, id: maxTopicId + 1 };
+    const newTopicList = topicList.concat([newTopic]);
+    setTopicList(newTopicList);
+    setMaxTopicId(maxTopicId + 1);
+  };
+
+  const onDeleteTopic = () => {
+    onCloseDeleteDialog();
+    if (topic?.subTopic === undefined) {
+      handleDelete();
+    } else if (topic.subTopic.length === 0) {
+      handleDelete();
+    }
   };
 
   return (
@@ -77,7 +90,7 @@ export const Home: FC = () => {
           onContextMenu={handleMenuTrigger}
           setTopic={(item) => {
             setTopic(item);
-            setValue(item.topicName);
+            setEditTopicValue(item.topicName);
           }}
         />
         <Route exact path="/">
@@ -112,15 +125,22 @@ export const Home: FC = () => {
           }}
         />
       </Main>
-      <NewTopicDialog open={openNewTopic} onClose={() => setOpenNewTopic(false)} />
+      <NewTopicDialog
+        open={openNewTopic}
+        onClose={onCloseNewDialog}
+        value={addTopicValue as string}
+        onChange={(event) => setAddTopicValue(event.target.value)}
+        onAddTopic={onAddTopic}
+      />
       <EditTopicDialog
         open={openEditTopic}
         onClose={onCloseEditDialog}
-        value={value as string}
-        onChange={(event) => setValue(event.target.value)}
+        value={editTopicValue as string}
+        onChange={(event) => setEditTopicValue(event.target.value)}
         changeTopicName={changeTopicName}
       />
-      <ContextMenu mouse={mouse} handleClose={handleClose} onClickItem={onClickItem} />
+      <DeleteTopicDialog open={openDeleteTopic} onClose={onCloseDeleteDialog} onDeleteTopic={onDeleteTopic} />
+      <ContextMenu mouse={mouse} handleClose={handleClose} onClickEdit={onClickEdit} onClickDelete={onClickDelete} />
     </HomeContainer>
   );
 };

@@ -3,36 +3,36 @@ import styled from 'styled-components';
 import NavigateNextIcon from '@material-ui/icons/NavigateNext';
 import { Box, Breadcrumbs, Typography, IconButton } from '@material-ui/core';
 import CloseIcon from '@material-ui/icons/Close';
-import { UserInfo } from './UserInfo'
-import { AnswerDivider } from './AnswerDivider'
-import { dummyQuestion, dummyAnswers } from '../../utils/dummyDatas'
-import { FAQButton } from './FAQButton'
-import { AnswerDisplay } from './AnswerDisplay'
+import { UserInfo } from './UserInfo';
+import { AnswerDivider } from './AnswerDivider';
+import { dummyQuestion, dummyAnswers } from '../../utils/dummyDatas';
+import { FAQButton } from './FAQButton';
+import { AnswerDisplay } from './AnswerDisplay';
 
-interface QuestionIdProp { questionId: number; };
+interface QuestionIdProp {
+  questionId: number;
+}
 
-export const QnADisplay: FC<QuestionIdProp> = ({questionId}) => {
+export const QnADisplay: FC<QuestionIdProp> = ({ questionId }) => {
   // Load question content
   const question = dummyQuestion;
   const answers = dummyAnswers;
 
   const answersElem: Array<JSX.Element> = [];
 
-  answers.forEach((answer) =>
-    answersElem.push(<AnswerDisplay answer={answer}/>),
-  );
+  answers.forEach((answer) => answersElem.push(<AnswerDisplay answer={answer} />));
 
   const [isFaq, setIsFaq] = useState(question.isFaq);
 
   const changeIsFaq = () => {
     setIsFaq(!isFaq);
     // TODO: Do some more things for firebase
-  }
+  };
 
   const closeTab = () => {
     // TODO: Navigate to 'nothing selected' page
     // alert("Close tab!");
-  }
+  };
 
   return (
     <QnADisplayBox>
@@ -47,17 +47,19 @@ export const QnADisplay: FC<QuestionIdProp> = ({questionId}) => {
           </CloseButton>
         </QuestionTopBox>
         <QuestionTopBox>
-          <UserInfo userName={question.name} time={question.time}/>
-          <FAQButton isFaq={isFaq} changeIsFaq={changeIsFaq}/>
+          <UserInfo userName={question.name} time={question.time} />
+          <FAQButton isFaq={isFaq} changeIsFaq={changeIsFaq} />
         </QuestionTopBox>
         <QuestionBox>
-          <QuestionTitleBox>Q{questionId}. {question.title}</QuestionTitleBox>
+          <QuestionTitleBox>
+            Q{questionId}. {question.title}
+          </QuestionTitleBox>
           <QuestionContentBox>{question.content}</QuestionContentBox>
         </QuestionBox>
       </Box>
-      
-      <AnswerDivider/>
-      
+
+      <AnswerDivider />
+
       <Box>{answersElem}</Box>
     </QnADisplayBox>
   );
