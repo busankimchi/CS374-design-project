@@ -84,6 +84,7 @@ export const dummySearchHistory: string[] = [
 ];
 
 export const dummyQuestion: QuestionContent = {
+  questionId: 1,
   topic: 'Project 1',
   subtopic: 'Alarm-clock',
   name: 'Cheese Burger',

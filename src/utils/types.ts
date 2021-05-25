@@ -1,4 +1,5 @@
 export interface QuestionContent {
+  questionId: number;
   topic: string;
   subtopic: string;
   name: string;
