@@ -31,7 +31,7 @@ export interface Topic {
 export interface SubTopic {
   id: number;
   subTopicName: string;
-  questions: number[];
+  questionList?: number[];
 }
 
 export enum PageType {

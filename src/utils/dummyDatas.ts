@@ -83,22 +83,22 @@ export const dummyTopics: Topic[] = [
       {
         id: 1,
         subTopicName: 'Lab Submission',
-        questions: [5, 11, 27, 31],
+        questionList: [5, 11, 27, 31],
       },
       {
         id: 2,
         subTopicName: 'Score',
-        questions: [2, 18, 19, 23, 29],
+        questionList: [2, 18, 19, 23, 29],
       },
       {
         id: 3,
         subTopicName: 'Tokens',
-        questions: [3, 20],
+        questionList: [3, 20],
       },
       {
         id: 4,
         subTopicName: 'Team Matching',
-        questions: [1, 24, 36],
+        questionList: [1, 24, 36],
       },
     ],
   },
@@ -109,17 +109,17 @@ export const dummyTopics: Topic[] = [
       {
         id: 5,
         subTopicName: 'Environment Setup',
-        questions: [4, 6, 9, 12, 13],
+        questionList: [4, 6, 9, 12, 13],
       },
       {
         id: 6,
         subTopicName: 'Multilevel Feedback Queues',
-        questions: [7, 10, 14, 15],
+        questionList: [7, 10, 14, 15],
       },
       {
         id: 7,
         subTopicName: 'Lists',
-        questions: [8],
+        questionList: [8],
       },
     ],
   },
@@ -130,7 +130,7 @@ export const dummyTopics: Topic[] = [
       {
         id: 8,
         subTopicName: "Semaphores",
-        questions: [16, 17],
+        questionList: [16, 17],
       }
     ]
   },
@@ -141,17 +141,17 @@ export const dummyTopics: Topic[] = [
       {
         id: 9,
         subTopicName: 'Multi-oom',
-        questions: [22, 25, 28, 32, 34],
+        questionList: [22, 25, 28, 32, 34],
       },
       {
         id: 10,
         subTopicName: 'Fork',
-        questions: [21, 26, 33]
+        questionList: [21, 26, 33]
       },
       {
         id: 11,
         subTopicName: 'Extra Points',
-        questions: [30, 35],
+        questionList: [30, 35],
       },
     ],
   },

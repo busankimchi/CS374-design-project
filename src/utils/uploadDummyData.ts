@@ -41,7 +41,7 @@ export const uploadDummyTopics = () => {
             ans.push({
                 id: subtopic.id,
                 subTopicName: subtopic.subTopicName,
-                questions: subtopic.questions,
+                questionList: subtopic.questionList,
             })
         })
 

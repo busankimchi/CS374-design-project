@@ -1,18 +1,18 @@
 import { FC } from 'react';
 import styled from 'styled-components';
-import { Box, Typography, ListItem, ListItemText, IconButton } from '@material-ui/core';
-import { PINK_3, H5, B2, B3, LIGHT_GRAY_1, TRUNCATE_TWO, TRUNCATE_ONE } from 'utils/themes';
+import { Box, Typography, ListItem, ListItemText, IconButton, Divider as DefaultDivider } from '@material-ui/core';
+import { PINK_3, H5, B2, B3, LIGHT_GRAY_1, GRAY, TRUNCATE_TWO, TRUNCATE_ONE } from 'utils/themes';
 import { Icon } from '@iconify/react';
 import squareHalf from '@iconify-icons/bi/square-half';
+import { Question } from 'utils/types';
 import { dummyQuestions } from '../../utils/dummyDatas';
 
+
 interface QuestionListElementProp {
-  questionId: number;
+  question: Question;
 }
 
-export const QuestionListElement: FC<QuestionListElementProp> = ({ questionId }) => {
-  const question = dummyQuestions[0];
-
+export const QuestionListElement: FC<QuestionListElementProp> = ({ question }) => {
   return (
     <QuestionListElementContainer button>
       <Text>
@@ -20,7 +20,7 @@ export const QuestionListElement: FC<QuestionListElementProp> = ({ questionId })
           <Title>
             <ListItemText>
               <TitleText>
-                Q{questionId}. {question.question.title}
+                Q{question.questionId}. {question.question.title}
               </TitleText>
             </ListItemText>
           </Title>
@@ -37,6 +37,7 @@ export const QuestionListElement: FC<QuestionListElementProp> = ({ questionId })
       <DoubleSidedViewButton>
         <Icon icon={squareHalf} />
       </DoubleSidedViewButton>
+      <Divider />
     </QuestionListElementContainer>
   );
 };
@@ -119,4 +120,8 @@ const DoubleSidedViewButton = styled(IconButton)`
   :focus {
     background-color: ${PINK_3};
   }
+`;
+
+const Divider = styled(DefaultDivider)`
+  background-color: ${GRAY};
 `;
