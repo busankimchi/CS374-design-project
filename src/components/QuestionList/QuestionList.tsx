@@ -1,6 +1,6 @@
 import { FC, useEffect, useState } from 'react';
 import styled from 'styled-components';
-import { Drawer, Box, List, Typography } from '@material-ui/core';
+import { Box, List, Typography } from '@material-ui/core';
 import { Topic, SubTopic, Question } from 'utils/types';
 import { H3, TRUNCATE_ONE } from 'utils/themes';
 import { useGetQuestionList } from 'apis/Question/useGetQuestionList';
