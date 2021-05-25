@@ -1,79 +1,79 @@
 import { Topic, QuestionContent, AnswerContent } from './types';
 
-// export const dummyTopicList: Topic[] = [
-//   {
-//     id: 1,
-//     topicName: 'Project 1',
-//     subTopic: [
-//       {
-//         id: 1,
-//         subTopicName: 'alarm-clock',
-//       },
-//       {
-//         id: 2,
-//         subTopicName: 'submission',
-//       },
-//     ],
-//   },
-//   {
-//     id: 2,
-//     topicName: 'Threadsssssssssssssssssssssssss',
-//     subTopic: [
-//       {
-//         id: 3,
-//         subTopicName: 'atomic instruction',
-//       },
-//       {
-//         id: 4,
-//         subTopicName: 'semaphore',
-//       },
-//       {
-//         id: 5,
-//         subTopicName: 'synchronization',
-//       },
-//     ],
-//   },
-//   {
-//     id: 3,
-//     topicName: 'Lab sessions',
-//   },
-//   {
-//     id: 4,
-//     topicName: 'Logistics',
-//     subTopic: [
-//       {
-//         id: 6,
-//         subTopicName: 'schedules',
-//       },
-//       {
-//         id: 7,
-//         subTopicName: 'score announcement',
-//       },
-//       {
-//         id: 8,
-//         subTopicName: 'claimForFirstQuestion',
-//       },
-//     ],
-//   },
-//   {
-//     id: 5,
-//     topicName: 'Logisticzzzz',
-//     subTopic: [
-//       {
-//         id: 6,
-//         subTopicName: 'scheduleszzzzzzz',
-//       },
-//       {
-//         id: 7,
-//         subTopicName: 'score announcementzzzzzzzz',
-//       },
-//       {
-//         id: 8,
-//         subTopicName: 'claimForFirstQuestion!!',
-//       },
-//     ],
-//   },
-// ];
+export const dummyTopicList: Topic[] = [
+  {
+    id: 1,
+    topicName: 'Project 1',
+    subTopic: [
+      {
+        id: 1,
+        subTopicName: 'alarm-clock',
+      },
+      {
+        id: 2,
+        subTopicName: 'submission',
+      },
+    ],
+  },
+  {
+    id: 2,
+    topicName: 'Threadsssssssssssssssssssssssss',
+    subTopic: [
+      {
+        id: 3,
+        subTopicName: 'atomic instruction',
+      },
+      {
+        id: 4,
+        subTopicName: 'semaphore',
+      },
+      {
+        id: 5,
+        subTopicName: 'synchronization',
+      },
+    ],
+  },
+  {
+    id: 3,
+    topicName: 'Lab sessions',
+  },
+  {
+    id: 4,
+    topicName: 'Logistics',
+    subTopic: [
+      {
+        id: 6,
+        subTopicName: 'schedules',
+      },
+      {
+        id: 7,
+        subTopicName: 'score announcement',
+      },
+      {
+        id: 8,
+        subTopicName: 'claimForFirstQuestion',
+      },
+    ],
+  },
+  {
+    id: 5,
+    topicName: 'Logisticzzzz',
+    subTopic: [
+      {
+        id: 6,
+        subTopicName: 'scheduleszzzzzzz',
+      },
+      {
+        id: 7,
+        subTopicName: 'score announcementzzzzzzzz',
+      },
+      {
+        id: 8,
+        subTopicName: 'claimForFirstQuestion!!',
+      },
+    ],
+  },
+];
 
 export const dummySearchHistory: string[] = [
   'hello',
@@ -166,5 +166,4 @@ export const dummyAnswers: Array<AnswerContent> = [
     content:
       'You can look at this also, \n\nhttps://stackoverflow.com/questions/1053572/why-kernel-code-thread-executing-in-interrupt-context-cannot-sleep\nAnd the comment says that the sema_up function can be called in an interrupt context. (https://github.com/casys-kaist/pintos-kaist/blob/8e59f2e37badee2259a8fe058ed048fd60f6f728/threads/synch.c#L104) So you need to properly call thread_yield function based on context.',
   },
-
 ];
