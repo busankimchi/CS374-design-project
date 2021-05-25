@@ -168,3 +168,5 @@ export const dummyAnswers: Array<AnswerContent> = [
   },
 
 ];
+
+export const testUserName = "Cheesy Pringles";

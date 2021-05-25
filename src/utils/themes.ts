@@ -98,4 +98,4 @@ export const FADE_OUT = keyframes`
     }
 `;
 
-export const COLORS = [colors.amber[500], colors.blue[500], colors.blueGrey[500], colors.brown[500], colors.cyan[500], colors.deepOrange[500], colors.deepPurple[500], colors.green[500], colors.grey[500], colors.indigo[500], colors.lightBlue[500], colors.lightGreen[500], colors.lime[500], colors.orange[500], colors.pink[500], colors.purple[500], colors.red[500], colors.teal[500], colors.yellow[500]];
+export const COLORS = [colors.amber[200], colors.blue[200], colors.blueGrey[200], colors.brown[200], colors.cyan[200], colors.deepOrange[200], colors.deepPurple[200], colors.green[200], colors.grey[200], colors.indigo[200], colors.lightBlue[200], colors.lightGreen[200], colors.lime[200], colors.orange[200], colors.pink[200], colors.purple[200], colors.red[200], colors.teal[200], colors.yellow[200]]
