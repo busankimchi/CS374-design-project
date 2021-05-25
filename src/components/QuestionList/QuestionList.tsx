@@ -6,10 +6,6 @@ import { H3, GRAY } from 'utils/themes';
 import { dummyTopicList } from 'utils/dummyDatas';
 import { QuestionListElement } from './QuestionListElement';
 
-interface QuestionListProp {
-  topic: string;
-  subtopic: string;
-}
 interface QuestionListHeaderProp {
   topicID: number;
   subTopicID: number;
