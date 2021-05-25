@@ -1,4 +1,4 @@
-import { Topic, QuestionContent, AnswerContent, HistoryQuery } from './types';
+import { Topic, Question, QuestionContent, AnswerContent, HistoryQuery } from './types';
 
 // export const dummyTopicList: Topic[] = [
 //   {

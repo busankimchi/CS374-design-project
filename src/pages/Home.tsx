@@ -67,7 +67,7 @@ export const Home: FC = () => {
   const onAddTopic = () => {
     onCloseNewDialog();
     if (!(addTopicValue === '')) {
-      addTopic({ topicName: addTopicValue, id: maxTopicId + 1 });
+      updateTopic({ topicName: addTopicValue, id: maxTopicId + 1 });
       const newTopic: Topic = { topicName: addTopicValue, id: maxTopicId + 1 };
       const newTopicList = topicList.concat([newTopic]);
       setTopicList(newTopicList);
