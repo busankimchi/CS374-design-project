@@ -6,6 +6,7 @@ import { H3, TRUNCATE_ONE } from 'utils/themes';
 import { useGetQuestionList } from 'apis/Question/useGetQuestionList';
 import { QuestionListElement } from './QuestionListElement';
 
+
 interface QuestionListHeaderProp {
   topic: Topic;
   subTopic: SubTopic;
@@ -26,7 +27,7 @@ export const QuestionList: FC<QuestionListHeaderProp> = ({ topic, subTopic }) =>
   const renderQuestionListElement = (item: Question) => <QuestionListElement question={item} />;
 
   return (
-    <QuestionListDrawer variant="permanent" anchor="left">
+    <QuestionListDrawer>
       <QuestionListHeader>
         <QuestionListHeaderText>
           {topic.topicName} {'>'} {subTopic.subTopicName}
@@ -39,9 +40,9 @@ export const QuestionList: FC<QuestionListHeaderProp> = ({ topic, subTopic }) =>
   );
 };
 
-const QuestionListDrawer = styled(Drawer)`
+const QuestionListDrawer = styled(Box)`
   .MuiDrawer-paperAnchorLeft {
-    width: 20%;
+    width: 10%;
     left: 15%;
     right: auto;
     top: 4vh;

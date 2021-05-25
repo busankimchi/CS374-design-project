@@ -62,5 +62,6 @@ export const Questions: FC<QuestionsProp> = ({ pageType, search, topicId, subTop
 };
 
 const QuestionsContainer = styled(Box)`
+  display: flex;
   width: 100%;
 `;
