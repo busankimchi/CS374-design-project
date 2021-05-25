@@ -52,6 +52,10 @@ export const Home: FC = () => {
 
   const changeTopicName = () => {
     onCloseEditDialog();
+    if ((editTopicValue === '')) {
+      return;
+    }
+
     const newTopicList = topicList.map((item) =>
       item.id === topic?.id ? { ...item, topicName: editTopicValue } : item,
     );
@@ -60,14 +64,16 @@ export const Home: FC = () => {
     updateTopic({ ...(topic as Topic), topicName: editTopicValue });
   };
 
-  const onAddTopic = async () => {
+  const onAddTopic = () => {
     onCloseNewDialog();
-    // TODO: add new topic to firebase
-    await addTopic({ topicName: addTopicValue, id: maxTopicId + 1 });
-    const newTopic: Topic = { topicName: addTopicValue, id: maxTopicId + 1 };
-    const newTopicList = topicList.concat([newTopic]);
-    setTopicList(newTopicList);
-    setMaxTopicId(maxTopicId + 1);
+    if (!(addTopicValue === '')) {
+      addTopic({ topicName: addTopicValue, id: maxTopicId + 1 });
+      const newTopic: Topic = { topicName: addTopicValue, id: maxTopicId + 1 };
+      const newTopicList = topicList.concat([newTopic]);
+      setTopicList(newTopicList);
+      setMaxTopicId(maxTopicId + 1);
+    }
+    setAddTopicValue('');
   };
 
   const onDeleteTopic = () => {
