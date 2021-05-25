@@ -22,12 +22,15 @@ export const Questions: FC<QuestionsProp> = ({ pageType, search, topicId, subTop
   // eslint-disable-next-line no-console
   console.log({ pageType, search, topicId, subTopicId, questionId, questionId2 });
   const [isListShown, setListShown] = useState(true);
+  const [isFirstContentOpen, setIsFirstContentOpen] = useState(true);
+  const [isSecondContentOpen, setIsSecondContentOpen]=useState(true);
 
   return (
     <QuestionsContainer>
       <QuestionList topicID={1} subTopicID={1} isListShown={isListShown}/>
-      <Hover showQuestionList={() => setListShown(!isListShown)} />
-      <Contents question={dummyQuestion} />
+      <Hover showQuestionList={() => setListShown(!isListShown)} iconFlip={isListShown} />
+      <Contents question={dummyQuestion} closeThisContent={() => setIsFirstContentOpen(!isFirstContentOpen)} isContentOpen={isFirstContentOpen}/>
+      <Contents question={dummyQuestion} closeThisContent={() => setIsSecondContentOpen(!isSecondContentOpen)} isContentOpen={isSecondContentOpen}/>
       {/* <NotSelected /> */}
     </QuestionsContainer>
   );

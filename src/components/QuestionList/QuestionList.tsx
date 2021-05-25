@@ -1,6 +1,7 @@
 import { FC } from 'react';
 import styled from 'styled-components';
-import { Box, List, Divider as DefaultDivider, Typography } from '@material-ui/core';
+
+import { Box, Drawer, List, Divider as DefaultDivider, Typography } from '@material-ui/core';
 import { Topic, SubTopic } from 'utils/types';
 import { H3, GRAY, TRUNCATE_ONE } from 'utils/themes';
 import { dummyTopicList } from 'utils/dummyDatas';
@@ -38,12 +39,14 @@ export const QuestionList: FC<QuestionListHeaderProp> = ({ topicID, subTopicID,i
 
 
 const QuestionListDrawer = styled(Box)`
-  .MuiDrawer-paperAnchorLeft {
+  /*.MuiDrawer-paperAnchorLeft {
     width: 10%;
     left: 15%;
     right: auto;
     top: 4vh;
   }
+  */
+ width: 15%;
 `;
 const QuestionListDrawerBody = styled(List)`
   padding: 0;

@@ -1,5 +1,6 @@
-import { FC } from 'react';
+import { FC, useState } from 'react';
 import styled from 'styled-components';
+import { ShadowBox } from 'components/Contents/ShadowBox';
 import { Box, Typography, ListItem, ListItemText, IconButton } from '@material-ui/core';
 import { PINK_3, H5, B2, B3, LIGHT_GRAY_1, TRUNCATE_TWO, TRUNCATE_ONE } from 'utils/themes';
 import { Icon } from '@iconify/react';
@@ -10,9 +11,14 @@ interface QuestionListElementProp {
   questionId: number;
 }
 
+
 export const QuestionListElement: FC<QuestionListElementProp> = ({ questionId }) => {
   const question = dummyQuestion;
-
+  const [shadowPreview, setShadowPreview] = useState(true);
+  
+  const setShadow = () => {
+    setShadowPreview(!shadowPreview);
+  }
   return (
     <QuestionListElementContainer button>
       <Text>
@@ -26,20 +32,20 @@ export const QuestionListElement: FC<QuestionListElementProp> = ({ questionId })
           </Title>
           <Time> {question.question.time.toDateString()}</Time>
         </Header>
-
         <Body>
           <BodyText>
             <ListItemText>{question.question.content}</ListItemText>
           </BodyText>
         </Body>
       </Text>
-
-      <DoubleSidedViewButton>
+      <DoubleSidedViewButton onMouseEnter={setShadow} onMouseLeave={setShadow}>
         <Icon icon={squareHalf} />
       </DoubleSidedViewButton>
     </QuestionListElementContainer>
   );
 };
+
+
 
 const QuestionListElementContainer = styled(ListItem)`
   padding: 0;

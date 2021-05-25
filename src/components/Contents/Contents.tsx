@@ -12,9 +12,13 @@ import { AnswerDisplay } from './AnswerDisplay'
 import { NoAnswer } from './NoAnswer'
 import { Question, AnswerContent } from '../../utils/types';
 
-interface ContentsProp { question: Question };
+interface ContentsProp {
+   question: Question,
+   closeThisContent?: () => void,
+   isContentOpen: boolean;
+  };
 
-export const Contents: FC<ContentsProp> = ({ question }) => {
+export const Contents: FC<ContentsProp> = ({ question, closeThisContent, isContentOpen }) => {
   const [text, setText] = useState("");
   const questionContent = question.question;
   const [answers, setAnswers] = useState(question.answers);
@@ -49,10 +53,6 @@ export const Contents: FC<ContentsProp> = ({ question }) => {
     // TODO: Do some more things for firebase
   }
 
-  const closeTab = () => {
-    // TODO: Navigate to 'nothing selected' page
-    // alert("Close tab!");
-  }
 
   const onTextareaChange = (evt: ChangeEvent<HTMLInputElement>) => {
     setText(evt.target.value);
@@ -63,7 +63,7 @@ export const Contents: FC<ContentsProp> = ({ question }) => {
 
     // TODO: Update answer to firebase
   }
-
+ 
   const answerSubmitHandler = () => {
     if (text === "")
       return;
@@ -77,7 +77,7 @@ export const Contents: FC<ContentsProp> = ({ question }) => {
     appendAnswer(ans);
     setText("");
   }
-
+  if(!isContentOpen) return (<div />);
   return (
     <ContentBox>
       <QnADisplayWrapper>
@@ -88,7 +88,7 @@ export const Contents: FC<ContentsProp> = ({ question }) => {
                 <BreadcrumbElem color="textSecondary">{question.topic}</BreadcrumbElem>
                 <BreadcrumbElem color="textSecondary">{question.subtopic}</BreadcrumbElem>
               </TopicBreadcrumbs>
-              <CloseButton aria-label="close tab" onClick={closeTab}>
+              <CloseButton aria-label="close tab" onClick={closeThisContent}>
                 <CloseIcon />
               </CloseButton>
             </QuestionTopBox>
