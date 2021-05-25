@@ -3,18 +3,19 @@ import styled from 'styled-components';
 import { Box } from '@material-ui/core';
 import { PageType } from 'utils/types';
 import { QuestionList } from 'components/QuestionList';
-import { useLocation, useParams } from 'react-router';
 import { Contents } from '../components/Contents/Contents';
 
 interface QuestionsProp {
   pageType: PageType;
+  search?: string;
+  topicId?: number;
+  subTopicId?: number;
+  questionId?: number;
+  questionId2?: number;
 }
 
-export const Questions: FC<QuestionsProp> = ({ pageType }) => {
-  const params = useParams();
-  const location = useLocation();
-
-  console.log(params, location);
+export const Questions: FC<QuestionsProp> = ({ pageType, search, topicId, subTopicId, questionId, questionId2 }) => {
+  console.log({ pageType, search, topicId, subTopicId, questionId, questionId2 });
 
   return (
     <QuestionsContainer>

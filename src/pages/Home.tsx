@@ -18,7 +18,6 @@ export const Home: FC = () => {
   const [editTopicValue, setEditTopicValue] = useState('');
   const [addTopicValue, setAddTopicValue] = useState('');
   const { topicList, setTopicList, maxTopicId, setMaxTopicId } = useTopicList();
-  const [newTopic, setNewTopic] = useState<Topic>();
 
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const handleMenuTrigger = (event: any) => {
@@ -98,31 +97,87 @@ export const Home: FC = () => {
         </Route>
         <Route exact path="/faq" render={() => <Questions pageType={PageType.FAQ} />} />
         <Route exact path="/all_questions" render={() => <Questions pageType={PageType.ALL_QUESTONS} />} />
-        <Route exact path="/search" render={() => <Questions pageType={PageType.SEARCH} />} />
         <Route
           exact
-          path="/topic/:topicId/subtopic/:subTopicId"
-          render={() => <Questions pageType={PageType.NORMAL} />}
-        />
-        <Route
-          exact
-          path="/topic/:topicId/subtopic/:subTopicId/question/:questionId"
+          path="/search"
           render={({ location }) => {
             if (location.search !== '') {
               const searchQuery = location.search.split('=');
               const key = searchQuery[0].substr(1);
-              const questionId2 = searchQuery[1];
-
-              if (key === 'second') {
+              const search = searchQuery[1];
+              if (key === 'q') {
                 // eslint-disable-next-line no-console
-                console.log('this is a double sided view and the second one is', questionId2);
-                return <Questions pageType={PageType.DUAL} />;
+                console.log('search query is', search);
+                return <Questions pageType={PageType.SEARCH} search={search} />;
               }
-              // eslint-disable-next-line no-console
-              console.log('query error');
-              return <Questions pageType={PageType.NONE} />;
             }
-            return <Questions pageType={PageType.NORMAL} />;
+            // eslint-disable-next-line no-console
+            console.log('query error');
+            return <Questions pageType={PageType.NONE} />;
+          }}
+        />
+        <Route
+          exact
+          path="/topic/:topicId/subtopic/:subTopicId"
+          render={({ match }) => {
+            const { topicId, subTopicId } = match.params;
+            if (!Number.isNaN(Number(topicId)) && !Number.isNaN(Number(subTopicId))) {
+              return <Questions pageType={PageType.NORMAL} topicId={Number(topicId)} subTopicId={Number(subTopicId)} />;
+            }
+            // eslint-disable-next-line no-console
+            console.log('query error');
+            return <Questions pageType={PageType.NONE} />;
+          }}
+        />
+        <Route
+          exact
+          path="/topic/:topicId/subtopic/:subTopicId/question/:questionId"
+          render={({ match, location }) => {
+            const { topicId, subTopicId, questionId } = match.params;
+
+            if (
+              !Number.isNaN(Number(topicId)) &&
+              !Number.isNaN(Number(subTopicId)) &&
+              !Number.isNaN(Number(questionId))
+            ) {
+              if (location.search !== '') {
+                const searchQuery = location.search.split('=');
+                const key = searchQuery[0].substr(1);
+                const questionId2Query = searchQuery[1];
+
+                if (key === 'second') {
+                  const questionId2 = Number(questionId2Query);
+                  if (!Number.isNaN(questionId2)) {
+                    // eslint-disable-next-line no-console
+                    console.log('this is a double sided view and the second one is', questionId2);
+                    return (
+                      <Questions
+                        pageType={PageType.DUAL}
+                        topicId={Number(topicId)}
+                        subTopicId={Number(subTopicId)}
+                        questionId={Number(questionId)}
+                        questionId2={questionId2}
+                      />
+                    );
+                  }
+                }
+                // eslint-disable-next-line no-console
+                console.log('query error');
+                return <Questions pageType={PageType.NONE} />;
+              }
+
+              return (
+                <Questions
+                  pageType={PageType.NORMAL}
+                  topicId={Number(topicId)}
+                  subTopicId={Number(subTopicId)}
+                  questionId={Number(questionId)}
+                />
+              );
+            }
+            // eslint-disable-next-line no-console
+            console.log('query error');
+            return <Questions pageType={PageType.NONE} />;
           }}
         />
       </Main>
