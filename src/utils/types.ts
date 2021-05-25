@@ -18,6 +18,7 @@ export interface AnswerContent {
 
 export interface Topic {
   id: number;
+  docId?: string;
   topicName: string;
   subTopic?: SubTopic[];
 }
@@ -33,6 +34,7 @@ export enum PageType {
   ALL_QUESTONS,
   NORMAL,
   DUAL,
+  SEARCH,
 }
 export interface MousePosition {
   x: null | number;

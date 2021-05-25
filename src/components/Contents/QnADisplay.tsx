@@ -11,7 +11,9 @@ import { AnswerDisplay } from './AnswerDisplay'
 import { NoAnswer } from './NoAnswer'
 import { H1, B1, B2 } from '../../utils/themes'
 
-interface QuestionIdProp { questionId: number; };
+interface QuestionIdProp {
+  questionId: number;
+}
 
 export const QnADisplay: FC<QuestionIdProp> = ({ questionId }) => {
   // Load question content
@@ -33,12 +35,12 @@ export const QnADisplay: FC<QuestionIdProp> = ({ questionId }) => {
   const changeIsFaq = () => {
     setIsFaq(!isFaq);
     // TODO: Do some more things for firebase
-  }
+  };
 
   const closeTab = () => {
     // TODO: Navigate to 'nothing selected' page
     // alert("Close tab!");
-  }
+  };
 
   return (
     <QnADisplayBox>
@@ -57,7 +59,9 @@ export const QnADisplay: FC<QuestionIdProp> = ({ questionId }) => {
           <FAQButton isFaq={isFaq} changeIsFaq={changeIsFaq} />
         </QuestionTopBox>
         <QuestionBox>
-          <QuestionTitleBox>Q{questionId}. {question.title}</QuestionTitleBox>
+          <QuestionTitleBox>
+            Q{questionId}. {question.title}
+          </QuestionTitleBox>
           <QuestionContentBox>{question.content}</QuestionContentBox>
         </QuestionBox>
       </Box>

@@ -10,15 +10,16 @@ import { Contents } from '../components/Contents/Contents';
 
 interface QuestionsProp {
   pageType: PageType;
+  search?: string;
+  topicId?: number;
+  subTopicId?: number;
+  questionId?: number;
+  questionId2?: number;
 }
 
-interface urlParamsType {
-  topicId: string;
-  subTopicId: string;
-}
+export const Questions: FC<QuestionsProp> = ({ pageType, search, topicId, subTopicId, questionId, questionId2 }) => {
+  console.log({ pageType, search, topicId, subTopicId, questionId, questionId2 });
 
-export const Questions: FC<QuestionsProp> = () => {
-  const urlParams = useParams<urlParamsType>();
   return (
     <QuestionsContainer>
       <QuestionList topicID={+urlParams.topicId} subTopicID={+urlParams.subTopicId} />
