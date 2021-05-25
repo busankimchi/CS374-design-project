@@ -1,7 +1,7 @@
 import { FC } from 'react';
 import styled from 'styled-components';
-import { Drawer, Box, List,  Divider as DefaultDivider } from '@material-ui/core';
-import { H3, GRAY_1} from 'utils/themes';
+import { Drawer, Box, List, Divider as DefaultDivider } from '@material-ui/core';
+import { H3, GRAY_1 } from 'utils/themes';
 import { QuestionListElement } from './QuestionListElement';
 
 interface QuestionListHeaderProp {
@@ -14,7 +14,6 @@ export const QuestionList: FC = () => {
     topic: 'Project 1',
     subtopic: 'Alarm-Clock',
   };
-
 
   return (
     <QuestionListDrawer variant="permanent" anchor="left">
