@@ -6,10 +6,11 @@ import { MousePosition } from 'utils/types';
 interface ContextMenuProps {
   mouse: MousePosition;
   handleClose?: () => void;
-  onClickItem?: () => void;
+  onClickEdit?: () => void;
+  onClickDelete?: () => void;
 }
 
-export const ContextMenu: FC<ContextMenuProps> = ({ mouse, handleClose, onClickItem }) => {
+export const ContextMenu: FC<ContextMenuProps> = ({ mouse, handleClose, onClickEdit, onClickDelete }) => {
   return (
     <Menu
       keepMounted
@@ -18,8 +19,11 @@ export const ContextMenu: FC<ContextMenuProps> = ({ mouse, handleClose, onClickI
       anchorReference="anchorPosition"
       anchorPosition={mouse.y !== null && mouse.x !== null ? { top: mouse.y, left: mouse.x } : undefined}
     >
-      <MenuItem onClick={onClickItem}>
+      <MenuItem onClick={onClickEdit}>
         <ItemText>Edit Topic Name</ItemText>
+      </MenuItem>
+      <MenuItem onClick={onClickDelete}>
+        <ItemText>Delete Topic Name</ItemText>
       </MenuItem>
     </Menu>
   );
