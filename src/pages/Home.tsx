@@ -72,9 +72,11 @@ export const Home: FC = () => {
 
   const onDeleteTopic = () => {
     onCloseDeleteDialog();
-    if (topic?.subTopic === undefined) {
-      handleDelete();
-    } else if (topic.subTopic.length === 0) {
+    if (topic?.subTopic !== undefined) {
+      if (topic.subTopic.length === 0) {
+        handleDelete();
+      }
+    } else {
       handleDelete();
     }
   };
