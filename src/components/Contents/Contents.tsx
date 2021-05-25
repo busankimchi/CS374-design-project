@@ -28,6 +28,13 @@ export const Contents: FC<ContentsProp> = ({ questionId }) => {
     }
   }, [answers]);
 
+  const questionText: Array<JSX.Element> = [];
+
+  question.content.split("\n").forEach((line) => {
+    console.log(line);
+    questionText.push(<Box>{line}<br /></Box>)
+  })
+
   const answersElem: Array<JSX.Element> = [];
 
   if (answers.length === 0) {
@@ -94,7 +101,7 @@ export const Contents: FC<ContentsProp> = ({ questionId }) => {
             </QuestionTopBox>
             <QuestionBox>
               <QuestionTitleBox>Q{questionId}. {question.title}</QuestionTitleBox>
-              <QuestionContentBox>{question.content}</QuestionContentBox>
+              <QuestionContentBox>{questionText}</QuestionContentBox>
             </QuestionBox>
           </Box>
           <AnswerDivider />

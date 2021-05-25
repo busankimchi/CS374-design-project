@@ -10,12 +10,20 @@ interface AnswerDisplayProp {
 };
 
 export const AnswerDisplay: FC<AnswerDisplayProp> = ({ answer }) => {
+  const textElem: Array<JSX.Element> = [];
+
+  answer.content.split("\n").forEach((line) => {
+    console.log(line);
+    textElem.push(<Box>{line}<br /> </Box >)
+  })
+
   return (
     <AnswerBox>
       <UserInfo userName={answer.name} time={answer.time} image={answer.image} />
       <AnswerContentWrapper>
         <AnswerContentBox>
-          {answer.content}
+          {/* {answer.content.split("\n").join("</br>")} */}
+          {textElem}
         </AnswerContentBox>
       </AnswerContentWrapper>
     </AnswerBox>
