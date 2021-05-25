@@ -34,6 +34,7 @@ export enum PageType {
   ALL_QUESTONS,
   NORMAL,
   DUAL,
+  SEARCH,
 }
 export interface MousePosition {
   x: null | number;

@@ -98,6 +98,7 @@ export const Home: FC = () => {
         </Route>
         <Route exact path="/faq" render={() => <Questions pageType={PageType.FAQ} />} />
         <Route exact path="/all_questions" render={() => <Questions pageType={PageType.ALL_QUESTONS} />} />
+        <Route exact path="/search" render={() => <Questions pageType={PageType.SEARCH} />} />
         <Route
           exact
           path="/topic/:topicId/subtopic/:subTopicId"
