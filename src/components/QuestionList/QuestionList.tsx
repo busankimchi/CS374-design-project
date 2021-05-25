@@ -6,33 +6,40 @@ import { H3, GRAY, TRUNCATE_ONE } from 'utils/themes';
 import { dummyTopicList } from 'utils/dummyDatas';
 import { QuestionListElement } from './QuestionListElement';
 
+
 interface QuestionListHeaderProp {
   topicID: number;
   subTopicID: number;
+  isListShown: boolean;
 }
 
-export const QuestionList: FC<QuestionListHeaderProp> = ({ topicID, subTopicID }) => {
+export const QuestionList: FC<QuestionListHeaderProp> = ({ topicID, subTopicID,isListShown }) => {
   const topicInfo = dummyTopicList.find((topic) => topic.id === topicID) as Topic;
   const subTopicInfo = (topicInfo.subTopic as SubTopic[]).find((subtopic) => subtopic.id === subTopicID) as SubTopic;
-  return (
-    <QuestionListDrawer variant="permanent" anchor="left">
-      <QuestionListHeader>
-        <QuestionListHeaderText>
-          {topicInfo.topicName} {'>'} {subTopicInfo.subTopicName}
-        </QuestionListHeaderText>
-      </QuestionListHeader>
-      <Divider />
-      <QuestionListDrawerBody>
-        <QuestionListElement questionId={1} />
+  if (isListShown) {
+    return (
+      <QuestionListDrawer>
+        <QuestionListHeader>
+          <QuestionListHeaderText>
+            {topicInfo.topicName} {'>'} {subTopicInfo.subTopicName}
+          </QuestionListHeaderText>
+        </QuestionListHeader>
         <Divider />
-      </QuestionListDrawerBody>
-    </QuestionListDrawer>
-  );
-};
+        <QuestionListDrawerBody>
+          <QuestionListElement questionId={1} />
+          <Divider />
+        </QuestionListDrawerBody>
+      </QuestionListDrawer>
+    );
+  };
+  return (<div />);
+}
 
-const QuestionListDrawer = styled(Drawer)`
+
+
+const QuestionListDrawer = styled(Box)`
   .MuiDrawer-paperAnchorLeft {
-    width: 20%;
+    width: 10%;
     left: 15%;
     right: auto;
     top: 4vh;
