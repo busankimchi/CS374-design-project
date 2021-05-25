@@ -4,14 +4,14 @@ import { Box, Typography, ListItem, ListItemText, IconButton } from '@material-u
 import { PINK_3, H5, B2, B3, LIGHT_GRAY_1, TRUNCATE_TWO, TRUNCATE_ONE } from 'utils/themes';
 import { Icon } from '@iconify/react';
 import squareHalf from '@iconify-icons/bi/square-half';
-import { dummyQuestion } from '../../utils/dummyDatas';
+import { dummyQuestions } from '../../utils/dummyDatas';
 
 interface QuestionListElementProp {
   questionId: number;
 }
 
 export const QuestionListElement: FC<QuestionListElementProp> = ({ questionId }) => {
-  const question = dummyQuestion;
+  const question = dummyQuestions[0];
 
   return (
     <QuestionListElementContainer button>

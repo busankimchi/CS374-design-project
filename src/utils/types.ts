@@ -24,7 +24,6 @@ export interface Question {
 
 export interface Topic {
   id: number;
-  docId?: string;
   topicName: string;
   subTopic?: SubTopic[];
 }
@@ -32,6 +31,7 @@ export interface Topic {
 export interface SubTopic {
   id: number;
   subTopicName: string;
+  questions: number[];
 }
 
 export enum PageType {

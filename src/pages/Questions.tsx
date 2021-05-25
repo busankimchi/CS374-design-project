@@ -7,7 +7,7 @@ import { QuestionList } from 'components/QuestionList/QuestionList';
 import { Contents } from '../components/Contents/Contents';
 
 // import { NotSelected } from '../components/Contents/NotSelected';
-import { dummyQuestion } from '../utils/dummyDatas'
+import { dummyQuestions } from '../utils/dummyDatas'
 
 interface QuestionsProp {
   pageType: PageType;
@@ -24,8 +24,8 @@ export const Questions: FC<QuestionsProp> = ({ pageType, search, topicId, subTop
 
   return (
     <QuestionsContainer>
-      <QuestionList topicID={1} subTopicID={1} />
-      <Contents question={dummyQuestion} />
+      {/* <QuestionList topicID={1} subTopicID={1} /> */}
+      <Contents question={dummyQuestions[0]} />
       {/* <NotSelected /> */}
     </QuestionsContainer>
   );

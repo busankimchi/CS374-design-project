@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import { Drawer, Box, List, Divider as DefaultDivider, Typography } from '@material-ui/core';
 import { Topic, SubTopic } from 'utils/types';
 import { H3, GRAY, TRUNCATE_ONE } from 'utils/themes';
-import { dummyTopicList } from 'utils/dummyDatas';
+import { dummyTopics } from 'utils/dummyDatas';
 import { QuestionListElement } from './QuestionListElement';
 
 interface QuestionListHeaderProp {
@@ -12,7 +12,7 @@ interface QuestionListHeaderProp {
 }
 
 export const QuestionList: FC<QuestionListHeaderProp> = ({ topicID, subTopicID }) => {
-  const topicInfo = dummyTopicList.find((topic) => topic.id === topicID) as Topic;
+  const topicInfo = dummyTopics.find((topic) => topic.id === topicID) as Topic;
   const subTopicInfo = (topicInfo.subTopic as SubTopic[]).find((subtopic) => subtopic.id === subTopicID) as SubTopic;
   return (
     <QuestionListDrawer variant="permanent" anchor="left">
