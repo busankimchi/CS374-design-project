@@ -1,9 +1,8 @@
 import { FC, useEffect, useState } from 'react';
 import styled from 'styled-components';
-import { Drawer, Box, List, Divider as DefaultDivider, Typography } from '@material-ui/core';
+import { Box, List, Divider, Typography } from '@material-ui/core';
 import { Topic, SubTopic, Question } from 'utils/types';
-import { H3, GRAY, TRUNCATE_ONE } from 'utils/themes';
-import { dummyTopics } from 'utils/dummyDatas';
+import { H3, TRUNCATE_ONE } from 'utils/themes';
 import { useGetQuestionList } from 'apis/Question/useGetQuestionList';
 import { QuestionListElement } from './QuestionListElement';
 

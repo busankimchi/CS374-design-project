@@ -5,8 +5,6 @@ import { PINK_3, H5, B2, B3, LIGHT_GRAY_1, GRAY, TRUNCATE_TWO, TRUNCATE_ONE } fr
 import { Icon } from '@iconify/react';
 import squareHalf from '@iconify-icons/bi/square-half';
 import { Question } from 'utils/types';
-import { dummyQuestions } from '../../utils/dummyDatas';
-
 
 interface QuestionListElementProp {
   question: Question;
