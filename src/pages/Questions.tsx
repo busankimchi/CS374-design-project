@@ -23,13 +23,8 @@ export const Questions: FC<QuestionsProp> = ({ pageType, search, topicId, subTop
 
   return (
     <QuestionsContainer>
-<<<<<<< HEAD
-      <QuestionList topicID={topicId as number} subTopicID={subTopicId as number} />
-      <Contents questionId={questionId as number} />
-=======
       {/* <QuestionList topicID={topicId as number} subTopicID={subTopicId as number} /> */}
       <Contents questionId={1} />
->>>>>>> feeb1b600233e05c839149fdb6a7d21601cc8311
       {/* <NotSelected /> */}
     </QuestionsContainer>
   );
