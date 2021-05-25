@@ -10,13 +10,13 @@ import { AnswerDivider } from './AnswerDivider'
 import { FAQButton } from './FAQButton'
 import { AnswerDisplay } from './AnswerDisplay'
 import { NoAnswer } from './NoAnswer'
-import { Question, QuestionContent, AnswerContent } from '../../utils/types';
+import { Question, AnswerContent } from '../../utils/types';
 
 interface ContentsProp { question: Question };
 
 export const Contents: FC<ContentsProp> = ({ question }) => {
   const [text, setText] = useState("");
-  const [questionContent, _] = useState(question.question);
+  const questionContent = question.question;
   const [answers, setAnswers] = useState(question.answers);
   const [isFaq, setIsFaq] = useState(question.isFaq);
   const divRef = useRef<HTMLDivElement>(null);
