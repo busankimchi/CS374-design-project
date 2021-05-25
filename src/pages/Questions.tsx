@@ -1,4 +1,4 @@
-import { FC, useCallback, useEffect, useState } from 'react';
+import { FC, useState } from 'react';
 import styled from 'styled-components';
 import { Box } from '@material-ui/core';
 import { PageType } from 'utils/types';

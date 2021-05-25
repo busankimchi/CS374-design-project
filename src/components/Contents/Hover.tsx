@@ -1,13 +1,10 @@
 import { Button } from '@material-ui/core';
-import {useState} from 'react';
 // import DeleteIcon from '@material-ui/icons/Delete';
 import { Icon } from '@iconify/react';
 import styled from 'styled-components';
-import { Box } from '@material-ui/core';
 import { FC } from 'react';
-import { BROWN, H4, PINK_1, PINK_4 } from 'utils/themes';
+import { BROWN, } from 'utils/themes';
 import chevronRight from '@iconify-icons/akar-icons/chevron-right';
-import { QuestionList } from '../QuestionList/QuestionList';
 
 interface HoverProps {
   showQuestionList?: () => void;
