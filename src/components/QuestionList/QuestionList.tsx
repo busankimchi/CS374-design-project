@@ -1,9 +1,10 @@
 import { FC } from 'react';
 import styled from 'styled-components';
+import firebase from 'firebase';
 import { Drawer, Box, List, Divider as DefaultDivider, Typography } from '@material-ui/core';
 import { Topic, SubTopic } from 'utils/types';
 import { H3, GRAY, TRUNCATE_ONE } from 'utils/themes';
-import { dummyTopicList } from 'utils/dummyDatas';
+// import { dummyTopicList } from 'utils/dummyDatas';
 import { QuestionListElement } from './QuestionListElement';
 
 interface QuestionListHeaderProp {

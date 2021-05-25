@@ -22,8 +22,8 @@ export const Questions: FC<QuestionsProp> = ({ pageType, search, topicId, subTop
 
   return (
     <QuestionsContainer>
-      <QuestionList topicID={+urlParams.topicId} subTopicID={+urlParams.subTopicId} />
-      <Contents questionId={1} />
+      <QuestionList topicID={topicId as number} subTopicID={subTopicId as number} />
+      <Contents questionId={questionId as number} />
       {/* <NotSelected /> */}
     </QuestionsContainer>
   );
