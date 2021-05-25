@@ -1,9 +1,6 @@
 import firebase from 'firebase';
-<<<<<<< HEAD
 import 'firebase/firestore';
-=======
 import { Question, QuestionContent, AnswerContent } from './types'
->>>>>>> 4fb8fec9a417248d2d3e1e2cac357ad31fbf9fac
 
 export const timeForToday = (value: Date) => {
   const today = new Date();
