@@ -1,5 +1,7 @@
+
 import { makeStyles, Box } from '@material-ui/core';
 import { GRAY } from '../../utils/themes';
+
 
 const useStyles = makeStyles((theme) => ({
   container: {
@@ -16,10 +18,10 @@ const useStyles = makeStyles((theme) => ({
     paddingBottom: theme.spacing(0.5),
     paddingRight: theme.spacing(2),
     paddingLeft: theme.spacing(2),
-    fontWeight: 500,
-    fontSize: 24,
-    color: GRAY,
-  },
+    H2,
+    color: GRAY
+  }
+
 }));
 
 export const AnswerDivider = () => {

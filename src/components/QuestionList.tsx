@@ -1,6 +1,7 @@
 import { FC } from 'react';
 import styled from 'styled-components';
-import { Drawer, Box, List, ListItem, Divider } from '@material-ui/core';
+import { Drawer, Box, List, ListItem, ListItemText, Divider as DefaultDivider } from '@material-ui/core';
+import { H3, H5, B3, GRAY } from 'utils/themes';
 
 interface QuestionListHeaderProp {
   topic: string;
@@ -28,8 +29,18 @@ export const QuestionList: FC = () => {
       <QuestionListHeader>
         {QuestionListHeaderContent.topic} {'>'} {QuestionListHeaderContent.subtopic}
       </QuestionListHeader>
+      <Divider />
       <QuestionListDrawerBody>
-        <QuestionListElement button>{QuestionListElementContent.title}</QuestionListElement>
+        <QuestionListElement button>
+          <QuestionListElementTitle>
+            <ListItemText>
+              {QuestionListElementContent.title} <br />
+            </ListItemText>
+          </QuestionListElementTitle>
+          <QuestionListElementBody>
+            <ListItemText>{QuestionListElementContent.content}</ListItemText>
+          </QuestionListElementBody>
+        </QuestionListElement>
         <Divider />
       </QuestionListDrawerBody>
     </QuestionListDrawer>
@@ -37,6 +48,10 @@ export const QuestionList: FC = () => {
 };
 
 const QuestionListElement = styled(ListItem)`
+  padding: 0.2em 0.2em 0.2em 1em;
+  display: flex;
+  flex-direction: column;
+  alignItems: 'left';
   :hover {
     background-color: #cdcdcd;
   }
@@ -44,16 +59,35 @@ const QuestionListElement = styled(ListItem)`
     background-color: #{PINK_3};
   }
 `;
+
+const QuestionListElementBody = styled(Box)`
+  .MuiTypography-root {
+    ${B3};
+  }
+  white-space: pre-line;
+`;
+
+const QuestionListElementTitle = styled(Box)`
+.MuiTypography-root {
+  ${H5};
+}
+`;
+
 const QuestionListDrawer = styled(Drawer)`
   .MuiDrawer-paperAnchorLeft {
+    width: 25%;
     left: 15%;
     right: auto;
     top: 4vh;
   }
-  width: 25%;
 `;
 const QuestionListDrawerBody = styled(List)``;
 
 const QuestionListHeader = styled(Box)`
-  font-family: Lato;
+  padding: 1em;
+  ${H3}
+`;
+
+const Divider = styled(DefaultDivider)`
+  background-color: ${GRAY};
 `;
