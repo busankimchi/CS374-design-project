@@ -1,31 +1,44 @@
-import { FC } from 'react';
+import { FC, useEffect, useState } from 'react';
 import styled from 'styled-components';
-import firebase from 'firebase';
-import { Drawer, Box, List, Divider as DefaultDivider, Typography } from '@material-ui/core';
-import { Topic, SubTopic } from 'utils/types';
-import { H3, GRAY, TRUNCATE_ONE } from 'utils/themes';
-// import { dummyTopicList } from 'utils/dummyDatas';
+import { Drawer, Box, List, Typography } from '@material-ui/core';
+import { Topic, SubTopic, Question } from 'utils/types';
+import { H3, TRUNCATE_ONE } from 'utils/themes';
+import { useGetQuestionList } from 'apis/Question/useGetQuestionList';
 import { QuestionListElement } from './QuestionListElement';
 
 interface QuestionListHeaderProp {
-  topicID: number;
-  subTopicID: number;
+  topic: Topic;
+  subTopic: SubTopic;
 }
 
-export const QuestionList: FC<QuestionListHeaderProp> = ({ topicID, subTopicID }) => {
-  const topicInfo = dummyTopicList.find((topic) => topic.id === topicID) as Topic;
-  const subTopicInfo = (topicInfo.subTopic as SubTopic[]).find((subtopic) => subtopic.id === subTopicID) as SubTopic;
+export const QuestionList: FC<QuestionListHeaderProp> = ({ topic, subTopic }) => {
+  const [questionList, setQuestionList] = useState<Question[]>();
+  const questionIdList = subTopic.questionList as number[];
+  console.log('questionlist', {questionIdList, subTopic});
+
+  useEffect(()=> {
+    if (questionIdList !== undefined) {
+      const { questionList } = useGetQuestionList(questionIdList);
+      console.log('CHANGE!', {setQuestionList});
+      setQuestionList(questionList);
+    }
+  }, [questionIdList]);
+
+  
+
+  console.log('QuestionList ::::', subTopic);
+
+  const renderQuestionListElement = (item: Question) => <QuestionListElement question={item} />;
+
   return (
     <QuestionListDrawer variant="permanent" anchor="left">
       <QuestionListHeader>
         <QuestionListHeaderText>
-          {topicInfo.topicName} {'>'} {subTopicInfo.subTopicName}
+          {topic.topicName} {'>'} {subTopic.subTopicName}
         </QuestionListHeaderText>
       </QuestionListHeader>
-      <Divider />
       <QuestionListDrawerBody>
-        <QuestionListElement questionId={1} />
-        <Divider />
+        { questionList !== undefined && (questionList.map((item) => renderQuestionListElement(item)))}
       </QuestionListDrawerBody>
     </QuestionListDrawer>
   );
@@ -50,8 +63,4 @@ const QuestionListHeader = styled(Box)`
 const QuestionListHeaderText = styled(Typography)`
   ${H3};
   ${TRUNCATE_ONE};
-`;
-
-const Divider = styled(DefaultDivider)`
-  background-color: ${GRAY};
 `;

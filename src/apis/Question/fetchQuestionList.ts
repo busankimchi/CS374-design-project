@@ -1,12 +1,25 @@
 import firebase from 'firebase';
-import { QuestionContent, Topic } from 'utils/types';
+import { Question } from 'utils/types';
 
 interface FetchQuestionListResponse {
-    questionList: QuestionContent[];
-}
-
-export const fetchQuestionList = async (): Promise<FetchQuestionListResponse> => {
+    questionList: Question[];
+    maxQuestionId: number;
+  }
+  
+  export const fetchQuestionList = async (): Promise<FetchQuestionListResponse> => {
     const questionsRef = firebase.firestore().collection('questions');
-    const snapshot = await questionsRef.orderBy('questionID').get();
-    const questionList = snapshot.docs.map((doc) => doc.data() as );
-}
+    const snapshot = await questionsRef.orderBy('questionId').get();
+  
+    const questionList = snapshot.docs.map((doc) => {
+      const data = { ...doc.data() } as Question;
+      return data;
+    });
+  
+    const maxQuestionId = MaxIdfromArray(questionList);
+    
+    return { questionList, maxQuestionId };
+  };
+  
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const MaxIdfromArray = (array: any[]) => Math.max(...array.map((item) => item.id));
+  
