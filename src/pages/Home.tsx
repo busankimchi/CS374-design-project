@@ -63,8 +63,8 @@ export const Home: FC = () => {
   const onAddTopic = async () => {
     onCloseNewDialog();
     // TODO: add new topic to firebase
-    const newDocId = await addTopic({ topicName: addTopicValue, id: maxTopicId + 1 });
-    const newTopic: Topic = { topicName: addTopicValue, docId: newDocId, id: maxTopicId + 1 };
+    await addTopic({ topicName: addTopicValue, id: maxTopicId + 1 });
+    const newTopic: Topic = { topicName: addTopicValue, id: maxTopicId + 1 };
     const newTopicList = topicList.concat([newTopic]);
     setTopicList(newTopicList);
     setMaxTopicId(maxTopicId + 1);
