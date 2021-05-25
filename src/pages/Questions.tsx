@@ -38,7 +38,6 @@ export const Questions: FC<QuestionsProp> = ({ pageType, search, topicId, subTop
   useEffect(()=> {
     if (topicList.length > 0) {
       const newTopicInfo = topicList.find((topic) => topic.id === topicId) as Topic;
-      console.log('CHANGE!', {newTopicInfo})
       setTopicInfo(newTopicInfo);
     }
   }, [topicList]);
@@ -46,7 +45,6 @@ export const Questions: FC<QuestionsProp> = ({ pageType, search, topicId, subTop
   useEffect(()=> {
     if (topicInfo !== undefined) {
       const newSubTopicInfo = (topicInfo.subTopic as SubTopic[]).find((subtopic) => subtopic.id === subTopicId) as SubTopic;
-      console.log('CHANGE!', {newSubTopicInfo})
       setSubTopicInfo(newSubTopicInfo);
     }
   }, [topicInfo]);

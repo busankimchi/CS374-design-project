@@ -14,19 +14,14 @@ interface QuestionListHeaderProp {
 export const QuestionList: FC<QuestionListHeaderProp> = ({ topic, subTopic }) => {
   const [questionList, setQuestionList] = useState<Question[]>();
   const questionIdList = subTopic.questionList as number[];
-  console.log('questionlist', {questionIdList, subTopic});
 
-  useEffect(()=> {
+  useEffect(() => {
     if (questionIdList !== undefined) {
       const { questionList } = useGetQuestionList(questionIdList);
-      console.log('CHANGE!', {setQuestionList});
       setQuestionList(questionList);
     }
   }, [questionIdList]);
 
-  
-
-  console.log('QuestionList ::::', subTopic);
 
   const renderQuestionListElement = (item: Question) => <QuestionListElement question={item} />;
 
@@ -38,7 +33,7 @@ export const QuestionList: FC<QuestionListHeaderProp> = ({ topic, subTopic }) =>
         </QuestionListHeaderText>
       </QuestionListHeader>
       <QuestionListDrawerBody>
-        { questionList !== undefined && (questionList.map((item) => renderQuestionListElement(item)))}
+        {questionList !== undefined && questionList.map((item) => renderQuestionListElement(item))}
       </QuestionListDrawerBody>
     </QuestionListDrawer>
   );
