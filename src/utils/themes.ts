@@ -71,14 +71,8 @@ export const B3 = css`
   font-family: 'Lato', sans-serif !important;
   font-style: normal !important;
   font-weight: 300 !important;
-  font-size: 14px !important;
+  font-size: 12px !important;
 `;
-
-export const GRAY_1 = '#868686';
-
-export const GRAY_2 = '#F2F0F0';
-
-export const GRAY_3 = '#CDCDCD';
 
 export const rotation = (degree: number) =>
   css`
@@ -101,4 +95,18 @@ export const FADE_OUT = keyframes`
     100% {
         opacity: 0;
     }
+`;
+
+export const TRUNCATE_ONE = css`
+    display: -webkit-box;
+    -webkit-line-clamp: 1;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+`;
+
+export const TRUNCATE_TWO = css`
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
 `;

@@ -7,12 +7,12 @@ import { Icon } from '@iconify/react';
 import pinAngle from '@iconify-icons/bi/pin-angle';
 import pinAngleFill from '@iconify-icons/bi/pin-angle-fill';
 
-interface FAQButtonProp { 
+interface FAQButtonProp {
     isFaq: boolean,
     changeIsFaq: (arg0: boolean) => void,
 };
 
-export const FAQButton: FC<FAQButtonProp> = ({isFaq, changeIsFaq}) => {
+export const FAQButton: FC<FAQButtonProp> = ({ isFaq, changeIsFaq }) => {
     const handleClick = () => {
         changeIsFaq(isFaq);
     }
@@ -25,7 +25,7 @@ export const FAQButton: FC<FAQButtonProp> = ({isFaq, changeIsFaq}) => {
                 onClick={handleClick}
             >
                 Remove from FAQ
-        </CustonFAQButton>
+            </CustonFAQButton>
         );
     }
     return (
@@ -35,8 +35,8 @@ export const FAQButton: FC<FAQButtonProp> = ({isFaq, changeIsFaq}) => {
             onClick={handleClick}
         >
             Add to FAQ
-    </CustonFAQButton>
-    );       
+        </CustonFAQButton>
+    );
 };
 
 const CustonFAQButton = styled(Button)`
