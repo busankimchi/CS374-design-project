@@ -5,7 +5,7 @@ import { Box } from '@material-ui/core';
 import { NewTopicDialog, EditTopicDialog, DeleteTopicDialog, ContextMenu } from 'components/General';
 import { Header, MainDrawer } from 'components/BaseView';
 import { MousePosition, PageType, Topic } from 'utils/types';
-import { addTopic, deleteTopic, updateTopic } from 'apis/Topic';
+import { deleteTopic, updateTopic } from 'apis/Topic';
 import { useTopicList } from 'hooks/useTopicList';
 import { Questions } from './Questions';
 
@@ -62,9 +62,9 @@ export const Home: FC = () => {
 
   const onAddTopic = async () => {
     onCloseNewDialog();
-    // TODO: add new topic to firebase
-    const newDocId = await addTopic({ topicName: addTopicValue, id: maxTopicId + 1 });
-    const newTopic: Topic = { topicName: addTopicValue, docId: newDocId, id: maxTopicId + 1 };
+    const newTopic: Topic = { topicName: addTopicValue, id: maxTopicId + 1 };
+    await updateTopic(newTopic);
+
     const newTopicList = topicList.concat([newTopic]);
     setTopicList(newTopicList);
     setMaxTopicId(maxTopicId + 1);

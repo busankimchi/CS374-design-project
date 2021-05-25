@@ -1,3 +1,5 @@
+import firebase from 'firebase';
+
 export interface QuestionContent {
   topic: string;
   subtopic: string;
@@ -18,7 +20,6 @@ export interface AnswerContent {
 
 export interface Topic {
   id: number;
-  docId?: string;
   topicName: string;
   subTopic?: SubTopic[];
 }
@@ -26,6 +27,7 @@ export interface Topic {
 export interface SubTopic {
   id: number;
   subTopicName: string;
+  questionList?: number[];
 }
 
 export enum PageType {
@@ -39,4 +41,16 @@ export enum PageType {
 export interface MousePosition {
   x: null | number;
   y: null | number;
+}
+
+export interface HistoryQuery {
+  id: number;
+  history: string;
+  time: Date;
+}
+
+export interface HistoryQueryFB {
+  id: number;
+  history: string;
+  time: firebase.firestore.Timestamp;
 }

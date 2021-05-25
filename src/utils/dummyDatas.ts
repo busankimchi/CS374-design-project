@@ -1,4 +1,4 @@
-import { Topic, QuestionContent, AnswerContent } from './types';
+import { Topic, QuestionContent, AnswerContent, HistoryQuery } from './types';
 
 export const dummyTopicList: Topic[] = [
   {
@@ -75,12 +75,32 @@ export const dummyTopicList: Topic[] = [
   },
 ];
 
-export const dummySearchHistory: string[] = [
-  'hello',
-  'asdfgadsfasdfas',
-  'adsflkdsjflksadjflkdasjflk',
-  'alarm clock',
-  'semaphore',
+export const dummySearchHistory: HistoryQuery[] = [
+  {
+    id: 1,
+    history: 'hello',
+    time: new Date(),
+  },
+  {
+    id: 2,
+    history: 'asdfgadsfasdfas',
+    time: new Date(),
+  },
+  {
+    id: 3,
+    history: 'adsflkdsjflksadjflkdasjflk',
+    time: new Date(),
+  },
+  {
+    id: 4,
+    history: 'alarm clock',
+    time: new Date(),
+  },
+  {
+    id: 5,
+    history: 'semaphore',
+    time: new Date(),
+  },
 ];
 
 export const dummyQuestion: QuestionContent = {

@@ -74,6 +74,13 @@ export const B3 = css`
   font-size: 12px !important;
 `;
 
+export const B4 = css`
+  font-family: 'Lato', sans-serif !important;
+  font-style: normal !important;
+  font-weight: 500 !important;
+  font-size: 16px !important;
+`;
+
 export const rotation = (degree: number) =>
   css`
     transform: rotate(${degree}deg) !important;
@@ -98,15 +105,15 @@ export const FADE_OUT = keyframes`
 `;
 
 export const TRUNCATE_ONE = css`
-    display: -webkit-box;
-    -webkit-line-clamp: 1;
-    -webkit-box-orient: vertical;
-    overflow: hidden;
+  display: -webkit-box;
+  -webkit-line-clamp: 1;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
 `;
 
 export const TRUNCATE_TWO = css`
-    display: -webkit-box;
-    -webkit-line-clamp: 2;
-    -webkit-box-orient: vertical;
-    overflow: hidden;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
 `;
