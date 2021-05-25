@@ -1,4 +1,4 @@
-import { Topic, QuestionContent, AnswerContent } from './types';
+import { Topic, QuestionContent, AnswerContent, Question } from './types';
 
 export const dummyTopicList: Topic[] = [
   {
@@ -83,14 +83,12 @@ export const dummySearchHistory: string[] = [
   'semaphore',
 ];
 
-export const dummyQuestion: QuestionContent = {
-  questionId: 1,
-  topic: 'Project 1',
-  subtopic: 'Alarm-clock',
+export const dummyQuestionContent: QuestionContent = {
+
   name: 'Cheese Burger',
   image: 0,
   time: new Date(),
-  isFaq: true,
+
   title: "Regarding 'disk.c'",
   content:
     'I had a question regarding disk.c. When I added line thread_yield in sema_up, disk.c failed to boot. I looked around the code but I could not understand why it was failing. Is it possible to ask for explanation? I know that interrupt_handler for disk uses sema_up but it did not satisfy me. If possible, I would want to have more detailed information about it. I guess it might be due to idle_thread. Since at the beginning no task is there, idle is running. Can we call thread_yield in idle thread?\n\nThank you.',
@@ -169,5 +167,14 @@ export const dummyAnswers: Array<AnswerContent> = [
   },
 
 ];
+
+export const dummyQuestion: Question = {
+  questionId: 1,
+  topic: 'Project 1',
+  subtopic: 'Alarm-clock',
+  isFaq: true,
+  question: dummyQuestionContent,
+  answers: dummyAnswers,
+};
 
 export const testUserName = "Cheesy Pringles";

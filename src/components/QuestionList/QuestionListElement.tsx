@@ -19,15 +19,15 @@ export const QuestionListElement: FC<QuestionListElementProp> = ({ questionId })
         <Header>
           <Title>
             <ListItemText>
-              Q{questionId}. {question.title}
+              Q{questionId}. {question.question.title}
             </ListItemText>
           </Title>
-          <Time> {question.time.toDateString()}</Time>
+          <Time> {question.question.time.toDateString()}</Time>
         </Header>
 
         <Body>
           <BodyText>
-            <ListItemText>{question.content}</ListItemText>
+            <ListItemText>{question.question.content}</ListItemText>
           </BodyText>
         </Body>
       </Text>

@@ -7,18 +7,17 @@ import CloseIcon from '@material-ui/icons/Close';
 import { LIGHT_GRAY_1, H1, B1, B2 } from '../../utils/themes'
 import { UserInfo } from './UserInfo'
 import { AnswerDivider } from './AnswerDivider'
-import { dummyQuestion, dummyAnswers } from '../../utils/dummyDatas'
 import { FAQButton } from './FAQButton'
 import { AnswerDisplay } from './AnswerDisplay'
 import { NoAnswer } from './NoAnswer'
-import { AnswerContent } from '../../utils/types';
+import { Question, QuestionContent, AnswerContent } from '../../utils/types';
 
-interface ContentsProp { questionId: number; };
+interface ContentsProp { question: Question };
 
-export const Contents: FC<ContentsProp> = ({ questionId }) => {
+export const Contents: FC<ContentsProp> = ({ question }) => {
   const [text, setText] = useState("");
-  const [question, _] = useState(dummyQuestion);
-  const [answers, setAnswers] = useState(dummyAnswers);
+  const [questionContent, _] = useState(question.question);
+  const [answers, setAnswers] = useState(question.answers);
   const [isFaq, setIsFaq] = useState(question.isFaq);
   const divRef = useRef<HTMLDivElement>(null);
 
@@ -30,7 +29,7 @@ export const Contents: FC<ContentsProp> = ({ questionId }) => {
 
   const questionText: Array<JSX.Element> = [];
 
-  question.content.split("\n").forEach((line) => {
+  questionContent.content.split("\n").forEach((line) => {
     questionText.push(<Box>{line}<br /></Box>)
   })
 
@@ -94,11 +93,11 @@ export const Contents: FC<ContentsProp> = ({ questionId }) => {
               </CloseButton>
             </QuestionTopBox>
             <QuestionTopBox>
-              <UserInfo userName={question.name} time={question.time} image={question.image} />
+              <UserInfo userName={questionContent.name} time={questionContent.time} image={questionContent.image} />
               <FAQButton isFaq={isFaq} changeIsFaq={changeIsFaq} />
             </QuestionTopBox>
             <QuestionBox>
-              <QuestionTitleBox>Q{questionId}. {question.title}</QuestionTitleBox>
+              <QuestionTitleBox>Q{question.questionId}. {questionContent.title}</QuestionTitleBox>
               <QuestionContentBox>{questionText}</QuestionContentBox>
             </QuestionBox>
           </Box>
