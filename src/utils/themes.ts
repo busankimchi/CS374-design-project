@@ -71,7 +71,7 @@ export const B3 = css`
   font-family: 'Lato', sans-serif !important;
   font-style: normal !important;
   font-weight: 300 !important;
-  font-size: 14px !important;
+  font-size: 12px !important;
 `;
 
 export const rotation = (degree: number) =>
