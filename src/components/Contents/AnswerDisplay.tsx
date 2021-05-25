@@ -13,7 +13,6 @@ export const AnswerDisplay: FC<AnswerDisplayProp> = ({ answer }) => {
   const textElem: Array<JSX.Element> = [];
 
   answer.content.split("\n").forEach((line) => {
-    console.log(line);
     textElem.push(<Box>{line}<br /> </Box >)
   })
 

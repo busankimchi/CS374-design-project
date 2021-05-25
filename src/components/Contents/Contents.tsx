@@ -31,7 +31,6 @@ export const Contents: FC<ContentsProp> = ({ questionId }) => {
   const questionText: Array<JSX.Element> = [];
 
   question.content.split("\n").forEach((line) => {
-    console.log(line);
     questionText.push(<Box>{line}<br /></Box>)
   })
 
@@ -67,7 +66,6 @@ export const Contents: FC<ContentsProp> = ({ questionId }) => {
   }
 
   const answerSubmitHandler = () => {
-    console.log(text);
     if (text === "")
       return;
 

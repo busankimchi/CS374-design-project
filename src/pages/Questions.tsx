@@ -2,7 +2,7 @@ import { FC } from 'react';
 import styled from 'styled-components';
 import { Box } from '@material-ui/core';
 import { PageType } from 'utils/types';
-import { QuestionList } from 'components/QuestionList';
+import { QuestionList } from 'components/QuestionList/QuestionList';
 import { Contents } from '../components/Contents/Contents';
 // import { NotSelected } from '../components/Contents/NotSelected';
 
@@ -13,7 +13,7 @@ interface QuestionsProp {
 export const Questions: FC<QuestionsProp> = () => {
   return (
     <QuestionsContainer>
-      {/* <QuestionList /> */}
+      <QuestionList topicID={1} subTopicID={1} />
       <Contents questionId={1} />
       {/* <NotSelected /> */}
     </QuestionsContainer>
