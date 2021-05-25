@@ -1,4 +1,5 @@
 import { css, keyframes } from 'styled-components';
+import { colors } from '@material-ui/core';
 
 /* COLOR THEMES */
 export const BROWN = '#402424';
@@ -110,3 +111,5 @@ export const TRUNCATE_TWO = css`
     -webkit-box-orient: vertical;
     overflow: hidden;
 `;
+
+export const COLORS = [colors.amber[200], colors.blue[200], colors.blueGrey[200], colors.brown[200], colors.cyan[200], colors.deepOrange[200], colors.deepPurple[200], colors.green[200], colors.grey[200], colors.indigo[200], colors.lightBlue[200], colors.lightGreen[200], colors.lime[200], colors.orange[200], colors.pink[200], colors.purple[200], colors.red[200], colors.teal[200], colors.yellow[200]]
