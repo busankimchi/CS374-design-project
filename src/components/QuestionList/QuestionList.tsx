@@ -1,7 +1,7 @@
 import { FC } from 'react';
 import styled from 'styled-components';
 import { Drawer, Box, List, Divider as DefaultDivider } from '@material-ui/core';
-import { H3, GRAY_1 } from 'utils/themes';
+import { H3, GRAY } from 'utils/themes';
 import { QuestionListElement } from './QuestionListElement';
 
 interface QuestionListHeaderProp {
@@ -45,5 +45,5 @@ const QuestionListHeader = styled(Box)`
 `;
 
 const Divider = styled(DefaultDivider)`
-  background-color: ${GRAY_1};
+  background-color: ${GRAY};
 `;

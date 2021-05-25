@@ -8,6 +8,8 @@ import { AnswerDivider } from './AnswerDivider'
 import { dummyQuestion, dummyAnswers } from '../../utils/dummyDatas'
 import { FAQButton } from './FAQButton'
 import { AnswerDisplay } from './AnswerDisplay'
+import { NoAnswer } from './NoAnswer'
+import { H1, B1, B2 } from '../../utils/themes'
 
 interface QuestionIdProp { questionId: number; };
 
@@ -18,9 +20,13 @@ export const QnADisplay: FC<QuestionIdProp> = ({ questionId }) => {
 
   const answersElem: Array<JSX.Element> = [];
 
-  answers.forEach((answer) =>
-    answersElem.push(<AnswerDisplay answer={answer} />),
-  );
+  if (answers.length === 0) {
+    answersElem.push(<NoAnswer />);
+  } else {
+    answers.forEach((answer) =>
+      answersElem.push(<AnswerDisplay answer={answer} />),
+    );
+  }
 
   const [isFaq, setIsFaq] = useState(question.isFaq);
 
@@ -38,10 +44,10 @@ export const QnADisplay: FC<QuestionIdProp> = ({ questionId }) => {
     <QnADisplayBox>
       <Box>
         <QuestionTopBox>
-          <Breadcrumbs separator={<NavigateNextIcon style={{ fontSize: 14 }} />} aria-label="breadcrumb">
+          <TopicBreadcrumbs separator={<NavigateNextIcon style={{ fontSize: 14 }} />} aria-label="breadcrumb">
             <BreadcrumbElem color="textSecondary">{question.topic}</BreadcrumbElem>
             <BreadcrumbElem color="textSecondary">{question.subtopic}</BreadcrumbElem>
-          </Breadcrumbs>
+          </TopicBreadcrumbs>
           <CloseButton aria-label="close tab" onClick={closeTab}>
             <CloseIcon />
           </CloseButton>
@@ -80,21 +86,24 @@ const QuestionTopBox = styled(Box)`
 
 const QuestionTitleBox = styled(Box)`
   margin-left: 10px;
-  font-size: 36px;
-  font-weight: Bold;
+  ${H1};
 `;
 
 const QuestionContentBox = styled(Box)`
   margin: 10px;
-  font-size: 20px;
+  ${B1};
+`;
+
+const TopicBreadcrumbs = styled(Breadcrumbs)`
+  margin-top: 4px;
 `;
 
 const BreadcrumbElem = styled(Typography)`
-  margin-top: 4px;
-  font-size: 14px;
+  ${B2};
 `;
 
 const CloseButton = styled(IconButton)`
   width: 30px;
   height: 30px;
+  ${B2};
 `;

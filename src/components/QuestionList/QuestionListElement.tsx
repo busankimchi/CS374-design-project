@@ -1,7 +1,7 @@
 import { FC } from 'react';
 import styled from 'styled-components';
 import { Box, Typography, ListItem, ListItemText, IconButton } from '@material-ui/core';
-import { PINK_3, H5, B2, B3, GRAY_3, TRUNCATE_TWO } from 'utils/themes';
+import { PINK_3, H5, B2, B3, LIGHT_GRAY_1, TRUNCATE_TWO } from 'utils/themes';
 import { Icon } from '@iconify/react';
 import squareHalf from '@iconify-icons/bi/square-half';
 
@@ -50,7 +50,7 @@ const DoubleSidedViewButton = styled(IconButton)`
     border-radius: 0;
 }
   :hover {
-    background-color: ${GRAY_3};
+    background-color: ${LIGHT_GRAY_1};
   }
   :focus {
 

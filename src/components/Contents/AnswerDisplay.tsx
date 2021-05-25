@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import { Box } from '@material-ui/core';
 import { AnswerContent } from '../../utils/types';
 import { UserInfo } from './UserInfo'
-import { LIGHT_GRAY_1 } from '../../utils/themes'
+import { LIGHT_GRAY_1, B1 } from '../../utils/themes'
 
 interface AnswerDisplayProp {
   answer: AnswerContent,
@@ -35,5 +35,5 @@ const AnswerContentWrapper = styled(Box)`
 
 const AnswerContentBox = styled(Box)`
   margin-left: 15px;
-  font-size: 20px;
+  ${B1};
 `;
