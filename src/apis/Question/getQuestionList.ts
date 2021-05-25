@@ -1,5 +1,6 @@
 import firebase from 'firebase';
-import { Question } from 'utils/types';
+import { TimestampToDate } from 'utils/functions';
+import { Question, QuestionFB, AnswerContent, QuestionContent } from 'utils/types';
 
 export const getQuestionList = async (questionIds: number[]): Promise<Question[]> => {
   // const questionConverter = (item): Question => {
@@ -42,11 +43,16 @@ export const getQuestionList = async (questionIds: number[]): Promise<Question[]
   // });
   const questionListCustom = [] as Question[];
   snapshot.docs.filter((item) => {
-    const data = item.data() as Question;
-    if (questionIds.includes(data.questionId)) {
-      questionListCustom.push(data);
+    const { question, answers, ...rest } = item.data() as QuestionFB;
+    const questionContent = { ...question, time: TimestampToDate(question.time) } as QuestionContent;
+    const answerContents = answers.map((item) => ({ ...item, time: TimestampToDate(item.time) } as AnswerContent));
+
+    const finalQuestion = { question: questionContent, answers: answerContents, ...rest } as Question;
+
+    if (questionIds.includes(finalQuestion.questionId)) {
+      questionListCustom.push(finalQuestion);
     }
-    return data as Question;
+    return finalQuestion;
   });
 
   return questionListCustom;

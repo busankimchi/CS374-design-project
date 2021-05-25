@@ -40,14 +40,14 @@ export const Questions: FC<QuestionsProp> = ({ pageType, search, topicId, subTop
       const newTopicInfo = topicList.find((topic) => topic.id === topicId) as Topic;
       setTopicInfo(newTopicInfo);
     }
-  }, [topicList]);
+  }, [topicList, topicId, subTopicId]);
 
   useEffect(()=> {
     if (topicInfo !== undefined) {
       const newSubTopicInfo = (topicInfo.subTopic as SubTopic[]).find((subtopic) => subtopic.id === subTopicId) as SubTopic;
       setSubTopicInfo(newSubTopicInfo);
     }
-  }, [topicInfo]);
+  }, [topicInfo, topicId, subTopicId]);
 
   // console.log({topicInfo, subTopicInfo});
 

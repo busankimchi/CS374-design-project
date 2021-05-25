@@ -1,7 +1,17 @@
+import firebase from 'firebase';
+
 export interface QuestionContent {
   name: string;
   image: number;
   time: Date;
+  title: string;
+  content: string;
+}
+
+export interface QuestionContentFB {
+  name: string;
+  image: number;
+  time: firebase.firestore.Timestamp;
   title: string;
   content: string;
 }
@@ -13,6 +23,13 @@ export interface AnswerContent {
   content: string;
 }
 
+export interface AnswerContentFB {
+  name: string;
+  image: number;
+  time: firebase.firestore.Timestamp;
+  content: string;
+}
+
 export interface Question {
   questionId: number;
   topic: string;
@@ -20,6 +37,15 @@ export interface Question {
   isFaq: boolean;
   question: QuestionContent;
   answers: Array<AnswerContent>;
+}
+
+export interface QuestionFB {
+  questionId: number;
+  topic: string;
+  subtopic: string;
+  isFaq: boolean;
+  question: QuestionContentFB;
+  answers: Array<AnswerContentFB>;
 }
 
 export interface Topic {

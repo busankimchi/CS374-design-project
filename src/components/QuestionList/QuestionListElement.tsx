@@ -11,6 +11,9 @@ interface QuestionListElementProp {
 }
 
 export const QuestionListElement: FC<QuestionListElementProp> = ({ question }) => {
+  // console.log(question.question.time);
+
+  // console.log(TimestampToDate(DateToTimestamp(question.question.time)));
   return (
     <QuestionListElementContainer button>
       <Text>

@@ -1,4 +1,5 @@
 import firebase from 'firebase';
+import 'firebase/firestore';
 
 export const timeForToday = (value: Date) => {
   const today = new Date();

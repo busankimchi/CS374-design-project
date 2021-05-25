@@ -9,9 +9,11 @@ interface FetchQuestionListResponse {
   export const fetchQuestionList = async (): Promise<FetchQuestionListResponse> => {
     const questionsRef = firebase.firestore().collection('questions');
     const snapshot = await questionsRef.orderBy('questionId').get();
-  
+    
+
+    // TODO: convert Timestamp to Date
     const questionList = snapshot.docs.map((doc) => {
-      const data = { ...doc.data() } as Question;
+      const data = { ...doc.data(),  } as Question;
       return data;
     });
   
