@@ -11,6 +11,7 @@ import { FAQButton } from './FAQButton'
 import { AnswerDisplay } from './AnswerDisplay'
 import { NoAnswer } from './NoAnswer'
 import { Question, AnswerContent } from '../../utils/types';
+import { updateIsFaq } from '../../apis/Question/updateIsFaq'
 
 interface ContentsProp { question: Question };
 
@@ -45,13 +46,12 @@ export const Contents: FC<ContentsProp> = ({ question }) => {
 
   /* Listeners */
   const changeIsFaq = () => {
+    updateIsFaq(!isFaq, question.questionId);
     setIsFaq(!isFaq);
-    // TODO: Do some more things for firebase
   }
 
   const closeTab = () => {
     // TODO: Navigate to 'nothing selected' page
-    // alert("Close tab!");
   }
 
   const onTextareaChange = (evt: ChangeEvent<HTMLInputElement>) => {

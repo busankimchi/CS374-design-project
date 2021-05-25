@@ -84,11 +84,9 @@ export const dummySearchHistory: string[] = [
 ];
 
 export const dummyQuestionContent: QuestionContent = {
-
   name: 'Cheese Burger',
   image: 0,
   time: new Date(),
-
   title: "Regarding 'disk.c'",
   content:
     'I had a question regarding disk.c. When I added line thread_yield in sema_up, disk.c failed to boot. I looked around the code but I could not understand why it was failing. Is it possible to ask for explanation? I know that interrupt_handler for disk uses sema_up but it did not satisfy me. If possible, I would want to have more detailed information about it. I guess it might be due to idle_thread. Since at the beginning no task is there, idle is running. Can we call thread_yield in idle thread?\n\nThank you.',
