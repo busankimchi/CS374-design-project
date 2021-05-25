@@ -1,8 +1,8 @@
 import { FC } from 'react';
 import styled from 'styled-components';
-import { Drawer, Box, List, Divider as DefaultDivider } from '@material-ui/core';
+import { Drawer, Box, List, Divider as DefaultDivider, Typography } from '@material-ui/core';
 import { Topic, SubTopic } from 'utils/types';
-import { H3, GRAY } from 'utils/themes';
+import { H3, GRAY, TRUNCATE_ONE } from 'utils/themes';
 import { dummyTopicList } from 'utils/dummyDatas';
 import { QuestionListElement } from './QuestionListElement';
 
@@ -17,7 +17,9 @@ export const QuestionList: FC<QuestionListHeaderProp> = ({ topicID, subTopicID }
   return (
     <QuestionListDrawer variant="permanent" anchor="left">
       <QuestionListHeader>
-        {topicInfo.topicName} {'>'} {subTopicInfo.subTopicName}
+        <QuestionListHeaderText>
+          {topicInfo.topicName} {'>'} {subTopicInfo.subTopicName}
+        </QuestionListHeaderText>
       </QuestionListHeader>
       <Divider />
       <QuestionListDrawerBody>
@@ -36,11 +38,17 @@ const QuestionListDrawer = styled(Drawer)`
     top: 4vh;
   }
 `;
-const QuestionListDrawerBody = styled(List)``;
+const QuestionListDrawerBody = styled(List)`
+  padding: 0;
+`;
 
 const QuestionListHeader = styled(Box)`
   padding: 1em;
-  ${H3}
+`;
+
+const QuestionListHeaderText = styled(Typography)`
+  ${H3};
+  ${TRUNCATE_ONE};
 `;
 
 const Divider = styled(DefaultDivider)`
