@@ -43,6 +43,7 @@ const QuestionListElementContainer = styled(ListItem)`
   padding: 0;
   display: flex;
   alignitems: left;
+  justify-content: space-between;
   :hover {
     background-color: rgba(205, 205, 205, 0.3);
   }
@@ -59,6 +60,7 @@ const QuestionListElementContainer = styled(ListItem)`
 const Text = styled(Box)`
   margin-left: 1em;
   margin-bottom: 0.3em;
+  width: 75%;
   display: flex;
   flex-direction: column;
 `;
@@ -77,7 +79,7 @@ const Title = styled(Box)`
 `;
 
 const Time = styled(Box)`
-  width: 5em;
+  width: 7.5em;
   margin-right: 0.1em;
   ${B3}
 `;
@@ -100,6 +102,7 @@ const DoubleSidedViewButton = styled(IconButton)`
   padding: 1em 0.1em 1em 0.1em;
   height: 100%;
   margin-left: 0.2em;
+  margin-right: 0.1em;
   .MuiIconButton-root {
     border-radius: 0;
   }
