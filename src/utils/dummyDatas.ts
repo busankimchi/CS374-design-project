@@ -165,7 +165,6 @@ export const dummyAnswers: Array<AnswerContent> = [
     content:
       'You can look at this also, \n\nhttps://stackoverflow.com/questions/1053572/why-kernel-code-thread-executing-in-interrupt-context-cannot-sleep\nAnd the comment says that the sema_up function can be called in an interrupt context. (https://github.com/casys-kaist/pintos-kaist/blob/8e59f2e37badee2259a8fe058ed048fd60f6f728/threads/synch.c#L104) So you need to properly call thread_yield function based on context.',
   },
-
 ];
 
 export const dummyQuestion: Question = {
