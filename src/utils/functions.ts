@@ -1,4 +1,5 @@
 import firebase from 'firebase';
+import 'firebase/firestore';
 import { Question, QuestionContent, AnswerContent } from './types'
 
 export const timeForToday = (value: Date) => {

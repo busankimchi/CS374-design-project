@@ -1,4 +1,4 @@
-import { FC, useEffect, useState } from 'react';
+import { FC } from 'react';
 import styled from 'styled-components';
 import { Box, List, Typography } from '@material-ui/core';
 import { Topic, SubTopic, Question } from 'utils/types';
@@ -6,23 +6,22 @@ import { H3, TRUNCATE_ONE } from 'utils/themes';
 import { useGetQuestionList } from 'apis/Question/useGetQuestionList';
 import { QuestionListElement } from './QuestionListElement';
 
-
 interface QuestionListHeaderProp {
   topic: Topic;
   subTopic: SubTopic;
 }
 
 export const QuestionList: FC<QuestionListHeaderProp> = ({ topic, subTopic }) => {
-  const [questionList, setQuestionList] = useState<Question[]>();
+  // const [questionList, setQuestionList] = useState<Question[]>();
   const questionIdList = subTopic.questionList as number[];
-
-  useEffect(() => {
-    if (questionIdList !== undefined) {
-      const { questionList } = useGetQuestionList(questionIdList);
-      setQuestionList(questionList);
-    }
-  }, [questionIdList]);
-
+  const {questionList} = useGetQuestionList(questionIdList);
+  
+  // useEffect(() => {
+  //   if (questionIdList !== undefined) {
+  //     const { questionList } = useGetQuestionList(questionIdList);
+  //     setQuestionList(questionList);
+  //   }
+  // }, [questionIdList]);
 
   const renderQuestionListElement = (item: Question) => <QuestionListElement question={item} />;
 
