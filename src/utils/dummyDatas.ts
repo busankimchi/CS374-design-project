@@ -277,7 +277,7 @@ export const dummyQuestions: Array<Question> = [
       {
         name: 'Enthusiasted Tortoise',
         image: 1,
-        time: new Date('2021-04-2T09:51:14'),
+        time: new Date('2021-04-02T09:51:14'),
         content: 'Sorry for the inconsistency. We have updated the manual and klms. You are supposed to upload team{Number}.tar.gz (no underbar).',
       }
     ],
@@ -732,7 +732,7 @@ export const dummyQuestions: Array<Question> = [
       {
         name: 'Red Doge',
         image: 18,
-        time: new Date('2021-04-26T16:70:26'),
+        time: new Date('2021-04-26T16:40:26'),
         content: "Then, can our final score(lab + final exam score) be > 100 ?\nIf it is, I think it's not an extra credit since it is relative grading...",
       },
       {

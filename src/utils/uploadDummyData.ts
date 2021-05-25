@@ -1,8 +1,10 @@
 import firebase from 'firebase';
 import { dummyQuestions, dummyTopics } from './dummyDatas'
+import { DateToTimestamp } from './functions'
 
 export const uploadDummyQuestions = () => {
     dummyQuestions.forEach((dummyQuestion) => {
+        console.log(`Uploading ${dummyQuestion.questionId}`)
         const ans: Array<Record<string, unknown>> = []
 
         dummyQuestion.answers.forEach((answer) => {
@@ -22,7 +24,7 @@ export const uploadDummyQuestions = () => {
             question: {
                 name: dummyQuestion.question.name,
                 image: dummyQuestion.question.image,
-                time: dummyQuestion.question.time,
+                time: DateToTimestamp(dummyQuestion.question.time),
                 title: dummyQuestion.question.title,
                 content: dummyQuestion.question.content,
             },

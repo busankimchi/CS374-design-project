@@ -1,16 +1,16 @@
-import React from 'react';
+// import React from 'react';
 import { Home } from 'pages/Home';
 import { Router } from 'react-router-dom';
 import './utils/firebase';
 import { createBrowserHistory } from 'history';
 // import logo from './logo.svg';
-import { uploadDummyQuestions, uploadDummyTopics } from './utils/uploadDummyData'
+// import { uploadDummyQuestions, uploadDummyTopics } from './utils/uploadDummyData'
 
 const history = createBrowserHistory();
 
 const App = () => {
   // uploadDummyTopics();
-  uploadDummyQuestions();
+  // uploadDummyQuestions();
   return (
     <Router history={history}>
       <Home />
