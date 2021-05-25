@@ -7,7 +7,7 @@ import { QuestionList } from 'components/QuestionList/QuestionList';
 import { useTopicList } from 'hooks/useTopicList';
 import { Contents } from '../components/Contents/Contents';
 // import { NotSelected } from '../components/Contents/NotSelected';
-import { dummyQuestion } from '../utils/dummyDatas';
+import { dummyQuestions } from '../utils/dummyDatas'
 
 interface QuestionsProp {
   pageType: PageType;
@@ -35,14 +35,14 @@ export const Questions: FC<QuestionsProp> = ({ pageType, search, topicId, subTop
   // console.log({topicInfo});
   // const subTopicInfo = (topicInfo.subTopic as SubTopic[]).find((subtopic) => subtopic.id === subTopicId) as SubTopic;
 
-  useEffect(()=> {
+  useEffect(() => {
     if (topicList.length > 0) {
       const newTopicInfo = topicList.find((topic) => topic.id === topicId) as Topic;
       setTopicInfo(newTopicInfo);
     }
   }, [topicList]);
 
-  useEffect(()=> {
+  useEffect(() => {
     if (topicInfo !== undefined) {
       const newSubTopicInfo = (topicInfo.subTopic as SubTopic[]).find((subtopic) => subtopic.id === subTopicId) as SubTopic;
       setSubTopicInfo(newSubTopicInfo);
@@ -55,9 +55,9 @@ export const Questions: FC<QuestionsProp> = ({ pageType, search, topicId, subTop
   return (
     <QuestionsContainer>
       {topicInfo !== undefined && subTopicInfo !== undefined && <QuestionList topic={topicInfo} subTopic={subTopicInfo} />}
-      <Contents question={dummyQuestion} />
+      <Contents question={dummyQuestions[0]} />
       {/* <NotSelected /> */}
-    </QuestionsContainer>
+    </QuestionsContainer >
   );
 };
 

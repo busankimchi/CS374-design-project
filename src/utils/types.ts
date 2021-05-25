@@ -24,7 +24,6 @@ export interface Question {
 
 export interface Topic {
   id: number;
-  docId?: string;
   topicName: string;
   subTopic?: SubTopic[];
 }

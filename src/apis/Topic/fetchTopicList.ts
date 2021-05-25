@@ -12,7 +12,7 @@ export const fetchTopicList = async (): Promise<FetchTopicListResponse> => {
   const snapshot = await topicsRef.orderBy('id').get();
 
   const topicList = snapshot.docs.map((doc) => {
-    const data = { ...doc.data(), docId: doc.id } as Topic;
+    const data = { ...doc.data() } as Topic;
     return data;
   });
 
