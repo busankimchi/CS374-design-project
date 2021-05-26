@@ -16,9 +16,17 @@ interface QuestionListElementProp {
   question: Question;
   topicId: number;
   subTopicId: number;
+  onHoverIn?: () => void;
+  onHoverOut?: () => void;
 }
 
-export const QuestionListElement: FC<QuestionListElementProp> = ({ question, topicId, subTopicId }) => {
+export const QuestionListElement: FC<QuestionListElementProp> = ({
+  question,
+  topicId,
+  subTopicId,
+  onHoverIn,
+  onHoverOut,
+}) => {
   const [shadowPreview, setShadowPreview] = useState(true);
 
   const notAnswered: boolean = (question.answers.length === 0);
@@ -28,7 +36,7 @@ export const QuestionListElement: FC<QuestionListElementProp> = ({ question, top
   };
   return (
     <Link to={`/topic/${topicId}/subTopic/${subTopicId}/question/${question.questionId}`}>
-      <QuestionListElementContainer button>
+      <QuestionListElementContainer button onMouseEnter={onHoverIn} onMouseLeave={onHoverOut}>
         <Text>
           <Header>
             <Title notAnswered={notAnswered}>

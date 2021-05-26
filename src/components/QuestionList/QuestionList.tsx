@@ -1,62 +1,71 @@
 import { FC } from 'react';
 import styled from 'styled-components';
-
 import { Box, List, Typography } from '@material-ui/core';
 import { H3, TRUNCATE_ONE, LIGHT_GRAY_1 } from 'utils/themes';
 // import { dummyTopicList } from 'utils/dummyDatas';
 import { Topic, SubTopic, Question } from 'utils/types';
-
 import { useGetQuestionList } from 'apis/Question/useGetQuestionList';
-
+import { Hover } from 'components/Contents';
 import { QuestionListElement } from './QuestionListElement';
 
 interface QuestionListHeaderProp {
   topic: Topic;
   subTopic: SubTopic;
   isListShown: boolean;
+  onToggle?: () => void;
+  onHoverIn?: () => void;
+  onHoverOut?: () => void;
 }
 
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
-export const QuestionList: FC<QuestionListHeaderProp> = ({ topic, subTopic, isListShown }) => {
-  // const [questionList, setQuestionList] = useState<Question[]>();
+export const QuestionList: FC<QuestionListHeaderProp> = ({
+  topic,
+  subTopic,
+  isListShown,
+  onToggle,
+  onHoverIn,
+  onHoverOut,
+}) => {
   const questionIdList = subTopic.questionList as number[];
   const { questionList } = useGetQuestionList(questionIdList);
 
-  // useEffect(() => {
-  //   if (questionIdList !== undefined) {
-  //     const { questionList } = useGetQuestionList(questionIdList);
-  //     setQuestionList(questionList);
-  //   }
-  // }, [questionIdList]);
-
   const renderQuestionListElement = (item: Question) => (
-    <QuestionListElement question={item} topicId={topic.id} subTopicId={subTopic.id} />
+    <QuestionListElement
+      question={item}
+      topicId={topic.id}
+      subTopicId={subTopic.id}
+      onHoverIn={onHoverIn}
+      onHoverOut={onHoverOut}
+    />
   );
 
   return (
-    <QuestionListDrawer>
-      <QuestionListHeader>
-        <QuestionListHeaderText>
-          {topic.topicName} {'>'} {subTopic.subTopicName}
-        </QuestionListHeaderText>
-      </QuestionListHeader>
-      <QuestionListDrawerBody>
-        {questionList !== undefined && questionList.map((item) => renderQuestionListElement(item))}
-      </QuestionListDrawerBody>
-    </QuestionListDrawer>
+    <QuestionListContainer>
+      <QuestionListDrawer isListShown={isListShown}>
+        <QuestionListHeader>
+          <QuestionListHeaderText>
+            {topic.topicName} {'>'} {subTopic.subTopicName}
+          </QuestionListHeaderText>
+        </QuestionListHeader>
+        <QuestionListDrawerBody>
+          {questionList !== undefined && questionList.map((item) => renderQuestionListElement(item))}
+        </QuestionListDrawerBody>
+      </QuestionListDrawer>
+
+      <Hover showQuestionList={onToggle} iconFlip={isListShown} />
+    </QuestionListContainer>
   );
 };
 
-const QuestionListDrawer = styled(Box)`
-  /*.MuiDrawer-paperAnchorLeft {
-    width: 10%;
-    left: 15%;
-    right: auto;
-    top: 4vh;
-  }
-  */
-  width: 15vw;
+const QuestionListContainer = styled(Box)`
+  display: flex;
 `;
+
+const QuestionListDrawer = styled(Box)<{ isListShown: boolean }>`
+  width: ${({ isListShown }) => (isListShown ? '20em' : '0em')};
+  opacity: ${({ isListShown }) => (isListShown ? '1' : '0')};
+  transition: all 0.15s ease-in-out !important;
+`;
+
 const QuestionListDrawerBody = styled(List)`
   padding: 0;
 `;
@@ -65,7 +74,7 @@ const QuestionListHeader = styled(Box)`
   padding: 1em;
   border-bottom: solid;
   border-width: 2px;
-  border-bottom-color: ${LIGHT_GRAY_1} ;
+  border-bottom-color: ${LIGHT_GRAY_1};
 `;
 
 const QuestionListHeaderText = styled(Typography)`
