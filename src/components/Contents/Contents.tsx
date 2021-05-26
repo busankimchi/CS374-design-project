@@ -17,10 +17,9 @@ import { appendAnswerDB } from '../../apis/Question/appendAnswerDB';
 interface ContentsProp {
   question: Question;
   closeThisContent?: () => void;
-  isContentOpen: boolean;
 }
 
-export const Contents: FC<ContentsProp> = ({ question, closeThisContent, isContentOpen }) => {
+export const Contents: FC<ContentsProp> = ({ question, closeThisContent }) => {
   const [text, setText] = useState('');
 
   const questionContent = question.question;
@@ -85,8 +84,6 @@ export const Contents: FC<ContentsProp> = ({ question, closeThisContent, isConte
 
     setText('');
   };
-
-  if (!isContentOpen) return <div />;
 
   return (
     <ContentBox>
