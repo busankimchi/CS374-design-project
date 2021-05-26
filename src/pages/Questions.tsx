@@ -2,13 +2,18 @@
 import { FC, useEffect, useState } from 'react';
 import { useHistory } from 'react-router';
 import styled from 'styled-components';
-import { Backdrop, Box, Fade, Paper } from '@material-ui/core';
+import { Backdrop, Box, Fade, Paper, Typography } from '@material-ui/core';
 import { PageType, Topic, SubTopic } from 'utils/types';
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 import { QuestionList } from 'components/QuestionList/QuestionList';
 import { Hover, Contents, NotSelected } from 'components/Contents';
 import { useTopicList } from 'hooks/useTopicList';
+import { H1 } from 'utils/themes';
 import { dummyQuestions } from '../utils/dummyDatas';
+import { QuestionNormal } from './QuestionNormal';
+import { QuestionDouble } from './QuestionDouble';
+import { QuestionDefault } from './QuestionDefault';
+import { QuestionSearch } from './QuestionSearch';
 
 interface QuestionsProp {
   pageType: PageType;
@@ -23,65 +28,75 @@ export const Questions: FC<QuestionsProp> = ({ pageType, search, topicId, subTop
   // eslint-disable-next-line no-console
   console.log({ pageType, search, topicId, subTopicId, questionId, questionId2 });
 
-  const history = useHistory();
-
   const [isListShown, setListShown] = useState(false);
   const [isHover, setHover] = useState(false);
 
-  const [topicInfo, setTopicInfo] = useState<Topic>();
-  const [subTopicInfo, setSubTopicInfo] = useState<SubTopic>();
+  const onHoverIn = () => setHover(true);
+  const onHoverOut = () => setHover(false);
+  const onToggle = () => setListShown(!isListShown);
 
-  const { topicList } = useTopicList();
-  // console.log({topicList});
-  // const topicInfo = topicList.find((topic) => topic.id === topicId) as Topic;
-  // console.log({topicInfo});
-  // const subTopicInfo = (topicInfo.subTopic as SubTopic[]).find((subtopic) => subtopic.id === subTopicId) as SubTopic;
-
-  useEffect(() => {
-    if (topicList.length > 0) {
-      const newTopicInfo = topicList.find((topic) => topic.id === topicId) as Topic;
-      setTopicInfo(newTopicInfo);
-    }
-  }, [topicList, topicId, subTopicId]);
-
-  useEffect(() => {
-    if (topicInfo !== undefined) {
-      const newSubTopicInfo = (topicInfo.subTopic as SubTopic[]).find(
-        (subtopic) => subtopic.id === subTopicId,
-      ) as SubTopic;
-      setSubTopicInfo(newSubTopicInfo);
-    }
-  }, [topicInfo, topicId, subTopicId]);
-
-  const onCloseLeftContent = () => {
-    history.push(`/topic/${topicId}/subtopic/${subTopicId}/question/${questionId}`);
-  };
-
-  const onCloseRightContent = () => {
-    history.push(`/topic/${topicId}/subtopic/${subTopicId}/question/${questionId2}`);
-  };
+  if (pageType === PageType.NORMAL) {
+    return (
+      <QuestionNormal
+        topicId={topicId as number}
+        subTopicId={subTopicId as number}
+        questionId={questionId}
+        isListShown={isListShown}
+        isHover={isHover}
+        onToggle={onToggle}
+        onHoverIn={onHoverIn}
+        onHoverOut={onHoverOut}
+      />
+    );
+  }
+  if (pageType === PageType.DUAL) {
+    <QuestionDouble
+      topicId={topicId as number}
+      subTopicId={subTopicId as number}
+      questionId={questionId as number}
+      questionId2={questionId2 as number}
+      isListShown={isListShown}
+      isHover={isHover}
+      onToggle={onToggle}
+      onHoverIn={onHoverIn}
+      onHoverOut={onHoverOut}
+    />;
+  } else if (pageType === PageType.SEARCH) {
+    <QuestionSearch
+      pageType={PageType.SEARCH}
+      search={search as string}
+      isHover={isHover}
+      isListShown={isListShown}
+      onToggle={onToggle}
+      onHoverIn={onHoverIn}
+      onHoverOut={onHoverOut}
+    />;
+  } else if (pageType === PageType.FAQ) {
+    <QuestionDefault
+      pageType={PageType.FAQ}
+      isFAQ
+      isHover={isHover}
+      isListShown={isListShown}
+      onToggle={onToggle}
+      onHoverIn={onHoverIn}
+      onHoverOut={onHoverOut}
+    />;
+  } else if (pageType === PageType.ALL_QUESTONS) {
+    <QuestionDefault
+      pageType={PageType.ALL_QUESTONS}
+      isFAQ={false}
+      isHover={isHover}
+      isListShown={isListShown}
+      onToggle={onToggle}
+      onHoverIn={onHoverIn}
+      onHoverOut={onHoverOut}
+    />;
+  }
 
   return (
-    <QuestionsContainer>
-      <QuestionDetails>
-        {topicInfo !== undefined && subTopicInfo !== undefined && (
-          <QuestionList
-            topic={topicInfo}
-            subTopic={subTopicInfo}
-            isListShown={isListShown}
-            onToggle={() => setListShown(!isListShown)}
-            onHoverIn={() => setHover(true)}
-            onHoverOut={() => setHover(false)}
-          />
-        )}
-
-        {/* {questionId === undefined && <NotSelected />} */}
-        {questionId !== undefined && <Contents question={dummyQuestions[0]} closeThisContent={onCloseLeftContent} />}
-        {questionId2 !== undefined && <Contents question={dummyQuestions[1]} closeThisContent={onCloseRightContent} />}
-      </QuestionDetails>
-
-      {isHover && <DoubleSidedPaper open={isHover} />}
-    </QuestionsContainer>
+    <Nothing>
+      <NothingText>PAGE NOT FOUND!</NothingText>
+    </Nothing>
   );
 };
 
@@ -95,7 +110,17 @@ const QuestionDetails = styled(Box)`
 `;
 
 const DoubleSidedPaper = styled(Backdrop)`
-  position: reletive;
+  position: relative;
   left: 50%;
-  /* z-index: 999; */
+  z-index: 999999999;
+`;
+
+const Nothing = styled(Box)`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+`;
+
+const NothingText = styled(Typography)`
+  ${H1}
 `;

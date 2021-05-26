@@ -10,7 +10,7 @@ import squareHalf from '@iconify-icons/bi/square-half';
 import { Question } from 'utils/types';
 import { Link as DefaultLink } from 'react-router-dom';
 
-import { timeForToday } from '../../utils/functions'
+import { timeForToday } from '../../utils/functions';
 
 interface QuestionListElementProp {
   question: Question;
@@ -18,6 +18,7 @@ interface QuestionListElementProp {
   subTopicId: number;
   onHoverIn?: () => void;
   onHoverOut?: () => void;
+  onSelected?: (item: Question) => void;
 }
 
 export const QuestionListElement: FC<QuestionListElementProp> = ({
@@ -26,17 +27,27 @@ export const QuestionListElement: FC<QuestionListElementProp> = ({
   subTopicId,
   onHoverIn,
   onHoverOut,
+  onSelected,
 }) => {
   const [shadowPreview, setShadowPreview] = useState(true);
 
-  const notAnswered: boolean = (question.answers.length === 0);
+  const notAnswered: boolean = question.answers.length === 0;
 
   const setShadow = () => {
     setShadowPreview(!shadowPreview);
   };
   return (
     <Link to={`/topic/${topicId}/subTopic/${subTopicId}/question/${question.questionId}`}>
-      <QuestionListElementContainer button onMouseEnter={onHoverIn} onMouseLeave={onHoverOut}>
+      <QuestionListElementContainer
+        button
+        onMouseEnter={onHoverIn}
+        onMouseLeave={onHoverOut}
+        onClick={() => {
+          if (onSelected !== undefined) {
+            onSelected(question);
+          }
+        }}
+      >
         <Text>
           <Header>
             <Title notAnswered={notAnswered}>
@@ -103,7 +114,7 @@ const Header = styled(Box)`
   justify-content: space-between;
 `;
 
-const Title = styled(Box) <{ notAnswered: boolean }>`
+const Title = styled(Box)<{ notAnswered: boolean }>`
   width: 10em;
   .MuiTypography-root {
     ${({ notAnswered }) => (notAnswered ? H5I : H5)};
@@ -117,7 +128,7 @@ const TitleText = styled(Typography)`
   ${TRUNCATE_ONE};
 `;
 
-const Time = styled(Box) <{ notAnswered: boolean }>`
+const Time = styled(Box)<{ notAnswered: boolean }>`
   width: 7.5em;
   margin-right: 0.1em;
   ${({ notAnswered }) => (notAnswered ? B3I : B3)};
@@ -129,7 +140,7 @@ const Body = styled(Box)`
   }
 `;
 
-const BodyText = styled(Typography) <{ notAnswered: boolean }>`
+const BodyText = styled(Typography)<{ notAnswered: boolean }>`
   .MuiTypography-root {
     ${({ notAnswered }) => (notAnswered ? B2I : B2)};
   }
