@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import { Box, List, Typography } from '@material-ui/core';
 import { H3, TRUNCATE_ONE, LIGHT_GRAY_1 } from 'utils/themes';
 // import { dummyTopicList } from 'utils/dummyDatas';
-import { Topic, SubTopic, Question, PageType } from 'utils/types';
+import { Question, PageType } from 'utils/types';
 // import { useGetQuestionListSpecial } from 'apis/Question/useGetQuestionListSpecial';
 import { Hover } from 'components/Contents';
 import { QuestionListElement } from './QuestionListElement';
@@ -16,6 +16,8 @@ interface QuestionListSpecialHeaderProp {
   onHoverIn?: () => void;
   onHoverOut?: () => void;
   onSelected: (item: Question) => void;
+  onHoverInDual?: () => void;
+  onHoverOutDual?: () => void;
 }
 
 export const QuestionListSpecial: FC<QuestionListSpecialHeaderProp> = ({
@@ -26,15 +28,19 @@ export const QuestionListSpecial: FC<QuestionListSpecialHeaderProp> = ({
   onHoverIn,
   onHoverOut,
   onSelected,
+  onHoverInDual,
+  onHoverOutDual,
 }) => {
   const renderQuestionListElement = (item: Question) => (
     <QuestionListElement
       question={item}
       topicId={item.topicId}
-      subTopicId={item.subTopicId}
+      subTopicId={item.subtopicId}
       onHoverIn={onHoverIn}
       onHoverOut={onHoverOut}
       onSelected={(item: Question) => onSelected(item)}
+      onHoverInDual={onHoverInDual}
+      onHoverOutDual={onHoverOutDual}
     />
   );
 

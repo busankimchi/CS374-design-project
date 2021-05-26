@@ -20,6 +20,8 @@ interface QuestionDoubleProp {
   onToggle?: () => void;
   onHoverIn?: () => void;
   onHoverOut?: () => void;
+  onHoverInDual?: () => void;
+  onHoverOutDual?: () => void;
 }
 
 export const QuestionDouble: FC<QuestionDoubleProp> = ({
@@ -32,6 +34,8 @@ export const QuestionDouble: FC<QuestionDoubleProp> = ({
   onToggle,
   onHoverIn,
   onHoverOut,
+  onHoverInDual,
+  onHoverOutDual,
 }) => {
   // eslint-disable-next-line no-console
   const history = useHistory();
@@ -74,6 +78,8 @@ export const QuestionDouble: FC<QuestionDoubleProp> = ({
             onToggle={onToggle}
             onHoverIn={onHoverIn}
             onHoverOut={onHoverOut}
+            onHoverInDual={onHoverInDual}
+            onHoverOutDual={onHoverOutDual}
           />
         )}
 

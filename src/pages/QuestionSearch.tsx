@@ -19,6 +19,8 @@ interface QuestionSearchProp {
   onToggle?: () => void;
   onHoverIn?: () => void;
   onHoverOut?: () => void;
+  onHoverInDual?: () => void;
+  onHoverOutDual?: () => void;
 }
 
 export const QuestionSearch: FC<QuestionSearchProp> = ({
@@ -29,6 +31,8 @@ export const QuestionSearch: FC<QuestionSearchProp> = ({
   onToggle,
   onHoverIn,
   onHoverOut,
+  onHoverInDual,
+  onHoverOutDual,
 }) => {
   // eslint-disable-next-line no-console
   const history = useHistory();
@@ -43,7 +47,7 @@ export const QuestionSearch: FC<QuestionSearchProp> = ({
   };
 
   const onCloseContent = (question: Question) => {
-    history.push(`/topic/${question.topicId}/subtopic/${question.subTopicId}`);
+    history.push(`/topic/${question.topicId}/subtopic/${question.subtopicId}`);
   };
 
   return (

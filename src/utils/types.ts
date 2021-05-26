@@ -39,8 +39,6 @@ export interface Question {
   isFaq: boolean;
   question: QuestionContent;
   answers: Array<AnswerContent>;
-  topicId: number;
-  subTopicId: number;
 }
 export interface QuestionFB {
   questionId: number;

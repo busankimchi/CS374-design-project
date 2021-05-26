@@ -47,6 +47,8 @@ export const Questions: FC<QuestionsProp> = ({ pageType, search, topicId, subTop
         onToggle={onToggle}
         onHoverIn={onHoverIn}
         onHoverOut={onHoverOut}
+        onHoverInDual={() => setHoverDual(true)}
+        onHoverOutDual={() => setHoverDual(false)}
       />
     );
   }
@@ -62,6 +64,8 @@ export const Questions: FC<QuestionsProp> = ({ pageType, search, topicId, subTop
         onToggle={onToggle}
         onHoverIn={onHoverIn}
         onHoverOut={onHoverOut}
+        onHoverInDual={() => setHoverDual(true)}
+        onHoverOutDual={() => setHoverDual(false)}
       />
     );
   }
@@ -75,6 +79,8 @@ export const Questions: FC<QuestionsProp> = ({ pageType, search, topicId, subTop
         onToggle={onToggle}
         onHoverIn={onHoverIn}
         onHoverOut={onHoverOut}
+        onHoverInDual={() => setHoverDual(true)}
+        onHoverOutDual={() => setHoverDual(false)}
       />
     );
   }
@@ -88,6 +94,8 @@ export const Questions: FC<QuestionsProp> = ({ pageType, search, topicId, subTop
         onToggle={onToggle}
         onHoverIn={onHoverIn}
         onHoverOut={onHoverOut}
+        onHoverInDual={() => setHoverDual(true)}
+        onHoverOutDual={() => setHoverDual(false)}
       />
     );
   }
@@ -101,6 +109,8 @@ export const Questions: FC<QuestionsProp> = ({ pageType, search, topicId, subTop
         onToggle={onToggle}
         onHoverIn={onHoverIn}
         onHoverOut={onHoverOut}
+        onHoverInDual={() => setHoverDual(true)}
+        onHoverOutDual={() => setHoverDual(false)}
       />
     );
   }

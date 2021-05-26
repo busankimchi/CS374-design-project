@@ -19,8 +19,8 @@ interface QuestionListElementProp {
   onHoverIn?: () => void;
   onHoverOut?: () => void;
   onSelected?: (item: Question) => void;
-  onHoverInDual: () => void;
-  onHoverOutDual: () => void;
+  onHoverInDual?: () => void;
+  onHoverOutDual?: () => void;
 }
 
 export const QuestionListElement: FC<QuestionListElementProp> = ({
@@ -39,12 +39,16 @@ export const QuestionListElement: FC<QuestionListElementProp> = ({
 
   const setShadowIn = () => {
     setShadowPreview(!shadowPreview);
-    onHoverInDual();
+    if (onHoverInDual !== undefined) {
+      onHoverInDual();
+    }
   };
 
   const setShadowOut = () => {
     setShadowPreview(!shadowPreview);
-    onHoverOutDual();
+    if (onHoverOutDual !== undefined) {
+      onHoverOutDual();
+    }
   };
 
   return (

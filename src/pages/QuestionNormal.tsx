@@ -19,6 +19,8 @@ interface QuestionNormalProp {
   onToggle?: () => void;
   onHoverIn?: () => void;
   onHoverOut?: () => void;
+  onHoverInDual?: () => void;
+  onHoverOutDual?: () => void;
 }
 
 export const QuestionNormal: FC<QuestionNormalProp> = ({
@@ -30,6 +32,8 @@ export const QuestionNormal: FC<QuestionNormalProp> = ({
   onToggle,
   onHoverIn,
   onHoverOut,
+  onHoverInDual,
+  onHoverOutDual,
 }) => {
   // eslint-disable-next-line no-console
   const history = useHistory();

@@ -15,8 +15,8 @@ interface QuestionListHeaderProp {
   onToggle?: () => void;
   onHoverIn?: () => void;
   onHoverOut?: () => void;
-  onHoverInDual: () => void;
-  onHoverOutDual: () => void;
+  onHoverInDual?: () => void;
+  onHoverOutDual?: () => void;
 }
 
 export const QuestionList: FC<QuestionListHeaderProp> = ({
@@ -77,7 +77,7 @@ const QuestionListContainer = styled(Box)`
   display: flex;
 `;
 
-const QuestionListDrawer = styled(Box) <{ isListShown: boolean }>`
+const QuestionListDrawer = styled(Box)<{ isListShown: boolean }>`
   width: ${({ isListShown }) => (isListShown ? '20vw' : '0vw')};
   opacity: ${({ isListShown }) => (isListShown ? '1' : '0')};
   transition: all 0.15s ease-in-out !important;
