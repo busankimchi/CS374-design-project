@@ -63,7 +63,7 @@ export interface SubTopic {
 export enum PageType {
   NONE,
   FAQ,
-  ALL_QUESTONS,
+  ALL_QUESTIONS,
   NORMAL,
   DUAL,
   SEARCH,

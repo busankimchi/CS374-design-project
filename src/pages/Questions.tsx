@@ -5,9 +5,11 @@ import { PageType, Topic, SubTopic } from 'utils/types';
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 import { QuestionList } from 'components/QuestionList/QuestionList';
 import { useTopicList } from 'hooks/useTopicList';
+import { useQuestionList } from 'apis/Question/useQuestionList';
+import { SpecialQuestionList } from 'components/QuestionList/SpecialQuestionList';
 import { Contents } from '../components/Contents/Contents';
 // import { NotSelected } from '../components/Contents/NotSelected';
-import { dummyQuestions } from '../utils/dummyDatas'
+import { dummyQuestions } from '../utils/dummyDatas';
 
 interface QuestionsProp {
   pageType: PageType;
@@ -26,39 +28,64 @@ export const Questions: FC<QuestionsProp> = ({ pageType, search, topicId, subTop
   // topic, subtopic가지고 fetch를 해. subtopicID에 대응되어있는 questionlists를
   // questionId가 있다면 questionid를 찾아서 contents.tsx를 함께 띄워준다.
 
-  const [topicInfo, setTopicInfo] = useState<Topic>();
-  const [subTopicInfo, setSubTopicInfo] = useState<SubTopic>();
+  const normalQuestion = () => {
+    const [topicInfo, setTopicInfo] = useState<Topic>();
+    const [subTopicInfo, setSubTopicInfo] = useState<SubTopic>();
 
-  const { topicList } = useTopicList();
-  // console.log({topicList});
-  // const topicInfo = topicList.find((topic) => topic.id === topicId) as Topic;
-  // console.log({topicInfo});
-  // const subTopicInfo = (topicInfo.subTopic as SubTopic[]).find((subtopic) => subtopic.id === subTopicId) as SubTopic;
+    const { topicList } = useTopicList();
 
-  useEffect(() => {
-    if (topicList.length > 0) {
-      const newTopicInfo = topicList.find((topic) => topic.id === topicId) as Topic;
-      setTopicInfo(newTopicInfo);
+    useEffect(() => {
+      if (topicList.length > 0) {
+        const newTopicInfo = topicList.find((topic) => topic.id === topicId) as Topic;
+        setTopicInfo(newTopicInfo);
+      }
+    }, [topicList, topicId, subTopicId]);
+
+    useEffect(() => {
+      if (topicInfo !== undefined) {
+        const newSubTopicInfo = (topicInfo.subTopic as SubTopic[]).find(
+          (subtopic) => subtopic.id === subTopicId,
+        ) as SubTopic;
+        setSubTopicInfo(newSubTopicInfo);
+      }
+    }, [topicInfo, topicId, subTopicId]);
+
+    return (
+      <QuestionsContainer>
+        {topicInfo !== undefined && subTopicInfo !== undefined && (
+          <QuestionList topic={topicInfo} subTopic={subTopicInfo} />
+        )}
+        <Contents question={dummyQuestions[0]} />
+        {/* <NotSelected /> */}
+      </QuestionsContainer>
+    );
+  };
+
+  const SpecialQuestion = () => {
+    const { questionList } = useQuestionList();
+    if (pageType === PageType.FAQ) {
+      const FAQList = questionList.filter((question) => question.isFaq);
+      return (
+        <QuestionsContainer>
+          <SpecialQuestionList questionList={FAQList} title="FAQ" />
+          <Contents question={dummyQuestions[0]} />
+          {/* <NotSelected /> */}
+        </QuestionsContainer>
+      );
     }
-  }, [topicList, topicId, subTopicId]);
+    return (
+      <QuestionsContainer>
+        <SpecialQuestionList questionList={questionList} title="All Questions" />
+        <Contents question={dummyQuestions[0]} />
+        {/* <NotSelected /> */}
+      </QuestionsContainer>
+    );
+  };
 
-  useEffect(() => {
-    if (topicInfo !== undefined) {
-      const newSubTopicInfo = (topicInfo.subTopic as SubTopic[]).find((subtopic) => subtopic.id === subTopicId) as SubTopic;
-      setSubTopicInfo(newSubTopicInfo);
-    }
-  }, [topicInfo, topicId, subTopicId]);
-
-  // console.log({topicInfo, subTopicInfo});
-
-
-  return (
-    <QuestionsContainer>
-      {topicInfo !== undefined && subTopicInfo !== undefined && <QuestionList topic={topicInfo} subTopic={subTopicInfo} />}
-      <Contents question={dummyQuestions[0]} />
-      {/* <NotSelected /> */}
-    </QuestionsContainer >
-  );
+  if (pageType === PageType.FAQ || pageType === PageType.ALL_QUESTIONS) {
+    return SpecialQuestion();
+  }
+  return normalQuestion();
 };
 
 const QuestionsContainer = styled(Box)`
