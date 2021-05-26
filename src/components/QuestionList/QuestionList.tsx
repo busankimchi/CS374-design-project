@@ -22,6 +22,10 @@ export const QuestionList: FC<QuestionListHeaderProp> = ({ topic, subTopic, isLi
   const questionIdList = subTopic.questionList as number[];
   const { questionList } = useGetQuestionList(questionIdList);
 
+  questionList.sort((a, b) => {
+    return b.questionId - a.questionId;
+  });
+
   // useEffect(() => {
   //   if (questionIdList !== undefined) {
   //     const { questionList } = useGetQuestionList(questionIdList);
