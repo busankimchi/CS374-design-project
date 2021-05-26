@@ -191,7 +191,9 @@ export const dummyQuestions: Array<Question> = [
   {
     questionId: 1,
     topic: 'Logistics',
+    topicId: 1,
     subtopic: 'Team Matching',
+    subtopicId: 4,
     isFaq: false,
     question: {
       name: 'Curious Panda',
@@ -214,7 +216,9 @@ export const dummyQuestions: Array<Question> = [
   {
     questionId: 2,
     topic: 'Logistics',
+    topicId: 1,
     subtopic: 'Score',
+    subtopicId: 2,
     isFaq: false,
     question: {
       name: 'Crispy Bread',
@@ -237,7 +241,9 @@ export const dummyQuestions: Array<Question> = [
   {
     questionId: 3,
     topic: 'Logistics',
+    topicId: 1,
     subtopic: 'Tokens',
+    subtopicId: 3,
     isFaq: false,
     question: {
       name: 'Crying Pringles',
@@ -266,7 +272,9 @@ export const dummyQuestions: Array<Question> = [
   {
     questionId: 4,
     topic: 'Project 1',
+    topicId: 2,
     subtopic: 'Environment Setup',
+    subtopicId: 5,
     isFaq: false,
     question: {
       name: 'Happy Superman',
@@ -289,7 +297,9 @@ export const dummyQuestions: Array<Question> = [
   {
     questionId: 5,
     topic: 'Logistics',
+    topicId: 1,
     subtopic: 'Lab Submission',
+    subtopicId: 1,
     isFaq: false,
     question: {
       name: 'Hot Spicy Burger',
@@ -313,7 +323,9 @@ export const dummyQuestions: Array<Question> = [
   {
     questionId: 6,
     topic: 'Project 1',
+    topicId: 2,
     subtopic: 'Environment Setup',
+    subtopicId: 5,
     isFaq: false,
     question: {
       name: 'Red Hongsam',
@@ -342,7 +354,9 @@ export const dummyQuestions: Array<Question> = [
   {
     questionId: 7,
     topic: 'Project 1',
+    topicId: 2,
     subtopic: 'Multilevel Feedback Queues',
+    subtopicId: 6,
     isFaq: false,
     question: {
       name: 'Sad Pillow',
@@ -366,7 +380,9 @@ export const dummyQuestions: Array<Question> = [
   {
     questionId: 8,
     topic: 'Project 1',
+    topicId: 2,
     subtopic: 'Lists',
+    subtopicId: 7,
     isFaq: false,
     question: {
       name: 'Snowy Town',
@@ -390,7 +406,9 @@ export const dummyQuestions: Array<Question> = [
   {
     questionId: 9,
     topic: 'Project 1',
+    topicId: 2,
     subtopic: 'Environment Setup',
+    subtopicId: 5,
     isFaq: false,
     question: {
       name: 'Cynical Cactus',
@@ -414,7 +432,9 @@ export const dummyQuestions: Array<Question> = [
   {
     questionId: 10,
     topic: 'Project 1',
+    topicId: 2,
     subtopic: 'Multilevel Feedback Queues',
+    subtopicId: 6,
     isFaq: false,
     question: {
       name: 'Kim Wang',
@@ -438,7 +458,9 @@ export const dummyQuestions: Array<Question> = [
   {
     questionId: 11,
     topic: 'Logistics',
+    topicId: 1,
     subtopic: 'Lab Submission',
+    subtopicId: 1,
     isFaq: false,
     question: {
       name: 'Cheese Burger',
@@ -460,7 +482,9 @@ export const dummyQuestions: Array<Question> = [
   {
     questionId: 12,
     topic: 'Project 1',
+    topicId: 2,
     subtopic: 'Environment Setup',
+    subtopicId: 5,
     isFaq: false,
     question: {
       name: 'Green Mushroom',
@@ -489,7 +513,9 @@ export const dummyQuestions: Array<Question> = [
   {
     questionId: 13,
     topic: 'Project 1',
+    topicId: 2,
     subtopic: 'Environment Setup',
+    subtopicId: 5,
     isFaq: false,
     question: {
       name: 'Happy Slime',
@@ -518,7 +544,9 @@ export const dummyQuestions: Array<Question> = [
   {
     questionId: 14,
     topic: 'Project 1',
+    topicId: 2,
     subtopic: 'Multilevel Feedback Queues',
+    subtopicId: 6,
     isFaq: false,
     question: {
       name: 'Smily Kahlua',
@@ -554,7 +582,9 @@ export const dummyQuestions: Array<Question> = [
   {
     questionId: 15,
     topic: 'Project 1',
+    topicId: 2,
     subtopic: 'Multilevel Feedback Queues',
+    subtopicId: 6,
     isFaq: false,
     question: {
       name: 'Dancing Robot',
@@ -570,7 +600,9 @@ export const dummyQuestions: Array<Question> = [
   {
     questionId: 16,
     topic: 'Threads',
+    topicId: 3,
     subtopic: 'Semaphores',
+    subtopicId: 8,
     isFaq: false,
     question: {
       name: 'Green Glasses',
@@ -600,7 +632,9 @@ export const dummyQuestions: Array<Question> = [
   {
     questionId: 17,
     topic: 'Threads',
+    topicId: 3,
     subtopic: 'Semaphores',
+    subtopicId: 8,
     isFaq: false,
     question: {
       name: 'Gray Mushroom',
@@ -629,7 +663,9 @@ export const dummyQuestions: Array<Question> = [
   {
     questionId: 18,
     topic: 'Logistics',
+    topicId: 1,
     subtopic: 'Score',
+    subtopicId: 2,
     isFaq: false,
     question: {
       name: 'Overheated GPU',
@@ -652,6 +688,8 @@ export const dummyQuestions: Array<Question> = [
     questionId: 19,
     topic: 'Logistics',
     subtopic: 'Score',
+    topicId:1,
+    subtopicId:2,
     isFaq: false,
     question: {
       name: 'Sleepy Cat',
@@ -675,6 +713,8 @@ export const dummyQuestions: Array<Question> = [
     questionId: 20,
     topic: 'Logistics',
     subtopic: 'Tokens',
+    topicId:1,
+    subtopicId:3,
     isFaq: false,
     question: {
       name: 'Smiling Textbook',
@@ -699,6 +739,8 @@ export const dummyQuestions: Array<Question> = [
     questionId: 21,
     topic: 'Project 2',
     subtopic: 'Fork',
+    topicId:4,
+    subtopicId:10,
     isFaq: false,
     question: {
       name: 'Crispy Nugget',
@@ -742,6 +784,8 @@ export const dummyQuestions: Array<Question> = [
     questionId: 22,
     topic: 'Project 2',
     subtopic: 'Multi-oom',
+    topicId:4,
+    subtopicId:9,
     isFaq: false,
     question: {
       name: 'Cynical Mushroom',
@@ -766,6 +810,8 @@ export const dummyQuestions: Array<Question> = [
     questionId: 23,
     topic: 'Logistics',
     subtopic: 'Score',
+    topicId:1,
+    subtopicId:2,
     isFaq: false,
     question: {
       name: 'Red Doge',
@@ -803,6 +849,8 @@ export const dummyQuestions: Array<Question> = [
     questionId: 24,
     topic: 'Logistics',
     subtopic: 'Team Matching',
+    topicId:1,
+    subtopicId:4,
     isFaq: false,
     question: {
       name: 'Curious Octopus',
@@ -827,6 +875,8 @@ export const dummyQuestions: Array<Question> = [
     questionId: 25,
     topic: 'Project 2',
     subtopic: 'Multi-oom',
+    topicId:4,
+    subtopicId:9,
     isFaq: false,
     question: {
       name: 'Green Hongsam',
@@ -857,6 +907,8 @@ export const dummyQuestions: Array<Question> = [
     questionId: 26,
     topic: 'Project 2',
     subtopic: 'Fork',
+    topicId:4,
+    subtopicId:10,
     isFaq: false,
     question: {
       name: 'Central Park',
@@ -887,6 +939,8 @@ export const dummyQuestions: Array<Question> = [
     questionId: 27,
     topic: 'Logistics',
     subtopic: 'Lab Submission',
+    topicId:1,
+    subtopicId:1,
     isFaq: false,
     question: {
       name: 'Hot Snowman',
@@ -910,6 +964,8 @@ export const dummyQuestions: Array<Question> = [
     questionId: 28,
     topic: 'Project 2',
     subtopic: 'Multi-oom',
+    topicId:4,
+    subtopicId:9,
     isFaq: false,
     question: {
       name: 'Hot Crispy',
@@ -940,6 +996,8 @@ export const dummyQuestions: Array<Question> = [
     questionId: 29,
     topic: 'Logistics',
     subtopic: 'Score',
+    topicId:1,
+    subtopicId:2,
     isFaq: false,
     question: {
       name: 'Sad Doge',
@@ -963,6 +1021,8 @@ export const dummyQuestions: Array<Question> = [
     questionId: 30,
     topic: 'Project 2',
     subtopic: 'Extra Points',
+    topicId:4,
+    subtopicId:11,
     isFaq: false,
     question: {
       name: 'Spicy Bonjuk',
@@ -987,6 +1047,8 @@ export const dummyQuestions: Array<Question> = [
     questionId: 31,
     topic: 'Logistics',
     subtopic: 'Lab Submission',
+    topicId:1,
+    subtopicId:1,
     isFaq: false,
     question: {
       name: 'Large Pillow',
@@ -1009,6 +1071,8 @@ export const dummyQuestions: Array<Question> = [
     questionId: 32,
     topic: 'Project 2',
     subtopic: 'Multi-oom',
+    topicId:4,
+    subtopicId:9,
     isFaq: false,
     question: {
       name: 'Hot Dog',
@@ -1039,6 +1103,8 @@ export const dummyQuestions: Array<Question> = [
     questionId: 33,
     topic: 'Project 2',
     subtopic: 'Fork',
+    topicId:4,
+    subtopicId:10,
     isFaq: false,
     question: {
       name: 'Crispy Cream',
@@ -1063,6 +1129,8 @@ export const dummyQuestions: Array<Question> = [
     questionId: 34,
     topic: 'Project 2',
     subtopic: 'Multi-oom',
+    topicId:4,
+    subtopicId:9,
     isFaq: false,
     question: {
       name: 'Sleepy Piranha',
@@ -1099,6 +1167,8 @@ export const dummyQuestions: Array<Question> = [
     questionId: 35,
     topic: 'Project 2',
     subtopic: 'Extra Points',
+    topicId:4,
+    subtopicId:11,
     isFaq: false,
     question: {
       name: 'Cynical Potato',
@@ -1122,6 +1192,8 @@ export const dummyQuestions: Array<Question> = [
     questionId: 36,
     topic: 'Logistics',
     subtopic: 'Team Matching',
+    topicId:1,
+    subtopicId:4,
     isFaq: false,
     question: {
       name: 'Smiling Parrot',
