@@ -9,8 +9,8 @@ import { createBrowserHistory } from 'history';
 const history = createBrowserHistory();
 
 const App = () => {
-   uploadDummyTopics();
-   uploadDummyQuestions();
+   //uploadDummyTopics();
+   //uploadDummyQuestions();
   return (
     <Router history={history}>
       <Home />
