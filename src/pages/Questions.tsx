@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import { FC, useEffect, useState } from 'react';
 import { useHistory } from 'react-router';
 import styled from 'styled-components';
@@ -7,7 +8,6 @@ import { PageType, Topic, SubTopic } from 'utils/types';
 import { QuestionList } from 'components/QuestionList/QuestionList';
 import { Hover, Contents, NotSelected } from 'components/Contents';
 import { useTopicList } from 'hooks/useTopicList';
-// import { NotSelected } from '../components/Contents/NotSelected';
 import { dummyQuestions } from '../utils/dummyDatas';
 
 interface QuestionsProp {
