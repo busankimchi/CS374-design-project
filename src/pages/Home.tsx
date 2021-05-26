@@ -5,7 +5,7 @@ import { Box } from '@material-ui/core';
 import { NewTopicDialog, EditTopicDialog, DeleteTopicDialog, ContextMenu } from 'components/General';
 import { Header, MainDrawer } from 'components/BaseView';
 import { MousePosition, PageType, Topic } from 'utils/types';
-import { addTopic, deleteTopic, updateTopic } from 'apis/Topic';
+import { deleteTopic, updateTopic } from 'apis/Topic';
 import { useTopicList } from 'hooks/useTopicList';
 import { Questions } from './Questions';
 
@@ -52,7 +52,7 @@ export const Home: FC = () => {
 
   const changeTopicName = () => {
     onCloseEditDialog();
-    if ((editTopicValue === '')) {
+    if (editTopicValue === '') {
       return;
     }
 
@@ -67,7 +67,7 @@ export const Home: FC = () => {
   const onAddTopic = () => {
     onCloseNewDialog();
     if (!(addTopicValue === '')) {
-      addTopic({ topicName: addTopicValue, id: maxTopicId + 1 });
+      updateTopic({ topicName: addTopicValue, id: maxTopicId + 1 });
       const newTopic: Topic = { topicName: addTopicValue, id: maxTopicId + 1 };
       const newTopicList = topicList.concat([newTopic]);
       setTopicList(newTopicList);
