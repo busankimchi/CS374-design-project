@@ -2,7 +2,7 @@ import { FC } from 'react';
 import styled from 'styled-components';
 
 import { Box, List, Typography } from '@material-ui/core';
-import { H3, TRUNCATE_ONE } from 'utils/themes';
+import { H3, TRUNCATE_ONE, LIGHT_GRAY_1 } from 'utils/themes';
 // import { dummyTopicList } from 'utils/dummyDatas';
 import { Topic, SubTopic, Question } from 'utils/types';
 
@@ -55,7 +55,7 @@ const QuestionListDrawer = styled(Box)`
     top: 4vh;
   }
   */
-  width: 15%;
+  width: 15vw;
 `;
 const QuestionListDrawerBody = styled(List)`
   padding: 0;
@@ -63,6 +63,9 @@ const QuestionListDrawerBody = styled(List)`
 
 const QuestionListHeader = styled(Box)`
   padding: 1em;
+  border-bottom: solid;
+  border-width: 2px;
+  border-bottom-color: ${LIGHT_GRAY_1} ;
 `;
 
 const QuestionListHeaderText = styled(Typography)`
