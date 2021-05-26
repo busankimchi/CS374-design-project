@@ -18,12 +18,9 @@ interface QuestionListElementProp {
   subTopicId: number;
   onHoverIn?: () => void;
   onHoverOut?: () => void;
-<<<<<<< HEAD
   onSelected?: (item: Question) => void;
-=======
   onHoverInDual: () => void;
   onHoverOutDual: () => void;
->>>>>>> 42eaab57192c9361e318e11760d6f9d11de13a26
 }
 
 export const QuestionListElement: FC<QuestionListElementProp> = ({
@@ -32,12 +29,9 @@ export const QuestionListElement: FC<QuestionListElementProp> = ({
   subTopicId,
   onHoverIn,
   onHoverOut,
-<<<<<<< HEAD
   onSelected,
-=======
   onHoverInDual,
   onHoverOutDual,
->>>>>>> 42eaab57192c9361e318e11760d6f9d11de13a26
 }) => {
   const [shadowPreview, setShadowPreview] = useState(true);
 

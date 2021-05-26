@@ -64,7 +64,8 @@ export const Questions: FC<QuestionsProp> = ({ pageType, search, topicId, subTop
         onHoverOut={onHoverOut}
       />
     );
-  } else if (pageType === PageType.SEARCH) {
+  }
+  if (pageType === PageType.SEARCH) {
     return (
       <QuestionSearch
         pageType={PageType.SEARCH}
@@ -76,7 +77,8 @@ export const Questions: FC<QuestionsProp> = ({ pageType, search, topicId, subTop
         onHoverOut={onHoverOut}
       />
     );
-  } else if (pageType === PageType.FAQ) {
+  }
+  if (pageType === PageType.FAQ) {
     return (
       <QuestionDefault
         pageType={PageType.FAQ}
@@ -88,7 +90,8 @@ export const Questions: FC<QuestionsProp> = ({ pageType, search, topicId, subTop
         onHoverOut={onHoverOut}
       />
     );
-  } else if (pageType === PageType.ALL_QUESTONS) {
+  }
+  if (pageType === PageType.ALL_QUESTONS) {
     return (
       <QuestionDefault
         pageType={PageType.ALL_QUESTONS}
