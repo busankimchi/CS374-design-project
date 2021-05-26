@@ -15,11 +15,14 @@ import { updateIsFaqDB } from '../../apis/Question/updateIsFaqDB';
 import { appendAnswerDB } from '../../apis/Question/appendAnswerDB';
 
 interface ContentsProp {
-  question: Question;
-}
+   question: Question,
+   closeThisContent?: () => void,
+   isContentOpen: boolean;
+  };
 
-export const Contents: FC<ContentsProp> = ({ question }) => {
-  const [text, setText] = useState('');
+export const Contents: FC<ContentsProp> = ({ question, closeThisContent, isContentOpen }) => {
+  const [text, setText] = useState('');   
+
   const questionContent = question.question;
   const [answers, setAnswers] = useState(question.answers);
   const [isFaq, setIsFaq] = useState(question.isFaq);
@@ -56,9 +59,11 @@ export const Contents: FC<ContentsProp> = ({ question }) => {
     setIsFaq(!isFaq);
   };
 
+
   const closeTab = () => {
     // TODO: Navigate to 'nothing selected' page
   };
+
 
   const onTextareaChange = (evt: ChangeEvent<HTMLInputElement>) => {
     setText(evt.target.value);
@@ -67,7 +72,9 @@ export const Contents: FC<ContentsProp> = ({ question }) => {
   const appendAnswer = (ans: AnswerContent) => {
     setAnswers([...answers, ans]);
     appendAnswerDB(ans, question.questionId);
+
   };
+
 
   const answerSubmitHandler = () => {
     if (text === '') return;
@@ -79,8 +86,12 @@ export const Contents: FC<ContentsProp> = ({ question }) => {
       content: text,
     };
     appendAnswer(ans);
+
     setText('');
   };
+
+
+  if(!isContentOpen) return (<div />);
 
   return (
     <ContentBox>
@@ -92,7 +103,7 @@ export const Contents: FC<ContentsProp> = ({ question }) => {
                 <BreadcrumbElem color="textSecondary">{question.topic}</BreadcrumbElem>
                 <BreadcrumbElem color="textSecondary">{question.subtopic}</BreadcrumbElem>
               </TopicBreadcrumbs>
-              <CloseButton aria-label="close tab" onClick={closeTab}>
+              <CloseButton aria-label="close tab" onClick={closeThisContent}>
                 <CloseIcon />
               </CloseButton>
             </QuestionTopBox>

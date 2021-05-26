@@ -21,11 +21,17 @@ interface QuestionsProp {
 export const Questions: FC<QuestionsProp> = ({ pageType, search, topicId, subTopicId, questionId, questionId2 }) => {
   // eslint-disable-next-line no-console
   console.log({ pageType, search, topicId, subTopicId, questionId, questionId2 });
+
   // pageType == None? 잘못된 url.
   // normal? questionId주어진경우,아닌경우
   // topic, subtopic가지고 fetch를 해. subtopicID에 대응되어있는 questionlists를
   // questionId가 있다면 questionid를 찾아서 contents.tsx를 함께 띄워준다.
 
+  const [isListShown, setListShown] = useState(true);
+  const [isFirstContentOpen, setIsFirstContentOpen] = useState(true);
+  const [isSecondContentOpen, setIsSecondContentOpen]=useState(true);
+
+    
   const [topicInfo, setTopicInfo] = useState<Topic>();
   const [subTopicInfo, setSubTopicInfo] = useState<SubTopic>();
 
@@ -55,10 +61,12 @@ export const Questions: FC<QuestionsProp> = ({ pageType, search, topicId, subTop
 
   return (
     <QuestionsContainer>
-      {topicInfo !== undefined && subTopicInfo !== undefined && (
-        <QuestionList topic={topicInfo} subTopic={subTopicInfo} />
-      )}
-      <Contents question={dummyQuestions[0]} />
+
+      {topicInfo !== undefined && subTopicInfo !== undefined && <QuestionList topic={topicInfo} subTopic={subTopicInfo} isListShown={isListShown} />}
+      {/* <Contents question={dummyQuestions[0]} /> */}
+      <Hover showQuestionList={() => setListShown(!isListShown)} iconFlip={isListShown} />
+      <Contents question={dummyQuestion} closeThisContent={() => setIsFirstContentOpen(!isFirstContentOpen)} isContentOpen={isFirstContentOpen}/>
+      <Contents question={dummyQuestion} closeThisContent={() => setIsSecondContentOpen(!isSecondContentOpen)} isContentOpen={isSecondContentOpen}/>
       {/* <NotSelected /> */}
     </QuestionsContainer>
   );
