@@ -33,7 +33,7 @@ export const QuestionList: FC<QuestionListHeaderProp> = ({
   // // const { questionList, setQuestionList } = useGetQuestionList(questionIdList);
   // const [questionList, setQuestionList] = useState(getQuestionList(questionIdList).then((val) => { return val }));
 
-  const [questionIdList, setQuestionIdList] = useState(subTopic.questionList as number[]);
+  const questionIdList = useState(subTopic.questionList as number[])[0];
   const [questionList, setQuestionList] = useState<Question[]>();
 
   firebase.firestore().collection('questions').get().then((doc) => {
@@ -61,7 +61,6 @@ export const QuestionList: FC<QuestionListHeaderProp> = ({
   // const { questionList } = ;
 
   useEffect(() => {
-    console.log(questionIdList)
     if (questionIdList !== undefined) {
       firebase.firestore().collection('questions').get().then((doc) => {
         const questionListCustom = [] as Question[];
