@@ -1,7 +1,12 @@
 import { FC } from 'react';
 import styled from 'styled-components';
 import { Box, List, Typography } from '@material-ui/core';
+<<<<<<< HEAD
 import { H3, TRUNCATE_ONE } from 'utils/themes';
+=======
+import { H3, TRUNCATE_ONE, LIGHT_GRAY_1 } from 'utils/themes';
+// import { dummyTopicList } from 'utils/dummyDatas';
+>>>>>>> 63f6ff5a011d27ad2e25e4684a1f51ee1b0309ed
 import { Topic, SubTopic, Question } from 'utils/types';
 import { useGetQuestionList } from 'apis/Question/useGetQuestionList';
 import { Hover } from 'components/Contents';
@@ -55,6 +60,7 @@ export const QuestionList: FC<QuestionListHeaderProp> = ({
   );
 };
 
+<<<<<<< HEAD
 const QuestionListContainer = styled(Box)`
   display: flex;
 `;
@@ -63,6 +69,17 @@ const QuestionListDrawer = styled(Box)<{ isListShown: boolean }>`
   width: ${({ isListShown }) => (isListShown ? '20em' : '0em')};
   opacity: ${({ isListShown }) => (isListShown ? '1' : '0')};
   transition: all 0.15s ease-in-out !important;
+=======
+const QuestionListDrawer = styled(Box)`
+  /*.MuiDrawer-paperAnchorLeft {
+    width: 10%;
+    left: 15%;
+    right: auto;
+    top: 4vh;
+  }
+  */
+  width: 15vw;
+>>>>>>> 63f6ff5a011d27ad2e25e4684a1f51ee1b0309ed
 `;
 
 const QuestionListDrawerBody = styled(List)`
@@ -71,6 +88,9 @@ const QuestionListDrawerBody = styled(List)`
 
 const QuestionListHeader = styled(Box)`
   padding: 1em;
+  border-bottom: solid;
+  border-width: 2px;
+  border-bottom-color: ${LIGHT_GRAY_1} ;
 `;
 
 const QuestionListHeaderText = styled(Typography)`
