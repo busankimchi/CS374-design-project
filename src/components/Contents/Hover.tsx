@@ -13,14 +13,26 @@ interface HoverProps {
 
 export const Hover: FC<HoverProps> = ({ showQuestionList, iconFlip }) => {
   return (
-    <HoverContainer onClick={showQuestionList}>{iconFlip ? <ChevronLeftIcon /> : <ChevronRightIcon />}</HoverContainer>
+    <HoverContainer onClick={showQuestionList}>{iconFlip ? <TightLeftIcon /> : <TightRightIcon />}</HoverContainer>
   );
 };
 
 const HoverContainer = styled(Button)`
   display: flex;
+  padding: 0px;
+  margin: 0px;
   align-items: center;
   justify-content: center;
   background-color: ${PINK_4};
-  min-width: 2em;
+  min-width: 2vw;
+`;
+
+const TightLeftIcon = styled(ChevronLeftIcon)`
+  padding: 0px;
+  margin: 0px;
+`;
+
+const TightRightIcon = styled(ChevronRightIcon)`
+  padding: 0px;
+  margin: 0px;
 `;

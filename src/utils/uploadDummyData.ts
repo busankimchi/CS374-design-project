@@ -25,7 +25,9 @@ export const uploadDummyQuestions = () => {
         {
           questionId: dummyQuestion.questionId,
           topic: dummyQuestion.topic,
+          topicId: dummyQuestion.topicId,
           subtopic: dummyQuestion.subtopic,
+          subtopicId: dummyQuestion.subtopicId,
           isFaq: dummyQuestion.isFaq,
           question: {
             name: dummyQuestion.question.name,

@@ -34,13 +34,14 @@ export interface Question {
   questionId: number;
   topic: string;
   subtopic: string;
+  topicId: number;
+  subtopicId: number;
   isFaq: boolean;
   question: QuestionContent;
   answers: Array<AnswerContent>;
   topicId: number;
   subTopicId: number;
 }
-
 export interface QuestionFB {
   questionId: number;
   topic: string;

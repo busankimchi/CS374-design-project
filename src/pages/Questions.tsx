@@ -30,6 +30,7 @@ export const Questions: FC<QuestionsProp> = ({ pageType, search, topicId, subTop
 
   const [isListShown, setListShown] = useState(false);
   const [isHover, setHover] = useState(false);
+  const [isHoverDual, setHoverDual] = useState(false);
 
   const onHoverIn = () => setHover(true);
   const onHoverOut = () => setHover(false);
@@ -50,47 +51,55 @@ export const Questions: FC<QuestionsProp> = ({ pageType, search, topicId, subTop
     );
   }
   if (pageType === PageType.DUAL) {
-    <QuestionDouble
-      topicId={topicId as number}
-      subTopicId={subTopicId as number}
-      questionId={questionId as number}
-      questionId2={questionId2 as number}
-      isListShown={isListShown}
-      isHover={isHover}
-      onToggle={onToggle}
-      onHoverIn={onHoverIn}
-      onHoverOut={onHoverOut}
-    />;
+    return (
+      <QuestionDouble
+        topicId={topicId as number}
+        subTopicId={subTopicId as number}
+        questionId={questionId as number}
+        questionId2={questionId2 as number}
+        isListShown={isListShown}
+        isHover={isHover}
+        onToggle={onToggle}
+        onHoverIn={onHoverIn}
+        onHoverOut={onHoverOut}
+      />
+    );
   } else if (pageType === PageType.SEARCH) {
-    <QuestionSearch
-      pageType={PageType.SEARCH}
-      search={search as string}
-      isHover={isHover}
-      isListShown={isListShown}
-      onToggle={onToggle}
-      onHoverIn={onHoverIn}
-      onHoverOut={onHoverOut}
-    />;
+    return (
+      <QuestionSearch
+        pageType={PageType.SEARCH}
+        search={search as string}
+        isHover={isHover}
+        isListShown={isListShown}
+        onToggle={onToggle}
+        onHoverIn={onHoverIn}
+        onHoverOut={onHoverOut}
+      />
+    );
   } else if (pageType === PageType.FAQ) {
-    <QuestionDefault
-      pageType={PageType.FAQ}
-      isFAQ
-      isHover={isHover}
-      isListShown={isListShown}
-      onToggle={onToggle}
-      onHoverIn={onHoverIn}
-      onHoverOut={onHoverOut}
-    />;
+    return (
+      <QuestionDefault
+        pageType={PageType.FAQ}
+        isFAQ
+        isHover={isHover}
+        isListShown={isListShown}
+        onToggle={onToggle}
+        onHoverIn={onHoverIn}
+        onHoverOut={onHoverOut}
+      />
+    );
   } else if (pageType === PageType.ALL_QUESTONS) {
-    <QuestionDefault
-      pageType={PageType.ALL_QUESTONS}
-      isFAQ={false}
-      isHover={isHover}
-      isListShown={isListShown}
-      onToggle={onToggle}
-      onHoverIn={onHoverIn}
-      onHoverOut={onHoverOut}
-    />;
+    return (
+      <QuestionDefault
+        pageType={PageType.ALL_QUESTONS}
+        isFAQ={false}
+        isHover={isHover}
+        isListShown={isListShown}
+        onToggle={onToggle}
+        onHoverIn={onHoverIn}
+        onHoverOut={onHoverOut}
+      />
+    );
   }
 
   return (

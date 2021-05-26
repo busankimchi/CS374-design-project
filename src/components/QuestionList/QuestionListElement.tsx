@@ -18,7 +18,12 @@ interface QuestionListElementProp {
   subTopicId: number;
   onHoverIn?: () => void;
   onHoverOut?: () => void;
+<<<<<<< HEAD
   onSelected?: (item: Question) => void;
+=======
+  onHoverInDual: () => void;
+  onHoverOutDual: () => void;
+>>>>>>> 42eaab57192c9361e318e11760d6f9d11de13a26
 }
 
 export const QuestionListElement: FC<QuestionListElementProp> = ({
@@ -27,15 +32,27 @@ export const QuestionListElement: FC<QuestionListElementProp> = ({
   subTopicId,
   onHoverIn,
   onHoverOut,
+<<<<<<< HEAD
   onSelected,
+=======
+  onHoverInDual,
+  onHoverOutDual,
+>>>>>>> 42eaab57192c9361e318e11760d6f9d11de13a26
 }) => {
   const [shadowPreview, setShadowPreview] = useState(true);
 
   const notAnswered: boolean = question.answers.length === 0;
 
-  const setShadow = () => {
+  const setShadowIn = () => {
     setShadowPreview(!shadowPreview);
+    onHoverInDual();
   };
+
+  const setShadowOut = () => {
+    setShadowPreview(!shadowPreview);
+    onHoverOutDual();
+  };
+
   return (
     <Link to={`/topic/${topicId}/subTopic/${subTopicId}/question/${question.questionId}`}>
       <QuestionListElementContainer
@@ -67,7 +84,7 @@ export const QuestionListElement: FC<QuestionListElementProp> = ({
           </Body>
         </Text>
 
-        <DoubleSidedViewButton onMouseEnter={setShadow} onMouseLeave={setShadow}>
+        <DoubleSidedViewButton onMouseEnter={setShadowIn} onMouseLeave={setShadowOut}>
           <Icon icon={squareHalf} />
         </DoubleSidedViewButton>
       </QuestionListElementContainer>
