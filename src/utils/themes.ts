@@ -59,6 +59,7 @@ export const H5I = css`
   font-style: italic !important;
   font-weight: 700 !important;
   font-size: 14px !important;
+  color: red !important;
 `;
 
 export const B1 = css`
