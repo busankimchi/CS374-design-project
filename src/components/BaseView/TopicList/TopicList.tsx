@@ -59,6 +59,9 @@ export const TopicList: FC<TopicListProp> = ({ topicList, onClickAdd, onContextM
 
 const TopicListContainer = styled(List)`
   overflow-y: scroll;
+  ::-webkit-scrollbar {
+    display: none;
+  }
 `;
 
 const Link = styled(DefaultLink)`

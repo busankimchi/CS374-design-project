@@ -5,8 +5,11 @@ import { Box } from '@material-ui/core';
 import { NewTopicDialog, EditTopicDialog, DeleteTopicDialog, ContextMenu } from 'components/General';
 import { Header, MainDrawer } from 'components/BaseView';
 import { MousePosition, PageType, Topic } from 'utils/types';
-import { addTopic, deleteTopic, updateTopic } from 'apis/Topic';
+
+// import { PINK_3, H5, B2, B3, LIGHT_GRAY_1, TRUNCATE_TWO, TRUNCATE_ONE } from 'utils/themes';
+import { deleteTopic, updateTopic } from 'apis/Topic';
 import { useTopicList } from 'hooks/useTopicList';
+// import { ShadowBox } from 'components/Contents/ShadowBox';
 import { Questions } from './Questions';
 
 export const Home: FC = () => {
@@ -67,7 +70,7 @@ export const Home: FC = () => {
   const onAddTopic = () => {
     onCloseNewDialog();
     if (!(addTopicValue === '')) {
-      addTopic({ topicName: addTopicValue, id: maxTopicId + 1 });
+      updateTopic({ topicName: addTopicValue, id: maxTopicId + 1 });
       const newTopic: Topic = { topicName: addTopicValue, id: maxTopicId + 1 };
       const newTopicList = topicList.concat([newTopic]);
       setTopicList(newTopicList);
@@ -100,6 +103,7 @@ export const Home: FC = () => {
             setEditTopicValue(item.topicName);
           }}
         />
+        {/* <Hover /> */}
         <Route exact path="/">
           <Redirect to="/faq" />
         </Route>

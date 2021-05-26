@@ -14,10 +14,14 @@ import { Question, AnswerContent } from '../../utils/types';
 import { updateIsFaqDB } from '../../apis/Question/updateIsFaqDB';
 import { appendAnswerDB } from '../../apis/Question/appendAnswerDB';
 
-interface ContentsProp { question: Question };
+interface ContentsProp {
+  question: Question;
+  closeThisContent?: () => void;
+}
 
-export const Contents: FC<ContentsProp> = ({ question }) => {
-  const [text, setText] = useState("");
+export const Contents: FC<ContentsProp> = ({ question, closeThisContent }) => {
+  const [text, setText] = useState('');
+
   const questionContent = question.question;
   const [answers, setAnswers] = useState(question.answers);
   const [isFaq, setIsFaq] = useState(question.isFaq);
@@ -31,52 +35,55 @@ export const Contents: FC<ContentsProp> = ({ question }) => {
 
   const questionText: Array<JSX.Element> = [];
 
-  questionContent.content.split("\n").forEach((line) => {
-    questionText.push(<Box>{line}<br /></Box>)
-  })
+  questionContent.content.split('\n').forEach((line) => {
+    questionText.push(
+      <Box>
+        {line}
+        <br />
+      </Box>,
+    );
+  });
 
   const answersElem: Array<JSX.Element> = [];
 
   if (answers.length === 0) {
     answersElem.push(<NoAnswer />);
   } else {
-    answers.forEach((answer) =>
-      answersElem.push(<AnswerDisplay answer={answer} />),
-    );
+    answers.forEach((answer) => answersElem.push(<AnswerDisplay answer={answer} />));
   }
 
   /* Listeners */
   const changeIsFaq = () => {
     updateIsFaqDB(!isFaq, question.questionId);
     setIsFaq(!isFaq);
-  }
+  };
 
-  const closeTab = () => {
-    // TODO: Navigate to 'nothing selected' page
-  }
+  // const closeTab = () => {
+  //   // TODO: Navigate to 'nothing selected' page
+  // };
 
   const onTextareaChange = (evt: ChangeEvent<HTMLInputElement>) => {
     setText(evt.target.value);
-  }
+  };
 
   const appendAnswer = (ans: AnswerContent) => {
     setAnswers([...answers, ans]);
     appendAnswerDB(ans, question.questionId);
-  }
+  };
 
   const answerSubmitHandler = () => {
-    if (text === "")
-      return;
+    if (text === '') return;
 
     const ans: AnswerContent = {
-      name: "Cheese Pringles",
+      name: 'Cheese Pringles',
       image: 4,
       time: new Date(),
       content: text,
-    }
+    };
     appendAnswer(ans);
-    setText("");
-  }
+
+    setText('');
+  };
 
   return (
     <ContentBox>
@@ -88,7 +95,7 @@ export const Contents: FC<ContentsProp> = ({ question }) => {
                 <BreadcrumbElem color="textSecondary">{question.topic}</BreadcrumbElem>
                 <BreadcrumbElem color="textSecondary">{question.subtopic}</BreadcrumbElem>
               </TopicBreadcrumbs>
-              <CloseButton aria-label="close tab" onClick={closeTab}>
+              <CloseButton aria-label="close tab" onClick={closeThisContent}>
                 <CloseIcon />
               </CloseButton>
             </QuestionTopBox>
@@ -97,7 +104,9 @@ export const Contents: FC<ContentsProp> = ({ question }) => {
               <FAQButton isFaq={isFaq} changeIsFaq={changeIsFaq} />
             </QuestionTopBox>
             <QuestionBox>
-              <QuestionTitleBox>Q{question.questionId}. {questionContent.title}</QuestionTitleBox>
+              <QuestionTitleBox>
+                Q{question.questionId}. {questionContent.title}
+              </QuestionTitleBox>
               <QuestionContentBox>{questionText}</QuestionContentBox>
             </QuestionBox>
           </Box>
@@ -115,7 +124,9 @@ export const Contents: FC<ContentsProp> = ({ question }) => {
             value={text}
             onChange={onTextareaChange}
           />
-          <SubmitButton onClick={answerSubmitHandler}><SendIcon /></SubmitButton>
+          <SubmitButton onClick={answerSubmitHandler}>
+            <SendIcon />
+          </SubmitButton>
         </AnswerBox>
       </InputAreaBox>
     </ContentBox>

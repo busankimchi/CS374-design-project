@@ -1,9 +1,7 @@
 import { FC } from 'react';
 import styled from 'styled-components';
 import { Button } from '@material-ui/core';
-// import DeleteIcon from '@material-ui/icons/Delete';
 import { Icon } from '@iconify/react';
-// import { shadows } from '@material-ui/system';
 import pinAngle from '@iconify-icons/bi/pin-angle';
 import pinAngleFill from '@iconify-icons/bi/pin-angle-fill';
 
@@ -23,6 +21,7 @@ export const FAQButton: FC<FAQButtonProp> = ({ isFaq, changeIsFaq }) => {
                 variant="outlined"
                 startIcon={<Icon icon={pinAngleFill} />}
                 onClick={handleClick}
+                disableRipple
             >
                 Remove from FAQ
             </CustonFAQButton>
@@ -43,4 +42,5 @@ const CustonFAQButton = styled(Button)`
   margin: 10px;
   font-size: 14px;
   height: 35px;
+  border: none;
 `;

@@ -1,13 +1,15 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import { FC, useEffect, useState } from 'react';
+import { useHistory } from 'react-router';
 import styled from 'styled-components';
-import { Box } from '@material-ui/core';
+import { Backdrop, Box, Fade, Paper } from '@material-ui/core';
 import { PageType, Topic, SubTopic } from 'utils/types';
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 import { QuestionList } from 'components/QuestionList/QuestionList';
+import { Hover, Contents, NotSelected } from 'components/Contents';
 import { useTopicList } from 'hooks/useTopicList';
 import { useQuestionList } from 'apis/Question/useQuestionList';
 import { SpecialQuestionList } from 'components/QuestionList/SpecialQuestionList';
-import { Contents } from '../components/Contents/Contents';
 // import { NotSelected } from '../components/Contents/NotSelected';
 import { dummyQuestions } from '../utils/dummyDatas';
 
@@ -23,10 +25,19 @@ interface QuestionsProp {
 export const Questions: FC<QuestionsProp> = ({ pageType, search, topicId, subTopicId, questionId, questionId2 }) => {
   // eslint-disable-next-line no-console
   console.log({ pageType, search, topicId, subTopicId, questionId, questionId2 });
-  // pageType == None? 잘못된 url.
-  // normal? questionId주어진경우,아닌경우
-  // topic, subtopic가지고 fetch를 해. subtopicID에 대응되어있는 questionlists를
-  // questionId가 있다면 questionid를 찾아서 contents.tsx를 함께 띄워준다.
+
+  const history = useHistory();
+
+  const [isListShown, setListShown] = useState(false);
+  const [isHover, setHover] = useState(false);
+
+  const onCloseLeftContent = () => {
+    history.push(`/topic/${topicId}/subtopic/${subTopicId}/question/${questionId}`);
+  };
+
+  const onCloseRightContent = () => {
+    history.push(`/topic/${topicId}/subtopic/${subTopicId}/question/${questionId2}`);
+  };
 
   const normalQuestion = () => {
     const [topicInfo, setTopicInfo] = useState<Topic>();
@@ -52,11 +63,26 @@ export const Questions: FC<QuestionsProp> = ({ pageType, search, topicId, subTop
 
     return (
       <QuestionsContainer>
-        {topicInfo !== undefined && subTopicInfo !== undefined && (
-          <QuestionList topic={topicInfo} subTopic={subTopicInfo} />
-        )}
-        <Contents question={dummyQuestions[0]} />
-        {/* <NotSelected /> */}
+        <QuestionDetails>
+          {topicInfo !== undefined && subTopicInfo !== undefined && (
+            <QuestionList
+              topic={topicInfo}
+              subTopic={subTopicInfo}
+              isListShown={isListShown}
+              onToggle={() => setListShown(!isListShown)}
+              onHoverIn={() => setHover(true)}
+              onHoverOut={() => setHover(false)}
+            />
+          )}
+
+          {/* {questionId === undefined && <NotSelected />} */}
+          {questionId !== undefined && <Contents question={dummyQuestions[0]} closeThisContent={onCloseLeftContent} />}
+          {questionId2 !== undefined && (
+            <Contents question={dummyQuestions[1]} closeThisContent={onCloseRightContent} />
+          )}
+        </QuestionDetails>
+
+        {isHover && <DoubleSidedPaper open={isHover} />}
       </QuestionsContainer>
     );
   };
@@ -67,17 +93,49 @@ export const Questions: FC<QuestionsProp> = ({ pageType, search, topicId, subTop
       const FAQList = questionList.filter((question) => question.isFaq);
       return (
         <QuestionsContainer>
-          <SpecialQuestionList questionList={FAQList} title="FAQ" />
-          <Contents question={dummyQuestions[0]} />
-          {/* <NotSelected /> */}
+          <QuestionDetails>
+            <SpecialQuestionList
+              questionList={FAQList}
+              title="FAQ"
+              isListShown={isListShown}
+              onToggle={() => setListShown(!isListShown)}
+              onHoverIn={() => setHover(true)}
+              onHoverOut={() => setHover(false)}
+            />
+
+            {/* {questionId === undefined && <NotSelected />} */}
+            {questionId !== undefined && (
+              <Contents question={dummyQuestions[0]} closeThisContent={onCloseLeftContent} />
+            )}
+            {questionId2 !== undefined && (
+              <Contents question={dummyQuestions[1]} closeThisContent={onCloseRightContent} />
+            )}
+          </QuestionDetails>
+
+          {isHover && <DoubleSidedPaper open={isHover} />}
         </QuestionsContainer>
       );
     }
     return (
       <QuestionsContainer>
-        <SpecialQuestionList questionList={questionList} title="All Questions" />
-        <Contents question={dummyQuestions[0]} />
-        {/* <NotSelected /> */}
+        <QuestionDetails>
+          <SpecialQuestionList
+            questionList={questionList}
+            title="ALL QUESTIONS"
+            isListShown={isListShown}
+            onToggle={() => setListShown(!isListShown)}
+            onHoverIn={() => setHover(true)}
+            onHoverOut={() => setHover(false)}
+          />
+
+          {/* {questionId === undefined && <NotSelected />} */}
+          {questionId !== undefined && <Contents question={dummyQuestions[0]} closeThisContent={onCloseLeftContent} />}
+          {questionId2 !== undefined && (
+            <Contents question={dummyQuestions[1]} closeThisContent={onCloseRightContent} />
+          )}
+        </QuestionDetails>
+
+        {isHover && <DoubleSidedPaper open={isHover} />}
       </QuestionsContainer>
     );
   };
@@ -91,4 +149,14 @@ export const Questions: FC<QuestionsProp> = ({ pageType, search, topicId, subTop
 const QuestionsContainer = styled(Box)`
   display: flex;
   width: 100%;
+`;
+
+const QuestionDetails = styled(Box)`
+  display: flex;
+`;
+
+const DoubleSidedPaper = styled(Backdrop)`
+  position: reletive;
+  left: 50%;
+  /* z-index: 999; */
 `;

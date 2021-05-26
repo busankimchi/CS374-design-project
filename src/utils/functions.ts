@@ -1,6 +1,6 @@
 import firebase from 'firebase';
 import 'firebase/firestore';
-import { Question, QuestionContent, AnswerContent } from './types'
+import { Question, QuestionContent, AnswerContent } from './types';
 
 export const timeForToday = (value: Date) => {
   const today = new Date();
@@ -23,7 +23,7 @@ export const timeForToday = (value: Date) => {
   }
 
   return `${Math.floor(betweenTimeDay / 365)} yrs. ago`;
-}
+};
 
 export const TimestampToDate = (timestamp: firebase.firestore.Timestamp) => {
   return timestamp.toDate();
@@ -41,7 +41,7 @@ export const QuestionContentToObject = (question: QuestionContent) => {
     title: question.title,
     content: question.content,
   };
-}
+};
 
 export const AnswerToObject = (answer: AnswerContent) => {
   return {
@@ -50,13 +50,13 @@ export const AnswerToObject = (answer: AnswerContent) => {
     time: DateToTimestamp(answer.time),
     content: answer.content,
   };
-}
+};
 
 export const AnswersToObject = (answers: Array<AnswerContent>) => {
-  const ans: Array<Record<string, unknown>> = []
+  const ans: Array<Record<string, unknown>> = [];
   answers.forEach((answer) => ans.push(AnswerToObject(answer)));
   return ans;
-}
+};
 
 export const QuestionToObject = (question: Question) => {
   return {
@@ -66,5 +66,5 @@ export const QuestionToObject = (question: Question) => {
     isFaq: question.isFaq,
     question: QuestionContentToObject(question.question),
     answers: AnswersToObject(question.answers),
-  }
-}
+  };
+};

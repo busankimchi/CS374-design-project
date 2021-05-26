@@ -72,3 +72,15 @@ export interface MousePosition {
   x: null | number;
   y: null | number;
 }
+
+export interface HistoryQuery {
+  id: number;
+  history: string;
+  time: Date;
+}
+
+export interface HistoryQueryFB {
+  id: number;
+  history: string;
+  time: firebase.firestore.Timestamp;
+}

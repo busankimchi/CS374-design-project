@@ -2,7 +2,7 @@ import { FC } from 'react';
 import styled from 'styled-components';
 import { Box, Typography } from '@material-ui/core';
 import SearchIcon from '@material-ui/icons/Search';
-import { H4, PINK_1, PINK_4 } from 'utils/themes';
+import { H4, PINK_1, PINK_3, PINK_4 } from 'utils/themes';
 
 interface TopAppBarProp {
   onClick?: () => void;
@@ -39,6 +39,10 @@ const SearchButton = styled(Box)`
   border: 2px solid ${PINK_4};
   border-radius: 6px;
   height: 60%;
+
+  :hover {
+    border: 4px solid ${PINK_3};
+  }
 `;
 
 const SearchIconContainer = styled(Box)`
@@ -49,7 +53,7 @@ const SearchIconContainer = styled(Box)`
 `;
 
 const TypoContainer = styled(Box)`
-  margin-right: 40vw;
+  margin-right: 36vw;
 `;
 
 const SearchText = styled(Typography)`
