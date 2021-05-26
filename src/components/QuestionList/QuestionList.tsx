@@ -14,8 +14,8 @@ interface QuestionListHeaderProp {
 export const QuestionList: FC<QuestionListHeaderProp> = ({ topic, subTopic }) => {
   // const [questionList, setQuestionList] = useState<Question[]>();
   const questionIdList = subTopic.questionList as number[];
-  const {questionList} = useGetQuestionList(questionIdList);
-  
+  const { questionList } = useGetQuestionList(questionIdList);
+
   // useEffect(() => {
   //   if (questionIdList !== undefined) {
   //     const { questionList } = useGetQuestionList(questionIdList);
@@ -23,7 +23,9 @@ export const QuestionList: FC<QuestionListHeaderProp> = ({ topic, subTopic }) =>
   //   }
   // }, [questionIdList]);
 
-  const renderQuestionListElement = (item: Question) => <QuestionListElement question={item} />;
+  const renderQuestionListElement = (item: Question) => (
+    <QuestionListElement question={item} topicId={topic.id} subTopicId={subTopic.id} />
+  );
 
   return (
     <QuestionListDrawer>

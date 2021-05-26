@@ -5,41 +5,45 @@ import { PINK_3, H5, B2, B3, LIGHT_GRAY_1, GRAY, TRUNCATE_TWO, TRUNCATE_ONE } fr
 import { Icon } from '@iconify/react';
 import squareHalf from '@iconify-icons/bi/square-half';
 import { Question } from 'utils/types';
+import { Link as DefaultLink } from 'react-router-dom';
 
 interface QuestionListElementProp {
   question: Question;
+  topicId: number;
+  subTopicId: number;
 }
 
-export const QuestionListElement: FC<QuestionListElementProp> = ({ question }) => {
+export const QuestionListElement: FC<QuestionListElementProp> = ({ question, topicId, subTopicId }) => {
   // console.log(question.question.time);
-
   // console.log(TimestampToDate(DateToTimestamp(question.question.time)));
   return (
-    <QuestionListElementContainer button>
-      <Text>
-        <Header>
-          <Title>
-            <ListItemText>
-              <TitleText>
-                Q{question.questionId}. {question.question.title}
-              </TitleText>
-            </ListItemText>
-          </Title>
-          <Time> {question.question.time.toDateString()}</Time>
-        </Header>
+    <Link to={`/topic/${topicId}/subTopic/${subTopicId}/question/${question.questionId}`}>
+      <QuestionListElementContainer button>
+        <Text>
+          <Header>
+            <Title>
+              <ListItemText>
+                <TitleText>
+                  Q{question.questionId}. {question.question.title}
+                </TitleText>
+              </ListItemText>
+            </Title>
+            <Time> {question.question.time.toDateString()}</Time>
+          </Header>
 
-        <Body>
-          <BodyText>
-            <ListItemText>{question.question.content}</ListItemText>
-          </BodyText>
-        </Body>
-      </Text>
+          <Body>
+            <BodyText>
+              <ListItemText>{question.question.content}</ListItemText>
+            </BodyText>
+          </Body>
+        </Text>
 
-      <DoubleSidedViewButton>
-        <Icon icon={squareHalf} />
-      </DoubleSidedViewButton>
-      <Divider />
-    </QuestionListElementContainer>
+        <DoubleSidedViewButton>
+          <Icon icon={squareHalf} />
+        </DoubleSidedViewButton>
+        <Divider />
+      </QuestionListElementContainer>
+    </Link>
   );
 };
 
@@ -125,4 +129,9 @@ const DoubleSidedViewButton = styled(IconButton)`
 
 const Divider = styled(DefaultDivider)`
   background-color: ${GRAY};
+`;
+
+const Link = styled(DefaultLink)`
+  color: #000000;
+  text-decoration: none;
 `;
