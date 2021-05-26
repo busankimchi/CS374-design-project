@@ -55,7 +55,7 @@ export const QuestionList: FC<QuestionListHeaderProp> = ({
       return b.questionId - a.questionId;
     });
     setQuestionList(questionListCustom);
-  });
+  }).catch();
 
   // setQuestionList(useGetQuestionList(questionIdList))
   // const { questionList } = ;
@@ -82,7 +82,7 @@ export const QuestionList: FC<QuestionListHeaderProp> = ({
           return b.questionId - a.questionId;
         });
         setQuestionList(questionListCustom);
-      });
+      }).catch();
     }
   }, [questionIdList]);
 
