@@ -73,6 +73,8 @@ export const Questions: FC<QuestionsProp> = ({ pageType, search, topicId, subTop
               onToggle={() => setListShown(!isListShown)}
               onHoverIn={() => setHover(true)}
               onHoverOut={() => setHover(false)}
+              onHoverInDual={() => setHoverDual(true)}
+              onHoverOutDual={() => setHoverDual(false)}
             />
           )}
 
@@ -83,7 +85,7 @@ export const Questions: FC<QuestionsProp> = ({ pageType, search, topicId, subTop
           )}
         </QuestionDetails>
 
-        {isHover && <DoubleSidedPaper open={isHover} />}
+        {isHover && <DoubleSidedPaper open={isHover} fullsize={!isHoverDual}/>}
       </QuestionsContainer>
     );
   };
@@ -102,6 +104,8 @@ export const Questions: FC<QuestionsProp> = ({ pageType, search, topicId, subTop
               onToggle={() => setListShown(!isListShown)}
               onHoverIn={() => setHover(true)}
               onHoverOut={() => setHover(false)}
+              onHoverInDual={() => setHoverDual(true)}
+            onHoverOutDual={() => setHoverDual(false)}
             />
 
             {/* {questionId === undefined && <NotSelected />} */}
@@ -113,7 +117,7 @@ export const Questions: FC<QuestionsProp> = ({ pageType, search, topicId, subTop
             )}
           </QuestionDetails>
 
-          {isHover && <DoubleSidedPaper open={isHover} />}
+          {isHover && <DoubleSidedPaper open={isHover} fullsize={!isHoverDual}/>}
         </QuestionsContainer>
       );
     }
@@ -138,21 +142,15 @@ export const Questions: FC<QuestionsProp> = ({ pageType, search, topicId, subTop
           )}
         </QuestionDetails>
 
-        {isHover && <DoubleSidedPaper open={isHover} />}
+        {isHover && <DoubleSidedPaper open={isHover} fullsize={!isHoverDual} />}
       </QuestionsContainer>
     );
   };
 
-<<<<<<< HEAD
   if (pageType === PageType.FAQ || pageType === PageType.ALL_QUESTIONS) {
     return SpecialQuestion();
   }
   return normalQuestion();
-=======
-      {isHover && <DoubleSidedPaper open={isHover} fullsize={!isHoverDual} />}
-    </QuestionsContainer>
-  );
->>>>>>> 42eaab57192c9361e318e11760d6f9d11de13a26
 };
 
 const QuestionsContainer = styled(Box)`
@@ -164,7 +162,7 @@ const QuestionDetails = styled(Box)`
   display: flex;
 `;
 
-const DoubleSidedPaper = styled(Backdrop) <{ fullsize: boolean }>`
+const DoubleSidedPaper = styled(Backdrop)<{ fullsize: boolean }>`
   position: reletive;
   ${({ fullsize }) => (fullsize ? 'left: 37vw' : 'left: 50vw')};
   z-index: 999;

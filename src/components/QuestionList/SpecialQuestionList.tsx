@@ -13,6 +13,8 @@ interface QuestionListProp {
   onToggle?: () => void;
   onHoverIn?: () => void;
   onHoverOut?: () => void;
+  onHoverInDual: () => void;
+  onHoverOutDual: () => void;
 }
 
 export const SpecialQuestionList: FC<QuestionListProp> = ({
