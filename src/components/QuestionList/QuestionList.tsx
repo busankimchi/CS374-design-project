@@ -1,10 +1,10 @@
-import { FC } from 'react';
+import { FC, useEffect, useState } from 'react';
 import styled from 'styled-components';
 import { Box, List, Typography } from '@material-ui/core';
 import { H3, TRUNCATE_ONE, LIGHT_GRAY_1 } from 'utils/themes';
-// import { dummyTopicList } from 'utils/dummyDatas';
-import { Topic, SubTopic, Question } from 'utils/types';
-import { useGetQuestionList } from 'apis/Question/useGetQuestionList';
+import firebase from 'firebase';
+import { Topic, SubTopic, Question, QuestionFB, AnswerContent, QuestionContent } from 'utils/types';
+import { TimestampToDate } from 'utils/functions';
 import { Hover } from 'components/Contents';
 import { QuestionListElement } from './QuestionListElement';
 
@@ -29,19 +29,62 @@ export const QuestionList: FC<QuestionListHeaderProp> = ({
   onHoverInDual,
   onHoverOutDual,
 }) => {
-  const questionIdList = subTopic.questionList as number[];
-  const { questionList } = useGetQuestionList(questionIdList);
+  // const questionIdList = subTopic.questionList as number[];
+  // // const { questionList, setQuestionList } = useGetQuestionList(questionIdList);
+  // const [questionList, setQuestionList] = useState(getQuestionList(questionIdList).then((val) => { return val }));
 
-  questionList.sort((a, b) => {
-    return b.questionId - a.questionId;
+  const [questionIdList, setQuestionIdList] = useState(subTopic.questionList as number[]);
+  const [questionList, setQuestionList] = useState<Question[]>();
+
+  firebase.firestore().collection('questions').get().then((doc) => {
+    const questionListCustom = [] as Question[];
+    doc.docs.filter((item) => {
+      const { question, answers, ...rest } = item.data() as QuestionFB;
+      const questionContent = { ...question, time: TimestampToDate(question.time) } as QuestionContent;
+      const answerContents = answers.map((item) => ({ ...item, time: TimestampToDate(item.time) } as AnswerContent));
+
+      const finalQuestion = { question: questionContent, answers: answerContents, ...rest } as Question;
+
+      if (questionIdList.includes(finalQuestion.questionId)) {
+        questionListCustom.push(finalQuestion);
+      }
+
+      return finalQuestion;
+    });
+    questionListCustom.sort((a, b) => {
+      return b.questionId - a.questionId;
+    });
+    setQuestionList(questionListCustom);
   });
 
-  // useEffect(() => {
-  //   if (questionIdList !== undefined) {
-  //     const { questionList } = useGetQuestionList(questionIdList);
-  //     setQuestionList(questionList);
-  //   }
-  // }, [questionIdList]);
+  // setQuestionList(useGetQuestionList(questionIdList))
+  // const { questionList } = ;
+
+  useEffect(() => {
+    console.log(questionIdList)
+    if (questionIdList !== undefined) {
+      firebase.firestore().collection('questions').get().then((doc) => {
+        const questionListCustom = [] as Question[];
+        doc.docs.filter((item) => {
+          const { question, answers, ...rest } = item.data() as QuestionFB;
+          const questionContent = { ...question, time: TimestampToDate(question.time) } as QuestionContent;
+          const answerContents = answers.map((item) => ({ ...item, time: TimestampToDate(item.time) } as AnswerContent));
+
+          const finalQuestion = { question: questionContent, answers: answerContents, ...rest } as Question;
+
+          if (questionIdList.includes(finalQuestion.questionId)) {
+            questionListCustom.push(finalQuestion);
+          }
+
+          return finalQuestion;
+        });
+        questionListCustom.sort((a, b) => {
+          return b.questionId - a.questionId;
+        });
+        setQuestionList(questionListCustom);
+      });
+    }
+  }, [questionIdList]);
 
   const renderQuestionListElement = (item: Question) => (
     <QuestionListElement

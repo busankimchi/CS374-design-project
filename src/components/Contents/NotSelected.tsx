@@ -6,14 +6,14 @@ import documentText from '@iconify-icons/grommet-icons/document-text';
 import { B1 } from '../../utils/themes'
 
 export const NotSelected: FC = () => {
-    return (
-        <NotSelectedBox>
-            <NotSelectedIcon icon={documentText} />
-            <MessageBox>
-                Please select a question.
+  return (
+    <NotSelectedBox>
+      <NotSelectedIcon icon={documentText} />
+      <MessageBox>
+        Please select a question.
             </MessageBox>
-        </NotSelectedBox>
-    );
+    </NotSelectedBox>
+  );
 };
 
 const NotSelectedBox = styled(Box)`
