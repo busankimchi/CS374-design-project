@@ -1,19 +1,18 @@
-import { FC, useState } from 'react';
+import { FC } from 'react';
 import styled from 'styled-components';
-import { Redirect, Route } from 'react-router-dom';
+// import { Redirect, Route } from 'react-router-dom';
 import { Box } from '@material-ui/core';
 import { LIGHT_GRAY_1 } from 'utils/themes';
 
 interface ShadowBoxProps {
-    isVisible: boolean;
+  isVisible: boolean;
 }
 
-export const ShadowBox: FC<ShadowBoxProps> = ({isVisible}) => {
-
-        return (
-            <ShadowContainer />
-        );
-}
+export const ShadowBox: FC<ShadowBoxProps> = ({ isVisible }) => {
+  // eslint-disable-next-line no-console
+  console.log(isVisible);
+  return <ShadowContainer />;
+};
 const ShadowContainer = styled(Box)`
   position: absolute;
   height: 100%;

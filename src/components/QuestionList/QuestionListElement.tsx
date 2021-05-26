@@ -1,7 +1,7 @@
 import { FC, useState } from 'react';
 import styled from 'styled-components';
 
-import { ShadowBox } from 'components/Contents/ShadowBox';
+// import { ShadowBox } from 'components/Contents/ShadowBox';
 import { Box, Typography, ListItem, ListItemText, IconButton, Divider as DefaultDivider } from '@material-ui/core';
 import { PINK_3, H5, B2, B3, LIGHT_GRAY_1, GRAY, TRUNCATE_TWO, TRUNCATE_ONE } from 'utils/themes';
 

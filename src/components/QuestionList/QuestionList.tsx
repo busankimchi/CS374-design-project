@@ -1,8 +1,8 @@
 import { FC } from 'react';
 import styled from 'styled-components';
 
-import { Box, Drawer, List, Divider as DefaultDivider, Typography } from '@material-ui/core';
-import { H3, GRAY, TRUNCATE_ONE } from 'utils/themes';
+import { Box, List, Typography } from '@material-ui/core';
+import { H3, TRUNCATE_ONE } from 'utils/themes';
 // import { dummyTopicList } from 'utils/dummyDatas';
 import { Topic, SubTopic, Question } from 'utils/types';
 
@@ -16,6 +16,7 @@ interface QuestionListHeaderProp {
   isListShown: boolean;
 }
 
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 export const QuestionList: FC<QuestionListHeaderProp> = ({ topic, subTopic, isListShown }) => {
   // const [questionList, setQuestionList] = useState<Question[]>();
   const questionIdList = subTopic.questionList as number[];

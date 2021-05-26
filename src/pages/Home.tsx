@@ -4,13 +4,12 @@ import { Redirect, Route } from 'react-router-dom';
 import { Box } from '@material-ui/core';
 import { NewTopicDialog, EditTopicDialog, DeleteTopicDialog, ContextMenu } from 'components/General';
 import { Header, MainDrawer } from 'components/BaseView';
-import { Hover } from 'components/Contents';
 import { MousePosition, PageType, Topic } from 'utils/types';
 
-import { PINK_3, H5, B2, B3, LIGHT_GRAY_1, TRUNCATE_TWO, TRUNCATE_ONE } from 'utils/themes';
+// import { PINK_3, H5, B2, B3, LIGHT_GRAY_1, TRUNCATE_TWO, TRUNCATE_ONE } from 'utils/themes';
 import { deleteTopic, updateTopic } from 'apis/Topic';
 import { useTopicList } from 'hooks/useTopicList';
-import { ShadowBox } from 'components/Contents/ShadowBox';
+// import { ShadowBox } from 'components/Contents/ShadowBox';
 import { Questions } from './Questions';
 
 export const Home: FC = () => {

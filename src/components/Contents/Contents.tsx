@@ -15,13 +15,13 @@ import { updateIsFaqDB } from '../../apis/Question/updateIsFaqDB';
 import { appendAnswerDB } from '../../apis/Question/appendAnswerDB';
 
 interface ContentsProp {
-   question: Question,
-   closeThisContent?: () => void,
-   isContentOpen: boolean;
-  };
+  question: Question;
+  closeThisContent?: () => void;
+  isContentOpen: boolean;
+}
 
 export const Contents: FC<ContentsProp> = ({ question, closeThisContent, isContentOpen }) => {
-  const [text, setText] = useState('');   
+  const [text, setText] = useState('');
 
   const questionContent = question.question;
   const [answers, setAnswers] = useState(question.answers);
@@ -59,11 +59,9 @@ export const Contents: FC<ContentsProp> = ({ question, closeThisContent, isConte
     setIsFaq(!isFaq);
   };
 
-
-  const closeTab = () => {
-    // TODO: Navigate to 'nothing selected' page
-  };
-
+  // const closeTab = () => {
+  //   // TODO: Navigate to 'nothing selected' page
+  // };
 
   const onTextareaChange = (evt: ChangeEvent<HTMLInputElement>) => {
     setText(evt.target.value);
@@ -72,9 +70,7 @@ export const Contents: FC<ContentsProp> = ({ question, closeThisContent, isConte
   const appendAnswer = (ans: AnswerContent) => {
     setAnswers([...answers, ans]);
     appendAnswerDB(ans, question.questionId);
-
   };
-
 
   const answerSubmitHandler = () => {
     if (text === '') return;
@@ -90,8 +86,7 @@ export const Contents: FC<ContentsProp> = ({ question, closeThisContent, isConte
     setText('');
   };
 
-
-  if(!isContentOpen) return (<div />);
+  if (!isContentOpen) return <div />;
 
   return (
     <ContentBox>
