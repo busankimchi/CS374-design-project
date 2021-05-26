@@ -1,15 +1,16 @@
-import { makeStyles, Box } from "@material-ui/core";
-import { GRAY, H2 } from '../../utils/themes'
+import { FC } from 'react';
+import { makeStyles, Box } from '@material-ui/core';
+import { GRAY, H2 } from '../../utils/themes';
 
-const useStyles = makeStyles(theme => ({
+const useStyles = makeStyles((theme) => ({
   container: {
-    display: "flex",
-    alignItems: "center"
+    display: 'flex',
+    alignItems: 'center',
   },
   border: {
-    borderBottom: "1px solid",
+    borderBottom: '1px solid',
     borderBottomColor: GRAY,
-    width: "100%"
+    width: '100%',
   },
   content: {
     paddingTop: theme.spacing(0.5),
@@ -17,11 +18,11 @@ const useStyles = makeStyles(theme => ({
     paddingRight: theme.spacing(2),
     paddingLeft: theme.spacing(2),
     H2,
-    color: GRAY
-  }
+    color: GRAY,
+  },
 }));
 
-export const AnswerDivider = () => {
+export const AnswerDivider: FC = () => {
   const classes = useStyles();
   return (
     <Box className={classes.container}>
