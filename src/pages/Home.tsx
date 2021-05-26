@@ -5,8 +5,9 @@ import { Box } from '@material-ui/core';
 import { NewTopicDialog, EditTopicDialog, DeleteTopicDialog, ContextMenu } from 'components/General';
 import { Header, MainDrawer } from 'components/BaseView';
 import { MousePosition, PageType, Topic } from 'utils/types';
+
 import { PINK_3, H5, B2, B3, LIGHT_GRAY_1, TRUNCATE_TWO, TRUNCATE_ONE } from 'utils/themes';
-import { addTopic, deleteTopic, updateTopic } from 'apis/Topic';
+import { deleteTopic, updateTopic } from 'apis/Topic';
 import { useTopicList } from 'hooks/useTopicList';
 import { ShadowBox } from 'components/Contents/ShadowBox';
 import { Questions } from './Questions';
@@ -56,6 +57,10 @@ export const Home: FC = () => {
 
   const changeTopicName = () => {
     onCloseEditDialog();
+    if (editTopicValue === '') {
+      return;
+    }
+
     const newTopicList = topicList.map((item) =>
       item.id === topic?.id ? { ...item, topicName: editTopicValue } : item,
     );
@@ -64,14 +69,16 @@ export const Home: FC = () => {
     updateTopic({ ...(topic as Topic), topicName: editTopicValue });
   };
 
-  const onAddTopic = async () => {
+  const onAddTopic = () => {
     onCloseNewDialog();
-    // TODO: add new topic to firebase
-    const newDocId = await addTopic({ topicName: addTopicValue, id: maxTopicId + 1 });
-    const newTopic: Topic = { topicName: addTopicValue, docId: newDocId, id: maxTopicId + 1 };
-    const newTopicList = topicList.concat([newTopic]);
-    setTopicList(newTopicList);
-    setMaxTopicId(maxTopicId + 1);
+    if (!(addTopicValue === '')) {
+      updateTopic({ topicName: addTopicValue, id: maxTopicId + 1 });
+      const newTopic: Topic = { topicName: addTopicValue, id: maxTopicId + 1 };
+      const newTopicList = topicList.concat([newTopic]);
+      setTopicList(newTopicList);
+      setMaxTopicId(maxTopicId + 1);
+    }
+    setAddTopicValue('');
   };
 
   const onDeleteTopic = () => {

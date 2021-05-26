@@ -4,13 +4,15 @@ import { Box, Breadcrumbs, Typography, InputBase, IconButton } from '@material-u
 import SendIcon from '@material-ui/icons/Send';
 import NavigateNextIcon from '@material-ui/icons/NavigateNext';
 import CloseIcon from '@material-ui/icons/Close';
-import { LIGHT_GRAY_1, H1, B1, B2 } from '../../utils/themes'
-import { UserInfo } from './UserInfo'
-import { AnswerDivider } from './AnswerDivider'
-import { FAQButton } from './FAQButton'
-import { AnswerDisplay } from './AnswerDisplay'
-import { NoAnswer } from './NoAnswer'
+import { LIGHT_GRAY_1, H1, B1, B2 } from '../../utils/themes';
+import { UserInfo } from './UserInfo';
+import { AnswerDivider } from './AnswerDivider';
+import { FAQButton } from './FAQButton';
+import { AnswerDisplay } from './AnswerDisplay';
+import { NoAnswer } from './NoAnswer';
 import { Question, AnswerContent } from '../../utils/types';
+import { updateIsFaqDB } from '../../apis/Question/updateIsFaqDB';
+import { appendAnswerDB } from '../../apis/Question/appendAnswerDB';
 
 interface ContentsProp {
    question: Question,
@@ -49,8 +51,13 @@ export const Contents: FC<ContentsProp> = ({ question, closeThisContent, isConte
 
   /* Listeners */
   const changeIsFaq = () => {
+    updateIsFaqDB(!isFaq, question.questionId);
     setIsFaq(!isFaq);
-    // TODO: Do some more things for firebase
+  }
+
+
+  const closeTab = () => {
+    // TODO: Navigate to 'nothing selected' page
   }
 
 
@@ -60,8 +67,7 @@ export const Contents: FC<ContentsProp> = ({ question, closeThisContent, isConte
 
   const appendAnswer = (ans: AnswerContent) => {
     setAnswers([...answers, ans]);
-
-    // TODO: Update answer to firebase
+    appendAnswerDB(ans, question.questionId);
   }
  
   const answerSubmitHandler = () => {

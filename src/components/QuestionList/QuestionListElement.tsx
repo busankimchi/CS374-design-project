@@ -1,18 +1,22 @@
 import { FC, useState } from 'react';
 import styled from 'styled-components';
+
 import { ShadowBox } from 'components/Contents/ShadowBox';
-import { Box, Typography, ListItem, ListItemText, IconButton } from '@material-ui/core';
-import { PINK_3, H5, B2, B3, LIGHT_GRAY_1, TRUNCATE_TWO, TRUNCATE_ONE } from 'utils/themes';
+import { Box, Typography, ListItem, ListItemText, IconButton, Divider as DefaultDivider } from '@material-ui/core';
+import { PINK_3, H5, B2, B3, LIGHT_GRAY_1, GRAY, TRUNCATE_TWO, TRUNCATE_ONE } from 'utils/themes';
+
 import { Icon } from '@iconify/react';
 import squareHalf from '@iconify-icons/bi/square-half';
-import { dummyQuestion } from '../../utils/dummyDatas';
+import { Question } from 'utils/types';
+import { Link as DefaultLink } from 'react-router-dom';
 
 interface QuestionListElementProp {
-  questionId: number;
+  question: Question;
+  topicId: number;
+  subTopicId: number;
 }
 
-
-export const QuestionListElement: FC<QuestionListElementProp> = ({ questionId }) => {
+export const QuestionListElement: FC<QuestionListElementProp> = ({ question, topicId, subTopicId }) => {
   const question = dummyQuestion;
   const [shadowPreview, setShadowPreview] = useState(true);
   
@@ -20,28 +24,34 @@ export const QuestionListElement: FC<QuestionListElementProp> = ({ questionId })
     setShadowPreview(!shadowPreview);
   }
   return (
-    <QuestionListElementContainer button>
-      <Text>
-        <Header>
-          <Title>
-            <ListItemText>
-              <TitleText>
-                Q{questionId}. {question.question.title}
-              </TitleText>
-            </ListItemText>
-          </Title>
-          <Time> {question.question.time.toDateString()}</Time>
-        </Header>
-        <Body>
-          <BodyText>
-            <ListItemText>{question.question.content}</ListItemText>
-          </BodyText>
-        </Body>
-      </Text>
-      <DoubleSidedViewButton onMouseEnter={setShadow} onMouseLeave={setShadow}>
+   <Link to={`/topic/${topicId}/subTopic/${subTopicId}/question/${question.questionId}`}>
+      <QuestionListElementContainer button>
+        <Text>
+          <Header>
+            <Title>
+              <ListItemText>
+                <TitleText>
+                  Q{question.questionId}. {question.question.title}
+                </TitleText>
+              </ListItemText>
+            </Title>
+            <Time> {question.question.time.toDateString()}</Time>
+          </Header>
+
+          <Body>
+            <BodyText>
+              <ListItemText>{question.question.content}</ListItemText>
+            </BodyText>
+          </Body>
+        </Text>
+
+        <DoubleSidedViewButton onMouseEnter={setShadow} onMouseLeave={setShadow}>
         <Icon icon={squareHalf} />
       </DoubleSidedViewButton>
-    </QuestionListElementContainer>
+        <Divider />
+      </QuestionListElementContainer>
+    </Link>
+
   );
 };
 
@@ -125,4 +135,13 @@ const DoubleSidedViewButton = styled(IconButton)`
   :focus {
     background-color: ${PINK_3};
   }
+`;
+
+const Divider = styled(DefaultDivider)`
+  background-color: ${GRAY};
+`;
+
+const Link = styled(DefaultLink)`
+  color: #000000;
+  text-decoration: none;
 `;

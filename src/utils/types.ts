@@ -1,3 +1,5 @@
+import firebase from 'firebase';
+
 export interface QuestionContent {
   name: string;
   image: number;
@@ -6,10 +8,25 @@ export interface QuestionContent {
   content: string;
 }
 
+export interface QuestionContentFB {
+  name: string;
+  image: number;
+  time: firebase.firestore.Timestamp;
+  title: string;
+  content: string;
+}
+
 export interface AnswerContent {
   name: string;
   image: number;
   time: Date;
+  content: string;
+}
+
+export interface AnswerContentFB {
+  name: string;
+  image: number;
+  time: firebase.firestore.Timestamp;
   content: string;
 }
 
@@ -22,9 +39,17 @@ export interface Question {
   answers: Array<AnswerContent>;
 }
 
+export interface QuestionFB {
+  questionId: number;
+  topic: string;
+  subtopic: string;
+  isFaq: boolean;
+  question: QuestionContentFB;
+  answers: Array<AnswerContentFB>;
+}
+
 export interface Topic {
   id: number;
-  docId?: string;
   topicName: string;
   subTopic?: SubTopic[];
 }
@@ -32,6 +57,7 @@ export interface Topic {
 export interface SubTopic {
   id: number;
   subTopicName: string;
+  questionList?: number[];
 }
 
 export enum PageType {
@@ -45,4 +71,16 @@ export enum PageType {
 export interface MousePosition {
   x: null | number;
   y: null | number;
+}
+
+export interface HistoryQuery {
+  id: number;
+  history: string;
+  time: Date;
+}
+
+export interface HistoryQueryFB {
+  id: number;
+  history: string;
+  time: firebase.firestore.Timestamp;
 }
