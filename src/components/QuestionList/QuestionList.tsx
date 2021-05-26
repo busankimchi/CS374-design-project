@@ -15,6 +15,8 @@ interface QuestionListHeaderProp {
   onToggle?: () => void;
   onHoverIn?: () => void;
   onHoverOut?: () => void;
+  onHoverInDual: () => void;
+  onHoverOutDual: () => void;
 }
 
 export const QuestionList: FC<QuestionListHeaderProp> = ({
@@ -24,9 +26,22 @@ export const QuestionList: FC<QuestionListHeaderProp> = ({
   onToggle,
   onHoverIn,
   onHoverOut,
+  onHoverInDual,
+  onHoverOutDual,
 }) => {
   const questionIdList = subTopic.questionList as number[];
   const { questionList } = useGetQuestionList(questionIdList);
+
+  questionList.sort((a, b) => {
+    return b.questionId - a.questionId;
+  });
+
+  // useEffect(() => {
+  //   if (questionIdList !== undefined) {
+  //     const { questionList } = useGetQuestionList(questionIdList);
+  //     setQuestionList(questionList);
+  //   }
+  // }, [questionIdList]);
 
   const renderQuestionListElement = (item: Question) => (
     <QuestionListElement
@@ -35,6 +50,8 @@ export const QuestionList: FC<QuestionListHeaderProp> = ({
       subTopicId={subTopic.id}
       onHoverIn={onHoverIn}
       onHoverOut={onHoverOut}
+      onHoverInDual={onHoverInDual}
+      onHoverOutDual={onHoverOutDual}
     />
   );
 
@@ -60,8 +77,8 @@ const QuestionListContainer = styled(Box)`
   display: flex;
 `;
 
-const QuestionListDrawer = styled(Box)<{ isListShown: boolean }>`
-  width: ${({ isListShown }) => (isListShown ? '20em' : '0em')};
+const QuestionListDrawer = styled(Box) <{ isListShown: boolean }>`
+  width: ${({ isListShown }) => (isListShown ? '20vw' : '0vw')};
   opacity: ${({ isListShown }) => (isListShown ? '1' : '0')};
   transition: all 0.15s ease-in-out !important;
 `;

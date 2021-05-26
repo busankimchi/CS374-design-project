@@ -27,6 +27,7 @@ export const Questions: FC<QuestionsProp> = ({ pageType, search, topicId, subTop
 
   const [isListShown, setListShown] = useState(false);
   const [isHover, setHover] = useState(false);
+  const [isHoverDual, setHoverDual] = useState(false);
 
   const [topicInfo, setTopicInfo] = useState<Topic>();
   const [subTopicInfo, setSubTopicInfo] = useState<SubTopic>();
@@ -72,6 +73,8 @@ export const Questions: FC<QuestionsProp> = ({ pageType, search, topicId, subTop
             onToggle={() => setListShown(!isListShown)}
             onHoverIn={() => setHover(true)}
             onHoverOut={() => setHover(false)}
+            onHoverInDual={() => setHoverDual(true)}
+            onHoverOutDual={() => setHoverDual(false)}
           />
         )}
 
@@ -80,7 +83,7 @@ export const Questions: FC<QuestionsProp> = ({ pageType, search, topicId, subTop
         {questionId2 !== undefined && <Contents question={dummyQuestions[1]} closeThisContent={onCloseRightContent} />}
       </QuestionDetails>
 
-      {isHover && <DoubleSidedPaper open={isHover} />}
+      {isHover && <DoubleSidedPaper open={isHover} fullsize={!isHoverDual} />}
     </QuestionsContainer>
   );
 };
@@ -94,8 +97,8 @@ const QuestionDetails = styled(Box)`
   display: flex;
 `;
 
-const DoubleSidedPaper = styled(Backdrop)`
+const DoubleSidedPaper = styled(Backdrop) <{ fullsize: boolean }>`
   position: reletive;
-  left: 50%;
-  /* z-index: 999; */
+  ${({ fullsize }) => (fullsize ? 'left: 37vw' : 'left: 50vw')};
+  z-index: 999;
 `;
