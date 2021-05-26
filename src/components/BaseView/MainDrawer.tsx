@@ -31,8 +31,8 @@ const MainDrawerContainer = styled(Box)`
   display: flex;
   flex-direction: column;
   background-color: ${PINK_2};
-  width: 15%;
-  min-height: 96vh;
+  width: 15vw;
+  height: 96vh;
 `;
 
 const ClassTextContainer = styled(Box)`

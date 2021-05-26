@@ -57,6 +57,13 @@ export const TopicList: FC<TopicListProp> = ({ topicList, onClickAdd, onContextM
   );
 };
 
+const TopicListContainer = styled(List)`
+  overflow-y: scroll;
+  ::-webkit-scrollbar {
+    display: none;
+  }
+`;
+
 const Link = styled(DefaultLink)`
   color: #000000;
   text-decoration: none;
@@ -93,9 +100,8 @@ const AllQuestions = styled(ListItem)`
   }
 `;
 
-const TopicListContainer = styled(List)``;
-
 const AddTopic = styled(ListItem)`
+  margin-bottom: 4em;
   :hover {
     background-color: ${PINK_4} !important;
   }

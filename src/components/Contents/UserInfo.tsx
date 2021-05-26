@@ -1,19 +1,33 @@
 import { FC } from 'react';
 import styled from 'styled-components';
-import {Box, Avatar} from '@material-ui/core';
+import { makeStyles } from '@material-ui/core/styles';
+import { Box, Avatar } from '@material-ui/core';
+import { timeForToday } from '../../utils/functions'
+import { H3, B2, COLORS } from '../../utils/themes'
 
-interface UserInfoProp { 
-    userName: string,
-    time: Date,
+interface UserInfoProp {
+  userName: string,
+  time: Date,
+  image: number,
 };
 
-export const UserInfo: FC<UserInfoProp> = ({userName, time}) => {
+const us = (c: number) => {
+  return makeStyles((theme) => ({
+    col: {
+      color: theme.palette.getContrastText(COLORS[c]),
+      backgroundColor: COLORS[c],
+    },
+  }));
+}
+
+export const UserInfo: FC<UserInfoProp> = ({ userName, time, image }) => {
+  const classes = us(image)();
   return (
-  <UserBox>
-    <UserAvatar>{userName[0]}</UserAvatar>
-    <UserNameBox>{userName}</UserNameBox>
-    <TimeBox>{time.toDateString()}</TimeBox>
-  </UserBox>
+    <UserBox>
+      <UserAvatar className={classes.col}>{userName[0]}</UserAvatar>
+      <UserNameBox>{userName}</UserNameBox>
+      <TimeBox>{timeForToday(time)}</TimeBox>
+    </UserBox>
   );
 };
 
@@ -30,14 +44,13 @@ const UserAvatar = styled(Avatar)`
 
 const UserNameBox = styled(Box)`
   margin-left: 10px;
-  margin-top: 3px;
-  font-size: 20px;
-  font-weight: Bold;
+  margin-top: 4px;
+  ${H3};
 `;
 
 const TimeBox = styled(Box)`
   margin-left: 10px;
   margin-top: 10px;
   display: flex;
-  font-size: 14px;
+  ${B2};
 `;

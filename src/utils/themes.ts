@@ -1,4 +1,5 @@
 import { css, keyframes } from 'styled-components';
+import { colors } from '@material-ui/core';
 
 /* COLOR THEMES */
 export const BROWN = '#402424';
@@ -71,14 +72,15 @@ export const B3 = css`
   font-family: 'Lato', sans-serif !important;
   font-style: normal !important;
   font-weight: 300 !important;
-  font-size: 14px !important;
+  font-size: 12px !important;
 `;
 
-export const GRAY_1 = '#868686';
-
-export const GRAY_2 = '#F2F0F0';
-
-export const GRAY_3 = '#CDCDCD';
+export const B4 = css`
+  font-family: 'Lato', sans-serif !important;
+  font-style: normal !important;
+  font-weight: 500 !important;
+  font-size: 16px !important;
+`;
 
 export const rotation = (degree: number) =>
   css`
@@ -102,3 +104,39 @@ export const FADE_OUT = keyframes`
         opacity: 0;
     }
 `;
+
+export const TRUNCATE_ONE = css`
+  display: -webkit-box;
+  -webkit-line-clamp: 1;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+`;
+
+export const TRUNCATE_TWO = css`
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+`;
+
+export const COLORS = [
+  colors.amber[200],
+  colors.blue[200],
+  colors.blueGrey[200],
+  colors.brown[200],
+  colors.cyan[200],
+  colors.deepOrange[200],
+  colors.deepPurple[200],
+  colors.green[200],
+  colors.grey[200],
+  colors.indigo[200],
+  colors.lightBlue[200],
+  colors.lightGreen[200],
+  colors.lime[200],
+  colors.orange[200],
+  colors.pink[200],
+  colors.purple[200],
+  colors.red[200],
+  colors.teal[200],
+  colors.yellow[200],
+];
