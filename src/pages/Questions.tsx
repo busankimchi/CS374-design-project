@@ -30,6 +30,7 @@ export const Questions: FC<QuestionsProp> = ({ pageType, search, topicId, subTop
 
   const [isListShown, setListShown] = useState(false);
   const [isHover, setHover] = useState(false);
+  const [isHoverDual, setHoverDual] = useState(false);
 
   const onCloseLeftContent = () => {
     history.push(`/topic/${topicId}/subtopic/${subTopicId}/question/${questionId}`);
@@ -126,6 +127,8 @@ export const Questions: FC<QuestionsProp> = ({ pageType, search, topicId, subTop
             onToggle={() => setListShown(!isListShown)}
             onHoverIn={() => setHover(true)}
             onHoverOut={() => setHover(false)}
+            onHoverInDual={() => setHoverDual(true)}
+            onHoverOutDual={() => setHoverDual(false)}
           />
 
           {/* {questionId === undefined && <NotSelected />} */}
@@ -140,10 +143,16 @@ export const Questions: FC<QuestionsProp> = ({ pageType, search, topicId, subTop
     );
   };
 
+<<<<<<< HEAD
   if (pageType === PageType.FAQ || pageType === PageType.ALL_QUESTIONS) {
     return SpecialQuestion();
   }
   return normalQuestion();
+=======
+      {isHover && <DoubleSidedPaper open={isHover} fullsize={!isHoverDual} />}
+    </QuestionsContainer>
+  );
+>>>>>>> 42eaab57192c9361e318e11760d6f9d11de13a26
 };
 
 const QuestionsContainer = styled(Box)`
@@ -155,8 +164,8 @@ const QuestionDetails = styled(Box)`
   display: flex;
 `;
 
-const DoubleSidedPaper = styled(Backdrop)`
+const DoubleSidedPaper = styled(Backdrop) <{ fullsize: boolean }>`
   position: reletive;
-  left: 50%;
-  /* z-index: 999; */
+  ${({ fullsize }) => (fullsize ? 'left: 37vw' : 'left: 50vw')};
+  z-index: 999;
 `;

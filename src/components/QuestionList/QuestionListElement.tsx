@@ -18,6 +18,8 @@ interface QuestionListElementProp {
   subTopicId: number;
   onHoverIn?: () => void;
   onHoverOut?: () => void;
+  onHoverInDual: () => void;
+  onHoverOutDual: () => void;
 }
 
 export const QuestionListElement: FC<QuestionListElementProp> = ({
@@ -26,14 +28,23 @@ export const QuestionListElement: FC<QuestionListElementProp> = ({
   subTopicId,
   onHoverIn,
   onHoverOut,
+  onHoverInDual,
+  onHoverOutDual,
 }) => {
   const [shadowPreview, setShadowPreview] = useState(true);
 
   const notAnswered: boolean = (question.answers.length === 0);
 
-  const setShadow = () => {
+  const setShadowIn = () => {
     setShadowPreview(!shadowPreview);
+    onHoverInDual();
   };
+
+  const setShadowOut = () => {
+    setShadowPreview(!shadowPreview);
+    onHoverOutDual();
+  };
+
   return (
     <Link to={`/topic/${topicId}/subTopic/${subTopicId}/question/${question.questionId}`}>
       <QuestionListElementContainer button onMouseEnter={onHoverIn} onMouseLeave={onHoverOut}>
@@ -56,7 +67,7 @@ export const QuestionListElement: FC<QuestionListElementProp> = ({
           </Body>
         </Text>
 
-        <DoubleSidedViewButton onMouseEnter={setShadow} onMouseLeave={setShadow}>
+        <DoubleSidedViewButton onMouseEnter={setShadowIn} onMouseLeave={setShadowOut}>
           <Icon icon={squareHalf} />
         </DoubleSidedViewButton>
       </QuestionListElementContainer>
