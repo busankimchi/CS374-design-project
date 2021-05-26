@@ -140,6 +140,7 @@ const ContentBox = styled(Box)`
   display: flex;
   justify-content: space-between;
   flex-direction: column;
+  width: 100%;
 `;
 
 const QnADisplayWrapper = styled(Box)`

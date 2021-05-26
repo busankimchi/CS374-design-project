@@ -8,6 +8,9 @@ import { PageType, Topic, SubTopic } from 'utils/types';
 import { QuestionList } from 'components/QuestionList/QuestionList';
 import { Hover, Contents, NotSelected } from 'components/Contents';
 import { useTopicList } from 'hooks/useTopicList';
+import { useQuestionList } from 'apis/Question/useQuestionList';
+import { SpecialQuestionList } from 'components/QuestionList/SpecialQuestionList';
+// import { NotSelected } from '../components/Contents/NotSelected';
 import { dummyQuestions } from '../utils/dummyDatas';
 
 interface QuestionsProp {
@@ -29,31 +32,6 @@ export const Questions: FC<QuestionsProp> = ({ pageType, search, topicId, subTop
   const [isHover, setHover] = useState(false);
   const [isHoverDual, setHoverDual] = useState(false);
 
-  const [topicInfo, setTopicInfo] = useState<Topic>();
-  const [subTopicInfo, setSubTopicInfo] = useState<SubTopic>();
-
-  const { topicList } = useTopicList();
-  // console.log({topicList});
-  // const topicInfo = topicList.find((topic) => topic.id === topicId) as Topic;
-  // console.log({topicInfo});
-  // const subTopicInfo = (topicInfo.subTopic as SubTopic[]).find((subtopic) => subtopic.id === subTopicId) as SubTopic;
-
-  useEffect(() => {
-    if (topicList.length > 0) {
-      const newTopicInfo = topicList.find((topic) => topic.id === topicId) as Topic;
-      setTopicInfo(newTopicInfo);
-    }
-  }, [topicList, topicId, subTopicId]);
-
-  useEffect(() => {
-    if (topicInfo !== undefined) {
-      const newSubTopicInfo = (topicInfo.subTopic as SubTopic[]).find(
-        (subtopic) => subtopic.id === subTopicId,
-      ) as SubTopic;
-      setSubTopicInfo(newSubTopicInfo);
-    }
-  }, [topicInfo, topicId, subTopicId]);
-
   const onCloseLeftContent = () => {
     history.push(`/topic/${topicId}/subtopic/${subTopicId}/question/${questionId}`);
   };
@@ -62,13 +40,91 @@ export const Questions: FC<QuestionsProp> = ({ pageType, search, topicId, subTop
     history.push(`/topic/${topicId}/subtopic/${subTopicId}/question/${questionId2}`);
   };
 
-  return (
-    <QuestionsContainer>
-      <QuestionDetails>
-        {topicInfo !== undefined && subTopicInfo !== undefined && (
-          <QuestionList
-            topic={topicInfo}
-            subTopic={subTopicInfo}
+  const normalQuestion = () => {
+    const [topicInfo, setTopicInfo] = useState<Topic>();
+    const [subTopicInfo, setSubTopicInfo] = useState<SubTopic>();
+
+    const { topicList } = useTopicList();
+
+    useEffect(() => {
+      if (topicList.length > 0) {
+        const newTopicInfo = topicList.find((topic) => topic.id === topicId) as Topic;
+        setTopicInfo(newTopicInfo);
+      }
+    }, [topicList, topicId, subTopicId]);
+
+    useEffect(() => {
+      if (topicInfo !== undefined) {
+        const newSubTopicInfo = (topicInfo.subTopic as SubTopic[]).find(
+          (subtopic) => subtopic.id === subTopicId,
+        ) as SubTopic;
+        setSubTopicInfo(newSubTopicInfo);
+      }
+    }, [topicInfo, topicId, subTopicId]);
+
+    return (
+      <QuestionsContainer>
+        <QuestionDetails>
+          {topicInfo !== undefined && subTopicInfo !== undefined && (
+            <QuestionList
+              topic={topicInfo}
+              subTopic={subTopicInfo}
+              isListShown={isListShown}
+              onToggle={() => setListShown(!isListShown)}
+              onHoverIn={() => setHover(true)}
+              onHoverOut={() => setHover(false)}
+              onHoverInDual={() => setHoverDual(true)}
+              onHoverOutDual={() => setHoverDual(false)}
+            />
+          )}
+
+          {/* {questionId === undefined && <NotSelected />} */}
+          {questionId !== undefined && <Contents question={dummyQuestions[questionId - 1]} closeThisContent={onCloseLeftContent} />}
+          {questionId2 !== undefined && (
+            <Contents question={dummyQuestions[questionId2 - 1]} closeThisContent={onCloseRightContent} />
+          )}
+        </QuestionDetails>
+
+        {isHover && <DoubleSidedPaper open={isHover} fullsize={!isHoverDual} />}
+      </QuestionsContainer>
+    );
+  };
+
+  const SpecialQuestion = () => {
+    const { questionList } = useQuestionList();
+    if (pageType === PageType.FAQ) {
+      const FAQList = questionList.filter((question) => question.isFaq);
+      return (
+        <QuestionsContainer>
+          <QuestionDetails>
+            <SpecialQuestionList
+              questionList={FAQList}
+              title="FAQ"
+              isListShown={isListShown}
+              onToggle={() => setListShown(!isListShown)}
+              onHoverIn={() => setHover(true)}
+              onHoverOut={() => setHover(false)}
+              onHoverInDual={() => setHoverDual(true)}
+              onHoverOutDual={() => setHoverDual(false)}
+            />
+
+            {/* {questionId === undefined && <NotSelected />} */}
+            <QQBox>
+              {questionId !== undefined && <QBox><Contents question={dummyQuestions[questionId - 1]} closeThisContent={onCloseLeftContent} /></QBox>}
+              {questionId2 !== undefined && <QBox><Contents question={dummyQuestions[questionId2 - 1]} closeThisContent={onCloseRightContent} /></QBox>}
+            </QQBox>
+          </QuestionDetails>
+
+          {isHover && <DoubleSidedPaper open={isHover} fullsize={!isHoverDual} />}
+        </QuestionsContainer>
+      );
+    }
+    return (
+      <QuestionsContainer>
+        <QuestionDetails>
+          <SpecialQuestionList
+            questionList={questionList}
+            title="ALL QUESTIONS"
             isListShown={isListShown}
             onToggle={() => setListShown(!isListShown)}
             onHoverIn={() => setHover(true)}
@@ -76,22 +132,26 @@ export const Questions: FC<QuestionsProp> = ({ pageType, search, topicId, subTop
             onHoverInDual={() => setHoverDual(true)}
             onHoverOutDual={() => setHoverDual(false)}
           />
-        )}
 
+          {/* {questionId === undefined && <NotSelected />} */}
+
+        </QuestionDetails>
         {/* {questionId === undefined && <NotSelected />} */}
         <QQBox>
-
-          {questionId !== undefined && <QBox><Contents question={dummyQuestions[0]} closeThisContent={onCloseLeftContent} /></QBox>}
-
-
-          {questionId2 !== undefined && <QBox><Contents question={dummyQuestions[1]} closeThisContent={onCloseRightContent} /></QBox>}
-
+          {questionId !== undefined && <QBox><Contents question={dummyQuestions[questionId - 1]} closeThisContent={onCloseLeftContent} /></QBox>}
+          {questionId2 !== undefined && <QBox><Contents question={dummyQuestions[questionId2 - 1]} closeThisContent={onCloseRightContent} /></QBox>}
         </QQBox>
-      </QuestionDetails>
+        {/* </QuestionDetails> */}
 
-      {isHover && <DoubleSidedPaper open={isHover} fullsize={!isHoverDual} />}
-    </QuestionsContainer>
-  );
+        { isHover && <DoubleSidedPaper open={isHover} fullsize={!isHoverDual} />}
+      </QuestionsContainer >
+    );
+  };
+
+  if (pageType === PageType.FAQ || pageType === PageType.ALL_QUESTIONS) {
+    return SpecialQuestion();
+  }
+  return normalQuestion();
 };
 
 const QuestionsContainer = styled(Box)`
@@ -111,6 +171,7 @@ const QQBox = styled(Box)`
 
 const QuestionDetails = styled(Box)`
   display: flex;
+  width: 100%;
 `;
 
 const DoubleSidedPaper = styled(Backdrop) <{ fullsize: boolean }>`
