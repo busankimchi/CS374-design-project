@@ -23,7 +23,7 @@ export const ContextMenu: FC<ContextMenuProps> = ({ mouse, handleClose, onClickE
         <ItemText>Edit Topic Name</ItemText>
       </MenuItem>
       <MenuItem onClick={onClickDelete}>
-        <ItemText>Delete Topic Name</ItemText>
+        <ItemText>Delete Topic</ItemText>
       </MenuItem>
     </Menu>
   );

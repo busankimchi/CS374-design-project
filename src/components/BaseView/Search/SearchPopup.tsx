@@ -33,19 +33,13 @@ export const SearchPopup: FC<SearchPopupProp> = ({ open, onClose }) => {
   });
 
   const onClickDelete = (item: HistoryQuery) => {
-    console.log('asdfasdfasdf');
     const newHistoryList = historyList.filter((it) => it.id !== item.id);
-    // TODO: delete history list
     setHistoryList(newHistoryList);
     const historyFB = { ...item, time: DateToTimestamp(item.time) };
     deleteHistory(historyFB);
   };
 
   const addHistoryBySearch = () => {
-    // if (onClose !== undefined) {
-    //   onClose();
-    // }
-
     const newHistory = { id: maxHistoryId + 1, history: search, time: new Date() };
     const newHistoryFB = { ...newHistory, time: DateToTimestamp(newHistory.time) };
     const newHistoryList = historyList;
@@ -57,10 +51,6 @@ export const SearchPopup: FC<SearchPopupProp> = ({ open, onClose }) => {
   };
 
   const addHistoryByClick = (item: HistoryQuery) => {
-    // if (onClose !== undefined) {
-    //   onClose();
-    // }
-
     const newHistoryList = historyList.filter((it) => it.id !== item.id);
     const newHistory = { ...item, time: new Date() };
     const newHistoryFB = { ...newHistory, time: DateToTimestamp(newHistory.time) };
