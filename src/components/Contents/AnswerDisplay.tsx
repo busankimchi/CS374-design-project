@@ -38,6 +38,8 @@ const AnswerContentWrapper = styled(Box)`
   border-left: solid;
   border-color: ${LIGHT_GRAY_1};
   border-width: 4px;
+  padding-top: 2px;
+  padding-bottom: 5px;
 `;
 
 const AnswerContentBox = styled(Box)`
