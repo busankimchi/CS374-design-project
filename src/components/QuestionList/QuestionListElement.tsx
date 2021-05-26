@@ -1,7 +1,10 @@
-import { FC } from 'react';
+import { FC, useState } from 'react';
 import styled from 'styled-components';
+
+import { ShadowBox } from 'components/Contents/ShadowBox';
 import { Box, Typography, ListItem, ListItemText, IconButton, Divider as DefaultDivider } from '@material-ui/core';
 import { PINK_3, H5, B2, B3, LIGHT_GRAY_1, GRAY, TRUNCATE_TWO, TRUNCATE_ONE } from 'utils/themes';
+
 import { Icon } from '@iconify/react';
 import squareHalf from '@iconify-icons/bi/square-half';
 import { Question } from 'utils/types';
@@ -14,10 +17,14 @@ interface QuestionListElementProp {
 }
 
 export const QuestionListElement: FC<QuestionListElementProp> = ({ question, topicId, subTopicId }) => {
-  // console.log(question.question.time);
-  // console.log(TimestampToDate(DateToTimestamp(question.question.time)));
+  const question = dummyQuestion;
+  const [shadowPreview, setShadowPreview] = useState(true);
+  
+  const setShadow = () => {
+    setShadowPreview(!shadowPreview);
+  }
   return (
-    <Link to={`/topic/${topicId}/subTopic/${subTopicId}/question/${question.questionId}`}>
+   <Link to={`/topic/${topicId}/subTopic/${subTopicId}/question/${question.questionId}`}>
       <QuestionListElementContainer button>
         <Text>
           <Header>
@@ -38,14 +45,17 @@ export const QuestionListElement: FC<QuestionListElementProp> = ({ question, top
           </Body>
         </Text>
 
-        <DoubleSidedViewButton>
-          <Icon icon={squareHalf} />
-        </DoubleSidedViewButton>
+        <DoubleSidedViewButton onMouseEnter={setShadow} onMouseLeave={setShadow}>
+        <Icon icon={squareHalf} />
+      </DoubleSidedViewButton>
         <Divider />
       </QuestionListElementContainer>
     </Link>
+
   );
 };
+
+
 
 const QuestionListElementContainer = styled(ListItem)`
   padding: 0;
