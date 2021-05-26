@@ -54,6 +54,13 @@ export const H5 = css`
   font-size: 14px !important;
 `;
 
+export const H5I = css`
+  font-family: 'Lato', sans-serif !important;
+  font-style: italic !important;
+  font-weight: 700 !important;
+  font-size: 14px !important;
+`;
+
 export const B1 = css`
   font-family: 'Lato', sans-serif !important;
   font-style: normal !important;
@@ -68,9 +75,23 @@ export const B2 = css`
   font-size: 14px !important;
 `;
 
+export const B2I = css`
+  font-family: 'Lato', sans-serif !important;
+  font-style: italic !important;
+  font-weight: 500 !important;
+  font-size: 14px !important;
+`;
+
 export const B3 = css`
   font-family: 'Lato', sans-serif !important;
   font-style: normal !important;
+  font-weight: 300 !important;
+  font-size: 12px !important;
+`;
+
+export const B3I = css`
+  font-family: 'Lato', sans-serif !important;
+  font-style: italic !important;
   font-weight: 300 !important;
   font-size: 12px !important;
 `;
