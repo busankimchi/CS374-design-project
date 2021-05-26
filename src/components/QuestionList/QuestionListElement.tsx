@@ -17,14 +17,13 @@ interface QuestionListElementProp {
 }
 
 export const QuestionListElement: FC<QuestionListElementProp> = ({ question, topicId, subTopicId }) => {
-  const question = dummyQuestion;
   const [shadowPreview, setShadowPreview] = useState(true);
-  
+
   const setShadow = () => {
     setShadowPreview(!shadowPreview);
-  }
+  };
   return (
-   <Link to={`/topic/${topicId}/subTopic/${subTopicId}/question/${question.questionId}`}>
+    <Link to={`/topic/${topicId}/subTopic/${subTopicId}/question/${question.questionId}`}>
       <QuestionListElementContainer button>
         <Text>
           <Header>
@@ -46,16 +45,13 @@ export const QuestionListElement: FC<QuestionListElementProp> = ({ question, top
         </Text>
 
         <DoubleSidedViewButton onMouseEnter={setShadow} onMouseLeave={setShadow}>
-        <Icon icon={squareHalf} />
-      </DoubleSidedViewButton>
+          <Icon icon={squareHalf} />
+        </DoubleSidedViewButton>
         <Divider />
       </QuestionListElementContainer>
     </Link>
-
   );
 };
-
-
 
 const QuestionListElementContainer = styled(ListItem)`
   padding: 0;

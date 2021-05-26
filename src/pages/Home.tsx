@@ -13,7 +13,6 @@ import { useTopicList } from 'hooks/useTopicList';
 import { ShadowBox } from 'components/Contents/ShadowBox';
 import { Questions } from './Questions';
 
-
 export const Home: FC = () => {
   const [openNewTopic, setOpenNewTopic] = useState(false);
   const [openEditTopic, setOpenEditTopic] = useState(false);
@@ -23,7 +22,6 @@ export const Home: FC = () => {
   const [editTopicValue, setEditTopicValue] = useState('');
   const [addTopicValue, setAddTopicValue] = useState('');
   const { topicList, setTopicList, maxTopicId, setMaxTopicId } = useTopicList();
-
 
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const handleMenuTrigger = (event: any) => {
@@ -106,7 +104,7 @@ export const Home: FC = () => {
             setEditTopicValue(item.topicName);
           }}
         />
-        <Hover />
+        {/* <Hover /> */}
         <Route exact path="/">
           <Redirect to="/faq" />
         </Route>
@@ -195,7 +193,6 @@ export const Home: FC = () => {
             return <Questions pageType={PageType.NONE} />;
           }}
         />
-
       </Main>
       <NewTopicDialog
         open={openNewTopic}
@@ -223,4 +220,3 @@ const Main = styled(Box)`
   display: flex;
   flex-direction: row;
 `;
-

@@ -4,8 +4,9 @@ import { Box } from '@material-ui/core';
 import { PageType, Topic, SubTopic } from 'utils/types';
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 import { QuestionList } from 'components/QuestionList/QuestionList';
+import { Hover } from 'components/Contents';
+import { Contents } from 'components/Contents/Contents';
 import { useTopicList } from 'hooks/useTopicList';
-import { Contents } from '../components/Contents/Contents';
 // import { NotSelected } from '../components/Contents/NotSelected';
 import { dummyQuestions } from '../utils/dummyDatas';
 
@@ -29,9 +30,8 @@ export const Questions: FC<QuestionsProp> = ({ pageType, search, topicId, subTop
 
   const [isListShown, setListShown] = useState(true);
   const [isFirstContentOpen, setIsFirstContentOpen] = useState(true);
-  const [isSecondContentOpen, setIsSecondContentOpen]=useState(true);
+  const [isSecondContentOpen, setIsSecondContentOpen] = useState(true);
 
-    
   const [topicInfo, setTopicInfo] = useState<Topic>();
   const [subTopicInfo, setSubTopicInfo] = useState<SubTopic>();
 
@@ -61,12 +61,21 @@ export const Questions: FC<QuestionsProp> = ({ pageType, search, topicId, subTop
 
   return (
     <QuestionsContainer>
-
-      {topicInfo !== undefined && subTopicInfo !== undefined && <QuestionList topic={topicInfo} subTopic={subTopicInfo} isListShown={isListShown} />}
+      {topicInfo !== undefined && subTopicInfo !== undefined && (
+        <QuestionList topic={topicInfo} subTopic={subTopicInfo} isListShown={isListShown} />
+      )}
       {/* <Contents question={dummyQuestions[0]} /> */}
       <Hover showQuestionList={() => setListShown(!isListShown)} iconFlip={isListShown} />
-      <Contents question={dummyQuestion} closeThisContent={() => setIsFirstContentOpen(!isFirstContentOpen)} isContentOpen={isFirstContentOpen}/>
-      <Contents question={dummyQuestion} closeThisContent={() => setIsSecondContentOpen(!isSecondContentOpen)} isContentOpen={isSecondContentOpen}/>
+      <Contents
+        question={dummyQuestions[0]}
+        closeThisContent={() => setIsFirstContentOpen(!isFirstContentOpen)}
+        isContentOpen={isFirstContentOpen}
+      />
+      <Contents
+        question={dummyQuestions[1]}
+        closeThisContent={() => setIsSecondContentOpen(!isSecondContentOpen)}
+        isContentOpen={isSecondContentOpen}
+      />
       {/* <NotSelected /> */}
     </QuestionsContainer>
   );

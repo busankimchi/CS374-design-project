@@ -1,10 +1,9 @@
 import { FC } from 'react';
 import styled from 'styled-components';
 
-
 import { Box, Drawer, List, Divider as DefaultDivider, Typography } from '@material-ui/core';
 import { H3, GRAY, TRUNCATE_ONE } from 'utils/themes';
-import { dummyTopicList } from 'utils/dummyDatas';
+// import { dummyTopicList } from 'utils/dummyDatas';
 import { Topic, SubTopic, Question } from 'utils/types';
 
 import { useGetQuestionList } from 'apis/Question/useGetQuestionList';
@@ -14,9 +13,10 @@ import { QuestionListElement } from './QuestionListElement';
 interface QuestionListHeaderProp {
   topic: Topic;
   subTopic: SubTopic;
+  isListShown: boolean;
 }
 
-export const QuestionList: FC<QuestionListHeaderProp> = ({ topic, subTopic }) => {
+export const QuestionList: FC<QuestionListHeaderProp> = ({ topic, subTopic, isListShown }) => {
   // const [questionList, setQuestionList] = useState<Question[]>();
   const questionIdList = subTopic.questionList as number[];
   const { questionList } = useGetQuestionList(questionIdList);
@@ -54,7 +54,7 @@ const QuestionListDrawer = styled(Box)`
     top: 4vh;
   }
   */
- width: 15%;
+  width: 15%;
 `;
 const QuestionListDrawerBody = styled(List)`
   padding: 0;
