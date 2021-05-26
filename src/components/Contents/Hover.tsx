@@ -1,9 +1,8 @@
-import { Box, Button, ButtonBase } from '@material-ui/core';
+import { Button } from '@material-ui/core';
 // import DeleteIcon from '@material-ui/icons/Delete';
-import { Icon } from '@iconify/react';
 import styled from 'styled-components';
 import { FC } from 'react';
-import { LIGHT_GRAY_1, PINK_4 } from 'utils/themes';
+import { PINK_4 } from 'utils/themes';
 import ChevronRightIcon from '@material-ui/icons/ChevronRight';
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 
