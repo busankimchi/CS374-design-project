@@ -81,8 +81,14 @@ export const Questions: FC<QuestionsProp> = ({ pageType, search, topicId, subTop
         )}
 
         {/* {questionId === undefined && <NotSelected />} */}
-        {questionId !== undefined && <Contents question={dummyQuestions[0]} closeThisContent={onCloseLeftContent} />}
-        {questionId2 !== undefined && <Contents question={dummyQuestions[1]} closeThisContent={onCloseRightContent} />}
+        <QQBox>
+
+          {questionId !== undefined && <QBox><Contents question={dummyQuestions[0]} closeThisContent={onCloseLeftContent} /></QBox>}
+
+
+          {questionId2 !== undefined && <QBox><Contents question={dummyQuestions[1]} closeThisContent={onCloseRightContent} /></QBox>}
+
+        </QQBox>
       </QuestionDetails>
 
       {isHover && <DoubleSidedPaper open={isHover} fullsize={!isHoverDual} />}
@@ -93,6 +99,16 @@ export const Questions: FC<QuestionsProp> = ({ pageType, search, topicId, subTop
 const QuestionsContainer = styled(Box)`
   display: flex;
   width: 100%;
+`;
+
+const QBox = styled(Box)`
+  width: 100%;
+  display: flex;
+`;
+
+const QQBox = styled(Box)`
+  width: 100%;
+  display: flex;
 `;
 
 const QuestionDetails = styled(Box)`
