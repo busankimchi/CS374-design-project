@@ -42,9 +42,9 @@ export const SearchPopup: FC<SearchPopupProp> = ({ open, onClose }) => {
   };
 
   const addHistoryBySearch = () => {
-    if (onClose !== undefined) {
-      onClose();
-    }
+    // if (onClose !== undefined) {
+    //   onClose();
+    // }
 
     const newHistory = { id: maxHistoryId + 1, history: search, time: new Date() };
     const newHistoryFB = { ...newHistory, time: DateToTimestamp(newHistory.time) };
@@ -57,9 +57,9 @@ export const SearchPopup: FC<SearchPopupProp> = ({ open, onClose }) => {
   };
 
   const addHistoryByClick = (item: HistoryQuery) => {
-    if (onClose !== undefined) {
-      onClose();
-    }
+    // if (onClose !== undefined) {
+    //   onClose();
+    // }
 
     const newHistoryList = historyList.filter((it) => it.id !== item.id);
     const newHistory = { ...item, time: new Date() };
@@ -110,7 +110,8 @@ export const SearchPopup: FC<SearchPopupProp> = ({ open, onClose }) => {
                   key={option.id}
                   {...getOptionProps({ option, index })}
                   history={option}
-                  onClickItem={() => addHistoryByClick(option)}
+                  onClickItem={onClose}
+                  onClickHistory={() => addHistoryByClick(option)}
                   onClickDelete={() => onClickDelete(option)}
                 />
               ))}

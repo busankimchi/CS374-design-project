@@ -1,3 +1,4 @@
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 import { Topic, Question, QuestionContent, AnswerContent, HistoryQuery } from './types';
 
 // export const dummyTopicList: Topic[] = [
