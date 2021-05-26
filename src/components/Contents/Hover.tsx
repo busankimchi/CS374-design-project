@@ -3,13 +3,15 @@ import { Button } from '@material-ui/core';
 import { Icon } from '@iconify/react';
 import styled from 'styled-components';
 import { FC, useState } from 'react';
-import { PINK_4 } from 'utils/themes';
+import { BROWN , PINK_4 } from 'utils/themes';
+
 import chevronRight from '@iconify-icons/akar-icons/chevron-right';
 
 interface HoverProps {
   showQuestionList?: () => void;
   iconFlip: boolean;
 }
+
 
 export const Hover: FC<HoverProps> = ({showQuestionList, iconFlip}) => {
   // const ShowQuestionList = () => {
@@ -30,4 +32,4 @@ const HoverContainer = styled(Button)`
   background-color: ${PINK_4};
   width: 20%;
   min-height: 96vh;
-  `;
+`;

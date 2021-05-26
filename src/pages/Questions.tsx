@@ -7,7 +7,7 @@ import { QuestionList } from 'components/QuestionList/QuestionList';
 import { useTopicList } from 'hooks/useTopicList';
 import { Contents } from '../components/Contents/Contents';
 // import { NotSelected } from '../components/Contents/NotSelected';
-import { dummyQuestions } from '../utils/dummyDatas'
+import { dummyQuestions } from '../utils/dummyDatas';
 
 interface QuestionsProp {
   pageType: PageType;
@@ -50,24 +50,25 @@ export const Questions: FC<QuestionsProp> = ({ pageType, search, topicId, subTop
 
   useEffect(() => {
     if (topicInfo !== undefined) {
-      const newSubTopicInfo = (topicInfo.subTopic as SubTopic[]).find((subtopic) => subtopic.id === subTopicId) as SubTopic;
+      const newSubTopicInfo = (topicInfo.subTopic as SubTopic[]).find(
+        (subtopic) => subtopic.id === subTopicId,
+      ) as SubTopic;
       setSubTopicInfo(newSubTopicInfo);
     }
   }, [topicInfo, topicId, subTopicId]);
 
   // console.log({topicInfo, subTopicInfo});
 
-
   return (
     <QuestionsContainer>
+
       {topicInfo !== undefined && subTopicInfo !== undefined && <QuestionList topic={topicInfo} subTopic={subTopicInfo} isListShown={isListShown} />}
       {/* <Contents question={dummyQuestions[0]} /> */}
       <Hover showQuestionList={() => setListShown(!isListShown)} iconFlip={isListShown} />
       <Contents question={dummyQuestion} closeThisContent={() => setIsFirstContentOpen(!isFirstContentOpen)} isContentOpen={isFirstContentOpen}/>
       <Contents question={dummyQuestion} closeThisContent={() => setIsSecondContentOpen(!isSecondContentOpen)} isContentOpen={isSecondContentOpen}/>
-
       {/* <NotSelected /> */}
-    </QuestionsContainer >
+    </QuestionsContainer>
   );
 };
 
