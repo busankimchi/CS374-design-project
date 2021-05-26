@@ -1,11 +1,11 @@
 import { FC, useEffect, useState } from 'react';
+import { useHistory } from 'react-router';
 import styled from 'styled-components';
-import { Box } from '@material-ui/core';
+import { Backdrop, Box, Fade, Paper } from '@material-ui/core';
 import { PageType, Topic, SubTopic } from 'utils/types';
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 import { QuestionList } from 'components/QuestionList/QuestionList';
-import { Hover } from 'components/Contents';
-import { Contents } from 'components/Contents/Contents';
+import { Hover, Contents, NotSelected } from 'components/Contents';
 import { useTopicList } from 'hooks/useTopicList';
 // import { NotSelected } from '../components/Contents/NotSelected';
 import { dummyQuestions } from '../utils/dummyDatas';
@@ -23,14 +23,10 @@ export const Questions: FC<QuestionsProp> = ({ pageType, search, topicId, subTop
   // eslint-disable-next-line no-console
   console.log({ pageType, search, topicId, subTopicId, questionId, questionId2 });
 
-  // pageType == None? 잘못된 url.
-  // normal? questionId주어진경우,아닌경우
-  // topic, subtopic가지고 fetch를 해. subtopicID에 대응되어있는 questionlists를
-  // questionId가 있다면 questionid를 찾아서 contents.tsx를 함께 띄워준다.
+  const history = useHistory();
 
-  const [isListShown, setListShown] = useState(true);
-  const [isFirstContentOpen, setIsFirstContentOpen] = useState(true);
-  const [isSecondContentOpen, setIsSecondContentOpen] = useState(true);
+  const [isListShown, setListShown] = useState(false);
+  const [isHover, setHover] = useState(false);
 
   const [topicInfo, setTopicInfo] = useState<Topic>();
   const [subTopicInfo, setSubTopicInfo] = useState<SubTopic>();
@@ -57,26 +53,34 @@ export const Questions: FC<QuestionsProp> = ({ pageType, search, topicId, subTop
     }
   }, [topicInfo, topicId, subTopicId]);
 
-  // console.log({topicInfo, subTopicInfo});
+  const onCloseLeftContent = () => {
+    history.push(`/topic/${topicId}/subtopic/${subTopicId}/question/${questionId}`);
+  };
+
+  const onCloseRightContent = () => {
+    history.push(`/topic/${topicId}/subtopic/${subTopicId}/question/${questionId2}`);
+  };
 
   return (
     <QuestionsContainer>
-      {topicInfo !== undefined && subTopicInfo !== undefined && (
-        <QuestionList topic={topicInfo} subTopic={subTopicInfo} isListShown={isListShown} />
-      )}
-      {/* <Contents question={dummyQuestions[0]} /> */}
-      <Hover showQuestionList={() => setListShown(!isListShown)} iconFlip={isListShown} />
-      <Contents
-        question={dummyQuestions[0]}
-        closeThisContent={() => setIsFirstContentOpen(!isFirstContentOpen)}
-        isContentOpen={isFirstContentOpen}
-      />
-      <Contents
-        question={dummyQuestions[1]}
-        closeThisContent={() => setIsSecondContentOpen(!isSecondContentOpen)}
-        isContentOpen={isSecondContentOpen}
-      />
-      {/* <NotSelected /> */}
+      <QuestionDetails>
+        {topicInfo !== undefined && subTopicInfo !== undefined && (
+          <QuestionList
+            topic={topicInfo}
+            subTopic={subTopicInfo}
+            isListShown={isListShown}
+            onToggle={() => setListShown(!isListShown)}
+            onHoverIn={() => setHover(true)}
+            onHoverOut={() => setHover(false)}
+          />
+        )}
+
+        {/* {questionId === undefined && <NotSelected />} */}
+        {questionId !== undefined && <Contents question={dummyQuestions[0]} closeThisContent={onCloseLeftContent} />}
+        {questionId2 !== undefined && <Contents question={dummyQuestions[1]} closeThisContent={onCloseRightContent} />}
+      </QuestionDetails>
+
+      {isHover && <DoubleSidedPaper open={isHover} />}
     </QuestionsContainer>
   );
 };
@@ -84,4 +88,14 @@ export const Questions: FC<QuestionsProp> = ({ pageType, search, topicId, subTop
 const QuestionsContainer = styled(Box)`
   display: flex;
   width: 100%;
+`;
+
+const QuestionDetails = styled(Box)`
+  display: flex;
+`;
+
+const DoubleSidedPaper = styled(Backdrop)`
+  position: reletive;
+  left: 50%;
+  /* z-index: 999; */
 `;
