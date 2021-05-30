@@ -29,59 +29,36 @@ export const QuestionList: FC<QuestionListHeaderProp> = ({
   onHoverInDual,
   onHoverOutDual,
 }) => {
-  // const questionIdList = subTopic.questionList as number[];
-  // // const { questionList, setQuestionList } = useGetQuestionList(questionIdList);
-  // const [questionList, setQuestionList] = useState(getQuestionList(questionIdList).then((val) => { return val }));
-
   const questionIdList = useState(subTopic.questionList as number[])[0];
   const [questionList, setQuestionList] = useState<Question[]>();
 
-  firebase.firestore().collection('questions').get().then((doc) => {
-    const questionListCustom = [] as Question[];
-    doc.docs.filter((item) => {
-      const { question, answers, ...rest } = item.data() as QuestionFB;
-      const questionContent = { ...question, time: TimestampToDate(question.time) } as QuestionContent;
-      const answerContents = answers.map((item) => ({ ...item, time: TimestampToDate(item.time) } as AnswerContent));
-
-      const finalQuestion = { question: questionContent, answers: answerContents, ...rest } as Question;
-
-      if (questionIdList.includes(finalQuestion.questionId)) {
-        questionListCustom.push(finalQuestion);
-      }
-
-      return finalQuestion;
-    });
-    questionListCustom.sort((a, b) => {
-      return b.questionId - a.questionId;
-    });
-    setQuestionList(questionListCustom);
-  }).catch();
-
-  // setQuestionList(useGetQuestionList(questionIdList))
-  // const { questionList } = ;
-
   useEffect(() => {
     if (questionIdList !== undefined) {
-      firebase.firestore().collection('questions').get().then((doc) => {
-        const questionListCustom = [] as Question[];
-        doc.docs.filter((item) => {
-          const { question, answers, ...rest } = item.data() as QuestionFB;
-          const questionContent = { ...question, time: TimestampToDate(question.time) } as QuestionContent;
-          const answerContents = answers.map((item) => ({ ...item, time: TimestampToDate(item.time) } as AnswerContent));
+      firebase
+        .firestore()
+        .collection('questions')
+        .get()
+        .then((doc) => {
+          const questionListCustom = [] as Question[];
+          doc.docs.filter((item) => {
+            const { question, answers, ...rest } = item.data() as QuestionFB;
+            const questionContent = { ...question, time: TimestampToDate(question.time) } as QuestionContent;
+            const answerContents = answers.map(
+              (item) => ({ ...item, time: TimestampToDate(item.time) } as AnswerContent),
+            );
 
-          const finalQuestion = { question: questionContent, answers: answerContents, ...rest } as Question;
+            const finalQuestion = { question: questionContent, answers: answerContents, ...rest } as Question;
 
-          if (questionIdList.includes(finalQuestion.questionId)) {
-            questionListCustom.push(finalQuestion);
-          }
+            if (questionIdList.includes(finalQuestion.questionId)) {
+              questionListCustom.push(finalQuestion);
+            }
 
-          return finalQuestion;
-        });
-        questionListCustom.sort((a, b) => {
-          return b.questionId - a.questionId;
-        });
-        setQuestionList(questionListCustom);
-      }).catch();
+            return finalQuestion;
+          });
+          questionListCustom.sort((a, b) => b.questionId - a.questionId);
+          setQuestionList(questionListCustom);
+        })
+        .catch();
     }
   }, [questionIdList]);
 
@@ -119,7 +96,7 @@ const QuestionListContainer = styled(Box)`
   display: flex;
 `;
 
-const QuestionListDrawer = styled(Box) <{ isListShown: boolean }>`
+const QuestionListDrawer = styled(Box)<{ isListShown: boolean }>`
   width: ${({ isListShown }) => (isListShown ? '20vw' : '0vw')};
   opacity: ${({ isListShown }) => (isListShown ? '1' : '0')};
   transition: all 0.15s ease-in-out !important;

@@ -13,6 +13,7 @@ export const ShadowBox: FC<ShadowBoxProps> = ({ isVisible }) => {
   console.log(isVisible);
   return <ShadowContainer />;
 };
+
 const ShadowContainer = styled(Box)`
   position: absolute;
   height: 100%;

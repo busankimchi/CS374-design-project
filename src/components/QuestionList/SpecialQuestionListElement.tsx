@@ -5,21 +5,37 @@ import { PINK_3, H5, H5I, B2, B2I, B3, B3I, LIGHT_GRAY_1, TRUNCATE_TWO, TRUNCATE
 import { Icon } from '@iconify/react';
 import squareHalf from '@iconify-icons/bi/square-half';
 import { Question } from 'utils/types';
+import { timeForToday } from 'utils/functions';
 
 interface SpecialQuestionListElementProp {
   question: Question;
   onHoverIn?: () => void;
   onHoverOut?: () => void;
+  onHoverInDual: () => void;
+  onHoverOutDual: () => void;
 }
 
-export const SpecialQuestionListElement: FC<SpecialQuestionListElementProp> = ({ question, onHoverIn, onHoverOut }) => {
+export const SpecialQuestionListElement: FC<SpecialQuestionListElementProp> = ({
+  question,
+  onHoverIn,
+  onHoverOut,
+  onHoverInDual,
+  onHoverOutDual,
+}) => {
   const [shadowPreview, setShadowPreview] = useState(true);
 
   const notAnswered: boolean = question.answers.length === 0;
 
-  const setShadow = () => {
+  const setShadowIn = () => {
     setShadowPreview(!shadowPreview);
+    onHoverInDual();
   };
+
+  const setShadowOut = () => {
+    setShadowPreview(!shadowPreview);
+    onHoverOutDual();
+  };
+
   return (
     <QuestionListElementContainer button onMouseEnter={onHoverIn} onMouseLeave={onHoverOut}>
       <Text>
@@ -31,7 +47,7 @@ export const SpecialQuestionListElement: FC<SpecialQuestionListElementProp> = ({
               </TitleText>
             </ListItemText>
           </Title>
-          <Time notAnswered={notAnswered}> {question.question.time.toDateString}</Time>
+          <Time notAnswered={notAnswered}> {timeForToday(question.question.time)}</Time>
         </Header>
 
         <Body>
@@ -41,7 +57,7 @@ export const SpecialQuestionListElement: FC<SpecialQuestionListElementProp> = ({
         </Body>
       </Text>
 
-      <DoubleSidedViewButton onMouseEnter={setShadow} onMouseLeave={setShadow}>
+      <DoubleSidedViewButton onMouseEnter={setShadowIn} onMouseLeave={setShadowOut}>
         <Icon icon={squareHalf} />
       </DoubleSidedViewButton>
     </QuestionListElementContainer>
@@ -133,4 +149,3 @@ const DoubleSidedViewButton = styled(IconButton)`
   }
   align-items: stretch;
 `;
-

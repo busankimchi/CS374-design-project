@@ -24,16 +24,24 @@ export const SpecialQuestionList: FC<QuestionListProp> = ({
   onToggle,
   onHoverIn,
   onHoverOut,
+  onHoverInDual,
+  onHoverOutDual,
 }) => {
   const renderQuestionListElement = (item: Question) => (
-    <SpecialQuestionListElement question={item} onHoverIn={onHoverIn} onHoverOut={onHoverOut} />
+    <SpecialQuestionListElement
+      question={item}
+      onHoverIn={onHoverIn}
+      onHoverOut={onHoverOut}
+      onHoverInDual={onHoverInDual}
+      onHoverOutDual={onHoverOutDual}
+    />
   );
 
   return (
     <QuestionListContainer>
       <QuestionListDrawer isListShown={isListShown}>
         <QuestionListHeader>
-          <QuestionListHeaderText>${title}</QuestionListHeaderText>
+          <QuestionListHeaderText>{title}</QuestionListHeaderText>
         </QuestionListHeader>
         <QuestionListDrawerBody>
           {questionList !== undefined && questionList.map((item) => renderQuestionListElement(item))}
