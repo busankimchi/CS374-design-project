@@ -3,18 +3,15 @@ import styled from 'styled-components';
 import { Box } from '@material-ui/core';
 import { Icon } from '@iconify/react';
 import sadTear from '@iconify-icons/fa-regular/sad-tear';
-import { B1 } from '../../utils/themes'
+import { B1 } from '../../utils/themes';
 
 export const NoAnswer: FC = () => {
-    return (
-        <NoAnswerBox>
-            <NoAnswerIcon icon={sadTear} />
-            <MessageBox>
-                The question is not answered yet. Please share your thoughts!
-            </MessageBox>
-
-        </NoAnswerBox>
-    );
+  return (
+    <NoAnswerBox>
+      <NoAnswerIcon icon={sadTear} />
+      <MessageBox>The question is not answered yet. Please share your thoughts!</MessageBox>
+    </NoAnswerBox>
+  );
 };
 
 const NoAnswerBox = styled(Box)`

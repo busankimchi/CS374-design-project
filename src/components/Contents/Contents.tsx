@@ -120,7 +120,7 @@ export const Contents: FC<ContentsProp> = ({ question, closeThisContent }) => {
           <InputTextField
             multiline
             fullWidth
-            placeholder="Share your thougts here!"
+            placeholder="Share your thoughts here!"
             value={text}
             onChange={onTextareaChange}
           />
