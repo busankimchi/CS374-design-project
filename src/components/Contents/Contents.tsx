@@ -120,7 +120,7 @@ export const Contents: FC<ContentsProp> = ({ question, closeThisContent }) => {
           <InputTextField
             multiline
             fullWidth
-            placeholder="Share your thougts here!"
+            placeholder="Share your thoughts here!"
             value={text}
             onChange={onTextareaChange}
           />
@@ -140,6 +140,7 @@ const ContentBox = styled(Box)`
   display: flex;
   justify-content: space-between;
   flex-direction: column;
+  width: 100%;
 `;
 
 const QnADisplayWrapper = styled(Box)`

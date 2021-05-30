@@ -1,51 +1,69 @@
 import { FC, useState } from 'react';
 import styled from 'styled-components';
+import { Link as DefaultLink } from 'react-router-dom';
 import { Box, Typography, ListItem, ListItemText, IconButton } from '@material-ui/core';
 import { PINK_3, H5, H5I, B2, B2I, B3, B3I, LIGHT_GRAY_1, TRUNCATE_TWO, TRUNCATE_ONE } from 'utils/themes';
 import { Icon } from '@iconify/react';
 import squareHalf from '@iconify-icons/bi/square-half';
 import { Question } from 'utils/types';
+import { timeForToday } from 'utils/functions';
 
 interface SpecialQuestionListElementProp {
   question: Question;
   onHoverIn?: () => void;
   onHoverOut?: () => void;
+  onHoverInDual: () => void;
+  onHoverOutDual: () => void;
 }
 
-export const SpecialQuestionListElement: FC<SpecialQuestionListElementProp> = ({ question, onHoverIn, onHoverOut }) => {
+export const SpecialQuestionListElement: FC<SpecialQuestionListElementProp> = ({
+  question,
+  onHoverIn,
+  onHoverOut,
+  onHoverInDual,
+  onHoverOutDual,
+}) => {
   const [shadowPreview, setShadowPreview] = useState(true);
 
   const notAnswered: boolean = question.answers.length === 0;
 
-  const setShadow = () => {
+  const setShadowIn = () => {
     setShadowPreview(!shadowPreview);
+    onHoverInDual();
   };
+
+  const setShadowOut = () => {
+    setShadowPreview(!shadowPreview);
+    onHoverOutDual();
+  };
+
   return (
-    <QuestionListElementContainer button onMouseEnter={onHoverIn} onMouseLeave={onHoverOut}>
-      <Text>
-        <Header>
-          <Title notAnswered={notAnswered}>
-            <ListItemText>
-              <TitleText>
-                Q{question.questionId}. {question.question.title}
-              </TitleText>
-            </ListItemText>
-          </Title>
-          <Time notAnswered={notAnswered}> {question.question.time.toDateString}</Time>
-        </Header>
+    <Link to={`/topic/${question.topicId}/subTopic/${question.subtopicId}/question/${question.questionId}`}>
+      <QuestionListElementContainer button onMouseEnter={onHoverIn} onMouseLeave={onHoverOut}>
+        <Text>
+          <Header>
+            <Title notAnswered={notAnswered}>
+              <ListItemText>
+                <TitleText>
+                  Q{question.questionId}. {question.question.title}
+                </TitleText>
+              </ListItemText>
+            </Title>
+            <Time notAnswered={notAnswered}> {timeForToday(question.question.time)}</Time>
+          </Header>
 
-        <Body>
-          <BodyText notAnswered={notAnswered}>
-            <ListItemText>{question.question.content}</ListItemText>
-          </BodyText>
-        </Body>
-      </Text>
+          <Body>
+            <BodyText notAnswered={notAnswered}>
+              <ListItemText>{question.question.content}</ListItemText>
+            </BodyText>
+          </Body>
+        </Text>
 
-      <DoubleSidedViewButton onMouseEnter={setShadow} onMouseLeave={setShadow}>
-        <Icon icon={squareHalf} />
-      </DoubleSidedViewButton>
-    </QuestionListElementContainer>
-  );
+        <DoubleSidedViewButton onMouseEnter={setShadowIn} onMouseLeave={setShadowOut}>
+          <Icon icon={squareHalf} />
+        </DoubleSidedViewButton>
+      </QuestionListElementContainer>
+    </Link>);
 };
 
 const QuestionListElementContainer = styled(ListItem)`
@@ -87,7 +105,7 @@ const Header = styled(Box)`
   justify-content: space-between;
 `;
 
-const Title = styled(Box)<{ notAnswered: boolean }>`
+const Title = styled(Box) <{ notAnswered: boolean }>`
   width: 10em;
   .MuiTypography-root {
     ${({ notAnswered }) => (notAnswered ? H5I : H5)};
@@ -101,7 +119,7 @@ const TitleText = styled(Typography)`
   ${TRUNCATE_ONE};
 `;
 
-const Time = styled(Box)<{ notAnswered: boolean }>`
+const Time = styled(Box) <{ notAnswered: boolean }>`
   width: 7.5em;
   margin-right: 0.1em;
   ${({ notAnswered }) => (notAnswered ? B3I : B3)};
@@ -113,7 +131,7 @@ const Body = styled(Box)`
   }
 `;
 
-const BodyText = styled(Typography)<{ notAnswered: boolean }>`
+const BodyText = styled(Typography) <{ notAnswered: boolean }>`
   .MuiTypography-root {
     ${({ notAnswered }) => (notAnswered ? B2I : B2)};
   }
@@ -134,3 +152,7 @@ const DoubleSidedViewButton = styled(IconButton)`
   align-items: stretch;
 `;
 
+const Link = styled(DefaultLink)`
+  color: #000000;
+  text-decoration: none;
+`;
