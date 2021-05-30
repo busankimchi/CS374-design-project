@@ -28,7 +28,7 @@ export const Questions: FC<QuestionsProp> = ({ pageType, search, topicId, subTop
 
   const history = useHistory();
 
-  const [isListShown, setListShown] = useState(false);
+  const [isListShown, setListShown] = useState(true);
   const [isHover, setHover] = useState(false);
   const [isHoverDual, setHoverDual] = useState(false);
 
@@ -176,6 +176,6 @@ const QuestionDetails = styled(Box)`
 
 const DoubleSidedPaper = styled(Backdrop) <{ fullsize: boolean }>`
   position: reletive;
-  ${({ fullsize }) => (fullsize ? 'left: 37vw' : 'left: 50vw')};
+  ${({ fullsize }) => (fullsize ? 'left: 37vw' : 'left: 68.5vw')};
   z-index: 999;
 `;

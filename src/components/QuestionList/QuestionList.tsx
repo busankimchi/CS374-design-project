@@ -1,4 +1,5 @@
 import { FC, useEffect, useState } from 'react';
+import { useHistory, useLocation } from 'react-router';
 import styled from 'styled-components';
 import { Box, List, Typography } from '@material-ui/core';
 import { H3, TRUNCATE_ONE, LIGHT_GRAY_1 } from 'utils/themes';
@@ -7,6 +8,7 @@ import { Topic, SubTopic, Question, QuestionFB, AnswerContent, QuestionContent }
 import { TimestampToDate } from 'utils/functions';
 import { Hover } from 'components/Contents';
 import { QuestionListElement } from './QuestionListElement';
+
 
 interface QuestionListHeaderProp {
   topic: Topic;
@@ -33,6 +35,8 @@ export const QuestionList: FC<QuestionListHeaderProp> = ({
   // // const { questionList, setQuestionList } = useGetQuestionList(questionIdList);
   // const [questionList, setQuestionList] = useState(getQuestionList(questionIdList).then((val) => { return val }));
 
+  const history = useHistory();
+  const location = useLocation();
   const questionIdList = useState(subTopic.questionList as number[])[0];
   const [questionList, setQuestionList] = useState<Question[]>();
 
@@ -85,6 +89,11 @@ export const QuestionList: FC<QuestionListHeaderProp> = ({
     }
   }, [questionIdList]);
 
+  const onClickItem = (item: Question) => {
+    const path = location.pathname;
+    history.push(`${path}?second=${item.questionId}`)
+  }
+
   const renderQuestionListElement = (item: Question) => (
     <QuestionListElement
       question={item}
@@ -94,6 +103,7 @@ export const QuestionList: FC<QuestionListHeaderProp> = ({
       onHoverOut={onHoverOut}
       onHoverInDual={onHoverInDual}
       onHoverOutDual={onHoverOutDual}
+      onClickItem={onClickItem}
     />
   );
 
@@ -126,6 +136,7 @@ const QuestionListDrawer = styled(Box) <{ isListShown: boolean }>`
 `;
 
 const QuestionListDrawerBody = styled(List)`
+  scroll-y: scroll;
   padding: 0;
 `;
 
