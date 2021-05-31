@@ -48,11 +48,19 @@ export const NormalQuestion: FC<NormalQuestionProp> = ({
   const history = useHistory();
 
   const onCloseLeftContent = () => {
-    history.push(`/topic/${topicId}/subtopic/${subTopicId}/question/${questionId}`);
+    if (questionId2 !== undefined) {
+      history.push(`/topic/${topicId}/subtopic/${subTopicId}/question/${questionId2}`);
+    } else {
+      history.push(`/topic/${topicId}/subtopic/${subTopicId}`);
+    }
   };
 
   const onCloseRightContent = () => {
-    history.push(`/topic/${topicId}/subtopic/${subTopicId}/question/${questionId2}`);
+    if (questionId !== undefined) {
+      history.push(`/topic/${topicId}/subtopic/${subTopicId}/question/${questionId}`);
+    } else {
+      history.push(`/topic/${topicId}/subtopic/${subTopicId}`);
+    }
   };
 
   useEffect(() => {
