@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import { FC, Dispatch, SetStateAction } from 'react';
 import { useHistory, useLocation } from 'react-router';
 import styled from 'styled-components';
@@ -6,7 +7,7 @@ import { H3, TRUNCATE_ONE, LIGHT_GRAY_1 } from 'utils/themes';
 import { Topic, SubTopic, Question } from 'utils/types';
 import { Hover } from 'components/Contents';
 import { QuestionListElement } from './QuestionListElement';
-import { Loading } from '../General/Loading'
+import { Loading } from '../General/Loading';
 
 interface QuestionListHeaderProp {
   isLoading: boolean;
@@ -32,7 +33,6 @@ export const QuestionList: FC<QuestionListHeaderProp> = ({
   questionList,
   isListShown,
   questionId,
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   questionId2,
   onToggle,
   onHoverIn,
@@ -63,7 +63,8 @@ export const QuestionList: FC<QuestionListHeaderProp> = ({
     />
   );
 
-  const drawerBody = (questionList === undefined || isLoading) ? <Loading /> : questionList.map((item) => renderQuestionListElement(item));
+  const drawerBody =
+    questionList === undefined || isLoading ? <Loading /> : questionList.map((item) => renderQuestionListElement(item));
 
   return (
     <QuestionListContainer>
@@ -73,9 +74,7 @@ export const QuestionList: FC<QuestionListHeaderProp> = ({
             {topic.topicName} {'>'} {subTopic.subTopicName}
           </QuestionListHeaderText>
         </QuestionListHeader>
-        <QuestionListDrawerBody>
-          {drawerBody}
-        </QuestionListDrawerBody>
+        <QuestionListDrawerBody>{drawerBody}</QuestionListDrawerBody>
       </QuestionListDrawer>
 
       <Hover showQuestionList={onToggle} iconFlip={isListShown} />
@@ -88,7 +87,7 @@ const QuestionListContainer = styled(Box)`
   height: 100%;
 `;
 
-const QuestionListDrawer = styled(Box) <{ isListShown: boolean }>`
+const QuestionListDrawer = styled(Box)<{ isListShown: boolean }>`
   display: flex;
   flex-direction: column;
   width: ${({ isListShown }) => (isListShown ? '20vw' : '0vw')};
