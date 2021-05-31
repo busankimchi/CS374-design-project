@@ -58,9 +58,7 @@ export const BaseSpecialQuestion: FC<BaseQuestionProp> = ({
           onHoverOutDual={onHoverOutDual}
         />
 
-        {/* {questionId === undefined && <NotSelected />} */}
       </QuestionDetails>
-      {/* {questionId === undefined && <NotSelected />} */}
       <QQBox>
         {questionId === undefined && <NotSelected />}
         {questionId !== undefined && (

@@ -41,11 +41,19 @@ export const SpecialQuestion: FC<SpecialQuestionProp> = ({
     const FAQList = questionList.filter((question) => question.isFaq);
 
     const onCloseLeftContent = () => {
-      history.push(`/faq/${questionId}`);
+      if (questionId2 !== undefined) {
+        history.push(`/faq/${questionId2}`);
+      } else {
+        history.push(`/faq`);
+      }
     };
 
     const onCloseRightContent = () => {
-      history.push(`/faq/${questionId2}`);
+      if (questionId !== undefined) {
+        history.push(`/faq/${questionId}`);
+      } else {
+        history.push(`/faq`);
+      }
     };
 
     return (
@@ -82,11 +90,11 @@ export const SpecialQuestion: FC<SpecialQuestionProp> = ({
     });
 
     const onCloseLeftContent = () => {
-      history.push(`/search?q=${search}&first=${questionId}`);
+      history.push(`/search?q=${search}&first=${questionId2}`);
     };
 
     const onCloseRightContent = () => {
-      history.push(`/search?q=${search}&first=${questionId2}`);
+      history.push(`/search?q=${search}&first=${questionId}`);
     };
 
     return (
@@ -111,11 +119,19 @@ export const SpecialQuestion: FC<SpecialQuestionProp> = ({
   }
 
   const onCloseLeftContent = () => {
-    history.push(`/all_questions/${questionId}`);
+    if (questionId2 !== undefined) {
+      history.push(`/all_questions/${questionId2}`);
+    } else {
+      history.push(`/all_questions`);
+    }
   };
 
   const onCloseRightContent = () => {
-    history.push(`/all_questions/${questionId2}`);
+    if (questionId !== undefined) {
+      history.push(`/all_questions/${questionId}`);
+    } else {
+      history.push(`/all_questions`);
+    }
   };
 
   return (
