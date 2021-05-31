@@ -15,7 +15,7 @@ interface QuestionsProp {
 
 export const Questions: FC<QuestionsProp> = ({ pageType, search, topicId, subTopicId, questionId, questionId2 }) => {
   // eslint-disable-next-line no-console
-  console.log({ pageType, search, topicId, subTopicId, questionId, questionId2 });
+  // console.log({ pageType, search, topicId, subTopicId, questionId, questionId2 });
 
   const [isListShown, setListShown] = useState(true);
   const [isHover, setHover] = useState(false);
