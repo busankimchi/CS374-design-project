@@ -60,7 +60,7 @@ export const BaseSpecialQuestion: FC<BaseQuestionProp> = ({
 
       </QuestionDetails>
       <QQBox>
-      {questionId === undefined && <NotSelected />}
+        {questionId === undefined && <NotSelected />}
         {questionId !== undefined && (
           <QBox>
             <Contents question={dummyQuestions[questionId - 1]} closeThisContent={onCloseLeftContent} />

@@ -1,5 +1,5 @@
 import { FC, useEffect, useState } from 'react';
-import { useHistory, useLocation, useParams } from 'react-router';
+import { useHistory, useLocation } from 'react-router';
 import styled from 'styled-components';
 import { Box, List, Typography } from '@material-ui/core';
 import { H3, TRUNCATE_ONE, LIGHT_GRAY_1 } from 'utils/themes';
@@ -27,6 +27,7 @@ export const QuestionList: FC<QuestionListHeaderProp> = ({
   subTopic,
   isListShown,
   questionId,
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   questionId2,
   onToggle,
   onHoverIn,
@@ -36,7 +37,6 @@ export const QuestionList: FC<QuestionListHeaderProp> = ({
 }) => {
   const history = useHistory();
   const location = useLocation();
-  const params = useParams();
 
   const questionIdList = useState(subTopic.questionList as number[])[0];
   const [questionList, setQuestionList] = useState<Question[]>();

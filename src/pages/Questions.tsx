@@ -45,6 +45,7 @@ export const Questions: FC<QuestionsProp> = ({ pageType, search, topicId, subTop
       />
     );
   }
+
   return (
     <NormalQuestion
       pageType={pageType}
