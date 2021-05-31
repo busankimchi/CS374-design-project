@@ -25,11 +25,11 @@ export const Questions: FC<QuestionsProp> = ({ pageType, search, topicId, subTop
   const [isHoverDual, setHoverDual] = useState(false);
 
   const onCloseLeftContent = () => {
-    history.push(`/topic/${topicId}/subtopic/${subTopicId}/question/${questionId}`);
+    history.push(`/topic/${topicId}/subtopic/${subTopicId}/question/${questionId2}`);
   };
 
   const onCloseRightContent = () => {
-    history.push(`/topic/${topicId}/subtopic/${subTopicId}/question/${questionId2}`);
+    history.push(`/topic/${topicId}/subtopic/${subTopicId}/question/${questionId}`);
   };
 
   const onToggle = () => setListShown(!isListShown);
