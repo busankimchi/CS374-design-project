@@ -28,6 +28,10 @@ export const Contents: FC<ContentsProp> = ({ question, closeThisContent }) => {
   const divRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
+    setAnswers(question.answers);
+  }, [question]);
+  
+  useEffect(() => {
     if (divRef && divRef.current) {
       divRef.current.scrollIntoView({ behavior: 'smooth' });
     }

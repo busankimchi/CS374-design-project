@@ -10,18 +10,24 @@ import { timeForToday } from 'utils/functions';
 
 interface SpecialQuestionListElementProp {
   question: Question;
+  link: string;
+  dualDisable: boolean;
   onHoverIn?: () => void;
   onHoverOut?: () => void;
   onHoverInDual: () => void;
   onHoverOutDual: () => void;
+  onClickItem: (question: Question) => void;
 }
 
 export const SpecialQuestionListElement: FC<SpecialQuestionListElementProp> = ({
   question,
+  link,
+  dualDisable,
   onHoverIn,
   onHoverOut,
   onHoverInDual,
   onHoverOutDual,
+  onClickItem,
 }) => {
   const [shadowPreview, setShadowPreview] = useState(true);
 
@@ -38,8 +44,8 @@ export const SpecialQuestionListElement: FC<SpecialQuestionListElementProp> = ({
   };
 
   return (
-    <Link to={`/topic/${question.topicId}/subTopic/${question.subtopicId}/question/${question.questionId}`}>
-      <QuestionListElementContainer button onMouseEnter={onHoverIn} onMouseLeave={onHoverOut}>
+    <QuestionListElementContainer button onMouseEnter={onHoverIn} onMouseLeave={onHoverOut}>
+      <Link to={link}>
         <Text>
           <Header>
             <Title notAnswered={notAnswered}>
@@ -58,12 +64,18 @@ export const SpecialQuestionListElement: FC<SpecialQuestionListElementProp> = ({
             </BodyText>
           </Body>
         </Text>
+      </Link>
 
-        <DoubleSidedViewButton onMouseEnter={setShadowIn} onMouseLeave={setShadowOut}>
-          <Icon icon={squareHalf} />
-        </DoubleSidedViewButton>
-      </QuestionListElementContainer>
-    </Link>);
+      <DoubleSidedViewButton
+        onMouseEnter={setShadowIn}
+        onMouseLeave={setShadowOut}
+        onClick={() => onClickItem(question)}
+        disabled={dualDisable}
+      >
+        <Icon icon={squareHalf} />
+      </DoubleSidedViewButton>
+    </QuestionListElementContainer>
+  );
 };
 
 const QuestionListElementContainer = styled(ListItem)`
@@ -105,7 +117,7 @@ const Header = styled(Box)`
   justify-content: space-between;
 `;
 
-const Title = styled(Box) <{ notAnswered: boolean }>`
+const Title = styled(Box)<{ notAnswered: boolean }>`
   width: 10em;
   .MuiTypography-root {
     ${({ notAnswered }) => (notAnswered ? H5I : H5)};
@@ -119,7 +131,7 @@ const TitleText = styled(Typography)`
   ${TRUNCATE_ONE};
 `;
 
-const Time = styled(Box) <{ notAnswered: boolean }>`
+const Time = styled(Box)<{ notAnswered: boolean }>`
   width: 7.5em;
   margin-right: 0.1em;
   ${({ notAnswered }) => (notAnswered ? B3I : B3)};
@@ -131,7 +143,7 @@ const Body = styled(Box)`
   }
 `;
 
-const BodyText = styled(Typography) <{ notAnswered: boolean }>`
+const BodyText = styled(Typography)<{ notAnswered: boolean }>`
   .MuiTypography-root {
     ${({ notAnswered }) => (notAnswered ? B2I : B2)};
   }

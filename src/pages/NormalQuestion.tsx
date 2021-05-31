@@ -1,5 +1,6 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import { FC, useEffect, useState } from 'react';
+import { useHistory } from 'react-router';
 import styled from 'styled-components';
 import { Backdrop, Box, Fade, Paper } from '@material-ui/core';
 import { PageType, Topic, SubTopic } from 'utils/types';
@@ -22,8 +23,6 @@ interface NormalQuestionProp {
   onHoverOut?: () => void;
   onHoverInDual: () => void;
   onHoverOutDual: () => void;
-  onCloseLeftContent?: () => void;
-  onCloseRightContent?: () => void;
 }
 
 export const NormalQuestion: FC<NormalQuestionProp> = ({
@@ -40,13 +39,29 @@ export const NormalQuestion: FC<NormalQuestionProp> = ({
   onHoverOut,
   onHoverInDual,
   onHoverOutDual,
-  onCloseLeftContent,
-  onCloseRightContent,
 }) => {
   const [topicInfo, setTopicInfo] = useState<Topic>();
   const [subTopicInfo, setSubTopicInfo] = useState<SubTopic>();
 
   const { topicList } = useTopicList();
+
+  const history = useHistory();
+
+  const onCloseLeftContent = () => {
+    if (questionId2 !== undefined) {
+      history.push(`/topic/${topicId}/subtopic/${subTopicId}/question/${questionId2}`);
+    } else {
+      history.push(`/topic/${topicId}/subtopic/${subTopicId}`);
+    }
+  };
+
+  const onCloseRightContent = () => {
+    if (questionId !== undefined) {
+      history.push(`/topic/${topicId}/subtopic/${subTopicId}/question/${questionId}`);
+    } else {
+      history.push(`/topic/${topicId}/subtopic/${subTopicId}`);
+    }
+  };
 
   useEffect(() => {
     if (topicList.length > 0) {
@@ -71,6 +86,8 @@ export const NormalQuestion: FC<NormalQuestionProp> = ({
           <QuestionList
             topic={topicInfo}
             subTopic={subTopicInfo}
+            questionId={questionId}
+            questionId2={questionId2}
             isListShown={isListShown}
             onToggle={onToggle}
             onHoverIn={onHoverIn}
@@ -103,6 +120,7 @@ export const NormalQuestion: FC<NormalQuestionProp> = ({
 const QuestionsContainer = styled(Box)`
   display: flex;
   width: 100%;
+  height: 96vh;
 `;
 
 const QBox = styled(Box)`
@@ -118,6 +136,7 @@ const QQBox = styled(Box)`
 const QuestionDetails = styled(Box)`
   display: flex;
   width: 100%;
+  height: 100%;
 `;
 
 const DoubleSidedPaper = styled(Backdrop)<{ fullsize: boolean }>`

@@ -9,11 +9,12 @@ import { TimestampToDate } from 'utils/functions';
 import { Hover } from 'components/Contents';
 import { QuestionListElement } from './QuestionListElement';
 
-
 interface QuestionListHeaderProp {
   topic: Topic;
   subTopic: SubTopic;
   isListShown: boolean;
+  questionId?: number;
+  questionId2?: number;
   onToggle?: () => void;
   onHoverIn?: () => void;
   onHoverOut?: () => void;
@@ -25,18 +26,18 @@ export const QuestionList: FC<QuestionListHeaderProp> = ({
   topic,
   subTopic,
   isListShown,
+  questionId,
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  questionId2,
   onToggle,
   onHoverIn,
   onHoverOut,
   onHoverInDual,
   onHoverOutDual,
 }) => {
-  // const questionIdList = subTopic.questionList as number[];
-  // // const { questionList, setQuestionList } = useGetQuestionList(questionIdList);
-  // const [questionList, setQuestionList] = useState(getQuestionList(questionIdList).then((val) => { return val }));
-
   const history = useHistory();
   const location = useLocation();
+
   const questionIdList = useState(subTopic.questionList as number[])[0];
   const [questionList, setQuestionList] = useState<Question[]>();
 
@@ -72,8 +73,8 @@ export const QuestionList: FC<QuestionListHeaderProp> = ({
 
   const onClickItem = (item: Question) => {
     const path = location.pathname;
-    history.push(`${path}?second=${item.questionId}`)
-  }
+    history.push(`${path}?second=${item.questionId}`);
+  };
 
   const renderQuestionListElement = (item: Question) => (
     <QuestionListElement
@@ -84,6 +85,7 @@ export const QuestionList: FC<QuestionListHeaderProp> = ({
       onHoverOut={onHoverOut}
       onHoverInDual={onHoverInDual}
       onHoverOutDual={onHoverOutDual}
+      dualDisable={questionId === undefined}
       onClickItem={onClickItem}
     />
   );
@@ -108,17 +110,25 @@ export const QuestionList: FC<QuestionListHeaderProp> = ({
 
 const QuestionListContainer = styled(Box)`
   display: flex;
+  height: 100%;
 `;
 
-const QuestionListDrawer = styled(Box) <{ isListShown: boolean }>`
-  width: ${({ isListShown }) => (isListShown ? '20vw' : '0vw')};
+const QuestionListDrawer = styled(Box)<{ isListShown: boolean }>`
+  display: flex;
+  flex-direction: column;
+  width: ${({ isListShown }) => (isListShown ? '20em' : '0em')};
+  height: 100%;
   opacity: ${({ isListShown }) => (isListShown ? '1' : '0')};
   transition: all 0.15s ease-in-out !important;
 `;
 
 const QuestionListDrawerBody = styled(List)`
-  scroll-y: scroll;
+  overflow-y: scroll;
   padding: 0;
+
+  ::-webkit-scrollbar {
+    display: none;
+  }
 `;
 
 const QuestionListHeader = styled(Box)`

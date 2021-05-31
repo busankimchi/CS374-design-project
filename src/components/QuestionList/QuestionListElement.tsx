@@ -12,6 +12,7 @@ interface QuestionListElementProp {
   question: Question;
   topicId: number;
   subTopicId: number;
+  dualDisable: boolean;
   onHoverIn?: () => void;
   onHoverOut?: () => void;
   onHoverInDual: () => void;
@@ -23,14 +24,13 @@ export const QuestionListElement: FC<QuestionListElementProp> = ({
   question,
   topicId,
   subTopicId,
+  dualDisable,
   onHoverIn,
   onHoverOut,
   onHoverInDual,
   onHoverOutDual,
-  onClickItem
+  onClickItem,
 }) => {
-
-
   const [shadowPreview, setShadowPreview] = useState(true);
 
   const notAnswered: boolean = question.answers.length === 0;
@@ -68,11 +68,15 @@ export const QuestionListElement: FC<QuestionListElementProp> = ({
         </Text>
       </Link>
 
-      <DoubleSidedViewButton onMouseEnter={setShadowIn} onMouseLeave={setShadowOut} onClick={() => onClickItem(question)}>
+      <DoubleSidedViewButton
+        onMouseEnter={setShadowIn}
+        onMouseLeave={setShadowOut}
+        onClick={() => onClickItem(question)}
+        disabled={dualDisable}
+      >
         <Icon icon={squareHalf} />
       </DoubleSidedViewButton>
     </QuestionListElementContainer>
-
   );
 };
 
@@ -115,7 +119,7 @@ const Header = styled(Box)`
   justify-content: space-between;
 `;
 
-const Title = styled(Box) <{ notAnswered: boolean }>`
+const Title = styled(Box)<{ notAnswered: boolean }>`
   width: 10em;
   .MuiTypography-root {
     ${({ notAnswered }) => (notAnswered ? H5I : H5)};
@@ -129,7 +133,7 @@ const TitleText = styled(Typography)`
   ${TRUNCATE_ONE};
 `;
 
-const Time = styled(Box) <{ notAnswered: boolean }>`
+const Time = styled(Box)<{ notAnswered: boolean }>`
   width: 7.5em;
   margin-right: 0.1em;
   ${({ notAnswered }) => (notAnswered ? B3I : B3)};
@@ -141,7 +145,7 @@ const Body = styled(Box)`
   }
 `;
 
-const BodyText = styled(Typography) <{ notAnswered: boolean }>`
+const BodyText = styled(Typography)<{ notAnswered: boolean }>`
   .MuiTypography-root {
     ${({ notAnswered }) => (notAnswered ? B2I : B2)};
   }
