@@ -106,7 +106,8 @@ export const SearchPopup: FC<SearchPopupProp> = ({ open, onClose }) => {
           <HistoryListContainer {...getListboxProps()}>
             {groupedOptions.length === 0 && (
               <SearchEmpty>
-                <SearchEmptyText>No matches found...</SearchEmptyText>
+                <SearchEmptyText>No matches found on previous history.</SearchEmptyText>
+                <SearchEmptyText>Feel free to search anything! :-)</SearchEmptyText>
               </SearchEmpty>
             )}
             {groupedOptions.length > 0 &&
@@ -183,6 +184,7 @@ const SearchResultContainer = styled(Box)``;
 
 const SearchEmpty = styled(Box)`
   display: flex;
+  flex-direction: column;
   align-items: center;
   justify-content: center;
   padding: 3em;
