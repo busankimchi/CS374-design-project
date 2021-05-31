@@ -25,12 +25,22 @@ export const SearchPopup: FC<SearchPopupProp> = ({ open, onClose }) => {
   const [search, setSearch] = useState('');
   const browserHistory = useHistory();
 
-  const { getRootProps, getInputProps, getListboxProps, getOptionProps, groupedOptions, focused } = useAutocomplete({
-    id: 'use-autocomplete',
-    options: historyList,
-    // freeSolo: true,
-    getOptionLabel: (option: HistoryQuery) => option.history,
-  });
+  const { getRootProps, getInputProps, getListboxProps, getOptionProps, groupedOptions, focused, popupOpen } =
+    useAutocomplete({
+      id: 'use-autocomplete',
+      options: historyList,
+      // freeSolo: true,
+      getOptionLabel: (option: HistoryQuery) => option.history,
+      filterOptions: (options) => options.filter((it) => it.history.includes(search)),
+      openOnFocus: true,
+    });
+
+  const onClickClose = () => {
+    setSearch('');
+    if (onClose !== undefined) {
+      onClose();
+    }
+  };
 
   const onClickDelete = (item: HistoryQuery) => {
     const newHistoryList = historyList.filter((it) => it.id !== item.id);
@@ -72,36 +82,46 @@ export const SearchPopup: FC<SearchPopupProp> = ({ open, onClose }) => {
             value={search}
             onChange={(event) => setSearch(event.target.value)}
             placeholder="SEARCH"
+            disabled={!popupOpen}
             inputProps={{ 'aria-label': 'search' }}
             onKeyPress={(event) => {
               if (event.key === 'Enter') {
                 browserHistory.push(`/search?q=${search}`);
                 addHistoryBySearch();
+
+                if (onClose !== undefined) {
+                  onClose();
+                }
               }
             }}
           />
-          <CloseIconContainer onClick={onClose}>
+          <CloseIconContainer onClick={onClickClose}>
             <CloseIcon />
           </CloseIconContainer>
         </SearchBarContainer>
       </PopupContainer>
       <Divider />
-      {focused && (
+      {focused && popupOpen && (
         <SearchResultContainer>
-          {groupedOptions.length === 0 && (
-            <SearchEmpty>
-              <SearchEmptyText>No matches found...</SearchEmptyText>
-            </SearchEmpty>
-          )}
           <HistoryListContainer {...getListboxProps()}>
+            {groupedOptions.length === 0 && (
+              <SearchEmpty>
+                <SearchEmptyText>No matches found on previous history.</SearchEmptyText>
+                <SearchEmptyText>Feel free to search anything! :-)</SearchEmptyText>
+              </SearchEmpty>
+            )}
             {groupedOptions.length > 0 &&
               groupedOptions.map((option, index) => (
                 <HistoryListItem
                   key={option.id}
                   {...getOptionProps({ option, index })}
                   history={option}
-                  onClickItem={onClose}
-                  onClickHistory={() => addHistoryByClick(option)}
+                  onClickHistory={() => {
+                    addHistoryByClick(option);
+                    if (onClose !== undefined) {
+                      onClose();
+                    }
+                  }}
                   onClickDelete={() => onClickDelete(option)}
                 />
               ))}
@@ -164,6 +184,7 @@ const SearchResultContainer = styled(Box)``;
 
 const SearchEmpty = styled(Box)`
   display: flex;
+  flex-direction: column;
   align-items: center;
   justify-content: center;
   padding: 3em;
