@@ -19,7 +19,7 @@ export const useQuestionList = (setIsLoading: Dispatch<SetStateAction<boolean>>)
       setQuestionList(response.questionList);
       setMaxQuestionId(response.maxQuestionId);
       setIsLoading(false);
-    })
+    }).catch()
   }, []);
   return { questionList, setQuestionList, maxQuestionId, setMaxQuestionId };
 };
