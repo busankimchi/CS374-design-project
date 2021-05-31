@@ -1,5 +1,6 @@
 import firebase from 'firebase';
 import { Question } from 'utils/types';
+import { TimestampToDate } from 'utils/functions';
 
 interface FetchQuestionListResponse {
   questionList: Question[];
@@ -13,6 +14,10 @@ export const fetchQuestionList = async (): Promise<FetchQuestionListResponse> =>
   // TODO: convert Timestamp to Date
   const questionList = snapshot.docs.map((doc) => {
     const data = { ...doc.data() } as Question;
+    data.question.time = TimestampToDate(doc.data().question.time);
+    for (let i = 0; i < data.answers.length; i += 1) {
+      data.answers[i].time = TimestampToDate(doc.data().answers[i].time);
+    }
     return data;
   });
 
