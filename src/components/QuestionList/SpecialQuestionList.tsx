@@ -24,6 +24,7 @@ interface QuestionListProp {
 export const SpecialQuestionList: FC<QuestionListProp> = ({
   questionList,
   questionId,
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   questionId2,
   title,
   itemLink,
@@ -38,8 +39,9 @@ export const SpecialQuestionList: FC<QuestionListProp> = ({
   const location = useLocation();
 
   const onClickItem = (item: Question) => {
-    const path = location.pathname;
-    history.push(`${path}?second=${item.questionId}`);
+    const { pathname, search } = location;
+
+    history.push(`${pathname}${search}&second=${item.questionId}`);
   };
 
   const renderQuestionListElement = (item: Question) => (
