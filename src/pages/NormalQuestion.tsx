@@ -120,7 +120,7 @@ const QuestionDetails = styled(Box)`
   width: 100%;
 `;
 
-const DoubleSidedPaper = styled(Backdrop)<{ fullsize: boolean }>`
+const DoubleSidedPaper = styled(Backdrop) <{ fullsize: boolean }>`
   position: reletive;
   ${({ fullsize }) => (fullsize ? 'left: 37vw' : 'left: 68vw')};
   z-index: 999;

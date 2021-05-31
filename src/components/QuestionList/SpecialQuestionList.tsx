@@ -59,7 +59,7 @@ const QuestionListContainer = styled(Box)`
 
 const QuestionListDrawer = styled(Box) <{ isListShown: boolean }>`
   width: ${({ isListShown }) => (isListShown ? '20vw' : '0vw')};
-  opacity: ${({ isListShown }) => (isListShown ? '1' : '0')};
+  ${({ isListShown }) => !isListShown && 'display: none;'}
   transition: all 0.15s ease-in-out !important;
 `;
 
