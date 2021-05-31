@@ -7,6 +7,7 @@ import { SpecialQuestionList } from 'components/QuestionList';
 import { dummyQuestions } from 'utils/dummyDatas';
 
 interface BaseQuestionProp {
+  isLoading: boolean;
   questionList: Question[];
   itemLink: (item: Question) => string;
   title: string;
@@ -25,6 +26,7 @@ interface BaseQuestionProp {
 }
 
 export const BaseSpecialQuestion: FC<BaseQuestionProp> = ({
+  isLoading,
   questionList,
   itemLink,
   title,
@@ -45,6 +47,7 @@ export const BaseSpecialQuestion: FC<BaseQuestionProp> = ({
     <QuestionsContainer>
       <QuestionDetails>
         <SpecialQuestionList
+          isLoading={isLoading}
           questionList={questionList}
           questionId={questionId}
           questionId2={questionId2}

@@ -9,19 +9,25 @@ interface QuestionListHookResponse {
   setMaxQuestionId: Dispatch<SetStateAction<number>>;
 }
 
-export const useQuestionList = (): QuestionListHookResponse => {
+export const useQuestionList = (setIsLoading: Dispatch<SetStateAction<boolean>>): QuestionListHookResponse => {
   const [questionList, setQuestionList] = useState<Question[]>([]);
   const [maxQuestionId, setMaxQuestionId] = useState(0);
+  // setIsLoading(true);
 
-  const fetchQuestionListCallback = useCallback(async () => {
-    const response = await fetchQuestionList();
+  // const fetchQuestionListCallback = useCallback(async () => {
+  //   const response = await fetchQuestionList();
 
-    setQuestionList(response.questionList);
-    setMaxQuestionId(response.maxQuestionId);
-  }, []);
+  //   setQuestionList(response.questionList);
+  //   setMaxQuestionId(response.maxQuestionId);
+  // }, []);
 
   useEffect(() => {
-    fetchQuestionListCallback();
-  }, [fetchQuestionListCallback]);
+    // fetchQuestionListCallback();
+    fetchQuestionList().then((response) => {
+      setQuestionList(response.questionList);
+      setMaxQuestionId(response.maxQuestionId);
+      setIsLoading(false);
+    })
+  }, []);
   return { questionList, setQuestionList, maxQuestionId, setMaxQuestionId };
 };

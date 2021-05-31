@@ -6,8 +6,10 @@ import { Question } from 'utils/types';
 import { H3, TRUNCATE_ONE, LIGHT_GRAY_1 } from 'utils/themes';
 import { Hover } from 'components/Contents';
 import { SpecialQuestionListElement } from './SpecialQuestionListElement';
+import { Loading } from '../General/Loading'
 
 interface QuestionListProp {
+  isLoading: boolean;
   questionList: Question[];
   questionId?: number;
   questionId2?: number;
@@ -22,6 +24,7 @@ interface QuestionListProp {
 }
 
 export const SpecialQuestionList: FC<QuestionListProp> = ({
+  isLoading,
   questionList,
   questionId,
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
@@ -57,6 +60,8 @@ export const SpecialQuestionList: FC<QuestionListProp> = ({
     />
   );
 
+  const drawerBody = (questionList == null || isLoading) ? <Loading /> : questionList.map((item) => renderQuestionListElement(item));
+
   return (
     <QuestionListContainer>
       <QuestionListDrawer isListShown={isListShown}>
@@ -64,7 +69,7 @@ export const SpecialQuestionList: FC<QuestionListProp> = ({
           <QuestionListHeaderText>{title}</QuestionListHeaderText>
         </QuestionListHeader>
         <QuestionListDrawerBody>
-          {questionList !== undefined && questionList.map((item) => renderQuestionListElement(item))}
+          {drawerBody}
         </QuestionListDrawerBody>
       </QuestionListDrawer>
 
