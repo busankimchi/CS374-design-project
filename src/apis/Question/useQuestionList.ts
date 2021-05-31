@@ -18,6 +18,8 @@ export const useQuestionList = (): QuestionListHookResponse => {
 
     setQuestionList(response.questionList);
     setMaxQuestionId(response.maxQuestionId);
+
+    response.questionList.reverse();
   }, []);
 
   useEffect(() => {
