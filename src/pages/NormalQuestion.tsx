@@ -89,8 +89,8 @@ export const NormalQuestion: FC<NormalQuestionProp> = ({
           />
         )}
 
-        {/* {questionId === undefined && <NotSelected />} */}
         <QQBox>
+          {questionId === undefined && <NotSelected />}
           {questionId !== undefined && (
             <QBox>
               <Contents question={dummyQuestions[questionId - 1]} closeThisContent={onCloseLeftContent} />
@@ -133,6 +133,6 @@ const QuestionDetails = styled(Box)`
 
 const DoubleSidedPaper = styled(Backdrop)<{ fullsize: boolean }>`
   position: reletive;
-  ${({ fullsize }) => (fullsize ? 'left: 37vw' : 'left: 50vw')};
+  ${({ fullsize }) => (fullsize ? 'left: 37vw' : 'left: 68vw')};
   z-index: 999;
 `;
