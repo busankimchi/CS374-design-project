@@ -80,8 +80,8 @@ export const NormalQuestion: FC<NormalQuestionProp> = ({
           />
         )}
 
-        {/* {questionId === undefined && <NotSelected />} */}
         <QQBox>
+          {questionId === undefined && <NotSelected />}
           {questionId !== undefined && (
             <QBox>
               <Contents question={dummyQuestions[questionId - 1]} closeThisContent={onCloseLeftContent} />
