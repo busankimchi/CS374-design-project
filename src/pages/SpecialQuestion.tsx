@@ -2,7 +2,7 @@ import { FC } from 'react';
 import styled from 'styled-components';
 import { Backdrop, Box } from '@material-ui/core';
 import { PageType } from 'utils/types';
-import { Contents } from 'components/Contents';
+import { Contents, NotSelected } from 'components/Contents';
 import { SpecialQuestionList } from 'components/QuestionList';
 import { useQuestionList } from 'apis/Question/useQuestionList';
 import { dummyQuestions } from '../utils/dummyDatas';
@@ -56,8 +56,8 @@ export const SpecialQuestion: FC<SpecialQuestionProp> = ({
             onHoverOutDual={onHoverOutDual}
           />
 
-          {/* {questionId === undefined && <NotSelected />} */}
           <QQBox>
+            {questionId === undefined && <NotSelected />}
             {questionId !== undefined && (
               <QBox>
                 <Contents question={dummyQuestions[questionId - 1]} closeThisContent={onCloseLeftContent} />
@@ -90,21 +90,22 @@ export const SpecialQuestion: FC<SpecialQuestionProp> = ({
         />
 
         {/* {questionId === undefined && <NotSelected />} */}
+
+        <QQBox>
+          {questionId === undefined && <NotSelected />}
+          {questionId !== undefined && (
+            <QBox>
+              <Contents question={dummyQuestions[questionId - 1]} closeThisContent={onCloseLeftContent} />
+            </QBox>
+          )}
+          {questionId2 !== undefined && (
+            <QBox>
+              <Contents question={dummyQuestions[questionId2 - 1]} closeThisContent={onCloseRightContent} />
+            </QBox>
+          )}
+        </QQBox>
+        {/* </QuestionDetails> */}
       </QuestionDetails>
-      {/* {questionId === undefined && <NotSelected />} */}
-      <QQBox>
-        {questionId !== undefined && (
-          <QBox>
-            <Contents question={dummyQuestions[questionId - 1]} closeThisContent={onCloseLeftContent} />
-          </QBox>
-        )}
-        {questionId2 !== undefined && (
-          <QBox>
-            <Contents question={dummyQuestions[questionId2 - 1]} closeThisContent={onCloseRightContent} />
-          </QBox>
-        )}
-      </QQBox>
-      {/* </QuestionDetails> */}
 
       {isHover && <DoubleSidedPaper open={isHover} fullsize={!isHoverDual} />}
     </QuestionsContainer>

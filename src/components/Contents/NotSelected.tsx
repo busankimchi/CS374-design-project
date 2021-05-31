@@ -15,11 +15,12 @@ export const NotSelected: FC = () => {
 };
 
 const NotSelectedBox = styled(Box)`
-  width: auto;
+  width: 100%;
   height: 100%;
   display: flex;
   justify-content: center;
   flex-direction: column;
+  align-items: center;
 `;
 
 const NotSelectedIcon = styled(Icon)`
