@@ -25,12 +25,15 @@ export const SearchPopup: FC<SearchPopupProp> = ({ open, onClose }) => {
   const [search, setSearch] = useState('');
   const browserHistory = useHistory();
 
-  const { getRootProps, getInputProps, getListboxProps, getOptionProps, groupedOptions, focused } = useAutocomplete({
-    id: 'use-autocomplete',
-    options: historyList,
-    // freeSolo: true,
-    getOptionLabel: (option: HistoryQuery) => option.history,
-  });
+  const { getRootProps, getInputProps, getListboxProps, getOptionProps, groupedOptions, focused, popupOpen } =
+    useAutocomplete({
+      id: 'use-autocomplete',
+      options: historyList,
+      // freeSolo: true,
+      getOptionLabel: (option: HistoryQuery) => option.history,
+      filterOptions: (options) => options.filter((it) => it.history.includes(search)),
+      openOnFocus: true,
+    });
 
   const onClickClose = () => {
     setSearch('');
@@ -67,6 +70,8 @@ export const SearchPopup: FC<SearchPopupProp> = ({ open, onClose }) => {
     updateHistory(newHistoryFB);
   };
 
+  console.log(focused, popupOpen);
+
   return (
     <SearchPopupContainer open={open} onClose={onClose} BackdropProps={{ invisible: true }} disableBackdropClick>
       <PopupContainer {...getRootProps()}>
@@ -79,6 +84,7 @@ export const SearchPopup: FC<SearchPopupProp> = ({ open, onClose }) => {
             value={search}
             onChange={(event) => setSearch(event.target.value)}
             placeholder="SEARCH"
+            disabled={!popupOpen}
             inputProps={{ 'aria-label': 'search' }}
             onKeyPress={(event) => {
               if (event.key === 'Enter') {
@@ -97,14 +103,14 @@ export const SearchPopup: FC<SearchPopupProp> = ({ open, onClose }) => {
         </SearchBarContainer>
       </PopupContainer>
       <Divider />
-      {focused && (
+      {focused && popupOpen && (
         <SearchResultContainer>
-          {groupedOptions.length === 0 && (
-            <SearchEmpty>
-              <SearchEmptyText>No matches found...</SearchEmptyText>
-            </SearchEmpty>
-          )}
           <HistoryListContainer {...getListboxProps()}>
+            {groupedOptions.length === 0 && (
+              <SearchEmpty>
+                <SearchEmptyText>No matches found...</SearchEmptyText>
+              </SearchEmpty>
+            )}
             {groupedOptions.length > 0 &&
               groupedOptions.map((option, index) => (
                 <HistoryListItem
