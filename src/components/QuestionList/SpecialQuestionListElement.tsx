@@ -1,7 +1,7 @@
 import { FC, useState } from 'react';
 import styled from 'styled-components';
 import { Link as DefaultLink } from 'react-router-dom';
-import { Box, Typography, ListItem, ListItemText, IconButton } from '@material-ui/core';
+import { Box, Typography, ListItem, Divider, IconButton } from '@material-ui/core';
 import { PINK_3, H5, H5I, B2, B2I, B3, B3I, LIGHT_GRAY_1, TRUNCATE_TWO, TRUNCATE_ONE } from 'utils/themes';
 import { Icon } from '@iconify/react';
 import squareHalf from '@iconify-icons/bi/square-half';
@@ -46,26 +46,22 @@ export const SpecialQuestionListElement: FC<SpecialQuestionListElementProp> = ({
   return (
     <QuestionListElementContainer button onMouseEnter={onHoverIn} onMouseLeave={onHoverOut}>
       <Link to={link}>
-        <Text>
+        <TextBox>
           <Header>
             <Title notAnswered={notAnswered}>
-              <ListItemText>
-                <TitleText>
-                  Q{question.questionId}. {question.question.title}
-                </TitleText>
-              </ListItemText>
+              <TitleText>
+                Q{question.questionId}. {question.question.title}
+              </TitleText>
             </Title>
             <Time notAnswered={notAnswered}> {timeForToday(question.question.time)}</Time>
           </Header>
 
           <Body>
-            <BodyText notAnswered={notAnswered}>
-              <ListItemText>{question.question.content}</ListItemText>
-            </BodyText>
+            <BodyText notAnswered={notAnswered}>{question.question.content}</BodyText>
           </Body>
-        </Text>
+        </TextBox>
       </Link>
-
+      <Divider orientation="vertical" flexItem />
       <DoubleSidedViewButton
         onMouseEnter={setShadowIn}
         onMouseLeave={setShadowOut}
@@ -79,11 +75,9 @@ export const SpecialQuestionListElement: FC<SpecialQuestionListElementProp> = ({
 };
 
 const QuestionListElementContainer = styled(ListItem)`
-  padding: 0;
-  height: wrap-content;
   display: flex;
-  align-items: flex-start;
-  justify-content: space-between;
+  align-items: center;
+  padding: 0;
   :hover {
     background-color: rgba(205, 205, 205, 0.3);
   }
@@ -94,20 +88,17 @@ const QuestionListElementContainer = styled(ListItem)`
     background-color: ${PINK_3};
   }
   .MuiListItem-root {
-    align-items: flex-start;
+    align-items: center;
   }
   border-bottom: solid;
   border-width: 2px;
   border-color: ${LIGHT_GRAY_1};
 `;
 
-const Text = styled(Box)`
-  margin-left: 1em;
-  margin-top: 0em;
-  width: 75%;
-  height: 2em;
+const TextBox = styled(Box)`
   display: flex;
   flex-direction: column;
+  padding: 0 0.5em;
 `;
 
 const Header = styled(Box)`
@@ -132,12 +123,13 @@ const TitleText = styled(Typography)`
 `;
 
 const Time = styled(Box)<{ notAnswered: boolean }>`
-  width: 7.5em;
   margin-right: 0.1em;
   ${({ notAnswered }) => (notAnswered ? B3I : B3)};
 `;
 
 const Body = styled(Box)`
+  display: flex;
+  width: 15em;
   .MuiTypography-root {
     ${B2};
   }
@@ -151,9 +143,9 @@ const BodyText = styled(Typography)<{ notAnswered: boolean }>`
 `;
 
 const DoubleSidedViewButton = styled(IconButton)`
-  padding: 1.2em 3%;
   height: 100%;
-  margin: 0;
+  padding: 1.2em 0.3em;
+
   border-radius: 0;
   :hover {
     background-color: ${LIGHT_GRAY_1};
@@ -167,4 +159,7 @@ const DoubleSidedViewButton = styled(IconButton)`
 const Link = styled(DefaultLink)`
   color: #000000;
   text-decoration: none;
+  width: 100%;
+  height: fit-content;
+  margin: 0.5em;
 `;
