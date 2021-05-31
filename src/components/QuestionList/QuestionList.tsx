@@ -38,8 +38,13 @@ export const QuestionList: FC<QuestionListHeaderProp> = ({
   const history = useHistory();
   const location = useLocation();
 
-  const questionIdList = useState(subTopic.questionList as number[])[0];
+  const [questionIdList, setQuestionIdList] = useState<number[]>(subTopic.questionList as number[]);
   const [questionList, setQuestionList] = useState<Question[]>();
+
+  // setQuestionIdList(subTopic.questionList as number[]);
+  useEffect(() => {
+    setQuestionIdList(subTopic.questionList as number[]);
+  }, [subTopic]);
 
   useEffect(() => {
     if (questionIdList !== undefined) {
