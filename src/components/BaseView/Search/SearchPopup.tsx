@@ -32,6 +32,13 @@ export const SearchPopup: FC<SearchPopupProp> = ({ open, onClose }) => {
     getOptionLabel: (option: HistoryQuery) => option.history,
   });
 
+  const onClickClose = () => {
+    setSearch('');
+    if (onClose !== undefined) {
+      onClose();
+    }
+  };
+
   const onClickDelete = (item: HistoryQuery) => {
     const newHistoryList = historyList.filter((it) => it.id !== item.id);
     setHistoryList(newHistoryList);
@@ -77,10 +84,14 @@ export const SearchPopup: FC<SearchPopupProp> = ({ open, onClose }) => {
               if (event.key === 'Enter') {
                 browserHistory.push(`/search?q=${search}`);
                 addHistoryBySearch();
+
+                if (onClose !== undefined) {
+                  onClose();
+                }
               }
             }}
           />
-          <CloseIconContainer onClick={onClose}>
+          <CloseIconContainer onClick={onClickClose}>
             <CloseIcon />
           </CloseIconContainer>
         </SearchBarContainer>
@@ -100,8 +111,12 @@ export const SearchPopup: FC<SearchPopupProp> = ({ open, onClose }) => {
                   key={option.id}
                   {...getOptionProps({ option, index })}
                   history={option}
-                  onClickItem={onClose}
-                  onClickHistory={() => addHistoryByClick(option)}
+                  onClickHistory={() => {
+                    addHistoryByClick(option);
+                    if (onClose !== undefined) {
+                      onClose();
+                    }
+                  }}
                   onClickDelete={() => onClickDelete(option)}
                 />
               ))}

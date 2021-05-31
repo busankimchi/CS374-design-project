@@ -44,7 +44,6 @@ export const NormalQuestion: FC<NormalQuestionProp> = ({
   const [subTopicInfo, setSubTopicInfo] = useState<SubTopic>();
 
   const { topicList } = useTopicList();
-
   const history = useHistory();
 
   const onCloseLeftContent = () => {

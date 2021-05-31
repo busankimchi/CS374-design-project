@@ -9,26 +9,25 @@ import { HistoryQuery } from 'utils/types';
 
 interface HistoryListItemProp {
   history: HistoryQuery;
-  onClickItem?: () => void;
   onClickHistory?: () => void;
   onClickDelete?: () => void;
 }
 
-export const HistoryListItem: FC<HistoryListItemProp> = ({ history, onClickItem, onClickHistory, onClickDelete }) => {
+export const HistoryListItem: FC<HistoryListItemProp> = ({ history, onClickHistory, onClickDelete }) => {
   return (
-    <Link to={`/search?q=${history.history}`}>
-      <HistoryListItemContainer button onClick={onClickItem}>
+    <HistoryListItemContainer button>
+      <Link to={`/search?q=${history.history}`}>
         <HistoryButton onClick={onClickHistory}>
           <HistoryIcon />
           <HistoryItem>
             <HistoryItemText noWrap>{history.history}</HistoryItemText>
           </HistoryItem>
         </HistoryButton>
-        <CloseIconContainer onClick={onClickDelete}>
-          <CloseIcon />
-        </CloseIconContainer>
-      </HistoryListItemContainer>
-    </Link>
+      </Link>
+      <CloseIconContainer onClick={onClickDelete}>
+        <CloseIcon />
+      </CloseIconContainer>
+    </HistoryListItemContainer>
   );
 };
 
@@ -45,6 +44,7 @@ const HistoryListItemContainer = styled(ListItem)`
 const Link = styled(DefaultLink)`
   color: #000000;
   text-decoration: none;
+  width: 100%;
 `;
 
 const HistoryButton = styled(Box)`

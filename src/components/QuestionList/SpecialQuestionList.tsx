@@ -46,6 +46,7 @@ export const SpecialQuestionList: FC<QuestionListProp> = ({
 
   const renderQuestionListElement = (item: Question) => (
     <SpecialQuestionListElement
+      key={item.questionId}
       question={item}
       link={itemLink(item)}
       dualDisable={questionId === undefined}
@@ -89,10 +90,17 @@ const QuestionListDrawer = styled(Box)<{ isListShown: boolean }>`
 
 const QuestionListDrawerBody = styled(List)`
   overflow-y: scroll;
+  overflow-x: hidden;
   padding: 0;
 
   ::-webkit-scrollbar {
-    display: none;
+    width: 4px;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background-color: rgba(0, 0, 0, 0.4);
+    border-radius: 10rem;
+    border: 1px solid #ffffff;
   }
 `;
 
