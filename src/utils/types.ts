@@ -38,7 +38,7 @@ export interface Question {
   subtopicId: number;
   isFaq: boolean;
   question: QuestionContent;
-  answers: Array<AnswerContent>;
+  answers: AnswerContent[];
 }
 export interface QuestionFB {
   questionId: number;
@@ -46,7 +46,7 @@ export interface QuestionFB {
   subtopic: string;
   isFaq: boolean;
   question: QuestionContentFB;
-  answers: Array<AnswerContentFB>;
+  answers: AnswerContentFB[];
 }
 
 export interface Topic {
@@ -66,7 +66,6 @@ export enum PageType {
   FAQ,
   ALL_QUESTIONS,
   NORMAL,
-  DUAL,
   SEARCH,
 }
 export interface MousePosition {

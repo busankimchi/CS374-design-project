@@ -1,4 +1,5 @@
 import { FC } from 'react';
+import { useHistory, useLocation } from 'react-router';
 import styled from 'styled-components';
 import { Box, List, Typography } from '@material-ui/core';
 import { Question } from 'utils/types';
@@ -8,7 +9,10 @@ import { SpecialQuestionListElement } from './SpecialQuestionListElement';
 
 interface QuestionListProp {
   questionList: Question[];
+  questionId?: number;
+  questionId2?: number;
   title: string;
+  itemLink: (item: Question) => string;
   isListShown: boolean;
   onToggle?: () => void;
   onHoverIn?: () => void;
@@ -19,7 +23,10 @@ interface QuestionListProp {
 
 export const SpecialQuestionList: FC<QuestionListProp> = ({
   questionList,
+  questionId,
+  questionId2,
   title,
+  itemLink,
   isListShown,
   onToggle,
   onHoverIn,
@@ -27,13 +34,24 @@ export const SpecialQuestionList: FC<QuestionListProp> = ({
   onHoverInDual,
   onHoverOutDual,
 }) => {
+  const history = useHistory();
+  const location = useLocation();
+
+  const onClickItem = (item: Question) => {
+    const path = location.pathname;
+    history.push(`${path}?second=${item.questionId}`);
+  };
+
   const renderQuestionListElement = (item: Question) => (
     <SpecialQuestionListElement
       question={item}
+      link={itemLink(item)}
+      dualDisable={questionId === undefined}
       onHoverIn={onHoverIn}
       onHoverOut={onHoverOut}
       onHoverInDual={onHoverInDual}
       onHoverOutDual={onHoverOutDual}
+      onClickItem={onClickItem}
     />
   );
 
@@ -55,16 +73,25 @@ export const SpecialQuestionList: FC<QuestionListProp> = ({
 
 const QuestionListContainer = styled(Box)`
   display: flex;
+  height: 100%;
 `;
 
 const QuestionListDrawer = styled(Box) <{ isListShown: boolean }>`
+  display: flex;
+  flex-direction: column;
   width: ${({ isListShown }) => (isListShown ? '20vw' : '0vw')};
+  height: 100%;
   ${({ isListShown }) => !isListShown && 'display: none;'}
   transition: all 0.15s ease-in-out !important;
 `;
 
 const QuestionListDrawerBody = styled(List)`
+  overflow-y: scroll;
   padding: 0;
+
+  ::-webkit-scrollbar {
+    display: none;
+  }
 `;
 
 const QuestionListHeader = styled(Box)`

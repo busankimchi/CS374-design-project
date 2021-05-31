@@ -1,14 +1,12 @@
 import { FC } from 'react';
-import styled from 'styled-components';
-import { Backdrop, Box } from '@material-ui/core';
+import { useHistory } from 'react-router';
 import { PageType } from 'utils/types';
-import { Contents, NotSelected } from 'components/Contents';
-import { SpecialQuestionList } from 'components/QuestionList';
 import { useQuestionList } from 'apis/Question/useQuestionList';
-import { dummyQuestions } from '../utils/dummyDatas';
+import { BaseSpecialQuestion } from 'components/General/BaseSpecialQuestion';
 
 interface SpecialQuestionProp {
   pageType: PageType;
+  search?: string;
   questionId?: number;
   questionId2?: number;
   isListShown: boolean;
@@ -19,12 +17,11 @@ interface SpecialQuestionProp {
   onHoverOut?: () => void;
   onHoverInDual: () => void;
   onHoverOutDual: () => void;
-  onCloseLeftContent?: () => void;
-  onCloseRightContent?: () => void;
 }
 
 export const SpecialQuestion: FC<SpecialQuestionProp> = ({
   pageType,
+  search,
   questionId,
   questionId2,
   isListShown,
@@ -35,105 +32,125 @@ export const SpecialQuestion: FC<SpecialQuestionProp> = ({
   onHoverOut,
   onHoverInDual,
   onHoverOutDual,
-  onCloseLeftContent,
-  onCloseRightContent,
 }) => {
   const { questionList } = useQuestionList();
 
+  const history = useHistory();
+
   if (pageType === PageType.FAQ) {
     const FAQList = questionList.filter((question) => question.isFaq);
+
+    const onCloseLeftContent = () => {
+      if (questionId2 !== undefined) {
+        history.push(`/faq/${questionId2}`);
+      } else {
+        history.push(`/faq`);
+      }
+    };
+
+    const onCloseRightContent = () => {
+      if (questionId !== undefined) {
+        history.push(`/faq/${questionId}`);
+      } else {
+        history.push(`/faq`);
+      }
+    };
+
     return (
-      <QuestionsContainer>
-        <QuestionDetails>
-          <SpecialQuestionList
-            questionList={FAQList}
-            title="FAQ"
-            isListShown={isListShown}
-            onToggle={onToggle}
-            onHoverIn={onHoverIn}
-            onHoverOut={onHoverOut}
-            onHoverInDual={onHoverInDual}
-            onHoverOutDual={onHoverOutDual}
-          />
-
-          <QQBox>
-            {questionId === undefined && <NotSelected />}
-            {questionId !== undefined && (
-              <QBox>
-                <Contents question={dummyQuestions[questionId - 1]} closeThisContent={onCloseLeftContent} />
-              </QBox>
-            )}
-            {questionId2 !== undefined && (
-              <QBox>
-                <Contents question={dummyQuestions[questionId2 - 1]} closeThisContent={onCloseRightContent} />
-              </QBox>
-            )}
-          </QQBox>
-        </QuestionDetails>
-
-        {isHover && <DoubleSidedPaper open={isHover} fullsize={!isHoverDual} />}
-      </QuestionsContainer>
+      <BaseSpecialQuestion
+        questionList={FAQList}
+        title="FAQ"
+        itemLink={(item) => `/faq/${item.questionId}`}
+        isListShown={isListShown}
+        isHover={isHover}
+        isHoverDual={isHoverDual}
+        questionId={questionId}
+        questionId2={questionId2}
+        onToggle={onToggle}
+        onHoverIn={onHoverIn}
+        onHoverOut={onHoverOut}
+        onHoverInDual={onHoverInDual}
+        onHoverOutDual={onHoverOutDual}
+        onCloseLeftContent={onCloseLeftContent}
+        onCloseRightContent={onCloseRightContent}
+      />
     );
   }
+  if (pageType === PageType.SEARCH) {
+    const searchList = questionList.filter((item) => {
+      const { question, answers } = item;
+
+      const contentHas = question.content.includes(search as string);
+      const titleHas = question.title.includes(search as string);
+      const answerHas = answers
+        .map((ans) => ans.content.includes(search as string))
+        .reduce((prev, next) => prev || next, false);
+
+      return contentHas || titleHas || answerHas;
+    });
+
+    const onCloseLeftContent = () => {
+      history.push(`/search?q=${search}&first=${questionId2}`);
+    };
+
+    const onCloseRightContent = () => {
+      history.push(`/search?q=${search}&first=${questionId}`);
+    };
+
+    return (
+      <BaseSpecialQuestion
+        questionList={searchList}
+        title="SEARCH RESULT"
+        itemLink={(item) => `/search?q=${search}&first=${item.questionId}`}
+        isListShown={isListShown}
+        isHover={isHover}
+        isHoverDual={isHoverDual}
+        questionId={questionId}
+        questionId2={questionId2}
+        onToggle={onToggle}
+        onHoverIn={onHoverIn}
+        onHoverOut={onHoverOut}
+        onHoverInDual={onHoverInDual}
+        onHoverOutDual={onHoverOutDual}
+        onCloseLeftContent={onCloseLeftContent}
+        onCloseRightContent={onCloseRightContent}
+      />
+    );
+  }
+
+  const onCloseLeftContent = () => {
+    if (questionId2 !== undefined) {
+      history.push(`/all_questions/${questionId2}`);
+    } else {
+      history.push(`/all_questions`);
+    }
+  };
+
+  const onCloseRightContent = () => {
+    if (questionId !== undefined) {
+      history.push(`/all_questions/${questionId}`);
+    } else {
+      history.push(`/all_questions`);
+    }
+  };
+
   return (
-    <QuestionsContainer>
-      <QuestionDetails>
-        <SpecialQuestionList
-          questionList={questionList}
-          title="ALL QUESTIONS"
-          isListShown={isListShown}
-          onToggle={onToggle}
-          onHoverIn={onHoverIn}
-          onHoverOut={onHoverOut}
-          onHoverInDual={onHoverInDual}
-          onHoverOutDual={onHoverOutDual}
-        />
-
-        {/* {questionId === undefined && <NotSelected />} */}
-
-        <QQBox>
-          {questionId === undefined && <NotSelected />}
-          {questionId !== undefined && (
-            <QBox>
-              <Contents question={dummyQuestions[questionId - 1]} closeThisContent={onCloseLeftContent} />
-            </QBox>
-          )}
-          {questionId2 !== undefined && (
-            <QBox>
-              <Contents question={dummyQuestions[questionId2 - 1]} closeThisContent={onCloseRightContent} />
-            </QBox>
-          )}
-        </QQBox>
-        {/* </QuestionDetails> */}
-      </QuestionDetails>
-
-      {isHover && <DoubleSidedPaper open={isHover} fullsize={!isHoverDual} />}
-    </QuestionsContainer>
+    <BaseSpecialQuestion
+      questionList={questionList}
+      title="ALL QUESTIONS"
+      itemLink={(item) => `/all_questions/${item.questionId}`}
+      isListShown={isListShown}
+      isHover={isHover}
+      isHoverDual={isHoverDual}
+      questionId={questionId}
+      questionId2={questionId2}
+      onToggle={onToggle}
+      onHoverIn={onHoverIn}
+      onHoverOut={onHoverOut}
+      onHoverInDual={onHoverInDual}
+      onHoverOutDual={onHoverOutDual}
+      onCloseLeftContent={onCloseLeftContent}
+      onCloseRightContent={onCloseRightContent}
+    />
   );
 };
-
-const QuestionsContainer = styled(Box)`
-  display: flex;
-  width: 100%;
-`;
-
-const QBox = styled(Box)`
-  width: 100%;
-  display: flex;
-`;
-
-const QQBox = styled(Box)`
-  width: 100%;
-  display: flex;
-`;
-
-const QuestionDetails = styled(Box)`
-  display: flex;
-  width: 100%;
-`;
-
-const DoubleSidedPaper = styled(Backdrop) <{ fullsize: boolean }>`
-  position: reletive;
-  ${({ fullsize }) => (fullsize ? 'left: 37vw' : 'left: 68vw')};
-  z-index: 999;
-`;
