@@ -1,4 +1,4 @@
-import { FC, useEffect, useState } from 'react';
+import { FC, useEffect, useState, Dispatch, SetStateAction } from 'react';
 import { useHistory, useLocation } from 'react-router';
 import styled from 'styled-components';
 import { Box, List, Typography } from '@material-ui/core';
@@ -8,8 +8,11 @@ import { Topic, SubTopic, Question, QuestionFB, AnswerContent, QuestionContent }
 import { TimestampToDate } from 'utils/functions';
 import { Hover } from 'components/Contents';
 import { QuestionListElement } from './QuestionListElement';
+import { Loading } from '../General/Loading'
 
 interface QuestionListHeaderProp {
+  isLoading: boolean;
+  setIsLoading: Dispatch<SetStateAction<boolean>>;
   topic: Topic;
   subTopic: SubTopic;
   isListShown: boolean;
@@ -23,6 +26,8 @@ interface QuestionListHeaderProp {
 }
 
 export const QuestionList: FC<QuestionListHeaderProp> = ({
+  isLoading,
+  setIsLoading,
   topic,
   subTopic,
   isListShown,
@@ -48,6 +53,7 @@ export const QuestionList: FC<QuestionListHeaderProp> = ({
 
   useEffect(() => {
     if (questionIdList !== undefined) {
+      setIsLoading(true);
       firebase
         .firestore()
         .collection('questions')
@@ -71,6 +77,7 @@ export const QuestionList: FC<QuestionListHeaderProp> = ({
           });
           questionListCustom.sort((a, b) => b.questionId - a.questionId);
           setQuestionList(questionListCustom);
+          setIsLoading(false);
         })
         .catch();
     }
@@ -95,6 +102,8 @@ export const QuestionList: FC<QuestionListHeaderProp> = ({
     />
   );
 
+  const drawerBody = (questionList === undefined || isLoading) ? <Loading /> : questionList.map((item) => renderQuestionListElement(item));
+
   return (
     <QuestionListContainer>
       <QuestionListDrawer isListShown={isListShown}>
@@ -104,7 +113,7 @@ export const QuestionList: FC<QuestionListHeaderProp> = ({
           </QuestionListHeaderText>
         </QuestionListHeader>
         <QuestionListDrawerBody>
-          {questionList !== undefined && questionList.map((item) => renderQuestionListElement(item))}
+          {drawerBody}
         </QuestionListDrawerBody>
       </QuestionListDrawer>
 
@@ -118,12 +127,12 @@ const QuestionListContainer = styled(Box)`
   height: 100%;
 `;
 
-const QuestionListDrawer = styled(Box)<{ isListShown: boolean }>`
+const QuestionListDrawer = styled(Box) <{ isListShown: boolean }>`
   display: flex;
   flex-direction: column;
-  width: ${({ isListShown }) => (isListShown ? '20em' : '0em')};
+  width: ${({ isListShown }) => (isListShown ? '20vw' : '0vw')};
   height: 100%;
-  opacity: ${({ isListShown }) => (isListShown ? '1' : '0')};
+  ${({ isListShown }) => !isListShown && 'display: none;'}
   transition: all 0.15s ease-in-out !important;
 `;
 

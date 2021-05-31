@@ -1,4 +1,4 @@
-import { FC } from 'react';
+import { FC, useState } from 'react';
 import { useHistory } from 'react-router';
 import { PageType } from 'utils/types';
 import { useQuestionList } from 'apis/Question/useQuestionList';
@@ -33,7 +33,8 @@ export const SpecialQuestion: FC<SpecialQuestionProp> = ({
   onHoverInDual,
   onHoverOutDual,
 }) => {
-  const { questionList } = useQuestionList();
+  const [isLoading, setIsLoading] = useState(true);
+  const { questionList } = useQuestionList(setIsLoading);
 
   const history = useHistory();
 
@@ -58,6 +59,7 @@ export const SpecialQuestion: FC<SpecialQuestionProp> = ({
 
     return (
       <BaseSpecialQuestion
+        isLoading={isLoading}
         questionList={FAQList}
         title="FAQ"
         itemLink={(item) => `/faq/${item.questionId}`}
@@ -99,6 +101,7 @@ export const SpecialQuestion: FC<SpecialQuestionProp> = ({
 
     return (
       <BaseSpecialQuestion
+        isLoading={isLoading}
         questionList={searchList}
         title="SEARCH RESULT"
         itemLink={(item) => `/search?q=${search}&first=${item.questionId}`}
@@ -136,6 +139,7 @@ export const SpecialQuestion: FC<SpecialQuestionProp> = ({
 
   return (
     <BaseSpecialQuestion
+      isLoading={isLoading}
       questionList={questionList}
       title="ALL QUESTIONS"
       itemLink={(item) => `/all_questions/${item.questionId}`}

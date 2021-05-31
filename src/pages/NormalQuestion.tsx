@@ -42,6 +42,7 @@ export const NormalQuestion: FC<NormalQuestionProp> = ({
 }) => {
   const [topicInfo, setTopicInfo] = useState<Topic>();
   const [subTopicInfo, setSubTopicInfo] = useState<SubTopic>();
+  const [isLoading, setIsLoading] = useState(true);
 
   const { topicList } = useTopicList();
 
@@ -84,6 +85,8 @@ export const NormalQuestion: FC<NormalQuestionProp> = ({
       <QuestionDetails>
         {topicInfo !== undefined && subTopicInfo !== undefined && (
           <QuestionList
+            isLoading={isLoading}
+            setIsLoading={setIsLoading}
             topic={topicInfo}
             subTopic={subTopicInfo}
             questionId={questionId}
@@ -139,7 +142,7 @@ const QuestionDetails = styled(Box)`
   height: 100%;
 `;
 
-const DoubleSidedPaper = styled(Backdrop)<{ fullsize: boolean }>`
+const DoubleSidedPaper = styled(Backdrop) <{ fullsize: boolean }>`
   position: reletive;
   ${({ fullsize }) => (fullsize ? 'left: 37vw' : 'left: 68vw')};
   z-index: 999;
