@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
-import { FC, useEffect, useState } from 'react';
+import { FC, useEffect, useState, Dispatch, SetStateAction } from 'react';
 import { useHistory } from 'react-router';
 import styled from 'styled-components';
 import { Backdrop, Box, Fade, Paper } from '@material-ui/core';
@@ -10,6 +10,7 @@ import { QuestionList } from 'components/QuestionList/QuestionList';
 import { Hover, Contents, NotSelected } from 'components/Contents';
 import { useTopicList } from 'hooks/useTopicList';
 import { useQuestionList } from 'apis/Question/useQuestionList';
+import { Loading } from 'components/General/Loading'
 
 interface NormalQuestionProp {
   pageType: PageType;
@@ -28,6 +29,7 @@ interface NormalQuestionProp {
 }
 
 export const NormalQuestion: FC<NormalQuestionProp> = ({
+
   pageType,
   topicId,
   subTopicId,
@@ -48,6 +50,7 @@ export const NormalQuestion: FC<NormalQuestionProp> = ({
   const [questionList, setQuestionList] = useState<Question[]>();
   const [question1, setQuestion1] = useState<Question>();
   const [question2, setQuestion2] = useState<Question>();
+  const [isLoading, setIsLoading] = useState(true);
 
   const { topicList } = useTopicList();
 
@@ -97,6 +100,7 @@ export const NormalQuestion: FC<NormalQuestionProp> = ({
 
   useEffect(() => {
     if (questionIdList !== undefined) {
+      setIsLoading(true);
       firebase
         .firestore()
         .collection('questions')
@@ -120,6 +124,7 @@ export const NormalQuestion: FC<NormalQuestionProp> = ({
           });
           questionListCustom.sort((a, b) => b.questionId - a.questionId);
           setQuestionList(questionListCustom);
+          setIsLoading(false);
         })
         .catch();
     }
@@ -142,6 +147,8 @@ export const NormalQuestion: FC<NormalQuestionProp> = ({
       <QuestionDetails>
         {topicInfo !== undefined && subTopicInfo !== undefined && questionList !== undefined && (
           <QuestionList
+            isLoading={isLoading}
+            setIsLoading={setIsLoading}
             topic={topicInfo}
             subTopic={subTopicInfo}
             questionList={questionList}
@@ -202,7 +209,7 @@ const QuestionDetails = styled(Box)`
   height: 100%;
 `;
 
-const DoubleSidedPaper = styled(Backdrop)<{ fullsize: boolean }>`
+const DoubleSidedPaper = styled(Backdrop) <{ fullsize: boolean }>`
   position: reletive;
   ${({ fullsize }) => (fullsize ? 'left: 37vw' : 'left: 68vw')};
   z-index: 999;

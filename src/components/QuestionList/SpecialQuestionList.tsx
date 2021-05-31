@@ -6,8 +6,10 @@ import { Question } from 'utils/types';
 import { H3, TRUNCATE_ONE, LIGHT_GRAY_1 } from 'utils/themes';
 import { Hover } from 'components/Contents';
 import { SpecialQuestionListElement } from './SpecialQuestionListElement';
+import { Loading } from '../General/Loading'
 
 interface QuestionListProp {
+  isLoading: boolean;
   questionList: Question[];
   questionId?: number;
   questionId2?: number;
@@ -22,6 +24,7 @@ interface QuestionListProp {
 }
 
 export const SpecialQuestionList: FC<QuestionListProp> = ({
+  isLoading,
   questionList,
   questionId,
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
@@ -57,6 +60,8 @@ export const SpecialQuestionList: FC<QuestionListProp> = ({
     />
   );
 
+  const drawerBody = (questionList === undefined || isLoading) ? <Loading /> : questionList.map((item) => renderQuestionListElement(item));
+
   return (
     <QuestionListContainer>
       <QuestionListDrawer isListShown={isListShown}>
@@ -64,7 +69,7 @@ export const SpecialQuestionList: FC<QuestionListProp> = ({
           <QuestionListHeaderText>{title}</QuestionListHeaderText>
         </QuestionListHeader>
         <QuestionListDrawerBody>
-          {questionList !== undefined && questionList.map((item) => renderQuestionListElement(item))}
+          {drawerBody}
         </QuestionListDrawerBody>
       </QuestionListDrawer>
 
@@ -78,12 +83,12 @@ const QuestionListContainer = styled(Box)`
   height: 100%;
 `;
 
-const QuestionListDrawer = styled(Box)<{ isListShown: boolean }>`
+const QuestionListDrawer = styled(Box) <{ isListShown: boolean }>`
   display: flex;
   flex-direction: column;
-  width: ${({ isListShown }) => (isListShown ? '20em' : '0em')};
+  width: ${({ isListShown }) => (isListShown ? '20vw' : '0vw')};
   height: 100%;
-  opacity: ${({ isListShown }) => (isListShown ? '1' : '0')};
+  ${({ isListShown }) => !isListShown && 'display: none;'}
   transition: all 0.15s ease-in-out !important;
 `;
 

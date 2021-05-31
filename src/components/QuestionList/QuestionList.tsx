@@ -1,4 +1,4 @@
-import { FC } from 'react';
+import { FC, useEffect, useState, Dispatch, SetStateAction } from 'react';
 import { useHistory, useLocation } from 'react-router';
 import styled from 'styled-components';
 import { Box, List, Typography } from '@material-ui/core';
@@ -6,8 +6,11 @@ import { H3, TRUNCATE_ONE, LIGHT_GRAY_1 } from 'utils/themes';
 import { Topic, SubTopic, Question } from 'utils/types';
 import { Hover } from 'components/Contents';
 import { QuestionListElement } from './QuestionListElement';
+import { Loading } from '../General/Loading'
 
 interface QuestionListHeaderProp {
+  isLoading: boolean;
+  setIsLoading: Dispatch<SetStateAction<boolean>>;
   topic: Topic;
   subTopic: SubTopic;
   questionList: Question[];
@@ -22,6 +25,8 @@ interface QuestionListHeaderProp {
 }
 
 export const QuestionList: FC<QuestionListHeaderProp> = ({
+  isLoading,
+  setIsLoading,
   topic,
   subTopic,
   questionList,
@@ -57,6 +62,8 @@ export const QuestionList: FC<QuestionListHeaderProp> = ({
     />
   );
 
+  const drawerBody = (questionList === undefined || isLoading) ? <Loading /> : questionList.map((item) => renderQuestionListElement(item));
+
   return (
     <QuestionListContainer>
       <QuestionListDrawer isListShown={isListShown}>
@@ -66,7 +73,7 @@ export const QuestionList: FC<QuestionListHeaderProp> = ({
           </QuestionListHeaderText>
         </QuestionListHeader>
         <QuestionListDrawerBody>
-          {questionList !== undefined && questionList.map((item) => renderQuestionListElement(item))}
+          {drawerBody}
         </QuestionListDrawerBody>
       </QuestionListDrawer>
 
@@ -80,12 +87,12 @@ const QuestionListContainer = styled(Box)`
   height: 100%;
 `;
 
-const QuestionListDrawer = styled(Box)<{ isListShown: boolean }>`
+const QuestionListDrawer = styled(Box) <{ isListShown: boolean }>`
   display: flex;
   flex-direction: column;
-  width: ${({ isListShown }) => (isListShown ? '20em' : '0em')};
+  width: ${({ isListShown }) => (isListShown ? '20vw' : '0vw')};
   height: 100%;
-  opacity: ${({ isListShown }) => (isListShown ? '1' : '0')};
+  ${({ isListShown }) => !isListShown && 'display: none;'}
   transition: all 0.15s ease-in-out !important;
 `;
 
