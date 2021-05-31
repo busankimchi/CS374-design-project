@@ -1,6 +1,5 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import { FC, useState } from 'react';
-import { useHistory } from 'react-router';
 import { PageType } from 'utils/types';
 import { SpecialQuestion } from './SpecialQuestion';
 import { NormalQuestion } from './NormalQuestion';
@@ -18,27 +17,9 @@ export const Questions: FC<QuestionsProp> = ({ pageType, search, topicId, subTop
   // eslint-disable-next-line no-console
   console.log({ pageType, search, topicId, subTopicId, questionId, questionId2 });
 
-  const history = useHistory();
-
   const [isListShown, setListShown] = useState(true);
   const [isHover, setHover] = useState(false);
   const [isHoverDual, setHoverDual] = useState(false);
-
-  const onCloseLeftContent = () => {
-    if (questionId2 !== undefined) {
-      history.push(`/topic/${topicId}/subtopic/${subTopicId}/question/${questionId2}`);
-    } else {
-      history.push(`/topic/${topicId}/subtopic/${subTopicId}`);
-    }
-  };
-
-  const onCloseRightContent = () => {
-    if (questionId !== undefined) {
-      history.push(`/topic/${topicId}/subtopic/${subTopicId}/question/${questionId}`);
-    } else {
-      history.push(`/topic/${topicId}/subtopic/${subTopicId}`);
-    }
-  };
 
   const onToggle = () => setListShown(!isListShown);
   const onHoverIn = () => setHover(true);
@@ -46,10 +27,11 @@ export const Questions: FC<QuestionsProp> = ({ pageType, search, topicId, subTop
   const onHoverInDual = () => setHoverDual(true);
   const onHoverOutDual = () => setHoverDual(false);
 
-  if (pageType === PageType.FAQ || pageType === PageType.ALL_QUESTIONS) {
+  if (pageType === PageType.FAQ || pageType === PageType.ALL_QUESTIONS || pageType === PageType.SEARCH) {
     return (
       <SpecialQuestion
         pageType={pageType}
+        search={search}
         questionId={questionId}
         questionId2={questionId2}
         isListShown={isListShown}
@@ -60,8 +42,6 @@ export const Questions: FC<QuestionsProp> = ({ pageType, search, topicId, subTop
         onHoverOut={onHoverOut}
         onHoverInDual={onHoverInDual}
         onHoverOutDual={onHoverOutDual}
-        onCloseLeftContent={onCloseLeftContent}
-        onCloseRightContent={onCloseRightContent}
       />
     );
   }
@@ -80,8 +60,6 @@ export const Questions: FC<QuestionsProp> = ({ pageType, search, topicId, subTop
       onHoverOut={onHoverOut}
       onHoverInDual={onHoverInDual}
       onHoverOutDual={onHoverOutDual}
-      onCloseLeftContent={onCloseLeftContent}
-      onCloseRightContent={onCloseRightContent}
     />
   );
 };
