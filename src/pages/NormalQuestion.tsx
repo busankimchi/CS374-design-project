@@ -53,7 +53,6 @@ export const NormalQuestion: FC<NormalQuestionProp> = ({
   const [isLoading, setIsLoading] = useState(true);
 
   const { topicList } = useTopicList();
-
   const history = useHistory();
 
   /** Close questions */
