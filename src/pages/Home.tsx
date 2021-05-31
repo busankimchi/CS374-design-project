@@ -190,7 +190,7 @@ export const Home: FC = () => {
 
                 if (searchQuery[1] !== undefined) {
                   const firstQ = searchQuery[1].split('=');
-                  const firstKey = firstQ[0].substr(1);
+                  const firstKey = firstQ[0];
                   const firstValue = firstQ[1];
 
                   if (firstKey === 'first') {
@@ -200,8 +200,8 @@ export const Home: FC = () => {
                     const questionId = Number(firstValue);
                     if (!Number.isNaN(questionId)) {
                       if (searchQuery[2] !== undefined) {
-                        const secondQ = searchQuery[1].split('=');
-                        const secondKey = secondQ[0].substr(1);
+                        const secondQ = searchQuery[2].split('=');
+                        const secondKey = secondQ[0];
                         const secondValue = secondQ[1];
 
                         if (secondKey === 'second') {
