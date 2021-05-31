@@ -24,6 +24,7 @@ interface QuestionListProp {
 export const SpecialQuestionList: FC<QuestionListProp> = ({
   questionList,
   questionId,
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   questionId2,
   title,
   itemLink,

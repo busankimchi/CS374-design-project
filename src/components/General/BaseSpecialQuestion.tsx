@@ -2,7 +2,7 @@ import { FC } from 'react';
 import styled from 'styled-components';
 import { Backdrop, Box } from '@material-ui/core';
 import { Question } from 'utils/types';
-import { Contents } from 'components/Contents';
+import { Contents, NotSelected } from 'components/Contents';
 import { SpecialQuestionList } from 'components/QuestionList';
 import { dummyQuestions } from 'utils/dummyDatas';
 
@@ -62,6 +62,7 @@ export const BaseSpecialQuestion: FC<BaseQuestionProp> = ({
       </QuestionDetails>
       {/* {questionId === undefined && <NotSelected />} */}
       <QQBox>
+        {questionId === undefined && <NotSelected />}
         {questionId !== undefined && (
           <QBox>
             <Contents question={dummyQuestions[questionId - 1]} closeThisContent={onCloseLeftContent} />
