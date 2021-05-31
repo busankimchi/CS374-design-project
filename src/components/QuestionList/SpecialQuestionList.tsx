@@ -57,7 +57,7 @@ const QuestionListContainer = styled(Box)`
   display: flex;
 `;
 
-const QuestionListDrawer = styled(Box)<{ isListShown: boolean }>`
+const QuestionListDrawer = styled(Box) <{ isListShown: boolean }>`
   width: ${({ isListShown }) => (isListShown ? '20em' : '0em')};
   opacity: ${({ isListShown }) => (isListShown ? '1' : '0')};
   transition: all 0.15s ease-in-out !important;
