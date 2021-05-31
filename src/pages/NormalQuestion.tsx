@@ -42,6 +42,7 @@ export const NormalQuestion: FC<NormalQuestionProp> = ({
 }) => {
   const [topicInfo, setTopicInfo] = useState<Topic>();
   const [subTopicInfo, setSubTopicInfo] = useState<SubTopic>();
+  const [isLoading, setIsLoading] = useState(true);
 
   const { topicList } = useTopicList();
 
@@ -84,6 +85,8 @@ export const NormalQuestion: FC<NormalQuestionProp> = ({
       <QuestionDetails>
         {topicInfo !== undefined && subTopicInfo !== undefined && (
           <QuestionList
+            isLoading={isLoading}
+            setIsLoading={setIsLoading}
             topic={topicInfo}
             subTopic={subTopicInfo}
             questionId={questionId}

@@ -1,5 +1,5 @@
 import { fetchQuestionList } from 'apis/Question/fetchQuestionList';
-import { useState, Dispatch, SetStateAction, useEffect, useCallback } from 'react';
+import { useState, Dispatch, SetStateAction, useEffect } from 'react';
 import { Question } from 'utils/types';
 
 interface QuestionListHookResponse {

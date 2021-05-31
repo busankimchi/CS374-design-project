@@ -60,7 +60,7 @@ export const SpecialQuestionList: FC<QuestionListProp> = ({
     />
   );
 
-  const drawerBody = (questionList == null || isLoading) ? <Loading /> : questionList.map((item) => renderQuestionListElement(item));
+  const drawerBody = (questionList === undefined || isLoading) ? <Loading /> : questionList.map((item) => renderQuestionListElement(item));
 
   return (
     <QuestionListContainer>
