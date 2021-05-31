@@ -70,8 +70,6 @@ export const SearchPopup: FC<SearchPopupProp> = ({ open, onClose }) => {
     updateHistory(newHistoryFB);
   };
 
-  console.log(focused, popupOpen);
-
   return (
     <SearchPopupContainer open={open} onClose={onClose} BackdropProps={{ invisible: true }} disableBackdropClick>
       <PopupContainer {...getRootProps()}>
