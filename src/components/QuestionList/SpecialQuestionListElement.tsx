@@ -6,7 +6,7 @@ import { PINK_3, H5, H5I, B2, B2I, B3, B3I, LIGHT_GRAY_1, TRUNCATE_TWO, TRUNCATE
 import { Icon } from '@iconify/react';
 import squareHalf from '@iconify-icons/bi/square-half';
 import { Question } from 'utils/types';
-import { timeForToday, TimestampToDate } from 'utils/functions';
+import { timeForToday } from 'utils/functions';
 
 interface SpecialQuestionListElementProp {
   question: Question;
