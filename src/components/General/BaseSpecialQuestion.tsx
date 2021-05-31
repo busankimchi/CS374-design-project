@@ -1,10 +1,9 @@
-import { FC } from 'react';
+import { FC, useEffect, useState } from 'react';
 import styled from 'styled-components';
 import { Backdrop, Box } from '@material-ui/core';
 import { Question } from 'utils/types';
 import { Contents, NotSelected } from 'components/Contents';
 import { SpecialQuestionList } from 'components/QuestionList';
-import { dummyQuestions } from 'utils/dummyDatas';
 
 interface BaseQuestionProp {
   questionList: Question[];
@@ -41,6 +40,21 @@ export const BaseSpecialQuestion: FC<BaseQuestionProp> = ({
   onCloseLeftContent,
   onCloseRightContent,
 }) => {
+  const [question1, setQuestion1] = useState<Question>();
+  const [question2, setQuestion2] = useState<Question>();
+
+  useEffect(() => {
+    if (questionList !== undefined) {
+      setQuestion1(questionList.find((question) => question.questionId === questionId));
+    }
+  }, [questionList, questionId]);
+
+  useEffect(() => {
+    if (questionList !== undefined) {
+      setQuestion2(questionList.find((question) => question.questionId === questionId2));
+    }
+  }, [questionList, questionId2]);
+
   return (
     <QuestionsContainer>
       <QuestionDetails>
@@ -57,18 +71,21 @@ export const BaseSpecialQuestion: FC<BaseQuestionProp> = ({
           onHoverInDual={onHoverInDual}
           onHoverOutDual={onHoverOutDual}
         />
-
       </QuestionDetails>
       <QQBox>
         {questionId === undefined && <NotSelected />}
         {questionId !== undefined && (
           <QBox>
-            <Contents question={dummyQuestions[questionId - 1]} closeThisContent={onCloseLeftContent} />
+            {questionList !== undefined && question1 !== undefined && (
+              <Contents question={question1} closeThisContent={onCloseLeftContent} />
+            )}
           </QBox>
         )}
         {questionId2 !== undefined && (
           <QBox>
-            <Contents question={dummyQuestions[questionId2 - 1]} closeThisContent={onCloseRightContent} />
+            {questionList !== undefined && question2 !== undefined && (
+              <Contents question={question2} closeThisContent={onCloseRightContent} />
+            )}
           </QBox>
         )}
       </QQBox>
