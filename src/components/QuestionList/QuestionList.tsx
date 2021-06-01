@@ -14,7 +14,7 @@ interface QuestionListHeaderProp {
   setIsLoading: Dispatch<SetStateAction<boolean>>;
   topic: Topic;
   subTopic: SubTopic;
-  questionList: Question[];
+  questionList: Question[] | undefined;
   isListShown: boolean;
   questionId?: number;
   questionId2?: number;
@@ -87,7 +87,7 @@ const QuestionListContainer = styled(Box)`
   height: 100%;
 `;
 
-const QuestionListDrawer = styled(Box)<{ isListShown: boolean }>`
+const QuestionListDrawer = styled(Box) <{ isListShown: boolean }>`
   display: flex;
   flex-direction: column;
   width: ${({ isListShown }) => (isListShown ? '20vw' : '0vw')};
