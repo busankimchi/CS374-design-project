@@ -1,6 +1,6 @@
 import { FC, useState } from 'react';
-import { useHistory } from 'react-router';
-import { PageType } from 'utils/types';
+import { useHistory, useLocation } from 'react-router';
+import { PageType, Question } from 'utils/types';
 import { useQuestionList } from 'apis/Question/useQuestionList';
 import { BaseSpecialQuestion } from 'components/General/BaseSpecialQuestion';
 
@@ -33,10 +33,10 @@ export const SpecialQuestion: FC<SpecialQuestionProp> = ({
   onHoverInDual,
   onHoverOutDual,
 }) => {
+  const history = useHistory();
+  const location = useLocation();
   const [isLoading, setIsLoading] = useState(true);
   const { questionList } = useQuestionList(setIsLoading);
-
-  const history = useHistory();
 
   if (pageType === PageType.FAQ) {
     const FAQList = questionList.filter((question) => question.isFaq);
@@ -57,6 +57,12 @@ export const SpecialQuestion: FC<SpecialQuestionProp> = ({
       }
     };
 
+    const onClickItemDual = (item: Question) => {
+      const { pathname } = location;
+
+      history.push(`${pathname}?second=${item.questionId}`);
+    };
+
     return (
       <BaseSpecialQuestion
         isLoading={isLoading}
@@ -75,6 +81,7 @@ export const SpecialQuestion: FC<SpecialQuestionProp> = ({
         onHoverOutDual={onHoverOutDual}
         onCloseLeftContent={onCloseLeftContent}
         onCloseRightContent={onCloseRightContent}
+        onClickItemDual={onClickItemDual}
       />
     );
   }
@@ -99,6 +106,12 @@ export const SpecialQuestion: FC<SpecialQuestionProp> = ({
       history.push(`/search?q=${search}&first=${questionId}`);
     };
 
+    const onClickItemDual = (item: Question) => {
+      const { pathname, search } = location;
+
+      history.push(`${pathname}${search}&second=${item.questionId}`);
+    };
+
     return (
       <BaseSpecialQuestion
         isLoading={isLoading}
@@ -117,6 +130,7 @@ export const SpecialQuestion: FC<SpecialQuestionProp> = ({
         onHoverOutDual={onHoverOutDual}
         onCloseLeftContent={onCloseLeftContent}
         onCloseRightContent={onCloseRightContent}
+        onClickItemDual={onClickItemDual}
       />
     );
   }
@@ -137,6 +151,12 @@ export const SpecialQuestion: FC<SpecialQuestionProp> = ({
     }
   };
 
+  const onClickItemDual = (item: Question) => {
+    const { pathname } = location;
+
+    history.push(`${pathname}?second=${item.questionId}`);
+  };
+
   return (
     <BaseSpecialQuestion
       isLoading={isLoading}
@@ -155,6 +175,7 @@ export const SpecialQuestion: FC<SpecialQuestionProp> = ({
       onHoverOutDual={onHoverOutDual}
       onCloseLeftContent={onCloseLeftContent}
       onCloseRightContent={onCloseRightContent}
+      onClickItemDual={onClickItemDual}
     />
   );
 };

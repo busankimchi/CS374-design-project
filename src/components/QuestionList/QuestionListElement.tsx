@@ -3,7 +3,7 @@ import { Link as DefaultLink } from 'react-router-dom';
 import styled from 'styled-components';
 import { Icon } from '@iconify/react';
 import squareHalf from '@iconify-icons/bi/square-half';
-import { Box, Typography, ListItem, ListItemText, IconButton } from '@material-ui/core';
+import { Box, Typography, ListItem, Divider, IconButton } from '@material-ui/core';
 import { PINK_3, H5, H5I, B2, B2I, B3, B3I, LIGHT_GRAY_1, TRUNCATE_TWO, TRUNCATE_ONE } from 'utils/themes';
 import { Question } from 'utils/types';
 import { timeForToday } from 'utils/functions';
@@ -48,26 +48,22 @@ export const QuestionListElement: FC<QuestionListElementProp> = ({
   return (
     <QuestionListElementContainer button onMouseEnter={onHoverIn} onMouseLeave={onHoverOut}>
       <Link to={`/topic/${topicId}/subTopic/${subTopicId}/question/${question.questionId}`}>
-        <Text>
+        <TextBox>
           <Header>
             <Title notAnswered={notAnswered}>
-              <ListItemText>
-                <TitleText>
-                  Q{question.questionId}. {question.question.title}
-                </TitleText>
-              </ListItemText>
+              <TitleText>
+                Q{question.questionId}. {question.question.title}
+              </TitleText>
             </Title>
             <Time notAnswered={notAnswered}> {timeForToday(question.question.time)}</Time>
           </Header>
 
           <Body>
-            <BodyText notAnswered={notAnswered}>
-              <ListItemText>{question.question.content}</ListItemText>
-            </BodyText>
+            <BodyText notAnswered={notAnswered}>{question.question.content}</BodyText>
           </Body>
-        </Text>
+        </TextBox>
       </Link>
-
+      <Divider orientation="vertical" flexItem />
       <DoubleSidedViewButton
         onMouseEnter={setShadowIn}
         onMouseLeave={setShadowOut}
@@ -81,11 +77,9 @@ export const QuestionListElement: FC<QuestionListElementProp> = ({
 };
 
 const QuestionListElementContainer = styled(ListItem)`
-  padding: 0 !important;
-  height: auto !important;
   display: flex !important;
   align-items: center !important;
-  justify-content: space-between !important;
+  padding: 0 !important;
   :hover {
     background-color: rgba(205, 205, 205, 0.3) !important;
   }
@@ -100,13 +94,10 @@ const QuestionListElementContainer = styled(ListItem)`
   border-color: ${LIGHT_GRAY_1} !important;
 `;
 
-const Text = styled(Box)`
-  margin-left: 1em !important;
-  margin-top: 0em !important;
-  width: 95% !important;
-  height: 100% !important;
+const TextBox = styled(Box)`
   display: flex !important;
   flex-direction: column !important;
+  padding: 0 0.5em !important;
 `;
 
 const Header = styled(Box)`
@@ -131,12 +122,13 @@ const TitleText = styled(Typography)`
 `;
 
 const Time = styled(Box)<{ notAnswered: boolean }>`
-  width: 7.5em;
   margin-right: 0.1em !important;
   ${({ notAnswered }) => (notAnswered ? B3I : B3)};
 `;
 
 const Body = styled(Box)`
+  display: flex;
+  width: 15em;
   .MuiTypography-root {
     ${B2};
   }
@@ -150,9 +142,9 @@ const BodyText = styled(Typography)<{ notAnswered: boolean }>`
 `;
 
 const DoubleSidedViewButton = styled(IconButton)`
-  padding: 1.2em 3% !important;
   height: 100% !important;
-  margin: 0 !important;
+  padding: 1.2em 0.3em !important;
+
   border-radius: 0;
   :hover {
     background-color: ${LIGHT_GRAY_1} !important;
@@ -166,4 +158,7 @@ const DoubleSidedViewButton = styled(IconButton)`
 const Link = styled(DefaultLink)`
   color: #000000;
   text-decoration: none;
+  width: 100%;
+  height: fit-content;
+  margin: 0.5em;
 `;
