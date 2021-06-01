@@ -77,37 +77,35 @@ export const QuestionListElement: FC<QuestionListElementProp> = ({
 };
 
 const QuestionListElementContainer = styled(ListItem)`
-  display: flex;
-  align-items: center;
-  padding: 0;
+  display: flex !important;
+  align-items: center !important;
+  padding: 0 !important;
   :hover {
     background-color: rgba(205, 205, 205, 0.3);
   }
   :focus {
-    background-color: ${PINK_3};
+    background-color: ${PINK_3} !important;
   }
   :focus-within {
-    background-color: ${PINK_3};
+    background-color: ${PINK_3} !important;
   }
-  .MuiListItem-root {
-    align-items: center;
-  }
-  border-bottom: solid;
-  border-width: 2px;
-  border-color: ${LIGHT_GRAY_1};
+  border-bottom: solid !important;
+  border-width: 2px !important;
+  border-color: ${LIGHT_GRAY_1} !important;
 `;
 
 const TextBox = styled(Box)`
-  display: flex;
-  flex-direction: column;
-  padding: 0 0.5em;
+  display: flex !important;
+  flex-direction: column !important;
+  padding: 0 0.5em !important;
+  justify-content: space-between !important;
 `;
 
 const Header = styled(Box)`
-  display: flex;
-  align-items: center;
-  margin-bottom: 0em;
-  justify-content: space-between;
+  display: flex !important;
+  align-items: center !important;
+  margin-bottom: 0em !important;
+  justify-content: space-between !important;
 `;
 
 const Title = styled(Box)<{ notAnswered: boolean }>`
@@ -125,7 +123,7 @@ const TitleText = styled(Typography)`
 `;
 
 const Time = styled(Box)<{ notAnswered: boolean }>`
-  margin-right: 0.1em;
+  margin-right: 0.1em !important;
   ${({ notAnswered }) => (notAnswered ? B3I : B3)};
 `;
 
@@ -145,17 +143,18 @@ const BodyText = styled(Typography)<{ notAnswered: boolean }>`
 `;
 
 const DoubleSidedViewButton = styled(IconButton)`
-  height: 100%;
-  padding: 1.2em 0.3em;
+  height: 100% !important;
+  padding: 1.2em 0.3em !important;
+  margin-right: 0.1em !important;
 
-  border-radius: 0;
+  border-radius: 0 !important;
   :hover {
-    background-color: ${LIGHT_GRAY_1};
+    background-color: ${LIGHT_GRAY_1} !important;
   }
   :focus {
-    background-color: ${PINK_3};
+    background-color: ${PINK_3} !important;
   }
-  align-items: stretch;
+  align-items: stretch !important;
 `;
 
 const Link = styled(DefaultLink)`
