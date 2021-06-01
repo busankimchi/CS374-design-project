@@ -44,9 +44,10 @@ export const SpecialQuestionListElement: FC<SpecialQuestionListElementProp> = ({
   };
 
   return (
-    <QuestionListElementContainer button onMouseEnter={onHoverIn} onMouseLeave={onHoverOut}>
-      <Link to={link}>
-        <TextBox>
+    <QuestionListElementContainer>
+      
+        <TextBox onMouseEnter={onHoverIn} onMouseLeave={onHoverOut}>
+        <Link to={link}>
           <Header>
             <Title notAnswered={notAnswered}>
               <TitleText>
@@ -59,8 +60,9 @@ export const SpecialQuestionListElement: FC<SpecialQuestionListElementProp> = ({
           <Body>
             <BodyText notAnswered={notAnswered}>{question.question.content}</BodyText>
           </Body>
+          </Link>
         </TextBox>
-      </Link>
+      
       <Divider orientation="vertical" flexItem />
       <Tooltip title="Open in double-sided view">
       <DoubleSidedViewButton
@@ -76,16 +78,12 @@ export const SpecialQuestionListElement: FC<SpecialQuestionListElementProp> = ({
   );
 };
 
-const QuestionListElementContainer = styled(ListItem)`
+/** component changed  */
+const QuestionListElementContainer = styled(Box)`
   display: flex !important;
   align-items: center !important;
   padding: 0 !important;
-  :hover {
-    background-color: rgba(205, 205, 205, 0.3);
-  }
-  :focus {
-    background-color: ${PINK_3} !important;
-  }
+  justify-content: space-evenly !important;
   border-bottom: solid !important;
   border-width: 2px !important;
   border-color: ${LIGHT_GRAY_1} !important;
@@ -94,8 +92,12 @@ const QuestionListElementContainer = styled(ListItem)`
 const TextBox = styled(Box)`
   display: flex !important;
   flex-direction: column !important;
-  padding: 0 0.5em !important;
+  width: 80% !important;
+  padding: 0.5em !important;
   justify-content: space-between !important;
+  :hover {
+    background-color: rgba(205, 205, 205, 0.3);
+  }
 `;
 
 const Header = styled(Box)`
@@ -126,7 +128,8 @@ const Time = styled(Box)<{ notAnswered: boolean }>`
 
 const Body = styled(Box)`
   display: flex;
-  width: 15em;
+  width: 100%;
+  margin-top: 0.2em;
   .MuiTypography-root {
     ${B2};
   }
@@ -148,9 +151,6 @@ const DoubleSidedViewButton = styled(IconButton)`
   :hover {
     background-color: ${LIGHT_GRAY_1} !important;
   }
-  :focus {
-    background-color: ${PINK_3} !important;
-  }
   align-items: stretch !important;
 `;
 
@@ -158,6 +158,6 @@ const Link = styled(DefaultLink)`
   color: #000000;
   text-decoration: none;
   width: 100%;
-  height: fit-content;
-  margin: 0.5em;
+  height: 100%;
+  margin: 0em;
 `;
