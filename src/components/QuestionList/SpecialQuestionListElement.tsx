@@ -1,7 +1,7 @@
 import { FC, useState } from 'react';
 import styled from 'styled-components';
 import { Link as DefaultLink } from 'react-router-dom';
-import { Box, Typography, ListItem, Divider, IconButton } from '@material-ui/core';
+import { Tooltip, Box, Typography, ListItem, Divider, IconButton } from '@material-ui/core';
 import { PINK_3, H5, H5I, B2, B2I, B3, B3I, LIGHT_GRAY_1, TRUNCATE_TWO, TRUNCATE_ONE } from 'utils/themes';
 import { Icon } from '@iconify/react';
 import squareHalf from '@iconify-icons/bi/square-half';
@@ -64,6 +64,7 @@ export const SpecialQuestionListElement: FC<SpecialQuestionListElementProp> = ({
         </TextBox>
       
       <Divider orientation="vertical" flexItem />
+      <Tooltip title="Open in double-sided view">
       <DoubleSidedViewButton
         onMouseEnter={setShadowIn}
         onMouseLeave={setShadowOut}
@@ -72,6 +73,7 @@ export const SpecialQuestionListElement: FC<SpecialQuestionListElementProp> = ({
       >
         <Icon icon={squareHalf} />
       </DoubleSidedViewButton>
+      </Tooltip>
     </QuestionListElementContainer>
   );
 };

@@ -32,25 +32,25 @@ export const UserInfo: FC<UserInfoProp> = ({ userName, time, image }) => {
 };
 
 const UserBox = styled(Box)`
-  margin-top: 10px;
-  margin-bottom: 10px;
+  margin-top: 10px !important;
+  margin-bottom: 10px !important;
   display: flex;
 `;
 
 const UserAvatar = styled(Avatar)`
-  height: 35px;
-  width: 35px;
+  height: 35px !important;
+  width: 35px !important;
 `;
 
 const UserNameBox = styled(Box)`
-  margin-left: 10px;
-  margin-top: 4px;
+  margin-left: 10px !important;
+  margin-top: 4px !important;
   ${H3};
 `;
 
 const TimeBox = styled(Box)`
-  margin-left: 10px;
-  margin-top: 10px;
+  margin-left: 10px !important;
+  margin-top: 10px !important;
   display: flex;
   ${B2};
 `;
