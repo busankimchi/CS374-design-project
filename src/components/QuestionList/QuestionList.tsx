@@ -100,7 +100,7 @@ const QuestionListDrawer = styled(Box) <{ isListShown: boolean }>`
 const QuestionListDrawerBody = styled(List)`
   overflow-y: scroll;
   overflow-x: hidden;
-  padding: 0;
+  padding: 0 !important;
 
   ::-webkit-scrollbar {
     width: 4px;

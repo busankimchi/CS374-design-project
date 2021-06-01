@@ -81,42 +81,39 @@ export const QuestionListElement: FC<QuestionListElementProp> = ({
 };
 
 const QuestionListElementContainer = styled(ListItem)`
-  padding: 0;
-  height: wrap-content;
-  display: flex;
-  align-items: flex-start;
-  justify-content: space-between;
+  padding: 0 !important;
+  height: auto !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: space-between !important;
   :hover {
-    background-color: rgba(205, 205, 205, 0.3);
+    background-color: rgba(205, 205, 205, 0.3) !important;
   }
   :focus {
-    background-color: ${PINK_3};
+    background-color: ${PINK_3} !important;
   }
   :focus-within {
-    background-color: ${PINK_3};
+    background-color: ${PINK_3} !important;
   }
-  .MuiListItem-root {
-    align-items: flex-start;
-  }
-  border-bottom: solid;
-  border-width: 2px;
-  border-color: ${LIGHT_GRAY_1};
+  border-bottom: solid !important;
+  border-width: 2px !important;
+  border-color: ${LIGHT_GRAY_1} !important;
 `;
 
 const Text = styled(Box)`
-  margin-left: 1em;
-  margin-top: 0em;
-  width: 75%;
-  height: 2em;
-  display: flex;
-  flex-direction: column;
+  margin-left: 1em !important;
+  margin-top: 0em !important;
+  width: 95% !important;
+  height: 100% !important;
+  display: flex !important;
+  flex-direction: column !important;
 `;
 
 const Header = styled(Box)`
-  display: flex;
-  align-items: center;
-  margin-bottom: 0em;
-  justify-content: space-between;
+  display: flex !important;
+  align-items: center !important;
+  margin-bottom: 0em !important;
+  justify-content: space-between !important;
 `;
 
 const Title = styled(Box)<{ notAnswered: boolean }>`
@@ -135,7 +132,7 @@ const TitleText = styled(Typography)`
 
 const Time = styled(Box)<{ notAnswered: boolean }>`
   width: 7.5em;
-  margin-right: 0.1em;
+  margin-right: 0.1em !important;
   ${({ notAnswered }) => (notAnswered ? B3I : B3)};
 `;
 
@@ -153,17 +150,17 @@ const BodyText = styled(Typography)<{ notAnswered: boolean }>`
 `;
 
 const DoubleSidedViewButton = styled(IconButton)`
-  padding: 1.2em 3%;
-  height: 100%;
-  margin: 0;
+  padding: 1.2em 3% !important;
+  height: 100% !important;
+  margin: 0 !important;
   border-radius: 0;
   :hover {
-    background-color: ${LIGHT_GRAY_1};
+    background-color: ${LIGHT_GRAY_1} !important;
   }
   :focus {
-    background-color: ${PINK_3};
+    background-color: ${PINK_3} !important;
   }
-  align-items: stretch;
+  align-items: stretch !important;
 `;
 
 const Link = styled(DefaultLink)`
