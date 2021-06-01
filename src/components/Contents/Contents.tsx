@@ -25,6 +25,7 @@ export const Contents: FC<ContentsProp> = ({ question, closeThisContent }) => {
   const questionContent = question.question;
   const [answers, setAnswers] = useState(question.answers);
   const [isFaq, setIsFaq] = useState(question.isFaq);
+  const [shouldScroll, setShouldScroll] = useState(false);
   const divRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -32,8 +33,9 @@ export const Contents: FC<ContentsProp> = ({ question, closeThisContent }) => {
   }, [question]);
   
   useEffect(() => {
-    if (divRef && divRef.current) {
+    if (divRef && divRef.current && shouldScroll) {
       divRef.current.scrollIntoView({ behavior: 'smooth' });
+      setShouldScroll(false);
     }
   }, [answers]);
 
@@ -62,10 +64,6 @@ export const Contents: FC<ContentsProp> = ({ question, closeThisContent }) => {
     setIsFaq(!isFaq);
   };
 
-  // const closeTab = () => {
-  //   // TODO: Navigate to 'nothing selected' page
-  // };
-
   const onTextareaChange = (evt: ChangeEvent<HTMLInputElement>) => {
     setText(evt.target.value);
   };
@@ -73,6 +71,7 @@ export const Contents: FC<ContentsProp> = ({ question, closeThisContent }) => {
   const appendAnswer = (ans: AnswerContent) => {
     setAnswers([...answers, ans]);
     appendAnswerDB(ans, question.questionId);
+    setShouldScroll(true);
   };
 
   const answerSubmitHandler = () => {
