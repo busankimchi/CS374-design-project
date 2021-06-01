@@ -144,23 +144,21 @@ export const NormalQuestion: FC<NormalQuestionProp> = ({
   return (
     <QuestionsContainer>
       <QuestionDetails>
-        {topicInfo !== undefined && subTopicInfo !== undefined && questionList !== undefined && (
-          <QuestionList
-            isLoading={isLoading}
-            setIsLoading={setIsLoading}
-            topic={topicInfo}
-            subTopic={subTopicInfo}
-            questionList={questionList}
-            questionId={questionId}
-            questionId2={questionId2}
-            isListShown={isListShown}
-            onToggle={onToggle}
-            onHoverIn={onHoverIn}
-            onHoverOut={onHoverOut}
-            onHoverInDual={onHoverInDual}
-            onHoverOutDual={onHoverOutDual}
-          />
-        )}
+        <QuestionList
+          isLoading={isLoading}
+          setIsLoading={setIsLoading}
+          topic={topicInfo}
+          subTopic={subTopicInfo}
+          questionList={questionList}
+          questionId={questionId}
+          questionId2={questionId2}
+          isListShown={isListShown}
+          onToggle={onToggle}
+          onHoverIn={onHoverIn}
+          onHoverOut={onHoverOut}
+          onHoverInDual={onHoverInDual}
+          onHoverOutDual={onHoverOutDual}
+        />
 
         <QQBox>
           {questionId === undefined && <NotSelected />}
