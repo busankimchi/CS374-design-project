@@ -81,7 +81,7 @@ const QuestionListElementContainer = styled(ListItem)`
   align-items: center !important;
   padding: 0 !important;
   :hover {
-    background-color: rgba(205, 205, 205, 0.3) !important;
+    background-color: rgba(205, 205, 205, 0.3);
   }
   :focus {
     background-color: ${PINK_3} !important;
@@ -98,6 +98,7 @@ const TextBox = styled(Box)`
   display: flex !important;
   flex-direction: column !important;
   padding: 0 0.5em !important;
+  justify-content: space-between !important;
 `;
 
 const Header = styled(Box)`
@@ -144,8 +145,9 @@ const BodyText = styled(Typography)<{ notAnswered: boolean }>`
 const DoubleSidedViewButton = styled(IconButton)`
   height: 100% !important;
   padding: 1.2em 0.3em !important;
+  margin-right: 0.1em !important;
 
-  border-radius: 0;
+  border-radius: 0 !important;
   :hover {
     background-color: ${LIGHT_GRAY_1} !important;
   }
