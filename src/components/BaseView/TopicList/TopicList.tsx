@@ -1,5 +1,5 @@
 import { FC } from 'react';
-import { Link as DefaultLink } from 'react-router-dom';
+import { Link as DefaultLink, useLocation } from 'react-router-dom';
 import styled from 'styled-components';
 import { List, ListItem, ListItemIcon as DefaultListItemIcon, ListItemText, Typography } from '@material-ui/core';
 import ChatBubbleIcon from '@material-ui/icons/ChatBubble';
@@ -22,27 +22,102 @@ export const TopicList: FC<TopicListProp> = ({ topicList, onClickAdd, onContextM
     <TopicListItem key={index} topic={item} onContextMenu={onContextMenu} setTopic={setTopic} />
   );
 
+  const location = useLocation();
+  const locPath = location.pathname.split('/');
+  const locSearch = location.search.split('&');
+
+  const linkPicker = () => {
+    console.log(locPath, locSearch);
+    // normal
+    if (locPath[1] === 'topic') {
+      if (locPath[6] !== undefined) {
+        const questionId = locPath[6];
+
+        if (locSearch[0] !== '') {
+          const arg = locSearch[0].substr(1);
+          const argPair = arg.split('=');
+          const argKey = argPair[0];
+          // const argVal = arg[1];
+
+          if (argKey === 'second') {
+            return `?prev=${questionId}&${arg}`;
+          }
+          return '';
+        }
+        return `?prev=${questionId}`;
+      }
+    }
+    if (locPath[1] === 'faq' || locPath[1] === 'all_questions') {
+      if (locPath[2] !== undefined) {
+        const questionId = locPath[2];
+
+        if (locSearch[0] !== '') {
+          const arg = locSearch[0].substr(1);
+          const argPair = arg.split('=');
+          const argKey = argPair[0];
+          // const argVal = arg[1];
+
+          if (argKey === 'second') {
+            return `?prev=${questionId}&${arg}`;
+          }
+          return '';
+        }
+        return `?prev=${questionId}`;
+      }
+      return '';
+    }
+    if (locPath[1] === 'search') {
+      if (locSearch[1] !== '') {
+        const arg = locSearch[1];
+        const argPair = arg.split('=');
+        const argKey = argPair[0];
+        const questionId = argPair[1];
+
+        // console.log('search!!!', arg);
+
+        if (argKey === 'first') {
+          if (locSearch[2] !== undefined) {
+            const arg2 = locSearch[2];
+            const arg2Pair = arg2.split('=');
+            const arg2Key = arg2Pair[0];
+            // const questionId2 = arg2[1];
+
+            if (arg2Key === 'second') {
+              return `?prev=${questionId}&${arg2}`;
+            }
+            return '';
+          }
+          return `?prev=${questionId}`;
+        }
+        return '';
+      }
+    }
+    return '';
+  };
+
+  console.log(linkPicker());
+
   return (
     <TopicListContainer>
       <Link to="/faq">
-        <FAQ button>
+        <FAQItem button>
           <ListItemIcon>
             <ChatBubbleIcon />
           </ListItemIcon>
           <ListItemText>
             <TopicItemText noWrap>FAQ</TopicItemText>
           </ListItemText>
-        </FAQ>
+        </FAQItem>
       </Link>
       <Link to="/all_questions">
-        <AllQuestions button>
+        <AllQuestionsItem button>
           <ListItemIcon>
             <ClearAllIcon />
           </ListItemIcon>
           <ListItemText>
             <TopicItemText noWrap>All Questions</TopicItemText>
           </ListItemText>
-        </AllQuestions>
+        </AllQuestionsItem>
       </Link>
       {topicList.map((item, index) => renderTopicItems(item, index))}
       <AddTopic button onClick={onClickAdd}>
@@ -73,7 +148,7 @@ const ListItemIcon = styled(DefaultListItemIcon)`
   min-width: 2.5em;
 `;
 
-const FAQ = styled(ListItem)`
+const FAQItem = styled(ListItem)`
   display: flex;
 
   :hover {
@@ -90,7 +165,7 @@ const TopicItemText = styled(Typography)`
   ${H4}
 `;
 
-const AllQuestions = styled(ListItem)`
+const AllQuestionsItem = styled(ListItem)`
   :hover {
     background-color: ${PINK_4} !important;
   }

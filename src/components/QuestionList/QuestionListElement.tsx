@@ -1,4 +1,4 @@
-import { FC, useState } from 'react';
+import { FC, useState, Dispatch, SetStateAction } from 'react';
 import { Link as DefaultLink } from 'react-router-dom';
 import styled from 'styled-components';
 import { Icon } from '@iconify/react';
@@ -9,6 +9,8 @@ import { Question } from 'utils/types';
 import { timeForToday } from 'utils/functions';
 
 interface QuestionListElementProp {
+  setQuestionId: Dispatch<SetStateAction<number | undefined>>;
+  setQuestionId2: Dispatch<SetStateAction<number | undefined>>;
   question: Question;
   topicId: number;
   subTopicId: number;
@@ -17,10 +19,12 @@ interface QuestionListElementProp {
   onHoverOut?: () => void;
   onHoverInDual: () => void;
   onHoverOutDual: () => void;
-  onClickItem: (question: Question) => void;
+  onClickItemDual: (question: Question) => void;
 }
 
 export const QuestionListElement: FC<QuestionListElementProp> = ({
+  setQuestionId,
+  setQuestionId2,
   question,
   topicId,
   subTopicId,
@@ -29,7 +33,7 @@ export const QuestionListElement: FC<QuestionListElementProp> = ({
   onHoverOut,
   onHoverInDual,
   onHoverOutDual,
-  onClickItem,
+  onClickItemDual,
 }) => {
   const [shadowPreview, setShadowPreview] = useState(true);
 
@@ -47,7 +51,10 @@ export const QuestionListElement: FC<QuestionListElementProp> = ({
 
   return (
     <QuestionListElementContainer button onMouseEnter={onHoverIn} onMouseLeave={onHoverOut}>
-      <Link to={`/topic/${topicId}/subTopic/${subTopicId}/question/${question.questionId}`}>
+      <Link
+        to={`/topic/${topicId}/subTopic/${subTopicId}/question/${question.questionId}`}
+        onClick={() => setQuestionId(question.questionId)}
+      >
         <TextBox>
           <Header>
             <Title notAnswered={notAnswered}>
@@ -67,7 +74,10 @@ export const QuestionListElement: FC<QuestionListElementProp> = ({
       <DoubleSidedViewButton
         onMouseEnter={setShadowIn}
         onMouseLeave={setShadowOut}
-        onClick={() => onClickItem(question)}
+        onClick={() => {
+          onClickItemDual(question);
+          setQuestionId2(question.questionId);
+        }}
         disabled={dualDisable}
       >
         <Icon icon={squareHalf} />

@@ -1,34 +1,34 @@
-import { FC } from 'react';
+import { FC, useState, Dispatch, SetStateAction, useEffect } from 'react';
+import { useParams } from 'react-router-dom';
 import styled from 'styled-components';
 import { Box, List, Typography } from '@material-ui/core';
-import { Question } from 'utils/types';
+import { ParamProp, Question } from 'utils/types';
 import { H3, TRUNCATE_ONE, LIGHT_GRAY_1 } from 'utils/themes';
 import { Hover } from 'components/Contents';
 import { SpecialQuestionListElement } from './SpecialQuestionListElement';
 import { Loading } from '../General/Loading';
 
-interface QuestionListProp {
+interface SpecialQuestionListProp {
+  setQuestionId: Dispatch<SetStateAction<number | undefined>>;
+  setQuestionId2: Dispatch<SetStateAction<number | undefined>>;
   isLoading: boolean;
   questionList: Question[];
-  questionId?: number;
-  questionId2?: number;
   title: string;
   itemLink: (item: Question) => string;
+  onClickItemDual: (item: Question) => void;
   isListShown: boolean;
   onToggle?: () => void;
   onHoverIn?: () => void;
   onHoverOut?: () => void;
   onHoverInDual: () => void;
   onHoverOutDual: () => void;
-  onClickItemDual: (item: Question) => void;
 }
 
-export const SpecialQuestionList: FC<QuestionListProp> = ({
+export const SpecialQuestionList: FC<SpecialQuestionListProp> = ({
+  setQuestionId,
+  setQuestionId2,
   isLoading,
   questionList,
-  questionId,
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  questionId2,
   title,
   itemLink,
   isListShown,
@@ -39,17 +39,21 @@ export const SpecialQuestionList: FC<QuestionListProp> = ({
   onHoverOutDual,
   onClickItemDual,
 }) => {
+  const params = useParams<ParamProp>();
+
   const renderQuestionListElement = (item: Question) => (
     <SpecialQuestionListElement
+      setQuestionId={setQuestionId}
+      setQuestionId2={setQuestionId2}
       key={item.questionId}
       question={item}
       link={itemLink(item)}
-      dualDisable={questionId === undefined}
       onHoverIn={onHoverIn}
       onHoverOut={onHoverOut}
       onHoverInDual={onHoverInDual}
       onHoverOutDual={onHoverOutDual}
       onClickItemDual={onClickItemDual}
+      dualDisable={params.questionId === undefined}
     />
   );
 

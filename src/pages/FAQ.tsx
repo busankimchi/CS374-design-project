@@ -3,40 +3,30 @@ import { useHistory } from 'react-router';
 import { Question } from 'utils/types';
 import { BaseQuestionContainer } from 'components/General';
 
-interface NormalQuestionProp {
+interface FAQProp {
   questionList: Question[];
-  topicId?: number;
-  subTopicId?: number;
   questionId?: number;
   questionId2?: number;
   isHover: boolean;
   isHoverDual: boolean;
 }
 
-export const NormalQuestion: FC<NormalQuestionProp> = ({
-  questionList,
-  topicId,
-  subTopicId,
-  questionId,
-  questionId2,
-  isHover,
-  isHoverDual,
-}) => {
+export const FAQ: FC<FAQProp> = ({ questionList, questionId, questionId2, isHover, isHoverDual }) => {
   const history = useHistory();
 
   const onCloseLeftContent = () => {
     if (questionId2 !== undefined) {
-      history.push(`/topic/${topicId}/subtopic/${subTopicId}/question/${questionId2}`);
+      history.push(`/faq/${questionId2}`);
     } else {
-      history.push(`/topic/${topicId}/subtopic/${subTopicId}`);
+      history.push(`/faq`);
     }
   };
 
   const onCloseRightContent = () => {
     if (questionId !== undefined) {
-      history.push(`/topic/${topicId}/subtopic/${subTopicId}/question/${questionId}`);
+      history.push(`/faq/${questionId}`);
     } else {
-      history.push(`/topic/${topicId}/subtopic/${subTopicId}`);
+      history.push(`/faq`);
     }
   };
 

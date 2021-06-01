@@ -1,4 +1,4 @@
-import { FC, useState } from 'react';
+import { FC, useState, Dispatch, SetStateAction } from 'react';
 import styled from 'styled-components';
 import { Link as DefaultLink } from 'react-router-dom';
 import { Box, Typography, ListItem, Divider, IconButton } from '@material-ui/core';
@@ -9,6 +9,8 @@ import { Question } from 'utils/types';
 import { timeForToday } from 'utils/functions';
 
 interface SpecialQuestionListElementProp {
+  setQuestionId: Dispatch<SetStateAction<number | undefined>>;
+  setQuestionId2: Dispatch<SetStateAction<number | undefined>>;
   question: Question;
   link: string;
   dualDisable: boolean;
@@ -20,6 +22,8 @@ interface SpecialQuestionListElementProp {
 }
 
 export const SpecialQuestionListElement: FC<SpecialQuestionListElementProp> = ({
+  setQuestionId,
+  setQuestionId2,
   question,
   link,
   dualDisable,
@@ -45,7 +49,7 @@ export const SpecialQuestionListElement: FC<SpecialQuestionListElementProp> = ({
 
   return (
     <QuestionListElementContainer button onMouseEnter={onHoverIn} onMouseLeave={onHoverOut}>
-      <Link to={link}>
+      <Link to={link} onClick={() => setQuestionId(question.questionId)}>
         <TextBox>
           <Header>
             <Title notAnswered={notAnswered}>
@@ -65,7 +69,10 @@ export const SpecialQuestionListElement: FC<SpecialQuestionListElementProp> = ({
       <DoubleSidedViewButton
         onMouseEnter={setShadowIn}
         onMouseLeave={setShadowOut}
-        onClick={() => onClickItemDual(question)}
+        onClick={() => {
+          onClickItemDual(question);
+          setQuestionId2(question.questionId);
+        }}
         disabled={dualDisable}
       >
         <Icon icon={squareHalf} />

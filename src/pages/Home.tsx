@@ -1,10 +1,9 @@
-import { FC, useState } from 'react';
+import { FC, useCallback, useState } from 'react';
 import styled from 'styled-components';
-import { Redirect, Route } from 'react-router-dom';
 import { Box } from '@material-ui/core';
 import { NewTopicDialog, EditTopicDialog, DeleteTopicDialog, ContextMenu } from 'components/General';
 import { Header, MainDrawer } from 'components/BaseView';
-import { MousePosition, PageType, Topic } from 'utils/types';
+import { MousePosition, PageType, Question, Topic } from 'utils/types';
 import { deleteTopic, updateTopic } from 'apis/Topic';
 import { useTopicList } from 'hooks/useTopicList';
 import { Questions } from './Questions';
@@ -17,7 +16,21 @@ export const Home: FC = () => {
   const [topic, setTopic] = useState<Topic>();
   const [editTopicValue, setEditTopicValue] = useState('');
   const [addTopicValue, setAddTopicValue] = useState('');
+
   const { topicList, setTopicList, maxTopicId, setMaxTopicId } = useTopicList();
+
+  const [isListShown, setListShown] = useState(true);
+  const [isHover, setHover] = useState(false);
+  const [isHoverDual, setHoverDual] = useState(false);
+  const [questionList, setQuestionList] = useState<Question[]>([]);
+  const [pageType, setPageType] = useState<PageType>(0);
+
+  const onToggle = useCallback(() => setListShown(!isListShown), []);
+
+  const onHoverIn = () => setHover(true);
+  const onHoverOut = () => setHover(false);
+  const onHoverInDual = () => setHoverDual(true);
+  const onHoverOutDual = () => setHoverDual(false);
 
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const handleMenuTrigger = (event: any) => {
@@ -100,7 +113,23 @@ export const Home: FC = () => {
             setEditTopicValue(item.topicName);
           }}
         />
-        <Route exact path="/">
+
+        <Questions
+          setQuestionList={setQuestionList}
+          setPageType={setPageType}
+          pageType={pageType}
+          questionList={questionList}
+          isListShown={isListShown}
+          isHover={isHover}
+          isHoverDual={isHoverDual}
+          onToggle={onToggle}
+          onHoverIn={onHoverIn}
+          onHoverOut={onHoverOut}
+          onHoverInDual={onHoverInDual}
+          onHoverOutDual={onHoverOutDual}
+        />
+
+        {/* <Route exact path="/">
           <Redirect to="/faq" />
         </Route>
         <Route exact path="/faq" render={() => <Questions pageType={PageType.FAQ} />} />
@@ -300,7 +329,7 @@ export const Home: FC = () => {
             console.log('query error');
             return <Questions pageType={PageType.NONE} />;
           }}
-        />
+        /> */}
       </Main>
       <NewTopicDialog
         open={openNewTopic}
@@ -326,5 +355,5 @@ const HomeContainer = styled(Box)``;
 
 const Main = styled(Box)`
   display: flex;
-  flex-direction: row;
+  width: 100%;
 `;

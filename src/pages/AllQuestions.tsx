@@ -1,42 +1,36 @@
 import { FC } from 'react';
 import { useHistory } from 'react-router';
-import { Question } from 'utils/types';
-import { BaseQuestionContainer } from 'components/General';
+import styled from 'styled-components';
+import { Box } from '@material-ui/core';
+import { BaseQuestionContainer } from 'components/General/BaseQuestionContainer';
 
-interface NormalQuestionProp {
+import { Question } from 'utils/types';
+
+interface AllQuestionsProp {
   questionList: Question[];
-  topicId?: number;
-  subTopicId?: number;
   questionId?: number;
   questionId2?: number;
+
   isHover: boolean;
   isHoverDual: boolean;
 }
 
-export const NormalQuestion: FC<NormalQuestionProp> = ({
-  questionList,
-  topicId,
-  subTopicId,
-  questionId,
-  questionId2,
-  isHover,
-  isHoverDual,
-}) => {
+export const AllQuestions: FC<AllQuestionsProp> = ({ questionList, questionId, questionId2, isHover, isHoverDual }) => {
   const history = useHistory();
 
   const onCloseLeftContent = () => {
     if (questionId2 !== undefined) {
-      history.push(`/topic/${topicId}/subtopic/${subTopicId}/question/${questionId2}`);
+      history.push(`/all_questions/${questionId2}`);
     } else {
-      history.push(`/topic/${topicId}/subtopic/${subTopicId}`);
+      history.push(`/all_questions`);
     }
   };
 
   const onCloseRightContent = () => {
     if (questionId !== undefined) {
-      history.push(`/topic/${topicId}/subtopic/${subTopicId}/question/${questionId}`);
+      history.push(`/all_questions/${questionId}`);
     } else {
-      history.push(`/topic/${topicId}/subtopic/${subTopicId}`);
+      history.push(`/all_questions`);
     }
   };
 

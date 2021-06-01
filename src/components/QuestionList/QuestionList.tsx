@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
 import { FC, Dispatch, SetStateAction } from 'react';
 import { useHistory, useLocation } from 'react-router';
 import styled from 'styled-components';
@@ -9,15 +8,15 @@ import { Hover } from 'components/Contents';
 import { QuestionListElement } from './QuestionListElement';
 import { Loading } from '../General/Loading';
 
-interface QuestionListHeaderProp {
+interface QuestionListProp {
+  setQuestionId: Dispatch<SetStateAction<number | undefined>>;
+  setQuestionId2: Dispatch<SetStateAction<number | undefined>>;
   isLoading: boolean;
-  setIsLoading: Dispatch<SetStateAction<boolean>>;
   topic: Topic;
   subTopic: SubTopic;
   questionList: Question[];
-  isListShown: boolean;
   questionId?: number;
-  questionId2?: number;
+  isListShown: boolean;
   onToggle?: () => void;
   onHoverIn?: () => void;
   onHoverOut?: () => void;
@@ -25,15 +24,15 @@ interface QuestionListHeaderProp {
   onHoverOutDual: () => void;
 }
 
-export const QuestionList: FC<QuestionListHeaderProp> = ({
+export const QuestionList: FC<QuestionListProp> = ({
+  setQuestionId,
+  setQuestionId2,
   isLoading,
-  setIsLoading,
   topic,
   subTopic,
   questionList,
   isListShown,
   questionId,
-  questionId2,
   onToggle,
   onHoverIn,
   onHoverOut,
@@ -43,23 +42,25 @@ export const QuestionList: FC<QuestionListHeaderProp> = ({
   const history = useHistory();
   const location = useLocation();
 
-  const onClickItem = (item: Question) => {
+  const onClickItemDual = (item: Question) => {
     const path = location.pathname;
     history.push(`${path}?second=${item.questionId}`);
   };
 
   const renderQuestionListElement = (item: Question) => (
     <QuestionListElement
+      setQuestionId={setQuestionId}
+      setQuestionId2={setQuestionId2}
       key={item.questionId}
       question={item}
       topicId={topic.id}
       subTopicId={subTopic.id}
+      onClickItemDual={onClickItemDual}
       onHoverIn={onHoverIn}
       onHoverOut={onHoverOut}
       onHoverInDual={onHoverInDual}
       onHoverOutDual={onHoverOutDual}
       dualDisable={questionId === undefined}
-      onClickItem={onClickItem}
     />
   );
 
