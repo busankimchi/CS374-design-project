@@ -30,8 +30,8 @@ export const FAQButton: FC<FAQButtonProp> = ({ isFaq, changeIsFaq }) => {
 };
 
 const CustonFAQButton = styled(Button)`
-  margin: 10px;
+  margin: 10px !important;
   font-size: 14px;
   height: 35px;
-  border: none;
+  border: none !important;
 `;

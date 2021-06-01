@@ -164,8 +164,8 @@ const QuestionBox = styled(Box)`
 `;
 
 const QuestionTopBox = styled(Box)`
-  display: flex;
-  justify-content: space-between;
+  display: flex !important;
+  justify-content: space-between !important;
 `;
 
 const QuestionTitleBox = styled(Box)`
@@ -179,7 +179,7 @@ const QuestionContentBox = styled(Box)`
 `;
 
 const TopicBreadcrumbs = styled(Breadcrumbs)`
-  margin-top: 4px;
+  margin-top: 4px !important;
 `;
 
 const BreadcrumbElem = styled(Typography)`
@@ -219,5 +219,5 @@ const InputTextField = styled(InputBase)`
 
 const SubmitButton = styled(IconButton)`
   grid-column: 2;
-  border-radius: 10px;
+  border-radius: 10px !important;
 `;
