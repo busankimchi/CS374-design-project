@@ -1,5 +1,4 @@
 import { FC } from 'react';
-import { useHistory, useLocation } from 'react-router';
 import styled from 'styled-components';
 import { Box, List, Typography } from '@material-ui/core';
 import { Question } from 'utils/types';
