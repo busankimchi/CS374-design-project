@@ -1,13 +1,16 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
-import { FC, useEffect, useState } from 'react';
+import { FC, useEffect, useState, Dispatch, SetStateAction } from 'react';
 import { useHistory } from 'react-router';
 import styled from 'styled-components';
 import { Backdrop, Box, Fade, Paper } from '@material-ui/core';
-import { PageType, Topic, SubTopic } from 'utils/types';
+import firebase from 'firebase';
+import { PageType, Topic, SubTopic, Question, QuestionFB, QuestionContent, AnswerContent } from 'utils/types';
+import { TimestampToDate } from 'utils/functions';
 import { QuestionList } from 'components/QuestionList/QuestionList';
 import { Hover, Contents, NotSelected } from 'components/Contents';
 import { useTopicList } from 'hooks/useTopicList';
-import { dummyQuestions } from '../utils/dummyDatas';
+import { useQuestionList } from 'apis/Question/useQuestionList';
+import { Loading } from 'components/General/Loading'
 
 interface NormalQuestionProp {
   pageType: PageType;
@@ -26,6 +29,7 @@ interface NormalQuestionProp {
 }
 
 export const NormalQuestion: FC<NormalQuestionProp> = ({
+
   pageType,
   topicId,
   subTopicId,
@@ -42,11 +46,16 @@ export const NormalQuestion: FC<NormalQuestionProp> = ({
 }) => {
   const [topicInfo, setTopicInfo] = useState<Topic>();
   const [subTopicInfo, setSubTopicInfo] = useState<SubTopic>();
+  const [questionIdList, setQuestionIdList] = useState<number[]>();
+  const [questionList, setQuestionList] = useState<Question[]>();
+  const [question1, setQuestion1] = useState<Question>();
+  const [question2, setQuestion2] = useState<Question>();
   const [isLoading, setIsLoading] = useState(true);
 
   const { topicList } = useTopicList();
-
   const history = useHistory();
+
+  /** Close questions */
 
   const onCloseLeftContent = () => {
     if (questionId2 !== undefined) {
@@ -80,15 +89,68 @@ export const NormalQuestion: FC<NormalQuestionProp> = ({
     }
   }, [topicInfo, topicId, subTopicId]);
 
+  /** Get Question list */
+
+  useEffect(() => {
+    if (subTopicInfo !== undefined) {
+      setQuestionIdList(subTopicInfo.questionList as number[]);
+    }
+  }, [subTopicInfo]);
+
+  useEffect(() => {
+    if (questionIdList !== undefined) {
+      setIsLoading(true);
+      firebase
+        .firestore()
+        .collection('questions')
+        .get()
+        .then((doc) => {
+          const questionListCustom = [] as Question[];
+          doc.docs.filter((item) => {
+            const { question, answers, ...rest } = item.data() as QuestionFB;
+            const questionContent = { ...question, time: TimestampToDate(question.time) } as QuestionContent;
+            const answerContents = answers.map(
+              (item) => ({ ...item, time: TimestampToDate(item.time) } as AnswerContent),
+            );
+
+            const finalQuestion = { question: questionContent, answers: answerContents, ...rest } as Question;
+
+            if (questionIdList.includes(finalQuestion.questionId)) {
+              questionListCustom.push(finalQuestion);
+            }
+
+            return finalQuestion;
+          });
+          questionListCustom.sort((a, b) => b.questionId - a.questionId);
+          setQuestionList(questionListCustom);
+          setIsLoading(false);
+        })
+        .catch();
+    }
+  }, [questionIdList]);
+
+  useEffect(() => {
+    if (questionList !== undefined) {
+      setQuestion1(questionList.find((question) => question.questionId === questionId));
+    }
+  }, [questionList, questionId]);
+
+  useEffect(() => {
+    if (questionList !== undefined) {
+      setQuestion2(questionList.find((question) => question.questionId === questionId2));
+    }
+  }, [questionList, questionId2]);
+
   return (
     <QuestionsContainer>
       <QuestionDetails>
-        {topicInfo !== undefined && subTopicInfo !== undefined && (
+        {topicInfo !== undefined && subTopicInfo !== undefined && questionList !== undefined && (
           <QuestionList
             isLoading={isLoading}
             setIsLoading={setIsLoading}
             topic={topicInfo}
             subTopic={subTopicInfo}
+            questionList={questionList}
             questionId={questionId}
             questionId2={questionId2}
             isListShown={isListShown}
@@ -104,12 +166,16 @@ export const NormalQuestion: FC<NormalQuestionProp> = ({
           {questionId === undefined && <NotSelected />}
           {questionId !== undefined && (
             <QBox>
-              <Contents question={dummyQuestions[questionId - 1]} closeThisContent={onCloseLeftContent} />
+              {questionList !== undefined && question1 !== undefined && (
+                <Contents question={question1} closeThisContent={onCloseLeftContent} />
+              )}
             </QBox>
           )}
           {questionId2 !== undefined && (
             <QBox>
-              <Contents question={dummyQuestions[questionId2 - 1]} closeThisContent={onCloseRightContent} />
+              {questionList !== undefined && question2 !== undefined && (
+                <Contents question={question2} closeThisContent={onCloseRightContent} />
+              )}
             </QBox>
           )}
         </QQBox>
@@ -144,6 +210,6 @@ const QuestionDetails = styled(Box)`
 
 const DoubleSidedPaper = styled(Backdrop) <{ fullsize: boolean }>`
   position: reletive;
-  ${({ fullsize }) => (fullsize ? 'left: 37vw' : 'left: 68vw')};
+  ${({ fullsize }) => (fullsize ? 'left: 37vw' : 'left: 68vw')} !important;
   z-index: 999;
 `;

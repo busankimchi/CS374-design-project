@@ -1,20 +1,20 @@
-import { FC, useEffect, useState, Dispatch, SetStateAction } from 'react';
+/* eslint-disable @typescript-eslint/no-unused-vars */
+import { FC, Dispatch, SetStateAction } from 'react';
 import { useHistory, useLocation } from 'react-router';
 import styled from 'styled-components';
 import { Box, List, Typography } from '@material-ui/core';
 import { H3, TRUNCATE_ONE, LIGHT_GRAY_1 } from 'utils/themes';
-import firebase from 'firebase';
-import { Topic, SubTopic, Question, QuestionFB, AnswerContent, QuestionContent } from 'utils/types';
-import { TimestampToDate } from 'utils/functions';
+import { Topic, SubTopic, Question } from 'utils/types';
 import { Hover } from 'components/Contents';
 import { QuestionListElement } from './QuestionListElement';
-import { Loading } from '../General/Loading'
+import { Loading } from '../General/Loading';
 
 interface QuestionListHeaderProp {
   isLoading: boolean;
   setIsLoading: Dispatch<SetStateAction<boolean>>;
   topic: Topic;
   subTopic: SubTopic;
+  questionList: Question[];
   isListShown: boolean;
   questionId?: number;
   questionId2?: number;
@@ -30,9 +30,9 @@ export const QuestionList: FC<QuestionListHeaderProp> = ({
   setIsLoading,
   topic,
   subTopic,
+  questionList,
   isListShown,
   questionId,
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   questionId2,
   onToggle,
   onHoverIn,
@@ -43,46 +43,6 @@ export const QuestionList: FC<QuestionListHeaderProp> = ({
   const history = useHistory();
   const location = useLocation();
 
-  const [questionIdList, setQuestionIdList] = useState<number[]>(subTopic.questionList as number[]);
-  const [questionList, setQuestionList] = useState<Question[]>();
-
-  // setQuestionIdList(subTopic.questionList as number[]);
-  useEffect(() => {
-    setQuestionIdList(subTopic.questionList as number[]);
-  }, [subTopic]);
-
-  useEffect(() => {
-    if (questionIdList !== undefined) {
-      setIsLoading(true);
-      firebase
-        .firestore()
-        .collection('questions')
-        .get()
-        .then((doc) => {
-          const questionListCustom = [] as Question[];
-          doc.docs.filter((item) => {
-            const { question, answers, ...rest } = item.data() as QuestionFB;
-            const questionContent = { ...question, time: TimestampToDate(question.time) } as QuestionContent;
-            const answerContents = answers.map(
-              (item) => ({ ...item, time: TimestampToDate(item.time) } as AnswerContent),
-            );
-
-            const finalQuestion = { question: questionContent, answers: answerContents, ...rest } as Question;
-
-            if (questionIdList.includes(finalQuestion.questionId)) {
-              questionListCustom.push(finalQuestion);
-            }
-
-            return finalQuestion;
-          });
-          questionListCustom.sort((a, b) => b.questionId - a.questionId);
-          setQuestionList(questionListCustom);
-          setIsLoading(false);
-        })
-        .catch();
-    }
-  }, [questionIdList]);
-
   const onClickItem = (item: Question) => {
     const path = location.pathname;
     history.push(`${path}?second=${item.questionId}`);
@@ -90,6 +50,7 @@ export const QuestionList: FC<QuestionListHeaderProp> = ({
 
   const renderQuestionListElement = (item: Question) => (
     <QuestionListElement
+      key={item.questionId}
       question={item}
       topicId={topic.id}
       subTopicId={subTopic.id}
@@ -102,7 +63,8 @@ export const QuestionList: FC<QuestionListHeaderProp> = ({
     />
   );
 
-  const drawerBody = (questionList === undefined || isLoading) ? <Loading /> : questionList.map((item) => renderQuestionListElement(item));
+  const drawerBody =
+    questionList === undefined || isLoading ? <Loading /> : questionList.map((item) => renderQuestionListElement(item));
 
   return (
     <QuestionListContainer>
@@ -112,9 +74,7 @@ export const QuestionList: FC<QuestionListHeaderProp> = ({
             {topic.topicName} {'>'} {subTopic.subTopicName}
           </QuestionListHeaderText>
         </QuestionListHeader>
-        <QuestionListDrawerBody>
-          {drawerBody}
-        </QuestionListDrawerBody>
+        <QuestionListDrawerBody>{drawerBody}</QuestionListDrawerBody>
       </QuestionListDrawer>
 
       <Hover showQuestionList={onToggle} iconFlip={isListShown} />
@@ -127,7 +87,7 @@ const QuestionListContainer = styled(Box)`
   height: 100%;
 `;
 
-const QuestionListDrawer = styled(Box) <{ isListShown: boolean }>`
+const QuestionListDrawer = styled(Box)<{ isListShown: boolean }>`
   display: flex;
   flex-direction: column;
   width: ${({ isListShown }) => (isListShown ? '20vw' : '0vw')};
@@ -138,10 +98,17 @@ const QuestionListDrawer = styled(Box) <{ isListShown: boolean }>`
 
 const QuestionListDrawerBody = styled(List)`
   overflow-y: scroll;
+  overflow-x: hidden;
   padding: 0;
 
   ::-webkit-scrollbar {
-    display: none;
+    width: 4px;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background-color: rgba(0, 0, 0, 0.4);
+    border-radius: 10rem;
+    border: 1px solid #ffffff;
   }
 `;
 

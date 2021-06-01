@@ -1,10 +1,9 @@
-import { FC } from 'react';
+import { FC, useEffect, useState } from 'react';
 import styled from 'styled-components';
 import { Backdrop, Box } from '@material-ui/core';
 import { Question } from 'utils/types';
 import { Contents, NotSelected } from 'components/Contents';
 import { SpecialQuestionList } from 'components/QuestionList';
-import { dummyQuestions } from 'utils/dummyDatas';
 
 interface BaseQuestionProp {
   isLoading: boolean;
@@ -21,6 +20,7 @@ interface BaseQuestionProp {
   onHoverOut?: () => void;
   onHoverInDual: () => void;
   onHoverOutDual: () => void;
+  onClickItemDual: (item: Question) => void;
   onCloseLeftContent?: () => void;
   onCloseRightContent?: () => void;
 }
@@ -42,7 +42,23 @@ export const BaseSpecialQuestion: FC<BaseQuestionProp> = ({
   onHoverOutDual,
   onCloseLeftContent,
   onCloseRightContent,
+  onClickItemDual,
 }) => {
+  const [question1, setQuestion1] = useState<Question>();
+  const [question2, setQuestion2] = useState<Question>();
+
+  useEffect(() => {
+    if (questionList !== undefined) {
+      setQuestion1(questionList.find((question) => question.questionId === questionId));
+    }
+  }, [questionList, questionId]);
+
+  useEffect(() => {
+    if (questionList !== undefined) {
+      setQuestion2(questionList.find((question) => question.questionId === questionId2));
+    }
+  }, [questionList, questionId2]);
+
   return (
     <QuestionsContainer>
       <QuestionDetails>
@@ -59,19 +75,23 @@ export const BaseSpecialQuestion: FC<BaseQuestionProp> = ({
           onHoverOut={onHoverOut}
           onHoverInDual={onHoverInDual}
           onHoverOutDual={onHoverOutDual}
+          onClickItemDual={onClickItemDual}
         />
-
       </QuestionDetails>
       <QQBox>
         {questionId === undefined && <NotSelected />}
         {questionId !== undefined && (
           <QBox>
-            <Contents question={dummyQuestions[questionId - 1]} closeThisContent={onCloseLeftContent} />
+            {questionList !== undefined && question1 !== undefined && (
+              <Contents question={question1} closeThisContent={onCloseLeftContent} />
+            )}
           </QBox>
         )}
         {questionId2 !== undefined && (
           <QBox>
-            <Contents question={dummyQuestions[questionId2 - 1]} closeThisContent={onCloseRightContent} />
+            {questionList !== undefined && question2 !== undefined && (
+              <Contents question={question2} closeThisContent={onCloseRightContent} />
+            )}
           </QBox>
         )}
       </QQBox>
@@ -103,8 +123,8 @@ const QuestionDetails = styled(Box)`
   height: 100%;
 `;
 
-const DoubleSidedPaper = styled(Backdrop) <{ fullsize: boolean }>`
+const DoubleSidedPaper = styled(Backdrop)<{ fullsize: boolean }>`
   position: reletive;
-  ${({ fullsize }) => (fullsize ? 'left: 37vw' : 'left: 68vw')};
+  ${({ fullsize }) => (fullsize ? 'left: 37vw' : 'left: 68vw')} !important;
   z-index: 999;
 `;

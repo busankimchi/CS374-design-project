@@ -14,12 +14,15 @@ export const useQuestionList = (setIsLoading: Dispatch<SetStateAction<boolean>>)
   const [maxQuestionId, setMaxQuestionId] = useState(0);
 
   useEffect(() => {
-    fetchQuestionList().then((response) => {
-      response.questionList.reverse();
-      setQuestionList(response.questionList);
-      setMaxQuestionId(response.maxQuestionId);
-      setIsLoading(false);
-    }).catch()
+    fetchQuestionList()
+      .then((response) => {
+        // response.questionList.reverse();
+        setQuestionList(response.questionList);
+        setMaxQuestionId(response.maxQuestionId);
+        setIsLoading(false);
+      })
+      .catch();
   }, []);
+
   return { questionList, setQuestionList, maxQuestionId, setMaxQuestionId };
 };
