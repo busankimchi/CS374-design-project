@@ -1,8 +1,8 @@
 import { FC, useState } from 'react';
 import styled from 'styled-components';
 import { Link as DefaultLink } from 'react-router-dom';
-import { Tooltip, Box, Typography, ListItem, Divider, IconButton } from '@material-ui/core';
-import { PINK_3, H5, H5I, B2, B2I, B3, B3I, LIGHT_GRAY_1, TRUNCATE_TWO, TRUNCATE_ONE } from 'utils/themes';
+import { Tooltip, Box, Typography, Divider, IconButton } from '@material-ui/core';
+import { H5, H5I, B2, B2I, B3, B3I, LIGHT_GRAY_1, TRUNCATE_TWO, TRUNCATE_ONE } from 'utils/themes';
 import { Icon } from '@iconify/react';
 import squareHalf from '@iconify-icons/bi/square-half';
 import { Question } from 'utils/types';
@@ -45,8 +45,7 @@ export const SpecialQuestionListElement: FC<SpecialQuestionListElementProp> = ({
 
   return (
     <QuestionListElementContainer>
-      
-        <TextBox onMouseEnter={onHoverIn} onMouseLeave={onHoverOut}>
+      <TextBox onMouseEnter={onHoverIn} onMouseLeave={onHoverOut}>
         <Link to={link}>
           <Header>
             <Title notAnswered={notAnswered}>
@@ -60,19 +59,19 @@ export const SpecialQuestionListElement: FC<SpecialQuestionListElementProp> = ({
           <Body>
             <BodyText notAnswered={notAnswered}>{question.question.content}</BodyText>
           </Body>
-          </Link>
-        </TextBox>
-      
+        </Link>
+      </TextBox>
+
       <Divider orientation="vertical" flexItem />
       <Tooltip title="Open in double-sided view">
-      <DoubleSidedViewButton
-        onMouseEnter={setShadowIn}
-        onMouseLeave={setShadowOut}
-        onClick={() => onClickItemDual(question)}
-        disabled={dualDisable}
-      >
-        <Icon icon={squareHalf} />
-      </DoubleSidedViewButton>
+        <DoubleSidedViewButton
+          onMouseEnter={setShadowIn}
+          onMouseLeave={setShadowOut}
+          onClick={() => onClickItemDual(question)}
+          disabled={dualDisable}
+        >
+          <Icon icon={squareHalf} />
+        </DoubleSidedViewButton>
       </Tooltip>
     </QuestionListElementContainer>
   );
