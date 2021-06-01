@@ -16,7 +16,7 @@ interface SpecialQuestionListElementProp {
   onHoverOut?: () => void;
   onHoverInDual: () => void;
   onHoverOutDual: () => void;
-  onClickItem: (question: Question) => void;
+  onClickItemDual: (question: Question) => void;
 }
 
 export const SpecialQuestionListElement: FC<SpecialQuestionListElementProp> = ({
@@ -27,7 +27,7 @@ export const SpecialQuestionListElement: FC<SpecialQuestionListElementProp> = ({
   onHoverOut,
   onHoverInDual,
   onHoverOutDual,
-  onClickItem,
+  onClickItemDual,
 }) => {
   const [shadowPreview, setShadowPreview] = useState(true);
 
@@ -65,7 +65,7 @@ export const SpecialQuestionListElement: FC<SpecialQuestionListElementProp> = ({
       <DoubleSidedViewButton
         onMouseEnter={setShadowIn}
         onMouseLeave={setShadowOut}
-        onClick={() => onClickItem(question)}
+        onClick={() => onClickItemDual(question)}
         disabled={dualDisable}
       >
         <Icon icon={squareHalf} />

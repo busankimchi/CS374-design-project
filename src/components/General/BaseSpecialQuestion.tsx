@@ -20,6 +20,7 @@ interface BaseQuestionProp {
   onHoverOut?: () => void;
   onHoverInDual: () => void;
   onHoverOutDual: () => void;
+  onClickItemDual: (item: Question) => void;
   onCloseLeftContent?: () => void;
   onCloseRightContent?: () => void;
 }
@@ -41,6 +42,7 @@ export const BaseSpecialQuestion: FC<BaseQuestionProp> = ({
   onHoverOutDual,
   onCloseLeftContent,
   onCloseRightContent,
+  onClickItemDual,
 }) => {
   const [question1, setQuestion1] = useState<Question>();
   const [question2, setQuestion2] = useState<Question>();
@@ -73,6 +75,7 @@ export const BaseSpecialQuestion: FC<BaseQuestionProp> = ({
           onHoverOut={onHoverOut}
           onHoverInDual={onHoverInDual}
           onHoverOutDual={onHoverOutDual}
+          onClickItemDual={onClickItemDual}
         />
       </QuestionDetails>
       <QQBox>
@@ -120,7 +123,7 @@ const QuestionDetails = styled(Box)`
   height: 100%;
 `;
 
-const DoubleSidedPaper = styled(Backdrop) <{ fullsize: boolean }>`
+const DoubleSidedPaper = styled(Backdrop)<{ fullsize: boolean }>`
   position: reletive;
   ${({ fullsize }) => (fullsize ? 'left: 37vw' : 'left: 68vw')};
   z-index: 999;

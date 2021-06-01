@@ -1,12 +1,11 @@
 import { FC } from 'react';
-import { useHistory, useLocation } from 'react-router';
 import styled from 'styled-components';
 import { Box, List, Typography } from '@material-ui/core';
 import { Question } from 'utils/types';
 import { H3, TRUNCATE_ONE, LIGHT_GRAY_1 } from 'utils/themes';
 import { Hover } from 'components/Contents';
 import { SpecialQuestionListElement } from './SpecialQuestionListElement';
-import { Loading } from '../General/Loading'
+import { Loading } from '../General/Loading';
 
 interface QuestionListProp {
   isLoading: boolean;
@@ -21,6 +20,7 @@ interface QuestionListProp {
   onHoverOut?: () => void;
   onHoverInDual: () => void;
   onHoverOutDual: () => void;
+  onClickItemDual: (item: Question) => void;
 }
 
 export const SpecialQuestionList: FC<QuestionListProp> = ({
@@ -37,16 +37,8 @@ export const SpecialQuestionList: FC<QuestionListProp> = ({
   onHoverOut,
   onHoverInDual,
   onHoverOutDual,
+  onClickItemDual,
 }) => {
-  const history = useHistory();
-  const location = useLocation();
-
-  const onClickItem = (item: Question) => {
-    const { pathname, search } = location;
-
-    history.push(`${pathname}${search}&second=${item.questionId}`);
-  };
-
   const renderQuestionListElement = (item: Question) => (
     <SpecialQuestionListElement
       key={item.questionId}
@@ -57,11 +49,12 @@ export const SpecialQuestionList: FC<QuestionListProp> = ({
       onHoverOut={onHoverOut}
       onHoverInDual={onHoverInDual}
       onHoverOutDual={onHoverOutDual}
-      onClickItem={onClickItem}
+      onClickItemDual={onClickItemDual}
     />
   );
 
-  const drawerBody = (questionList === undefined || isLoading) ? <Loading /> : questionList.map((item) => renderQuestionListElement(item));
+  const drawerBody =
+    questionList === undefined || isLoading ? <Loading /> : questionList.map((item) => renderQuestionListElement(item));
 
   return (
     <QuestionListContainer>
@@ -69,9 +62,7 @@ export const SpecialQuestionList: FC<QuestionListProp> = ({
         <QuestionListHeader>
           <QuestionListHeaderText>{title}</QuestionListHeaderText>
         </QuestionListHeader>
-        <QuestionListDrawerBody>
-          {drawerBody}
-        </QuestionListDrawerBody>
+        <QuestionListDrawerBody>{drawerBody}</QuestionListDrawerBody>
       </QuestionListDrawer>
 
       <Hover showQuestionList={onToggle} iconFlip={isListShown} />
@@ -84,7 +75,7 @@ const QuestionListContainer = styled(Box)`
   height: 100%;
 `;
 
-const QuestionListDrawer = styled(Box) <{ isListShown: boolean }>`
+const QuestionListDrawer = styled(Box)<{ isListShown: boolean }>`
   display: flex;
   flex-direction: column;
   width: ${({ isListShown }) => (isListShown ? '20vw' : '0vw')};
