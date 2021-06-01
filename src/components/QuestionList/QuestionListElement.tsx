@@ -3,8 +3,8 @@ import { Link as DefaultLink } from 'react-router-dom';
 import styled from 'styled-components';
 import { Icon } from '@iconify/react';
 import squareHalf from '@iconify-icons/bi/square-half';
-import { Tooltip,   Box, Typography, ListItem, Divider, IconButton } from '@material-ui/core';
-import { PINK_3, H5, H5I, B2, B2I, B3, B3I, LIGHT_GRAY_1, TRUNCATE_TWO, TRUNCATE_ONE } from 'utils/themes';
+import { Tooltip, Box, Typography, Divider, IconButton } from '@material-ui/core';
+import { H5, H5I, B2, B2I, B3, B3I, LIGHT_GRAY_1, TRUNCATE_TWO, TRUNCATE_ONE } from 'utils/themes';
 import { Question } from 'utils/types';
 import { timeForToday } from 'utils/functions';
 
@@ -47,8 +47,7 @@ export const QuestionListElement: FC<QuestionListElementProp> = ({
 
   return (
     <QuestionListElementContainer>
-      
-        <TextBox onMouseEnter={onHoverIn} onMouseLeave={onHoverOut}>
+      <TextBox onMouseEnter={onHoverIn} onMouseLeave={onHoverOut}>
         <Link to={`/topic/${topicId}/subTopic/${subTopicId}/question/${question.questionId}`}>
           <Header>
             <Title notAnswered={notAnswered}>
@@ -62,20 +61,19 @@ export const QuestionListElement: FC<QuestionListElementProp> = ({
           <Body>
             <BodyText notAnswered={notAnswered}>{question.question.content}</BodyText>
           </Body>
-          </Link>
-        </TextBox>
-      
+        </Link>
+      </TextBox>
+
       <Divider orientation="vertical" flexItem />
-      <Tooltip title= "Open in double-sided view">
-      <DoubleSidedViewButton
-        onMouseEnter={setShadowIn}
-        onMouseLeave={setShadowOut}
-        onClick={() => onClickItem(question)}
-        disabled={dualDisable}
-      >
-      
-        <Icon icon={squareHalf} />
-      </DoubleSidedViewButton>
+      <Tooltip title="Open in double-sided view">
+        <DoubleSidedViewButton
+          onMouseEnter={setShadowIn}
+          onMouseLeave={setShadowOut}
+          onClick={() => onClickItem(question)}
+          disabled={dualDisable}
+        >
+          <Icon icon={squareHalf} />
+        </DoubleSidedViewButton>
       </Tooltip>
     </QuestionListElementContainer>
   );
