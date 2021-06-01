@@ -23,7 +23,7 @@ const HoverContainer = styled(Button)`
   margin: 0px;
   align-items: center;
   justify-content: center;
-  background-color: ${PINK_4};
+  background-color: ${PINK_4} !important;
   min-width: 2vw;
 `;
 
