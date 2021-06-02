@@ -91,6 +91,7 @@ export const Contents: FC<ContentsProp> = ({
     });
     setQuestionList(newQuestionList);
     setAnswers([...answers, ans]);
+
     appendAnswerDB(ans, question.questionId);
     const q = question;
     q.answers = answers;

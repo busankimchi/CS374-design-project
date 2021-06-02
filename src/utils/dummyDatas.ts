@@ -99,7 +99,7 @@ export const dummyTopics: Topic[] = [
       {
         id: 4,
         subTopicName: 'Team Matching',
-        questionList: [1, 24, 36],
+        questionList: [1, 24, 36, 37],
       },
     ],
   },
@@ -158,30 +158,25 @@ export const dummyTopics: Topic[] = [
   },
 ];
 
-export const dummySearchHistory: HistoryQuery[] = [
+export const dummySearchHistories: HistoryQuery[] = [
   {
     id: 1,
-    history: 'hello',
+    history: 'kcloud',
     time: new Date(),
   },
   {
     id: 2,
-    history: 'asdfgadsfasdfas',
+    history: 'multi',
     time: new Date(),
   },
   {
     id: 3,
-    history: 'adsflkdsjflksadjflkdasjflk',
+    history: 'extra',
     time: new Date(),
   },
   {
     id: 4,
-    history: 'alarm clock',
-    time: new Date(),
-  },
-  {
-    id: 5,
-    history: 'semaphore',
+    history: 'grading',
     time: new Date(),
   },
 ];
@@ -1214,7 +1209,8 @@ export const dummyQuestions: Array<Question> = [
         name: 'Spicy Bee',
         image: 3,
         time: new Date('2021-05-28T21:22:16'),
-        content: 'If your teammate dropped and you want to find a new teammate for project 3, please answer this form by 06/20.\nhttps://docs.google.com/forms/d/e/1FAIpQLSfq-ISmRZQ9tGweWBsoxNwzQDFbgbngTbf03kqhQkFZ8dEnKQ/viewform',
+        content:
+          'If your teammate dropped and you want to find a new teammate for project 3, please answer this form by 06/20.\nhttps://docs.google.com/forms/d/e/1FAIpQLSfq-ISmRZQ9tGweWBsoxNwzQDFbgbngTbf03kqhQkFZ8dEnKQ/viewform',
       },
     ],
   },

@@ -140,7 +140,7 @@ const QuestionDetails = styled(Box)`
 `;
 
 const DoubleSidedPaper = styled(Backdrop)<{ fullsize: boolean }>`
-  position: reletive;
-  ${({ fullsize }) => (fullsize ? 'left: 37vw' : 'left: 68vw')} !important;
+  /* position: relative; */
+  left: ${({ fullsize }) => (fullsize ? '37vw' : '68vw')} !important;
   z-index: 999 !important;
 `;
