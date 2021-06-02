@@ -1,6 +1,7 @@
 import { FC, useEffect, useState, Dispatch, SetStateAction } from 'react';
 import styled from 'styled-components';
 import { Backdrop, Box } from '@material-ui/core';
+import { H1 } from 'utils/themes';
 import { Question } from 'utils/types';
 import { Contents, NotSelected } from 'components/Contents';
 import { SpecialQuestionList } from 'components/QuestionList';
@@ -143,4 +144,6 @@ const DoubleSidedPaper = styled(Backdrop)<{ fullsize: boolean }>`
   /* position: relative; */
   left: ${({ fullsize }) => (fullsize ? '37vw' : '68vw')} !important;
   z-index: 999 !important;
+  ${H1};
+  color: #FFFFFF;
 `;

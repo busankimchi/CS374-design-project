@@ -4,6 +4,7 @@ import { useHistory } from 'react-router';
 import styled from 'styled-components';
 import { Backdrop, Box, Fade, Paper } from '@material-ui/core';
 import firebase from 'firebase';
+import { H1 } from 'utils/themes';
 import { PageType, Topic, SubTopic, Question, QuestionFB, QuestionContent, AnswerContent } from 'utils/types';
 import { TimestampToDate } from 'utils/functions';
 import { QuestionList } from 'components/QuestionList/QuestionList';
@@ -190,7 +191,10 @@ export const NormalQuestion: FC<NormalQuestionProp> = ({
         </QQBox>
       </QuestionDetails>
 
-      {isHover && <DoubleSidedPaper open={isHover} fullsize={!isHoverDual} />}
+      {isHover && (<DoubleSidedPaper open={isHover} fullsize={!isHoverDual}>
+        Open Here
+        </DoubleSidedPaper>
+      )}
     </QuestionsContainer>
   );
 };
@@ -220,4 +224,6 @@ const QuestionDetails = styled(Box)`
 const DoubleSidedPaper = styled(Backdrop)<{ fullsize: boolean }>`
   left: ${({ fullsize }) => (fullsize ? '37vw' : '68vw')} !important;
   z-index: 999 !important;
+  ${H1};
+  color: #FFFFFF;
 `;
