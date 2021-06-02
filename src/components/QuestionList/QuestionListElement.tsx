@@ -3,8 +3,8 @@ import { Link as DefaultLink } from 'react-router-dom';
 import styled from 'styled-components';
 import { Icon } from '@iconify/react';
 import squareHalf from '@iconify-icons/bi/square-half';
-import { Tooltip,   Box, Typography, ListItem, Divider, IconButton } from '@material-ui/core';
-import { PINK_3, H5, H5I, B2, B2I, B3, B3I, LIGHT_GRAY_1, TRUNCATE_TWO, TRUNCATE_ONE } from 'utils/themes';
+import { Tooltip, Box, Typography, Divider, IconButton } from '@material-ui/core';
+import { H5, H5I, B2, B2I, B3, B3I, LIGHT_GRAY_1, TRUNCATE_TWO, TRUNCATE_ONE } from 'utils/themes';
 import { Question } from 'utils/types';
 import { timeForToday } from 'utils/functions';
 
@@ -46,9 +46,9 @@ export const QuestionListElement: FC<QuestionListElementProp> = ({
   };
 
   return (
-    <QuestionListElementContainer button onMouseEnter={onHoverIn} onMouseLeave={onHoverOut}>
-      <Link to={`/topic/${topicId}/subTopic/${subTopicId}/question/${question.questionId}`}>
-        <TextBox>
+    <QuestionListElementContainer>
+      <TextBox onMouseEnter={onHoverIn} onMouseLeave={onHoverOut}>
+        <Link to={`/topic/${topicId}/subTopic/${subTopicId}/question/${question.questionId}`}>
           <Header>
             <Title notAnswered={notAnswered}>
               <TitleText>
@@ -61,37 +61,29 @@ export const QuestionListElement: FC<QuestionListElementProp> = ({
           <Body>
             <BodyText notAnswered={notAnswered}>{question.question.content}</BodyText>
           </Body>
-        </TextBox>
-      </Link>
+        </Link>
+      </TextBox>
+
       <Divider orientation="vertical" flexItem />
-      <Tooltip title= "Open in double-sided view">
-      <DoubleSidedViewButton
-        onMouseEnter={setShadowIn}
-        onMouseLeave={setShadowOut}
-        onClick={() => onClickItem(question)}
-        disabled={dualDisable}
-      >
-      
-        <Icon icon={squareHalf} />
-      </DoubleSidedViewButton>
+      <Tooltip title="Open in double-sided view">
+        <DoubleSidedViewButton
+          onMouseEnter={setShadowIn}
+          onMouseLeave={setShadowOut}
+          onClick={() => onClickItem(question)}
+          disabled={dualDisable}
+        >
+          <Icon icon={squareHalf} />
+        </DoubleSidedViewButton>
       </Tooltip>
     </QuestionListElementContainer>
   );
 };
 
-const QuestionListElementContainer = styled(ListItem)`
+const QuestionListElementContainer = styled(Box)`
   display: flex !important;
   align-items: center !important;
   padding: 0 !important;
-  :hover {
-    background-color: rgba(205, 205, 205, 0.3);
-  }
-  :focus {
-    background-color: ${PINK_3} !important;
-  }
-  :focus-within {
-    background-color: ${PINK_3} !important;
-  }
+  justify-content: space-evenly !important;
   border-bottom: solid !important;
   border-width: 2px !important;
   border-color: ${LIGHT_GRAY_1} !important;
@@ -100,8 +92,12 @@ const QuestionListElementContainer = styled(ListItem)`
 const TextBox = styled(Box)`
   display: flex !important;
   flex-direction: column !important;
-  padding: 0 0.5em !important;
+  width: 80% !important;
+  padding: 0.5em !important;
   justify-content: space-between !important;
+  :hover {
+    background-color: rgba(205, 205, 205, 0.3);
+  }
 `;
 
 const Header = styled(Box)`
@@ -132,7 +128,8 @@ const Time = styled(Box)<{ notAnswered: boolean }>`
 
 const Body = styled(Box)`
   display: flex;
-  width: 15em;
+  width: 100%;
+  margin-top: 0.2em;
   .MuiTypography-root {
     ${B2};
   }
@@ -154,9 +151,6 @@ const DoubleSidedViewButton = styled(IconButton)`
   :hover {
     background-color: ${LIGHT_GRAY_1} !important;
   }
-  :focus {
-    background-color: ${PINK_3} !important;
-  }
   align-items: stretch !important;
 `;
 
@@ -164,6 +158,6 @@ const Link = styled(DefaultLink)`
   color: #000000;
   text-decoration: none;
   width: 100%;
-  height: fit-content;
-  margin: 0.5em;
+  height: 100%;
+  margin: 0em;
 `;

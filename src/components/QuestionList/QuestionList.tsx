@@ -12,9 +12,9 @@ import { Loading } from '../General/Loading';
 interface QuestionListHeaderProp {
   isLoading: boolean;
   setIsLoading: Dispatch<SetStateAction<boolean>>;
-  topic: Topic;
-  subTopic: SubTopic;
-  questionList: Question[];
+  topic: Topic | undefined;
+  subTopic: SubTopic | undefined;
+  questionList: Question[] | undefined;
   isListShown: boolean;
   questionId?: number;
   questionId2?: number;
@@ -48,33 +48,49 @@ export const QuestionList: FC<QuestionListHeaderProp> = ({
     history.push(`${path}?second=${item.questionId}`);
   };
 
-  const renderQuestionListElement = (item: Question) => (
-    <QuestionListElement
-      key={item.questionId}
-      question={item}
-      topicId={topic.id}
-      subTopicId={subTopic.id}
-      onHoverIn={onHoverIn}
-      onHoverOut={onHoverOut}
-      onHoverInDual={onHoverInDual}
-      onHoverOutDual={onHoverOutDual}
-      dualDisable={questionId === undefined}
-      onClickItem={onClickItem}
-    />
-  );
+  if (subTopic !== undefined && topic !== undefined) {
+    const renderQuestionListElement = (item: Question) => (
+      <QuestionListElement
+        key={item.questionId}
+        question={item}
+        topicId={topic.id}
+        subTopicId={subTopic.id}
+        onHoverIn={onHoverIn}
+        onHoverOut={onHoverOut}
+        onHoverInDual={onHoverInDual}
+        onHoverOutDual={onHoverOutDual}
+        dualDisable={questionId === undefined}
+        onClickItem={onClickItem}
+      />
+    );
 
-  const drawerBody =
-    questionList === undefined || isLoading ? <Loading /> : questionList.map((item) => renderQuestionListElement(item));
+    const drawerBody =
+      questionList === undefined || isLoading ? <Loading /> : questionList.map((item) => renderQuestionListElement(item));
 
+    return (
+      <QuestionListContainer>
+        <QuestionListDrawer isListShown={isListShown}>
+          <QuestionListHeader>
+            <QuestionListHeaderText>
+              {topic.topicName} {'>'} {subTopic.subTopicName}
+            </QuestionListHeaderText>
+          </QuestionListHeader>
+          <QuestionListDrawerBody>{drawerBody}</QuestionListDrawerBody>
+        </QuestionListDrawer>
+
+        <Hover showQuestionList={onToggle} iconFlip={isListShown} />
+      </QuestionListContainer>
+    );
+  }
   return (
     <QuestionListContainer>
       <QuestionListDrawer isListShown={isListShown}>
         <QuestionListHeader>
           <QuestionListHeaderText>
-            {topic.topicName} {'>'} {subTopic.subTopicName}
+            ...
           </QuestionListHeaderText>
         </QuestionListHeader>
-        <QuestionListDrawerBody>{drawerBody}</QuestionListDrawerBody>
+        <QuestionListDrawerBody><Loading /></QuestionListDrawerBody>
       </QuestionListDrawer>
 
       <Hover showQuestionList={onToggle} iconFlip={isListShown} />
@@ -87,7 +103,7 @@ const QuestionListContainer = styled(Box)`
   height: 100%;
 `;
 
-const QuestionListDrawer = styled(Box)<{ isListShown: boolean }>`
+const QuestionListDrawer = styled(Box) <{ isListShown: boolean }>`
   display: flex;
   flex-direction: column;
   width: ${({ isListShown }) => (isListShown ? '20vw' : '0vw')};
