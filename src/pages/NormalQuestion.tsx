@@ -49,7 +49,7 @@ export const NormalQuestion: FC<NormalQuestionProp> = ({
   const [topicInfo, setTopicInfo] = useState<Topic>();
   const [subTopicInfo, setSubTopicInfo] = useState<SubTopic>();
   const [questionIdList, setQuestionIdList] = useState<number[]>();
-  const [questionList, setQuestionList] = useState<Question[]>();
+  const [questionList, setQuestionList] = useState<Question[]>([]);
   const [question1, setQuestion1] = useState<Question>();
   const [question2, setQuestion2] = useState<Question>();
   const [isLoading, setIsLoading] = useState(true);
@@ -176,6 +176,9 @@ export const NormalQuestion: FC<NormalQuestionProp> = ({
               {questionList !== undefined && (question1 !== undefined || currQ !== undefined) && (
                 <Contents
                   question={currQ !== undefined ? currQ : (question1 as Question)}
+                  setQuestion={setQuestion1}
+                  allQuestionList={questionList}
+                  setQuestionList={setQuestionList}
                   closeThisContent={onCloseLeftContent}
                 />
               )}
@@ -186,6 +189,9 @@ export const NormalQuestion: FC<NormalQuestionProp> = ({
               {questionList !== undefined && (question2 !== undefined || currQ2 !== undefined) && (
                 <Contents
                   question={currQ2 !== undefined ? currQ2 : (question2 as Question)}
+                  setQuestion={setQuestion2}
+                  allQuestionList={questionList}
+                  setQuestionList={setQuestionList}
                   closeThisContent={onCloseRightContent}
                 />
               )}
@@ -222,7 +228,6 @@ const QuestionDetails = styled(Box)`
 `;
 
 const DoubleSidedPaper = styled(Backdrop)<{ fullsize: boolean }>`
-  position: reletive;
-  ${({ fullsize }) => (fullsize ? 'left: 37vw  !important' : 'left: 68vw  !important')};
-  z-index: 999;
+  left: ${({ fullsize }) => (fullsize ? '37vw' : '68vw')} !important;
+  z-index: 999 !important;
 `;

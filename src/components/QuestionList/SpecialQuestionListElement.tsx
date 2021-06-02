@@ -2,7 +2,7 @@ import { FC, useState } from 'react';
 import styled from 'styled-components';
 import { Link as DefaultLink } from 'react-router-dom';
 import { Tooltip, Box, Typography, Divider, IconButton } from '@material-ui/core';
-import { H5, H5I, B2, B2I, B3, B3I, LIGHT_GRAY_1, TRUNCATE_TWO, TRUNCATE_ONE } from 'utils/themes';
+import { H5, H5I, B2, B2I, B3, B3I, LIGHT_GRAY_1, LIGHT_GRAY_2, TRUNCATE_TWO, TRUNCATE_ONE } from 'utils/themes';
 import { Icon } from '@iconify/react';
 import squareHalf from '@iconify-icons/bi/square-half';
 import { Question } from 'utils/types';
@@ -39,11 +39,13 @@ export const SpecialQuestionListElement: FC<SpecialQuestionListElementProp> = ({
 
   const setShadowIn = () => {
     setShadowPreview(!shadowPreview);
+    if (onHoverIn !== undefined) onHoverIn();
     onHoverInDual();
   };
 
   const setShadowOut = () => {
     setShadowPreview(!shadowPreview);
+    if (onHoverOut !== undefined) onHoverOut();
     onHoverOutDual();
   };
 
@@ -102,7 +104,7 @@ const TextBox = styled(Box)`
   padding: 0.5em !important;
   justify-content: space-between !important;
   :hover {
-    background-color: rgba(205, 205, 205, 0.3);
+    background-color: ${LIGHT_GRAY_2};
   }
 `;
 
@@ -113,7 +115,7 @@ const Header = styled(Box)`
   justify-content: space-between !important;
 `;
 
-const Title = styled(Box)<{ notAnswered: boolean }>`
+const Title = styled(Box) <{ notAnswered: boolean }>`
   width: 10em;
   .MuiTypography-root {
     ${({ notAnswered }) => (notAnswered ? H5I : H5)};
@@ -127,7 +129,7 @@ const TitleText = styled(Typography)`
   ${TRUNCATE_ONE};
 `;
 
-const Time = styled(Box)<{ notAnswered: boolean }>`
+const Time = styled(Box) <{ notAnswered: boolean }>`
   margin-right: 0.1em !important;
   ${({ notAnswered }) => (notAnswered ? B3I : B3)};
 `;
@@ -135,13 +137,14 @@ const Time = styled(Box)<{ notAnswered: boolean }>`
 const Body = styled(Box)`
   display: flex;
   width: 100%;
+  height: 100%;
   margin-top: 0.2em;
   .MuiTypography-root {
     ${B2};
   }
 `;
 
-const BodyText = styled(Typography)<{ notAnswered: boolean }>`
+const BodyText = styled(Typography) <{ notAnswered: boolean }>`
   .MuiTypography-root {
     ${({ notAnswered }) => (notAnswered ? B2I : B2)};
   }
@@ -155,7 +158,7 @@ const DoubleSidedViewButton = styled(IconButton)`
 
   border-radius: 0 !important;
   :hover {
-    background-color: ${LIGHT_GRAY_1} !important;
+    background-color: ${LIGHT_GRAY_2} !important;
   }
   align-items: stretch !important;
 `;

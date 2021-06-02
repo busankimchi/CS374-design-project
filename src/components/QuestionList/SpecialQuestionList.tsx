@@ -2,7 +2,7 @@ import { FC } from 'react';
 import styled from 'styled-components';
 import { Box, List, Typography } from '@material-ui/core';
 import { Question } from 'utils/types';
-import { H3, TRUNCATE_ONE, LIGHT_GRAY_1 } from 'utils/themes';
+import { H3, TRUNCATE_ONE, GRAY, LIGHT_GRAY_1, LIGHT_GRAY_2 } from 'utils/themes';
 import { Hover } from 'components/Contents';
 import { SpecialQuestionListElement } from './SpecialQuestionListElement';
 import { Loading } from '../General/Loading';
@@ -68,7 +68,7 @@ export const SpecialQuestionList: FC<QuestionListProp> = ({
         <QuestionListHeader>
           <QuestionListHeaderText>{title}</QuestionListHeaderText>
         </QuestionListHeader>
-        <QuestionListDrawerBody>{drawerBody}</QuestionListDrawerBody>
+        <QuestionListDrawerBody isLoading={isLoading}>{drawerBody}</QuestionListDrawerBody>
       </QuestionListDrawer>
 
       <Hover showQuestionList={onToggle} iconFlip={isListShown} />
@@ -81,7 +81,7 @@ const QuestionListContainer = styled(Box)`
   height: 100%;
 `;
 
-const QuestionListDrawer = styled(Box)<{ isListShown: boolean }>`
+const QuestionListDrawer = styled(Box) <{ isListShown: boolean }>`
   display: flex;
   flex-direction: column;
   width: ${({ isListShown }) => (isListShown ? '20vw' : '0vw')};
@@ -90,17 +90,18 @@ const QuestionListDrawer = styled(Box)<{ isListShown: boolean }>`
   transition: all 0.15s ease-in-out !important;
 `;
 
-const QuestionListDrawerBody = styled(List)`
+const QuestionListDrawerBody = styled(List) <{ isLoading: boolean }>`
   overflow-y: scroll;
   overflow-x: hidden;
   padding: 0 !important;
 
   ::-webkit-scrollbar {
-    width: 4px;
+    width: 6px;
+    ${({ isLoading }) => !isLoading && `background-color: ${LIGHT_GRAY_2};`}
   }
 
   ::-webkit-scrollbar-thumb {
-    background-color: rgba(0, 0, 0, 0.4);
+    background-color: ${GRAY};
     border-radius: 10rem;
     border: 1px solid #ffffff;
   }

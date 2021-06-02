@@ -44,7 +44,7 @@ export const SpecialQuestion: FC<SpecialQuestionProp> = ({
   const history = useHistory();
   const location = useLocation();
   const [isLoading, setIsLoading] = useState(true);
-  const { questionList } = useQuestionList(setIsLoading);
+  const { questionList, setQuestionList } = useQuestionList(setIsLoading);
 
   const [question1, setQuestion1] = useState<Question>();
   const [question2, setQuestion2] = useState<Question>();
@@ -94,6 +94,8 @@ export const SpecialQuestion: FC<SpecialQuestionProp> = ({
       <BaseSpecialQuestion
         isLoading={isLoading}
         questionList={FAQList}
+        allQuestionList={questionList}
+        setQuestionList={setQuestionList}
         title="FAQ"
         itemLink={(item) => `/faq/${item.questionId}`}
         isListShown={isListShown}
@@ -115,6 +117,8 @@ export const SpecialQuestion: FC<SpecialQuestionProp> = ({
         currQ2={currQ2}
         changeCurrQ={changeCurrQ}
         changeCurrQ2={changeCurrQ2}
+        setQuestion1={setQuestion1}
+        setQuestion2={setQuestion2}
       />
     );
   }
@@ -161,6 +165,8 @@ export const SpecialQuestion: FC<SpecialQuestionProp> = ({
       <BaseSpecialQuestion
         isLoading={isLoading}
         questionList={searchList}
+        allQuestionList={questionList}
+        setQuestionList={setQuestionList}
         title="SEARCH RESULT"
         itemLink={(item) => `/search?q=${search}&first=${item.questionId}`}
         isListShown={isListShown}
@@ -180,6 +186,8 @@ export const SpecialQuestion: FC<SpecialQuestionProp> = ({
         currQ2={currQ2}
         changeCurrQ={changeCurrQ}
         changeCurrQ2={changeCurrQ2}
+        setQuestion1={setQuestion1}
+        setQuestion2={setQuestion2}
       />
     );
   }
@@ -215,6 +223,8 @@ export const SpecialQuestion: FC<SpecialQuestionProp> = ({
     <BaseSpecialQuestion
       isLoading={isLoading}
       questionList={questionList}
+      allQuestionList={questionList}
+      setQuestionList={setQuestionList}
       title="ALL QUESTIONS"
       itemLink={(item) => `/all_questions/${item.questionId}`}
       isListShown={isListShown}
@@ -234,6 +244,8 @@ export const SpecialQuestion: FC<SpecialQuestionProp> = ({
       currQ2={currQ2}
       changeCurrQ={changeCurrQ}
       changeCurrQ2={changeCurrQ2}
+      setQuestion1={setQuestion1}
+      setQuestion2={setQuestion2}
     />
   );
 };

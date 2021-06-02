@@ -1,4 +1,4 @@
-import { FC, useEffect, useState } from 'react';
+import { FC, useEffect, useState, Dispatch, SetStateAction } from 'react';
 import styled from 'styled-components';
 import { Backdrop, Box } from '@material-ui/core';
 import { Question } from 'utils/types';
@@ -8,6 +8,8 @@ import { SpecialQuestionList } from 'components/QuestionList';
 interface BaseQuestionProp {
   isLoading: boolean;
   questionList: Question[];
+  allQuestionList: Question[];
+  setQuestionList: Dispatch<SetStateAction<Question[]>>;
   itemLink: (item: Question) => string;
   title: string;
   questionId?: number;
@@ -29,11 +31,15 @@ interface BaseQuestionProp {
   currQ2: Question | undefined;
   changeCurrQ: (question: Question | undefined) => void;
   changeCurrQ2: (question2: Question | undefined) => void;
+  setQuestion1: Dispatch<SetStateAction<Question | undefined>>;
+  setQuestion2: Dispatch<SetStateAction<Question | undefined>>;
 }
 
 export const BaseSpecialQuestion: FC<BaseQuestionProp> = ({
   isLoading,
   questionList,
+  allQuestionList,
+  setQuestionList,
   itemLink,
   title,
   questionId,
@@ -55,6 +61,8 @@ export const BaseSpecialQuestion: FC<BaseQuestionProp> = ({
   currQ2,
   changeCurrQ,
   changeCurrQ2,
+  setQuestion1,
+  setQuestion2,
 }) => {
   return (
     <QuestionsContainer>
@@ -84,6 +92,9 @@ export const BaseSpecialQuestion: FC<BaseQuestionProp> = ({
             {questionList !== undefined && (question1 !== undefined || currQ !== undefined) && (
               <Contents
                 question={currQ !== undefined ? currQ : (question1 as Question)}
+                setQuestion={setQuestion1}
+                allQuestionList={allQuestionList}
+                setQuestionList={setQuestionList}
                 closeThisContent={onCloseLeftContent}
               />
             )}
@@ -94,6 +105,9 @@ export const BaseSpecialQuestion: FC<BaseQuestionProp> = ({
             {questionList !== undefined && (question2 !== undefined || currQ2 !== undefined) && (
               <Contents
                 question={currQ2 !== undefined ? currQ2 : (question2 as Question)}
+                setQuestion={setQuestion2}
+                allQuestionList={allQuestionList}
+                setQuestionList={setQuestionList}
                 closeThisContent={onCloseRightContent}
               />
             )}
@@ -129,7 +143,7 @@ const QuestionDetails = styled(Box)`
 `;
 
 const DoubleSidedPaper = styled(Backdrop)<{ fullsize: boolean }>`
-  position: reletive;
-  ${({ fullsize }) => (fullsize ? 'left: 37vw !important' : 'left: 68vw !important')};
-  z-index: 999;
+  /* position: relative; */
+  left: ${({ fullsize }) => (fullsize ? '37vw' : '68vw')} !important;
+  z-index: 999 !important;
 `;

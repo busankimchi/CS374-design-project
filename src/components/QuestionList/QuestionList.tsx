@@ -2,7 +2,7 @@ import { FC, Dispatch, SetStateAction } from 'react';
 import { useHistory, useLocation } from 'react-router';
 import styled from 'styled-components';
 import { Box, List, Typography } from '@material-ui/core';
-import { H3, TRUNCATE_ONE, LIGHT_GRAY_1 } from 'utils/themes';
+import { H3, TRUNCATE_ONE, GRAY, LIGHT_GRAY_1, LIGHT_GRAY_2 } from 'utils/themes';
 import { Topic, SubTopic, Question } from 'utils/types';
 import { Hover } from 'components/Contents';
 import { QuestionListElement } from './QuestionListElement';
@@ -84,7 +84,7 @@ export const QuestionList: FC<QuestionListHeaderProp> = ({
               {topic.topicName} {'>'} {subTopic.subTopicName}
             </QuestionListHeaderText>
           </QuestionListHeader>
-          <QuestionListDrawerBody>{drawerBody}</QuestionListDrawerBody>
+          <QuestionListDrawerBody isLoading={isLoading}>{drawerBody}</QuestionListDrawerBody>
         </QuestionListDrawer>
 
         <Hover showQuestionList={onToggle} iconFlip={isListShown} />
@@ -97,7 +97,7 @@ export const QuestionList: FC<QuestionListHeaderProp> = ({
         <QuestionListHeader>
           <QuestionListHeaderText>...</QuestionListHeaderText>
         </QuestionListHeader>
-        <QuestionListDrawerBody>
+        <QuestionListDrawerBody isLoading={isLoading}>
           <Loading />
         </QuestionListDrawerBody>
       </QuestionListDrawer>
@@ -121,17 +121,18 @@ const QuestionListDrawer = styled(Box)<{ isListShown: boolean }>`
   transition: all 0.15s ease-in-out !important;
 `;
 
-const QuestionListDrawerBody = styled(List)`
+const QuestionListDrawerBody = styled(List)<{ isLoading: boolean }>`
   overflow-y: scroll;
   overflow-x: hidden;
   padding: 0 !important;
 
   ::-webkit-scrollbar {
     width: 4px;
+    ${({ isLoading }) => !isLoading && `background-color: ${LIGHT_GRAY_2};`}
   }
 
   ::-webkit-scrollbar-thumb {
-    background-color: rgba(0, 0, 0, 0.4);
+    background-color: ${GRAY};
     border-radius: 10rem;
     border: 1px solid #ffffff;
   }

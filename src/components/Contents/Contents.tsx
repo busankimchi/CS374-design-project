@@ -1,4 +1,4 @@
-import { FC, useState, useRef, useEffect, ChangeEvent } from 'react';
+import { FC, useState, useRef, useEffect, ChangeEvent, Dispatch, SetStateAction } from 'react';
 import styled from 'styled-components';
 import { Box, Breadcrumbs, Typography, InputBase, IconButton } from '@material-ui/core';
 import SendIcon from '@material-ui/icons/Send';
@@ -16,10 +16,19 @@ import { appendAnswerDB } from '../../apis/Question/appendAnswerDB';
 
 interface ContentsProp {
   question: Question;
+  setQuestion: Dispatch<SetStateAction<Question | undefined>>;
+  allQuestionList: Question[];
+  setQuestionList: Dispatch<SetStateAction<Question[]>>;
   closeThisContent?: () => void;
 }
 
-export const Contents: FC<ContentsProp> = ({ question, closeThisContent }) => {
+export const Contents: FC<ContentsProp> = ({
+  question,
+  setQuestion,
+  allQuestionList,
+  setQuestionList,
+  closeThisContent,
+}) => {
   const [text, setText] = useState('');
 
   const questionContent = question.question;
@@ -30,8 +39,9 @@ export const Contents: FC<ContentsProp> = ({ question, closeThisContent }) => {
 
   useEffect(() => {
     setAnswers(question.answers);
+    setIsFaq(question.isFaq);
   }, [question]);
-  
+
   useEffect(() => {
     if (divRef && divRef.current && shouldScroll) {
       divRef.current.scrollIntoView({ behavior: 'smooth' });
@@ -61,6 +71,9 @@ export const Contents: FC<ContentsProp> = ({ question, closeThisContent }) => {
   /* Listeners */
   const changeIsFaq = () => {
     updateIsFaqDB(!isFaq, question.questionId);
+    const q = question;
+    q.isFaq = !isFaq;
+    setQuestion(q);
     setIsFaq(!isFaq);
   };
 
@@ -69,8 +82,20 @@ export const Contents: FC<ContentsProp> = ({ question, closeThisContent }) => {
   };
 
   const appendAnswer = (ans: AnswerContent) => {
+    const newQuestionList = allQuestionList.map((q) => {
+      if (q.questionId === question.questionId) {
+        const newAnsweredQuestion = { ...q, answers: [...answers, ans] };
+        return newAnsweredQuestion;
+      }
+      return q;
+    });
+    setQuestionList(newQuestionList);
     setAnswers([...answers, ans]);
+
     appendAnswerDB(ans, question.questionId);
+    const q = question;
+    q.answers = answers;
+    setQuestion(q);
     setShouldScroll(true);
   };
 
