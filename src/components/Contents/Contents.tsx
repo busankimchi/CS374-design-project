@@ -74,7 +74,9 @@ export const Contents: FC<ContentsProp> = ({ question, setQuestion, closeThisCon
   };
 
   const appendAnswer = (ans: AnswerContent) => {
-    setAnswers([...answers, ans]);
+    const q = question;
+    q.answers = [...answers, ans];
+    setQuestion(q);
     appendAnswerDB(ans, question.questionId);
     setShouldScroll(true);
   };
