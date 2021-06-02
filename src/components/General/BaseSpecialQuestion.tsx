@@ -83,14 +83,14 @@ export const BaseSpecialQuestion: FC<BaseQuestionProp> = ({
         {questionId !== undefined && (
           <QBox>
             {questionList !== undefined && question1 !== undefined && (
-              <Contents question={question1} closeThisContent={onCloseLeftContent} />
+              <Contents question={question1} setQuestion={setQuestion1} closeThisContent={onCloseLeftContent} />
             )}
           </QBox>
         )}
         {questionId2 !== undefined && (
           <QBox>
             {questionList !== undefined && question2 !== undefined && (
-              <Contents question={question2} closeThisContent={onCloseRightContent} />
+              <Contents question={question2} setQuestion={setQuestion2} closeThisContent={onCloseRightContent} />
             )}
           </QBox>
         )}
@@ -123,8 +123,8 @@ const QuestionDetails = styled(Box)`
   height: 100%;
 `;
 
-const DoubleSidedPaper = styled(Backdrop)<{ fullsize: boolean }>`
+const DoubleSidedPaper = styled(Backdrop) <{ fullsize: boolean }>`
   position: reletive;
   ${({ fullsize }) => (fullsize ? 'left: 37vw' : 'left: 68vw')} !important;
-  z-index: 999;
+  z-index: 999 !important;
 `;
