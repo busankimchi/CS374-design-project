@@ -83,14 +83,14 @@ export const BaseSpecialQuestion: FC<BaseQuestionProp> = ({
         {questionId !== undefined && (
           <QBox>
             {questionList !== undefined && question1 !== undefined && (
-              <Contents question={question1} closeThisContent={onCloseLeftContent} />
+              <Contents question={question1} setQuestion={setQuestion1} closeThisContent={onCloseLeftContent} />
             )}
           </QBox>
         )}
         {questionId2 !== undefined && (
           <QBox>
             {questionList !== undefined && question2 !== undefined && (
-              <Contents question={question2} closeThisContent={onCloseRightContent} />
+              <Contents question={question2} setQuestion={setQuestion2} closeThisContent={onCloseRightContent} />
             )}
           </QBox>
         )}

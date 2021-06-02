@@ -1,4 +1,4 @@
-import { FC, useState, useRef, useEffect, ChangeEvent } from 'react';
+import { FC, useState, useRef, useEffect, ChangeEvent, Dispatch, SetStateAction } from 'react';
 import styled from 'styled-components';
 import { Box, Breadcrumbs, Typography, InputBase, IconButton } from '@material-ui/core';
 import SendIcon from '@material-ui/icons/Send';
@@ -16,10 +16,11 @@ import { appendAnswerDB } from '../../apis/Question/appendAnswerDB';
 
 interface ContentsProp {
   question: Question;
+  setQuestion: Dispatch<SetStateAction<Question | undefined>>;
   closeThisContent?: () => void;
 }
 
-export const Contents: FC<ContentsProp> = ({ question, closeThisContent }) => {
+export const Contents: FC<ContentsProp> = ({ question, setQuestion, closeThisContent }) => {
   const [text, setText] = useState('');
 
   const questionContent = question.question;
@@ -30,8 +31,9 @@ export const Contents: FC<ContentsProp> = ({ question, closeThisContent }) => {
 
   useEffect(() => {
     setAnswers(question.answers);
+    setIsFaq(question.isFaq);
   }, [question]);
-  
+
   useEffect(() => {
     if (divRef && divRef.current && shouldScroll) {
       divRef.current.scrollIntoView({ behavior: 'smooth' });
@@ -61,6 +63,9 @@ export const Contents: FC<ContentsProp> = ({ question, closeThisContent }) => {
   /* Listeners */
   const changeIsFaq = () => {
     updateIsFaqDB(!isFaq, question.questionId);
+    const q = question;
+    q.isFaq = !isFaq;
+    setQuestion(q);
     setIsFaq(!isFaq);
   };
 
