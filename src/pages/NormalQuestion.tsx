@@ -10,7 +10,7 @@ import { QuestionList } from 'components/QuestionList/QuestionList';
 import { Hover, Contents, NotSelected } from 'components/Contents';
 import { useTopicList } from 'hooks/useTopicList';
 import { useQuestionList } from 'apis/Question/useQuestionList';
-import { Loading } from 'components/General/Loading'
+import { Loading } from 'components/General/Loading';
 
 interface NormalQuestionProp {
   pageType: PageType;
@@ -29,7 +29,6 @@ interface NormalQuestionProp {
 }
 
 export const NormalQuestion: FC<NormalQuestionProp> = ({
-
   pageType,
   topicId,
   subTopicId,
@@ -206,8 +205,7 @@ const QuestionDetails = styled(Box)`
   height: 100%;
 `;
 
-const DoubleSidedPaper = styled(Backdrop) <{ fullsize: boolean }>`
-  position: reletive;
-  ${({ fullsize }) => (fullsize ? 'left: 37vw' : 'left: 68vw')} !important;
+const DoubleSidedPaper = styled(Backdrop)<{ fullsize: boolean }>`
+  left: ${({ fullsize }) => (fullsize ? '37vw' : '68vw')} !important;
   z-index: 999 !important;
 `;
