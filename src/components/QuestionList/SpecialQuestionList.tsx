@@ -21,6 +21,8 @@ interface QuestionListProp {
   onHoverInDual: () => void;
   onHoverOutDual: () => void;
   onClickItemDual: (item: Question) => void;
+  changeCurrQ: (question: Question | undefined) => void;
+  changeCurrQ2: (question2: Question | undefined) => void;
 }
 
 export const SpecialQuestionList: FC<QuestionListProp> = ({
@@ -38,6 +40,8 @@ export const SpecialQuestionList: FC<QuestionListProp> = ({
   onHoverInDual,
   onHoverOutDual,
   onClickItemDual,
+  changeCurrQ,
+  changeCurrQ2,
 }) => {
   const renderQuestionListElement = (item: Question) => (
     <SpecialQuestionListElement
@@ -50,6 +54,8 @@ export const SpecialQuestionList: FC<QuestionListProp> = ({
       onHoverInDual={onHoverInDual}
       onHoverOutDual={onHoverOutDual}
       onClickItemDual={onClickItemDual}
+      changeCurrQ={changeCurrQ}
+      changeCurrQ2={changeCurrQ2}
     />
   );
 

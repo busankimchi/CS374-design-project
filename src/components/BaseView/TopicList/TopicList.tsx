@@ -5,7 +5,7 @@ import { List, ListItem, ListItemIcon as DefaultListItemIcon, ListItemText, Typo
 import ChatBubbleIcon from '@material-ui/icons/ChatBubble';
 import ClearAllIcon from '@material-ui/icons/ClearAll';
 import AddCircleIcon from '@material-ui/icons/AddCircle';
-import { Topic } from 'utils/types';
+import { Question, Topic } from 'utils/types';
 import { H4, BROWN, PINK_1, PINK_4 } from 'utils/themes';
 import { TopicListItem } from './TopicListItem';
 
@@ -15,16 +15,30 @@ interface TopicListProp {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   onContextMenu?: (event: any) => void;
   setTopic?: (item: Topic) => void;
+  currQ: Question | undefined;
+  currQ2: Question | undefined;
 }
 
-export const TopicList: FC<TopicListProp> = ({ topicList, onClickAdd, onContextMenu, setTopic }) => {
+export const TopicList: FC<TopicListProp> = ({ topicList, onClickAdd, onContextMenu, setTopic, currQ, currQ2 }) => {
   const renderTopicItems = (item: Topic, index?: number) => (
     <TopicListItem key={index} topic={item} onContextMenu={onContextMenu} setTopic={setTopic} />
   );
 
+  const linkParser = (id1: number | undefined, id2: number | undefined) => {
+    if (id1 !== undefined) {
+      if (id2 !== undefined) {
+        return `?prev=${id1}&second=${id2}`;
+      }
+      return `?prev=${id1}`;
+    }
+    return '';
+  };
+
+  console.log(linkParser(currQ?.questionId, currQ2?.questionId));
+
   return (
     <TopicListContainer>
-      <Link to="/faq">
+      <Link to={`/faq${linkParser(currQ?.questionId, currQ2?.questionId)}`}>
         <FAQ button>
           <ListItemIcon>
             <ChatBubbleIcon />

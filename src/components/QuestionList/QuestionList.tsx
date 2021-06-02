@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
 import { FC, Dispatch, SetStateAction } from 'react';
 import { useHistory, useLocation } from 'react-router';
 import styled from 'styled-components';
@@ -23,6 +22,8 @@ interface QuestionListHeaderProp {
   onHoverOut?: () => void;
   onHoverInDual: () => void;
   onHoverOutDual: () => void;
+  changeCurrQ: (question: Question | undefined) => void;
+  changeCurrQ2: (question2: Question | undefined) => void;
 }
 
 export const QuestionList: FC<QuestionListHeaderProp> = ({
@@ -39,11 +40,13 @@ export const QuestionList: FC<QuestionListHeaderProp> = ({
   onHoverOut,
   onHoverInDual,
   onHoverOutDual,
+  changeCurrQ,
+  changeCurrQ2,
 }) => {
   const history = useHistory();
   const location = useLocation();
 
-  const onClickItem = (item: Question) => {
+  const onClickItemDual = (item: Question) => {
     const path = location.pathname;
     history.push(`${path}?second=${item.questionId}`);
   };
@@ -60,12 +63,18 @@ export const QuestionList: FC<QuestionListHeaderProp> = ({
         onHoverInDual={onHoverInDual}
         onHoverOutDual={onHoverOutDual}
         dualDisable={questionId === undefined}
-        onClickItem={onClickItem}
+        onClickItemDual={onClickItemDual}
+        changeCurrQ={changeCurrQ}
+        changeCurrQ2={changeCurrQ2}
       />
     );
 
     const drawerBody =
-      questionList === undefined || isLoading ? <Loading /> : questionList.map((item) => renderQuestionListElement(item));
+      questionList === undefined || isLoading ? (
+        <Loading />
+      ) : (
+        questionList.map((item) => renderQuestionListElement(item))
+      );
 
     return (
       <QuestionListContainer>
@@ -86,11 +95,11 @@ export const QuestionList: FC<QuestionListHeaderProp> = ({
     <QuestionListContainer>
       <QuestionListDrawer isListShown={isListShown}>
         <QuestionListHeader>
-          <QuestionListHeaderText>
-            ...
-          </QuestionListHeaderText>
+          <QuestionListHeaderText>...</QuestionListHeaderText>
         </QuestionListHeader>
-        <QuestionListDrawerBody><Loading /></QuestionListDrawerBody>
+        <QuestionListDrawerBody>
+          <Loading />
+        </QuestionListDrawerBody>
       </QuestionListDrawer>
 
       <Hover showQuestionList={onToggle} iconFlip={isListShown} />
@@ -103,7 +112,7 @@ const QuestionListContainer = styled(Box)`
   height: 100%;
 `;
 
-const QuestionListDrawer = styled(Box) <{ isListShown: boolean }>`
+const QuestionListDrawer = styled(Box)<{ isListShown: boolean }>`
   display: flex;
   flex-direction: column;
   width: ${({ isListShown }) => (isListShown ? '20vw' : '0vw')};

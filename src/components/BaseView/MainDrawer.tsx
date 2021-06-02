@@ -1,7 +1,7 @@
 import { FC } from 'react';
 import styled from 'styled-components';
 import { Box, Typography, Divider as DefaultDivider } from '@material-ui/core';
-import { Topic } from 'utils/types';
+import { Question, Topic } from 'utils/types';
 import { BROWN, H3, PINK_2, PINK_4 } from 'utils/themes';
 import { TopicList } from './TopicList/TopicList';
 
@@ -11,9 +11,11 @@ interface MainDrawerProp {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   onContextMenu?: (event: any) => void;
   setTopic?: (item: Topic) => void;
+  currQ: Question | undefined;
+  currQ2: Question | undefined;
 }
 
-export const MainDrawer: FC<MainDrawerProp> = ({ topicList, onClickAdd, onContextMenu, setTopic }) => {
+export const MainDrawer: FC<MainDrawerProp> = ({ topicList, onClickAdd, onContextMenu, setTopic, currQ, currQ2 }) => {
   const currentClass = 'CS330: Operating Systems and Lab';
 
   return (
@@ -22,7 +24,14 @@ export const MainDrawer: FC<MainDrawerProp> = ({ topicList, onClickAdd, onContex
         <ClassText noWrap>{currentClass}</ClassText>
       </ClassTextContainer>
       <Divider />
-      <TopicList topicList={topicList} onClickAdd={onClickAdd} onContextMenu={onContextMenu} setTopic={setTopic} />
+      <TopicList
+        topicList={topicList}
+        onClickAdd={onClickAdd}
+        onContextMenu={onContextMenu}
+        setTopic={setTopic}
+        currQ={currQ}
+        currQ2={currQ2}
+      />
     </MainDrawerContainer>
   );
 };

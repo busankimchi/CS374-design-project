@@ -1,6 +1,5 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
 import { FC, useState } from 'react';
-import { PageType } from 'utils/types';
+import { PageType, Question } from 'utils/types';
 import { SpecialQuestion } from './SpecialQuestion';
 import { NormalQuestion } from './NormalQuestion';
 
@@ -11,9 +10,24 @@ interface QuestionsProp {
   subTopicId?: number;
   questionId?: number;
   questionId2?: number;
+  currQ: Question | undefined;
+  currQ2: Question | undefined;
+  changeCurrQ: (question: Question | undefined) => void;
+  changeCurrQ2: (question2: Question | undefined) => void;
 }
 
-export const Questions: FC<QuestionsProp> = ({ pageType, search, topicId, subTopicId, questionId, questionId2 }) => {
+export const Questions: FC<QuestionsProp> = ({
+  pageType,
+  search,
+  topicId,
+  subTopicId,
+  questionId,
+  questionId2,
+  currQ,
+  currQ2,
+  changeCurrQ,
+  changeCurrQ2,
+}) => {
   // eslint-disable-next-line no-console
   // console.log({ pageType, search, topicId, subTopicId, questionId, questionId2 });
 
@@ -42,13 +56,16 @@ export const Questions: FC<QuestionsProp> = ({ pageType, search, topicId, subTop
         onHoverOut={onHoverOut}
         onHoverInDual={onHoverInDual}
         onHoverOutDual={onHoverOutDual}
+        currQ={currQ}
+        currQ2={currQ2}
+        changeCurrQ={changeCurrQ}
+        changeCurrQ2={changeCurrQ2}
       />
     );
   }
 
   return (
     <NormalQuestion
-      pageType={pageType}
       topicId={topicId}
       subTopicId={subTopicId}
       questionId={questionId}
@@ -61,6 +78,10 @@ export const Questions: FC<QuestionsProp> = ({ pageType, search, topicId, subTop
       onHoverOut={onHoverOut}
       onHoverInDual={onHoverInDual}
       onHoverOutDual={onHoverOutDual}
+      currQ={currQ}
+      currQ2={currQ2}
+      changeCurrQ={changeCurrQ}
+      changeCurrQ2={changeCurrQ2}
     />
   );
 };

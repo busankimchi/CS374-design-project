@@ -12,6 +12,8 @@ interface BaseQuestionProp {
   title: string;
   questionId?: number;
   questionId2?: number;
+  question1?: Question;
+  question2?: Question;
   isListShown: boolean;
   isHover: boolean;
   isHoverDual: boolean;
@@ -23,6 +25,10 @@ interface BaseQuestionProp {
   onClickItemDual: (item: Question) => void;
   onCloseLeftContent?: () => void;
   onCloseRightContent?: () => void;
+  currQ: Question | undefined;
+  currQ2: Question | undefined;
+  changeCurrQ: (question: Question | undefined) => void;
+  changeCurrQ2: (question2: Question | undefined) => void;
 }
 
 export const BaseSpecialQuestion: FC<BaseQuestionProp> = ({
@@ -32,6 +38,8 @@ export const BaseSpecialQuestion: FC<BaseQuestionProp> = ({
   title,
   questionId,
   questionId2,
+  question1,
+  question2,
   isListShown,
   isHover,
   isHoverDual,
@@ -43,22 +51,11 @@ export const BaseSpecialQuestion: FC<BaseQuestionProp> = ({
   onCloseLeftContent,
   onCloseRightContent,
   onClickItemDual,
+  currQ,
+  currQ2,
+  changeCurrQ,
+  changeCurrQ2,
 }) => {
-  const [question1, setQuestion1] = useState<Question>();
-  const [question2, setQuestion2] = useState<Question>();
-
-  useEffect(() => {
-    if (questionList !== undefined) {
-      setQuestion1(questionList.find((question) => question.questionId === questionId));
-    }
-  }, [questionList, questionId]);
-
-  useEffect(() => {
-    if (questionList !== undefined) {
-      setQuestion2(questionList.find((question) => question.questionId === questionId2));
-    }
-  }, [questionList, questionId2]);
-
   return (
     <QuestionsContainer>
       <QuestionDetails>
@@ -76,21 +73,29 @@ export const BaseSpecialQuestion: FC<BaseQuestionProp> = ({
           onHoverInDual={onHoverInDual}
           onHoverOutDual={onHoverOutDual}
           onClickItemDual={onClickItemDual}
+          changeCurrQ={changeCurrQ}
+          changeCurrQ2={changeCurrQ2}
         />
       </QuestionDetails>
       <QQBox>
         {questionId === undefined && <NotSelected />}
         {questionId !== undefined && (
           <QBox>
-            {questionList !== undefined && question1 !== undefined && (
-              <Contents question={question1} closeThisContent={onCloseLeftContent} />
+            {questionList !== undefined && (question1 !== undefined || currQ !== undefined) && (
+              <Contents
+                question={currQ !== undefined ? currQ : (question1 as Question)}
+                closeThisContent={onCloseLeftContent}
+              />
             )}
           </QBox>
         )}
         {questionId2 !== undefined && (
           <QBox>
-            {questionList !== undefined && question2 !== undefined && (
-              <Contents question={question2} closeThisContent={onCloseRightContent} />
+            {questionList !== undefined && (question2 !== undefined || currQ2 !== undefined) && (
+              <Contents
+                question={currQ2 !== undefined ? currQ2 : (question2 as Question)}
+                closeThisContent={onCloseRightContent}
+              />
             )}
           </QBox>
         )}
@@ -125,6 +130,6 @@ const QuestionDetails = styled(Box)`
 
 const DoubleSidedPaper = styled(Backdrop)<{ fullsize: boolean }>`
   position: reletive;
-  ${({ fullsize }) => (fullsize ? 'left: 37vw' : 'left: 68vw')} !important;
+  ${({ fullsize }) => (fullsize ? 'left: 37vw !important' : 'left: 68vw !important')};
   z-index: 999;
 `;

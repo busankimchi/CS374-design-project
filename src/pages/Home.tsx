@@ -4,7 +4,7 @@ import { Redirect, Route } from 'react-router-dom';
 import { Box } from '@material-ui/core';
 import { NewTopicDialog, EditTopicDialog, DeleteTopicDialog, ContextMenu } from 'components/General';
 import { Header, MainDrawer } from 'components/BaseView';
-import { MousePosition, PageType, Topic } from 'utils/types';
+import { MousePosition, PageType, Question, Topic } from 'utils/types';
 import { deleteTopic, updateTopic } from 'apis/Topic';
 import { useTopicList } from 'hooks/useTopicList';
 import { Questions } from './Questions';
@@ -18,6 +18,14 @@ export const Home: FC = () => {
   const [editTopicValue, setEditTopicValue] = useState('');
   const [addTopicValue, setAddTopicValue] = useState('');
   const { topicList, setTopicList, maxTopicId, setMaxTopicId } = useTopicList();
+
+  const [currQ, setCurrQ] = useState<Question | undefined>();
+  const [currQ2, setCurrQ2] = useState<Question | undefined>();
+
+  const changeCurrQ = (question: Question | undefined) => setCurrQ(question);
+  const changeCurrQ2 = (question2: Question | undefined) => setCurrQ2(question2);
+
+  console.log(currQ, currQ2);
 
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const handleMenuTrigger = (event: any) => {
@@ -99,11 +107,47 @@ export const Home: FC = () => {
             setTopic(item);
             setEditTopicValue(item.topicName);
           }}
+          currQ={currQ}
+          currQ2={currQ2}
         />
         <Route exact path="/">
           <Redirect to="/faq" />
         </Route>
-        <Route exact path="/faq" render={() => <Questions pageType={PageType.FAQ} />} />
+        <Route
+          exact
+          path="/faq"
+          render={({ location }) => {
+            if (location.search !== '') {
+              const searchQuery = location.search.split('&');
+
+              const searchPair = searchQuery[0].split('=');
+              const key = searchPair[0].substr(1);
+              const prev = searchPair[1];
+
+              if (key === 'prev') {
+                console.log(prev);
+                return (
+                  <Questions
+                    pageType={PageType.FAQ}
+                    currQ={currQ}
+                    currQ2={currQ2}
+                    changeCurrQ={changeCurrQ}
+                    changeCurrQ2={changeCurrQ2}
+                  />
+                );
+              }
+            }
+            return (
+              <Questions
+                pageType={PageType.FAQ}
+                currQ={currQ}
+                currQ2={currQ2}
+                changeCurrQ={changeCurrQ}
+                changeCurrQ2={changeCurrQ2}
+              />
+            );
+          }}
+        />
         <Route
           exact
           path="/faq/:questionId"
@@ -120,23 +164,68 @@ export const Home: FC = () => {
                   const questionId2 = Number(questionId2Query);
                   if (!Number.isNaN(questionId2)) {
                     return (
-                      <Questions pageType={PageType.FAQ} questionId={Number(questionId)} questionId2={questionId2} />
+                      <Questions
+                        pageType={PageType.FAQ}
+                        questionId={Number(questionId)}
+                        questionId2={questionId2}
+                        currQ={currQ}
+                        currQ2={currQ2}
+                        changeCurrQ={changeCurrQ}
+                        changeCurrQ2={changeCurrQ2}
+                      />
                     );
                   }
                 }
                 // eslint-disable-next-line no-console
                 console.log('query error');
-                return <Questions pageType={PageType.NONE} />;
+                return (
+                  <Questions
+                    pageType={PageType.NONE}
+                    currQ={currQ}
+                    currQ2={currQ2}
+                    changeCurrQ={changeCurrQ}
+                    changeCurrQ2={changeCurrQ2}
+                  />
+                );
               }
-              return <Questions pageType={PageType.FAQ} questionId={Number(questionId)} />;
+              return (
+                <Questions
+                  pageType={PageType.FAQ}
+                  questionId={Number(questionId)}
+                  currQ={currQ}
+                  currQ2={currQ2}
+                  changeCurrQ={changeCurrQ}
+                  changeCurrQ2={changeCurrQ2}
+                />
+              );
             }
             // eslint-disable-next-line no-console
             console.log('query error');
-            return <Questions pageType={PageType.NONE} />;
+            return (
+              <Questions
+                pageType={PageType.NONE}
+                currQ={currQ}
+                currQ2={currQ2}
+                changeCurrQ={changeCurrQ}
+                changeCurrQ2={changeCurrQ2}
+              />
+            );
           }}
         />
 
-        <Route exact path="/all_questions" render={() => <Questions pageType={PageType.ALL_QUESTIONS} />} />
+        <Route
+          exact
+          path="/all_questions"
+          render={() => (
+            <Questions
+              pageType={PageType.ALL_QUESTIONS}
+              currQ={currQ}
+              currQ2={currQ2}
+              changeCurrQ={changeCurrQ}
+              changeCurrQ2={changeCurrQ2}
+            />
+          )}
+        />
 
         <Route
           exact
@@ -158,19 +247,48 @@ export const Home: FC = () => {
                         pageType={PageType.ALL_QUESTIONS}
                         questionId={Number(questionId)}
                         questionId2={questionId2}
+                        currQ={currQ}
+                        currQ2={currQ2}
+                        changeCurrQ={changeCurrQ}
+                        changeCurrQ2={changeCurrQ2}
                       />
                     );
                   }
                 }
                 // eslint-disable-next-line no-console
                 console.log('query error');
-                return <Questions pageType={PageType.NONE} />;
+                return (
+                  <Questions
+                    pageType={PageType.NONE}
+                    currQ={currQ}
+                    currQ2={currQ2}
+                    changeCurrQ={changeCurrQ}
+                    changeCurrQ2={changeCurrQ2}
+                  />
+                );
               }
-              return <Questions pageType={PageType.ALL_QUESTIONS} questionId={Number(questionId)} />;
+              return (
+                <Questions
+                  pageType={PageType.ALL_QUESTIONS}
+                  questionId={Number(questionId)}
+                  currQ={currQ}
+                  currQ2={currQ2}
+                  changeCurrQ={changeCurrQ}
+                  changeCurrQ2={changeCurrQ2}
+                />
+              );
             }
             // eslint-disable-next-line no-console
             console.log('query error');
-            return <Questions pageType={PageType.NONE} />;
+            return (
+              <Questions
+                pageType={PageType.NONE}
+                currQ={currQ}
+                currQ2={currQ2}
+                changeCurrQ={changeCurrQ}
+                changeCurrQ2={changeCurrQ2}
+              />
+            );
           }}
         />
 
@@ -216,23 +334,70 @@ export const Home: FC = () => {
                                 search={search}
                                 questionId={questionId}
                                 questionId2={questionId2}
+                                currQ={currQ}
+                                currQ2={currQ2}
+                                changeCurrQ={changeCurrQ}
+                                changeCurrQ2={changeCurrQ2}
                               />
                             );
                           }
                         }
-                        return <Questions pageType={PageType.NONE} />;
+                        return (
+                          <Questions
+                            pageType={PageType.NONE}
+                            currQ={currQ}
+                            currQ2={currQ2}
+                            changeCurrQ={changeCurrQ}
+                            changeCurrQ2={changeCurrQ2}
+                          />
+                        );
                       }
-                      return <Questions pageType={PageType.SEARCH} search={search} questionId={questionId} />;
+                      return (
+                        <Questions
+                          pageType={PageType.SEARCH}
+                          search={search}
+                          questionId={questionId}
+                          currQ={currQ}
+                          currQ2={currQ2}
+                          changeCurrQ={changeCurrQ}
+                          changeCurrQ2={changeCurrQ2}
+                        />
+                      );
                     }
                   }
-                  return <Questions pageType={PageType.NONE} />;
+                  return (
+                    <Questions
+                      pageType={PageType.NONE}
+                      currQ={currQ}
+                      currQ2={currQ2}
+                      changeCurrQ={changeCurrQ}
+                      changeCurrQ2={changeCurrQ2}
+                    />
+                  );
                 }
-                return <Questions pageType={PageType.SEARCH} search={search} />;
+                return (
+                  <Questions
+                    pageType={PageType.SEARCH}
+                    search={search}
+                    currQ={currQ}
+                    currQ2={currQ2}
+                    changeCurrQ={changeCurrQ}
+                    changeCurrQ2={changeCurrQ2}
+                  />
+                );
               }
             }
             // eslint-disable-next-line no-console
             console.log('query error');
-            return <Questions pageType={PageType.NONE} />;
+            return (
+              <Questions
+                pageType={PageType.NONE}
+                currQ={currQ}
+                currQ2={currQ2}
+                changeCurrQ={changeCurrQ}
+                changeCurrQ2={changeCurrQ2}
+              />
+            );
           }}
         />
 
@@ -242,11 +407,29 @@ export const Home: FC = () => {
           render={({ match }) => {
             const { topicId, subTopicId } = match.params;
             if (!Number.isNaN(Number(topicId)) && !Number.isNaN(Number(subTopicId))) {
-              return <Questions pageType={PageType.NORMAL} topicId={Number(topicId)} subTopicId={Number(subTopicId)} />;
+              return (
+                <Questions
+                  pageType={PageType.NORMAL}
+                  topicId={Number(topicId)}
+                  subTopicId={Number(subTopicId)}
+                  currQ={currQ}
+                  currQ2={currQ2}
+                  changeCurrQ={changeCurrQ}
+                  changeCurrQ2={changeCurrQ2}
+                />
+              );
             }
             // eslint-disable-next-line no-console
             console.log('query error');
-            return <Questions pageType={PageType.NONE} />;
+            return (
+              <Questions
+                pageType={PageType.NONE}
+                currQ={currQ}
+                currQ2={currQ2}
+                changeCurrQ={changeCurrQ}
+                changeCurrQ2={changeCurrQ2}
+              />
+            );
           }}
         />
 
@@ -278,13 +461,25 @@ export const Home: FC = () => {
                         subTopicId={Number(subTopicId)}
                         questionId={Number(questionId)}
                         questionId2={questionId2}
+                        currQ={currQ}
+                        currQ2={currQ2}
+                        changeCurrQ={changeCurrQ}
+                        changeCurrQ2={changeCurrQ2}
                       />
                     );
                   }
                 }
                 // eslint-disable-next-line no-console
                 console.log('query error');
-                return <Questions pageType={PageType.NONE} />;
+                return (
+                  <Questions
+                    pageType={PageType.NONE}
+                    currQ={currQ}
+                    currQ2={currQ2}
+                    changeCurrQ={changeCurrQ}
+                    changeCurrQ2={changeCurrQ2}
+                  />
+                );
               }
 
               return (
@@ -293,12 +488,24 @@ export const Home: FC = () => {
                   topicId={Number(topicId)}
                   subTopicId={Number(subTopicId)}
                   questionId={Number(questionId)}
+                  currQ={currQ}
+                  currQ2={currQ2}
+                  changeCurrQ={changeCurrQ}
+                  changeCurrQ2={changeCurrQ2}
                 />
               );
             }
             // eslint-disable-next-line no-console
             console.log('query error');
-            return <Questions pageType={PageType.NONE} />;
+            return (
+              <Questions
+                pageType={PageType.NONE}
+                currQ={currQ}
+                currQ2={currQ2}
+                changeCurrQ={changeCurrQ}
+                changeCurrQ2={changeCurrQ2}
+              />
+            );
           }}
         />
       </Main>

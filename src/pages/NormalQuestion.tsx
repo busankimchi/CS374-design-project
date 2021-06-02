@@ -1,19 +1,15 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
-import { FC, useEffect, useState, Dispatch, SetStateAction } from 'react';
+import { FC, useEffect, useState } from 'react';
 import { useHistory } from 'react-router';
 import styled from 'styled-components';
-import { Backdrop, Box, Fade, Paper } from '@material-ui/core';
+import { Backdrop, Box } from '@material-ui/core';
 import firebase from 'firebase';
-import { PageType, Topic, SubTopic, Question, QuestionFB, QuestionContent, AnswerContent } from 'utils/types';
+import { Topic, SubTopic, Question, QuestionFB, QuestionContent, AnswerContent } from 'utils/types';
 import { TimestampToDate } from 'utils/functions';
 import { QuestionList } from 'components/QuestionList/QuestionList';
-import { Hover, Contents, NotSelected } from 'components/Contents';
+import { Contents, NotSelected } from 'components/Contents';
 import { useTopicList } from 'hooks/useTopicList';
-import { useQuestionList } from 'apis/Question/useQuestionList';
-import { Loading } from 'components/General/Loading'
 
 interface NormalQuestionProp {
-  pageType: PageType;
   topicId?: number;
   subTopicId?: number;
   questionId?: number;
@@ -26,11 +22,13 @@ interface NormalQuestionProp {
   onHoverOut?: () => void;
   onHoverInDual: () => void;
   onHoverOutDual: () => void;
+  currQ: Question | undefined;
+  currQ2: Question | undefined;
+  changeCurrQ: (question: Question | undefined) => void;
+  changeCurrQ2: (question2: Question | undefined) => void;
 }
 
 export const NormalQuestion: FC<NormalQuestionProp> = ({
-
-  pageType,
   topicId,
   subTopicId,
   questionId,
@@ -43,6 +41,10 @@ export const NormalQuestion: FC<NormalQuestionProp> = ({
   onHoverOut,
   onHoverInDual,
   onHoverOutDual,
+  currQ,
+  currQ2,
+  changeCurrQ,
+  changeCurrQ2,
 }) => {
   const [topicInfo, setTopicInfo] = useState<Topic>();
   const [subTopicInfo, setSubTopicInfo] = useState<SubTopic>();
@@ -58,17 +60,22 @@ export const NormalQuestion: FC<NormalQuestionProp> = ({
   /** Close questions */
 
   const onCloseLeftContent = () => {
+    changeCurrQ2(undefined);
     if (questionId2 !== undefined) {
+      changeCurrQ(question2);
       history.push(`/topic/${topicId}/subtopic/${subTopicId}/question/${questionId2}`);
     } else {
+      changeCurrQ(undefined);
       history.push(`/topic/${topicId}/subtopic/${subTopicId}`);
     }
   };
 
   const onCloseRightContent = () => {
+    changeCurrQ2(undefined);
     if (questionId !== undefined) {
       history.push(`/topic/${topicId}/subtopic/${subTopicId}/question/${questionId}`);
     } else {
+      changeCurrQ(undefined);
       history.push(`/topic/${topicId}/subtopic/${subTopicId}`);
     }
   };
@@ -158,21 +165,29 @@ export const NormalQuestion: FC<NormalQuestionProp> = ({
           onHoverOut={onHoverOut}
           onHoverInDual={onHoverInDual}
           onHoverOutDual={onHoverOutDual}
+          changeCurrQ={changeCurrQ}
+          changeCurrQ2={changeCurrQ2}
         />
 
         <QQBox>
           {questionId === undefined && <NotSelected />}
           {questionId !== undefined && (
             <QBox>
-              {questionList !== undefined && question1 !== undefined && (
-                <Contents question={question1} closeThisContent={onCloseLeftContent} />
+              {questionList !== undefined && (question1 !== undefined || currQ !== undefined) && (
+                <Contents
+                  question={currQ !== undefined ? currQ : (question1 as Question)}
+                  closeThisContent={onCloseLeftContent}
+                />
               )}
             </QBox>
           )}
           {questionId2 !== undefined && (
             <QBox>
-              {questionList !== undefined && question2 !== undefined && (
-                <Contents question={question2} closeThisContent={onCloseRightContent} />
+              {questionList !== undefined && (question2 !== undefined || currQ2 !== undefined) && (
+                <Contents
+                  question={currQ2 !== undefined ? currQ2 : (question2 as Question)}
+                  closeThisContent={onCloseRightContent}
+                />
               )}
             </QBox>
           )}
@@ -206,8 +221,8 @@ const QuestionDetails = styled(Box)`
   height: 100%;
 `;
 
-const DoubleSidedPaper = styled(Backdrop) <{ fullsize: boolean }>`
+const DoubleSidedPaper = styled(Backdrop)<{ fullsize: boolean }>`
   position: reletive;
-  ${({ fullsize }) => (fullsize ? 'left: 37vw' : 'left: 68vw')} !important;
+  ${({ fullsize }) => (fullsize ? 'left: 37vw  !important' : 'left: 68vw  !important')};
   z-index: 999;
 `;
