@@ -17,10 +17,18 @@ import { appendAnswerDB } from '../../apis/Question/appendAnswerDB';
 interface ContentsProp {
   question: Question;
   setQuestion: Dispatch<SetStateAction<Question | undefined>>;
+  allQuestionList: Question[];
+  setQuestionList: Dispatch<SetStateAction<Question[]>>;
   closeThisContent?: () => void;
 }
 
-export const Contents: FC<ContentsProp> = ({ question, setQuestion, closeThisContent }) => {
+export const Contents: FC<ContentsProp> = ({
+  question,
+  setQuestion,
+  allQuestionList,
+  setQuestionList,
+  closeThisContent,
+}) => {
   const [text, setText] = useState('');
 
   const questionContent = question.question;
@@ -74,10 +82,20 @@ export const Contents: FC<ContentsProp> = ({ question, setQuestion, closeThisCon
   };
 
   const appendAnswer = (ans: AnswerContent) => {
-    const q = question;
-    q.answers = [...answers, ans];
-    setQuestion(q);
+    const newQuestionList = allQuestionList.map((q) => {
+      if (q.questionId === question.questionId) {    
+        const newAnsweredQuestion = {...q, answers:[...answers, ans]};
+        return newAnsweredQuestion;
+      }
+      return q;
+    });
+    setQuestionList(newQuestionList);
+    setAnswers([...answers, ans]);
+
     appendAnswerDB(ans, question.questionId);
+    const q = question;
+    q.answers = answers;
+    setQuestion(q);
     setShouldScroll(true);
   };
 

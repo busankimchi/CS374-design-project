@@ -46,7 +46,7 @@ export const NormalQuestion: FC<NormalQuestionProp> = ({
   const [topicInfo, setTopicInfo] = useState<Topic>();
   const [subTopicInfo, setSubTopicInfo] = useState<SubTopic>();
   const [questionIdList, setQuestionIdList] = useState<number[]>();
-  const [questionList, setQuestionList] = useState<Question[]>();
+  const [questionList, setQuestionList] = useState<Question[]>([]);
   const [question1, setQuestion1] = useState<Question>();
   const [question2, setQuestion2] = useState<Question>();
   const [isLoading, setIsLoading] = useState(true);
@@ -164,14 +164,26 @@ export const NormalQuestion: FC<NormalQuestionProp> = ({
           {questionId !== undefined && (
             <QBox>
               {questionList !== undefined && question1 !== undefined && (
-                <Contents question={question1} setQuestion={setQuestion1} closeThisContent={onCloseLeftContent} />
+                <Contents
+                  question={question1}
+                  setQuestion={setQuestion1}
+                  allQuestionList={questionList}
+                  setQuestionList={setQuestionList}
+                  closeThisContent={onCloseLeftContent}
+                />
               )}
             </QBox>
           )}
           {questionId2 !== undefined && (
             <QBox>
               {questionList !== undefined && question2 !== undefined && (
-                <Contents question={question2} setQuestion={setQuestion2} closeThisContent={onCloseRightContent} />
+                <Contents
+                  question={question2}
+                  setQuestion={setQuestion2}
+                  allQuestionList={questionList}
+                  setQuestionList={setQuestionList}
+                  closeThisContent={onCloseRightContent}
+                />
               )}
             </QBox>
           )}
