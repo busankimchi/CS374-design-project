@@ -1,8 +1,9 @@
 import { FC } from 'react';
+import { Link as DefaultLink } from 'react-router-dom';
 import styled from 'styled-components';
-import { Box, Typography, Divider as DefaultDivider } from '@material-ui/core';
+import { List, ListItem, Typography, Divider as DefaultDivider } from '@material-ui/core';
 import { Topic } from 'utils/types';
-import { BROWN, H3, PINK_2, PINK_4 } from 'utils/themes';
+import { BROWN, H3, PINK_1, PINK_2, PINK_4 } from 'utils/themes';
 import { TopicList } from './TopicList/TopicList';
 
 interface MainDrawerProp {
@@ -18,16 +19,20 @@ export const MainDrawer: FC<MainDrawerProp> = ({ topicList, onClickAdd, onContex
 
   return (
     <MainDrawerContainer>
-      <ClassTextContainer>
+        <Link to="/faq">
+      <ClassTextContainer button>
         <ClassText noWrap>{currentClass}</ClassText>
       </ClassTextContainer>
+      </Link>
       <Divider />
       <TopicList topicList={topicList} onClickAdd={onClickAdd} onContextMenu={onContextMenu} setTopic={setTopic} />
+
     </MainDrawerContainer>
+
   );
 };
 
-const MainDrawerContainer = styled(Box)`
+const MainDrawerContainer = styled(List)`
   display: flex;
   flex-direction: column;
   background-color: ${PINK_2};
@@ -35,8 +40,16 @@ const MainDrawerContainer = styled(Box)`
   height: 96vh;
 `;
 
-const ClassTextContainer = styled(Box)`
-  padding: 1em;
+const ClassTextContainer = styled(ListItem)`
+display: flex;
+
+:hover {
+  background-color: ${PINK_4} !important;
+}
+
+:focus {
+  background-color: ${PINK_1} !important;
+}
 `;
 
 const Divider = styled(DefaultDivider)`
@@ -47,4 +60,10 @@ const Divider = styled(DefaultDivider)`
 const ClassText = styled(Typography)`
   color: ${BROWN};
   ${H3}
+`;
+
+
+const Link = styled(DefaultLink)`
+  color: #000000;
+  text-decoration: none;
 `;
