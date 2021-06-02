@@ -35,11 +35,13 @@ export const SpecialQuestionListElement: FC<SpecialQuestionListElementProp> = ({
 
   const setShadowIn = () => {
     setShadowPreview(!shadowPreview);
+    if (onHoverIn !== undefined) onHoverIn();
     onHoverInDual();
   };
 
   const setShadowOut = () => {
     setShadowPreview(!shadowPreview);
+    if (onHoverOut !== undefined) onHoverOut();
     onHoverOutDual();
   };
 
