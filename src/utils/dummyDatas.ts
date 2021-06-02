@@ -861,7 +861,7 @@ export const dummyQuestions: Array<Question> = [
         image: 18,
         time: new Date('2021-04-26T20:20:26'),
         content:
-          'If your teammate dropped this course and you want a new teammate, please answer this survey by 05/11.\nhttps://docs.google.com/forms/d/e/XXXXXXXXXXX-XXXXXX-XXXXX-XXXXXXXXX/viewform',
+          'If your teammate dropped this course and you want a new teammate, please answer this survey by 05/11.\nhttps://forms.gle/flasslkdfj',
       },
     ],
   },
@@ -1210,7 +1210,7 @@ export const dummyQuestions: Array<Question> = [
         image: 3,
         time: new Date('2021-05-28T21:22:16'),
         content:
-          'If your teammate dropped and you want to find a new teammate for project 3, please answer this form by 06/20.\nhttps://docs.google.com/forms/d/e/1FAIpQLSfq-ISmRZQ9tGweWBsoxNwzQDFbgbngTbf03kqhQkFZ8dEnKQ/viewform',
+          'If your teammate dropped and you want to find a new teammate for project 3, please answer this form by 06/20.\nhttps://forms.gle/kdHcnBTC1TeSCjrF8',
       },
     ],
   },

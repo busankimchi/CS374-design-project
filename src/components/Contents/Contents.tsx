@@ -83,8 +83,8 @@ export const Contents: FC<ContentsProp> = ({
 
   const appendAnswer = (ans: AnswerContent) => {
     const newQuestionList = allQuestionList.map((q) => {
-      if (q.questionId === question.questionId) {    
-        const newAnsweredQuestion = {...q, answers:[...answers, ans]};
+      if (q.questionId === question.questionId) {
+        const newAnsweredQuestion = { ...q, answers: [...answers, ans] };
         return newAnsweredQuestion;
       }
       return q;
