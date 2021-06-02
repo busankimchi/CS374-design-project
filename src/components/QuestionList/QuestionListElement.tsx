@@ -4,7 +4,7 @@ import styled from 'styled-components';
 import { Icon } from '@iconify/react';
 import squareHalf from '@iconify-icons/bi/square-half';
 import { Tooltip, Box, Typography, Divider, IconButton } from '@material-ui/core';
-import { H5, H5I, B2, B2I, B3, B3I, LIGHT_GRAY_1, TRUNCATE_TWO, TRUNCATE_ONE } from 'utils/themes';
+import { H5, H5I, B2, B2I, B3, B3I, LIGHT_GRAY_1, LIGHT_GRAY_2, TRUNCATE_TWO, TRUNCATE_ONE } from 'utils/themes';
 import { Question } from 'utils/types';
 import { timeForToday } from 'utils/functions';
 
@@ -92,11 +92,11 @@ const QuestionListElementContainer = styled(Box)`
 const TextBox = styled(Box)`
   display: flex !important;
   flex-direction: column !important;
-  width: 80% !important;
+  width: 100% !important;
   padding: 0.5em !important;
   justify-content: space-between !important;
   :hover {
-    background-color: rgba(205, 205, 205, 0.3);
+    background-color: ${LIGHT_GRAY_2};
   }
 `;
 
@@ -107,7 +107,7 @@ const Header = styled(Box)`
   justify-content: space-between !important;
 `;
 
-const Title = styled(Box)<{ notAnswered: boolean }>`
+const Title = styled(Box) <{ notAnswered: boolean }>`
   width: 10em;
   .MuiTypography-root {
     ${({ notAnswered }) => (notAnswered ? H5I : H5)};
@@ -121,7 +121,7 @@ const TitleText = styled(Typography)`
   ${TRUNCATE_ONE};
 `;
 
-const Time = styled(Box)<{ notAnswered: boolean }>`
+const Time = styled(Box) <{ notAnswered: boolean }>`
   margin-right: 0.1em !important;
   ${({ notAnswered }) => (notAnswered ? B3I : B3)};
 `;
@@ -135,7 +135,7 @@ const Body = styled(Box)`
   }
 `;
 
-const BodyText = styled(Typography)<{ notAnswered: boolean }>`
+const BodyText = styled(Typography) <{ notAnswered: boolean }>`
   .MuiTypography-root {
     ${({ notAnswered }) => (notAnswered ? B2I : B2)};
   }
@@ -149,7 +149,7 @@ const DoubleSidedViewButton = styled(IconButton)`
 
   border-radius: 0 !important;
   :hover {
-    background-color: ${LIGHT_GRAY_1} !important;
+    background-color: ${LIGHT_GRAY_2} !important;
   }
   align-items: stretch !important;
 `;
