@@ -1212,6 +1212,23 @@ export const dummyQuestions: Array<Question> = [
       },
     ],
   },
+  {
+    questionId: 37,
+    topic: 'Logistics',
+    subtopic: 'Team Matching',
+    topicId:1,
+    subtopicId:4,
+    isFaq: false,
+    question: {
+      name: 'Jelly Octopus',
+      image: 2,
+      time: new Date('2021-05-27T15:22:16'),
+      title: ' Several questions with project 3',
+      content:
+        'I have several questions about project 3.\n1. My teammate dropped the course. What should I do?\n2. If my new teammate and I have different amount of tokens left, then how many tokens that our team have?\nThank you.',
+    },
+    answers: [],
+  },
 ];
 
 export const testUserName = 'Cheesy Pringles';

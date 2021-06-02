@@ -17,14 +17,17 @@ export const Hover: FC<HoverProps> = ({ showQuestionList, iconFlip }) => {
   );
 };
 
-const HoverContainer = styled(Button)`
-  display: flex;
-  padding: 0px;
-  margin: 0px;
-  align-items: center;
-  justify-content: center;
+// important Hover
+
+const HoverContainer = styled(Button)` 
+
+  display: flex !important;
+  padding: 0px !important;
+  margin: 0px !important;
+  align-items: center !important;
+  justify-content: center !important;
   background-color: ${PINK_4} !important;
-  min-width: 2vw;
+  min-width: 2vw !important;
 `;
 
 const TightLeftIcon = styled(ChevronLeftIcon)`
