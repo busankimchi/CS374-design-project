@@ -165,7 +165,7 @@ const SearchBarContainer = styled(Box)`
 const SearchIconContainer = styled(Box)`
   display: flex;
   align-self: center;
-  margin: 0em 0em 0em 1.5em;
+  margin: 0em 0em 0em 1.5em !important;
 `;
 
 const Input = styled(InputBase)`
