@@ -6,7 +6,7 @@ import ChatBubbleIcon from '@material-ui/icons/ChatBubble';
 import ClearAllIcon from '@material-ui/icons/ClearAll';
 import AddCircleIcon from '@material-ui/icons/AddCircle';
 import { Topic } from 'utils/types';
-import { H4, BROWN, PINK_1, PINK_4 } from 'utils/themes';
+import { H4, GRAY, BROWN, PINK_1, PINK_4 } from 'utils/themes';
 import { TopicListItem } from './TopicListItem';
 
 interface TopicListProp {
@@ -60,7 +60,12 @@ export const TopicList: FC<TopicListProp> = ({ topicList, onClickAdd, onContextM
 const TopicListContainer = styled(List)`
   overflow-y: scroll;
   ::-webkit-scrollbar {
-    display: none;
+    width: 4px;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background-color: ${GRAY};
+    border-radius: 10rem;
   }
 `;
 
