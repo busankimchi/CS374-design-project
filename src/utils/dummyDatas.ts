@@ -99,7 +99,7 @@ export const dummyTopics: Topic[] = [
       {
         id: 4,
         subTopicName: 'Team Matching',
-        questionList: [1, 24, 36],
+        questionList: [1, 24, 36, 37],
       },
     ],
   },
@@ -158,30 +158,25 @@ export const dummyTopics: Topic[] = [
   },
 ];
 
-export const dummySearchHistory: HistoryQuery[] = [
+export const dummySearchHistories: HistoryQuery[] = [
   {
     id: 1,
-    history: 'hello',
+    history: 'kcloud',
     time: new Date(),
   },
   {
     id: 2,
-    history: 'asdfgadsfasdfas',
+    history: 'multi',
     time: new Date(),
   },
   {
     id: 3,
-    history: 'adsflkdsjflksadjflkdasjflk',
+    history: 'extra',
     time: new Date(),
   },
   {
     id: 4,
-    history: 'alarm clock',
-    time: new Date(),
-  },
-  {
-    id: 5,
-    history: 'semaphore',
+    history: 'grading',
     time: new Date(),
   },
 ];
@@ -688,8 +683,8 @@ export const dummyQuestions: Array<Question> = [
     questionId: 19,
     topic: 'Logistics',
     subtopic: 'Score',
-    topicId:1,
-    subtopicId:2,
+    topicId: 1,
+    subtopicId: 2,
     isFaq: false,
     question: {
       name: 'Sleepy Cat',
@@ -713,16 +708,16 @@ export const dummyQuestions: Array<Question> = [
     questionId: 20,
     topic: 'Logistics',
     subtopic: 'Tokens',
-    topicId:1,
-    subtopicId:3,
+    topicId: 1,
+    subtopicId: 3,
     isFaq: false,
     question: {
       name: 'Smiling Textbook',
       image: 12,
       time: new Date('2021-04-24T15:21:26'),
-      title: 'Token usage',
+      title: 'Token for new team',
       content:
-        'Dear TA,\nOur team used 1 token yesterday. We just make some more improvements and would like to use 1 more token.\nShould our team make a new response to Google Form, or simply modify the previous response?',
+        'My teammate dropped the course, so I found a new teammate. However, he has 2 tokens left, but I have 3 left. In this case, how many tokens can our team use for the next project?',
     },
     answers: [
       {
@@ -730,7 +725,7 @@ export const dummyQuestions: Array<Question> = [
         image: 9,
         time: new Date('2021-04-24T17:21:26'),
         content:
-          'It says in the syllabus that you should modify the previous response. The link for it should be in your receipt',
+          'The number of tokens you can use is the minimum of your remaining tokens. Your team will be able to use 2 tokens in total.',
       },
     ],
   },
@@ -739,8 +734,8 @@ export const dummyQuestions: Array<Question> = [
     questionId: 21,
     topic: 'Project 2',
     subtopic: 'Fork',
-    topicId:4,
-    subtopicId:10,
+    topicId: 4,
+    subtopicId: 10,
     isFaq: false,
     question: {
       name: 'Crispy Nugget',
@@ -784,8 +779,8 @@ export const dummyQuestions: Array<Question> = [
     questionId: 22,
     topic: 'Project 2',
     subtopic: 'Multi-oom',
-    topicId:4,
-    subtopicId:9,
+    topicId: 4,
+    subtopicId: 9,
     isFaq: false,
     question: {
       name: 'Cynical Mushroom',
@@ -810,8 +805,8 @@ export const dummyQuestions: Array<Question> = [
     questionId: 23,
     topic: 'Logistics',
     subtopic: 'Score',
-    topicId:1,
-    subtopicId:2,
+    topicId: 1,
+    subtopicId: 2,
     isFaq: false,
     question: {
       name: 'Red Doge',
@@ -849,8 +844,8 @@ export const dummyQuestions: Array<Question> = [
     questionId: 24,
     topic: 'Logistics',
     subtopic: 'Team Matching',
-    topicId:1,
-    subtopicId:4,
+    topicId: 1,
+    subtopicId: 4,
     isFaq: false,
     question: {
       name: 'Curious Octopus',
@@ -858,7 +853,7 @@ export const dummyQuestions: Array<Question> = [
       time: new Date('2021-04-26T15:20:26'),
       title: 'Team Re-organization',
       content:
-        'Are there any updates on team re-organization? My teammate dropped the class, and I want to find a new teammate and start working.',
+        'Are there any updates on team re-organization? My teammate dropped the class, and I want to find a new teammate for project 2 and start working.',
     },
     answers: [
       {
@@ -875,8 +870,8 @@ export const dummyQuestions: Array<Question> = [
     questionId: 25,
     topic: 'Project 2',
     subtopic: 'Multi-oom',
-    topicId:4,
-    subtopicId:9,
+    topicId: 4,
+    subtopicId: 9,
     isFaq: false,
     question: {
       name: 'Green Hongsam',
@@ -907,8 +902,8 @@ export const dummyQuestions: Array<Question> = [
     questionId: 26,
     topic: 'Project 2',
     subtopic: 'Fork',
-    topicId:4,
-    subtopicId:10,
+    topicId: 4,
+    subtopicId: 10,
     isFaq: false,
     question: {
       name: 'Central Park',
@@ -939,8 +934,8 @@ export const dummyQuestions: Array<Question> = [
     questionId: 27,
     topic: 'Logistics',
     subtopic: 'Lab Submission',
-    topicId:1,
-    subtopicId:1,
+    topicId: 1,
+    subtopicId: 1,
     isFaq: false,
     question: {
       name: 'Hot Snowman',
@@ -964,8 +959,8 @@ export const dummyQuestions: Array<Question> = [
     questionId: 28,
     topic: 'Project 2',
     subtopic: 'Multi-oom',
-    topicId:4,
-    subtopicId:9,
+    topicId: 4,
+    subtopicId: 9,
     isFaq: false,
     question: {
       name: 'Hot Crispy',
@@ -996,8 +991,8 @@ export const dummyQuestions: Array<Question> = [
     questionId: 29,
     topic: 'Logistics',
     subtopic: 'Score',
-    topicId:1,
-    subtopicId:2,
+    topicId: 1,
+    subtopicId: 2,
     isFaq: false,
     question: {
       name: 'Sad Doge',
@@ -1021,8 +1016,8 @@ export const dummyQuestions: Array<Question> = [
     questionId: 30,
     topic: 'Project 2',
     subtopic: 'Extra Points',
-    topicId:4,
-    subtopicId:11,
+    topicId: 4,
+    subtopicId: 11,
     isFaq: false,
     question: {
       name: 'Spicy Bonjuk',
@@ -1047,8 +1042,8 @@ export const dummyQuestions: Array<Question> = [
     questionId: 31,
     topic: 'Logistics',
     subtopic: 'Lab Submission',
-    topicId:1,
-    subtopicId:1,
+    topicId: 1,
+    subtopicId: 1,
     isFaq: false,
     question: {
       name: 'Large Pillow',
@@ -1071,8 +1066,8 @@ export const dummyQuestions: Array<Question> = [
     questionId: 32,
     topic: 'Project 2',
     subtopic: 'Multi-oom',
-    topicId:4,
-    subtopicId:9,
+    topicId: 4,
+    subtopicId: 9,
     isFaq: false,
     question: {
       name: 'Hot Dog',
@@ -1103,8 +1098,8 @@ export const dummyQuestions: Array<Question> = [
     questionId: 33,
     topic: 'Project 2',
     subtopic: 'Fork',
-    topicId:4,
-    subtopicId:10,
+    topicId: 4,
+    subtopicId: 10,
     isFaq: false,
     question: {
       name: 'Crispy Cream',
@@ -1129,8 +1124,8 @@ export const dummyQuestions: Array<Question> = [
     questionId: 34,
     topic: 'Project 2',
     subtopic: 'Multi-oom',
-    topicId:4,
-    subtopicId:9,
+    topicId: 4,
+    subtopicId: 9,
     isFaq: false,
     question: {
       name: 'Sleepy Piranha',
@@ -1167,8 +1162,8 @@ export const dummyQuestions: Array<Question> = [
     questionId: 35,
     topic: 'Project 2',
     subtopic: 'Extra Points',
-    topicId:4,
-    subtopicId:11,
+    topicId: 4,
+    subtopicId: 11,
     isFaq: false,
     question: {
       name: 'Cynical Potato',
@@ -1192,8 +1187,8 @@ export const dummyQuestions: Array<Question> = [
     questionId: 36,
     topic: 'Logistics',
     subtopic: 'Team Matching',
-    topicId:1,
-    subtopicId:4,
+    topicId: 1,
+    subtopicId: 4,
     isFaq: false,
     question: {
       name: 'Smiling Parrot',
@@ -1201,7 +1196,7 @@ export const dummyQuestions: Array<Question> = [
       time: new Date('2021-05-25T12:22:16'),
       title: 'Teammate dropped the course',
       content:
-        'My teammate has dropped the course today and I saw the form for new teammate is only due 04/30. What should I do? My student ID is 20******.',
+        'My teammate has dropped the course today and I need a new team for project 3. I checked the team matching form for project 2, but is was due 04/30. What should I do? My student ID is 20******.',
     },
     answers: [
       {
@@ -1210,7 +1205,31 @@ export const dummyQuestions: Array<Question> = [
         time: new Date('2021-05-25T21:22:16'),
         content: 'We will do that again for lab3. Wait for the new announcement.',
       },
+      {
+        name: 'Spicy Bee',
+        image: 3,
+        time: new Date('2021-05-28T21:22:16'),
+        content:
+          'If your teammate dropped and you want to find a new teammate for project 3, please answer this form by 06/20.\nhttps://docs.google.com/forms/d/e/1FAIpQLSfq-ISmRZQ9tGweWBsoxNwzQDFbgbngTbf03kqhQkFZ8dEnKQ/viewform',
+      },
     ],
+  },
+  {
+    questionId: 37,
+    topic: 'Logistics',
+    subtopic: 'Team Matching',
+    topicId: 1,
+    subtopicId: 4,
+    isFaq: false,
+    question: {
+      name: 'Jelly Octopus',
+      image: 2,
+      time: new Date('2021-05-27T15:22:16'),
+      title: ' Several questions with project 3',
+      content:
+        'I have several questions about project 3.\n1. My teammate dropped the course. What should I do?\n2. If my new teammate and I have different amount of tokens left, then how many tokens that our team have?\nThank you.',
+    },
+    answers: [],
   },
 ];
 

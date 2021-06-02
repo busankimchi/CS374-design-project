@@ -1,5 +1,5 @@
 import firebase from 'firebase';
-import { dummyQuestions, dummyTopics } from './dummyDatas';
+import { dummyQuestions, dummyTopics, dummySearchHistories } from './dummyDatas';
 import { DateToTimestamp } from './functions';
 
 export const uploadDummyQuestions = () => {
@@ -60,5 +60,19 @@ export const uploadDummyTopics = () => {
       topicName: dummyTopic.topicName,
       subTopic: ans,
     });
+  });
+};
+
+export const uploadDummySearchHistory = () => {
+  dummySearchHistories.forEach((dummySearchHistory) => {
+    firebase
+      .firestore()
+      .collection('searches')
+      .doc(`${dummySearchHistory.id}`)
+      .set({
+        id: dummySearchHistory.id,
+        history: dummySearchHistory.history,
+        time: DateToTimestamp(dummySearchHistory.time),
+      });
   });
 };

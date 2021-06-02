@@ -19,7 +19,7 @@ const ShadowContainer = styled(Box)`
   position: absolute;
   height: 100%;
   width: 41%;
-  left: 68%;
+  left: 68% !important;
   opacity: 0.7;
   background-color: ${LIGHT_GRAY_1};
 `;
