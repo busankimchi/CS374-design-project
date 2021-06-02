@@ -4,7 +4,7 @@ import { Box, Breadcrumbs, Typography, InputBase, IconButton } from '@material-u
 import SendIcon from '@material-ui/icons/Send';
 import NavigateNextIcon from '@material-ui/icons/NavigateNext';
 import CloseIcon from '@material-ui/icons/Close';
-import { LIGHT_GRAY_1, H1, B1, B2 } from '../../utils/themes';
+import { LIGHT_GRAY_1, GRAY, H1, B1, B2 } from '../../utils/themes';
 import { UserInfo } from './UserInfo';
 import { AnswerDivider } from './AnswerDivider';
 import { FAQButton } from './FAQButton';
@@ -175,6 +175,15 @@ const QnADisplayWrapper = styled(Box)`
   height: 71vh;
   width: auto;
   overflow-y: scroll;
+
+  ::-webkit-scrollbar {
+    width: 4px;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background-color: ${GRAY};
+    border-radius: 10rem;
+  }
 `;
 
 const QnADisplayBox = styled(Box)`
@@ -239,6 +248,15 @@ const InputTextField = styled(InputBase)`
   ${B1};
   grid-column: 1;
   overflow-y: scroll;
+
+  ::-webkit-scrollbar {
+    width: 4px;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background-color: ${GRAY};
+    border-radius: 10rem;
+  }
 `;
 
 const SubmitButton = styled(IconButton)`
