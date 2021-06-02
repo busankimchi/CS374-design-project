@@ -1,4 +1,4 @@
-import { FC, useEffect, useState } from 'react';
+import { FC, useEffect, useState, Dispatch, SetStateAction } from 'react';
 import styled from 'styled-components';
 import { Backdrop, Box } from '@material-ui/core';
 import { Question } from 'utils/types';
@@ -8,6 +8,8 @@ import { SpecialQuestionList } from 'components/QuestionList';
 interface BaseQuestionProp {
   isLoading: boolean;
   questionList: Question[];
+  allQuestionList: Question[];
+  setQuestionList: Dispatch<SetStateAction<Question[]>>;
   itemLink: (item: Question) => string;
   title: string;
   questionId?: number;
@@ -28,6 +30,8 @@ interface BaseQuestionProp {
 export const BaseSpecialQuestion: FC<BaseQuestionProp> = ({
   isLoading,
   questionList,
+  allQuestionList,
+  setQuestionList,
   itemLink,
   title,
   questionId,
@@ -83,14 +87,26 @@ export const BaseSpecialQuestion: FC<BaseQuestionProp> = ({
         {questionId !== undefined && (
           <QBox>
             {questionList !== undefined && question1 !== undefined && (
-              <Contents question={question1} setQuestion={setQuestion1} closeThisContent={onCloseLeftContent} />
+              <Contents
+                question={question1}
+                setQuestion={setQuestion1}
+                allQuestionList={allQuestionList}
+                setQuestionList={setQuestionList}
+                closeThisContent={onCloseLeftContent}
+              />
             )}
           </QBox>
         )}
         {questionId2 !== undefined && (
           <QBox>
             {questionList !== undefined && question2 !== undefined && (
-              <Contents question={question2} setQuestion={setQuestion2} closeThisContent={onCloseRightContent} />
+              <Contents
+                question={question2}
+                setQuestion={setQuestion2}
+                allQuestionList={allQuestionList}
+                setQuestionList={setQuestionList}
+                closeThisContent={onCloseRightContent}
+              />
             )}
           </QBox>
         )}
@@ -123,8 +139,8 @@ const QuestionDetails = styled(Box)`
   height: 100%;
 `;
 
-const DoubleSidedPaper = styled(Backdrop) <{ fullsize: boolean }>`
-  position: reletive;
-  ${({ fullsize }) => (fullsize ? 'left: 37vw' : 'left: 68vw')} !important;
+const DoubleSidedPaper = styled(Backdrop)<{ fullsize: boolean }>`
+  /* position: relative; */
+  left: ${({ fullsize }) => (fullsize ? '37vw' : '68vw')} !important;
   z-index: 999 !important;
 `;
