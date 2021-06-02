@@ -1,4 +1,4 @@
-import { FC } from 'react';
+import { FC, Dispatch, SetStateAction } from 'react';
 import styled from 'styled-components';
 import { Backdrop, Box } from '@material-ui/core';
 import { Question } from 'utils/types';
@@ -6,6 +6,9 @@ import { Contents, NotSelected } from 'components/Contents';
 
 interface BaseQuestionViewProp {
   questionList: Question[] | undefined;
+  setQuestionList: Dispatch<SetStateAction<Question[]>>;
+  setQuestion1: Dispatch<SetStateAction<Question | undefined>>;
+  setQuestion2: Dispatch<SetStateAction<Question | undefined>>;
   questionId?: number;
   questionId2?: number;
   question1?: Question;
@@ -18,6 +21,9 @@ interface BaseQuestionViewProp {
 
 export const BaseQuestionView: FC<BaseQuestionViewProp> = ({
   questionList,
+  setQuestionList,
+  setQuestion1,
+  setQuestion2,
   questionId,
   questionId2,
   question1,
@@ -27,8 +33,6 @@ export const BaseQuestionView: FC<BaseQuestionViewProp> = ({
   onCloseLeftContent,
   onCloseRightContent,
 }) => {
-  console.log('view', questionId, questionId2);
-
   return (
     <QuestionsContainer>
       <QQBox>
@@ -36,14 +40,26 @@ export const BaseQuestionView: FC<BaseQuestionViewProp> = ({
         {questionId !== undefined && (
           <QBox>
             {questionList !== undefined && question1 !== undefined && (
-              <Contents question={question1} closeThisContent={onCloseLeftContent} />
+              <Contents
+                allQuestionList={questionList}
+                setQuestionList={setQuestionList}
+                question={question1}
+                setQuestion={setQuestion1}
+                closeThisContent={onCloseLeftContent}
+              />
             )}
           </QBox>
         )}
         {questionId2 !== undefined && (
           <QBox>
             {questionList !== undefined && question2 !== undefined && (
-              <Contents question={question2} closeThisContent={onCloseRightContent} />
+              <Contents
+                allQuestionList={questionList}
+                setQuestionList={setQuestionList}
+                question={question2}
+                setQuestion={setQuestion2}
+                closeThisContent={onCloseRightContent}
+              />
             )}
           </QBox>
         )}
@@ -70,7 +86,6 @@ const QQBox = styled(Box)`
 `;
 
 const DoubleSidedPaper = styled(Backdrop)<{ fullsize: boolean }>`
-  position: reletive;
-  ${({ fullsize }) => (fullsize ? 'left: 37vw' : 'left: 68vw')};
-  z-index: 999;
+  left: ${({ fullsize }) => (fullsize ? '37vw' : '68vw')} !important;
+  z-index: 999 !important;
 `;

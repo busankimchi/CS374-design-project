@@ -1,5 +1,4 @@
 import { FC, useEffect, useState, Dispatch, SetStateAction } from 'react';
-
 import styled from 'styled-components';
 import { Box } from '@material-ui/core';
 import firebase from 'firebase';
@@ -9,12 +8,9 @@ import { QuestionList } from 'components/QuestionList';
 import { useTopicList } from 'hooks/useTopicList';
 
 interface NormalQuestionListProp {
-  setQuestionId: Dispatch<SetStateAction<number | undefined>>;
-  setQuestionId2: Dispatch<SetStateAction<number | undefined>>;
   setQuestionList: Dispatch<SetStateAction<Question[]>>;
   topicId: number;
   subTopicId: number;
-  questionId?: number;
   isListShown: boolean;
   onToggle?: () => void;
   onHoverIn?: () => void;
@@ -24,12 +20,9 @@ interface NormalQuestionListProp {
 }
 
 export const NormalQuestionList: FC<NormalQuestionListProp> = ({
-  setQuestionId,
-  setQuestionId2,
   setQuestionList,
   topicId,
   subTopicId,
-  questionId,
   isListShown,
   onToggle,
   onHoverIn,
@@ -106,13 +99,11 @@ export const NormalQuestionList: FC<NormalQuestionListProp> = ({
     <QuestionDetails>
       {topicInfo !== undefined && subTopicInfo !== undefined && finalQuestionList !== undefined && (
         <QuestionList
-          setQuestionId={setQuestionId}
-          setQuestionId2={setQuestionId2}
           isLoading={isLoading}
+          setIsLoading={setIsLoading}
           topic={topicInfo}
           subTopic={subTopicInfo}
           questionList={finalQuestionList}
-          questionId={questionId}
           isListShown={isListShown}
           onToggle={onToggle}
           onHoverIn={onHoverIn}

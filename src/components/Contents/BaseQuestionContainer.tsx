@@ -1,11 +1,12 @@
-import { FC, useEffect, useState } from 'react';
+import { FC, useEffect, useState, Dispatch, SetStateAction } from 'react';
 import styled from 'styled-components';
 import { Box } from '@material-ui/core';
 import { Question } from 'utils/types';
-import { BaseQuestionView } from 'components/General';
+import { BaseQuestionView } from 'components/Contents';
 
 interface BaseQuestionProp {
   questionList: Question[];
+  setQuestionList: Dispatch<SetStateAction<Question[]>>;
   questionId?: number;
   questionId2?: number;
   isHover: boolean;
@@ -16,6 +17,7 @@ interface BaseQuestionProp {
 
 export const BaseQuestionContainer: FC<BaseQuestionProp> = ({
   questionList,
+  setQuestionList,
   questionId,
   questionId2,
   isHover,
@@ -42,6 +44,9 @@ export const BaseQuestionContainer: FC<BaseQuestionProp> = ({
     <QuestionsContainer>
       <BaseQuestionView
         questionList={questionList}
+        setQuestionList={setQuestionList}
+        setQuestion1={setQuestion1}
+        setQuestion2={setQuestion2}
         questionId={questionId}
         questionId2={questionId2}
         question1={question1}

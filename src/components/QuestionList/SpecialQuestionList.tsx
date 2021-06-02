@@ -1,16 +1,14 @@
-import { FC, useState, Dispatch, SetStateAction, useEffect } from 'react';
-import { useParams } from 'react-router-dom';
+import { FC } from 'react';
+import { useLocation } from 'react-router-dom';
 import styled from 'styled-components';
 import { Box, List, Typography } from '@material-ui/core';
-import { ParamProp, Question } from 'utils/types';
+import { Question } from 'utils/types';
 import { H3, TRUNCATE_ONE, GRAY, LIGHT_GRAY_1, LIGHT_GRAY_2 } from 'utils/themes';
 import { Hover } from 'components/Contents';
 import { SpecialQuestionListElement } from './SpecialQuestionListElement';
 import { Loading } from '../General/Loading';
 
 interface SpecialQuestionListProp {
-  setQuestionId: Dispatch<SetStateAction<number | undefined>>;
-  setQuestionId2: Dispatch<SetStateAction<number | undefined>>;
   isLoading: boolean;
   questionList: Question[];
   title: string;
@@ -25,8 +23,6 @@ interface SpecialQuestionListProp {
 }
 
 export const SpecialQuestionList: FC<SpecialQuestionListProp> = ({
-  setQuestionId,
-  setQuestionId2,
   isLoading,
   questionList,
   title,
@@ -39,12 +35,13 @@ export const SpecialQuestionList: FC<SpecialQuestionListProp> = ({
   onHoverOutDual,
   onClickItemDual,
 }) => {
-  const params = useParams<ParamProp>();
+  const location = useLocation();
+  const locationSearch = location.search.split('&');
+  const firstQId = locationSearch[0].substr(1).split('=')[1];
+  const firstQIdNum = Number(firstQId);
 
   const renderQuestionListElement = (item: Question) => (
     <SpecialQuestionListElement
-      setQuestionId={setQuestionId}
-      setQuestionId2={setQuestionId2}
       key={item.questionId}
       question={item}
       link={itemLink(item)}
@@ -53,7 +50,7 @@ export const SpecialQuestionList: FC<SpecialQuestionListProp> = ({
       onHoverInDual={onHoverInDual}
       onHoverOutDual={onHoverOutDual}
       onClickItemDual={onClickItemDual}
-      dualDisable={params.questionId === undefined}
+      dualDisable={Number.isNaN(firstQIdNum)}
     />
   );
 

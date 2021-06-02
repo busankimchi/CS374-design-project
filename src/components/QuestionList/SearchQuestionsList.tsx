@@ -2,13 +2,11 @@ import { FC, useState, Dispatch, SetStateAction, useEffect } from 'react';
 import { useHistory, useLocation } from 'react-router';
 import styled from 'styled-components';
 import { Box } from '@material-ui/core';
-import { PageType, Question } from 'utils/types';
+import { Question } from 'utils/types';
 import { useQuestionList } from 'apis/Question/useQuestionList';
 import { SpecialQuestionList } from 'components/QuestionList';
 
 interface SearchQuestionListProps {
-  setQuestionId: Dispatch<SetStateAction<number | undefined>>;
-  setQuestionId2: Dispatch<SetStateAction<number | undefined>>;
   setQuestionList: Dispatch<SetStateAction<Question[]>>;
   search: string;
   isListShown: boolean;
@@ -20,8 +18,6 @@ interface SearchQuestionListProps {
 }
 
 export const SearchQuestionList: FC<SearchQuestionListProps> = ({
-  setQuestionId,
-  setQuestionId2,
   setQuestionList,
   search,
   isListShown,
@@ -60,8 +56,6 @@ export const SearchQuestionList: FC<SearchQuestionListProps> = ({
   return (
     <QuestionDetails>
       <SpecialQuestionList
-        setQuestionId={setQuestionId}
-        setQuestionId2={setQuestionId2}
         isLoading={isLoading}
         questionList={searchList}
         title="SEARCH RESULT"

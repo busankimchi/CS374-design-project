@@ -5,19 +5,16 @@ import { Box, List, Typography } from '@material-ui/core';
 import { H3, TRUNCATE_ONE, GRAY, LIGHT_GRAY_1, LIGHT_GRAY_2 } from 'utils/themes';
 import { Topic, SubTopic, Question } from 'utils/types';
 import { Hover } from 'components/Contents';
+import { Loading } from 'components/General';
 import { QuestionListElement } from './QuestionListElement';
-import { Loading } from '../General/Loading';
 
 interface QuestionListProp {
-  setQuestionId: Dispatch<SetStateAction<number | undefined>>;
-  setQuestionId2: Dispatch<SetStateAction<number | undefined>>;
   isLoading: boolean;
   setIsLoading: Dispatch<SetStateAction<boolean>>;
   topic: Topic | undefined;
   subTopic: SubTopic | undefined;
   questionList: Question[] | undefined;
   isListShown: boolean;
-  questionId?: number;
   onToggle?: () => void;
   onHoverIn?: () => void;
   onHoverOut?: () => void;
@@ -26,14 +23,11 @@ interface QuestionListProp {
 }
 
 export const QuestionList: FC<QuestionListProp> = ({
-  setQuestionId,
-  setQuestionId2,
   isLoading,
   topic,
   subTopic,
   questionList,
   isListShown,
-  questionId,
   onToggle,
   onHoverIn,
   onHoverOut,
@@ -42,17 +36,18 @@ export const QuestionList: FC<QuestionListProp> = ({
 }) => {
   const history = useHistory();
   const location = useLocation();
+  const locationSearch = location.search.split('&');
+  const firstQId = locationSearch[0].substr(1).split('=')[1];
+  const firstQIdNum = Number(firstQId);
 
   const onClickItemDual = (item: Question) => {
-    const path = location.pathname;
-    history.push(`${path}?second=${item.questionId}`);
+    const { pathname, search } = location;
+    history.push(`${pathname}${search}&second=${item.questionId}`);
   };
 
   if (subTopic !== undefined && topic !== undefined) {
     const renderQuestionListElement = (item: Question) => (
       <QuestionListElement
-        setQuestionId={setQuestionId}
-        setQuestionId2={setQuestionId2}
         key={item.questionId}
         question={item}
         topicId={topic.id}
@@ -62,7 +57,7 @@ export const QuestionList: FC<QuestionListProp> = ({
         onHoverOut={onHoverOut}
         onHoverInDual={onHoverInDual}
         onHoverOutDual={onHoverOutDual}
-        dualDisable={questionId === undefined}
+        dualDisable={Number.isNaN(firstQIdNum)}
       />
     );
 

@@ -23,83 +23,12 @@ export const TopicList: FC<TopicListProp> = ({ topicList, onClickAdd, onContextM
   );
 
   const location = useLocation();
-  const locPath = location.pathname.split('/');
-  const locSearch = location.search.split('&');
-
-  const linkPicker = () => {
-    console.log(locPath, locSearch);
-    // normal
-    if (locPath[1] === 'topic') {
-      if (locPath[6] !== undefined) {
-        const questionId = locPath[6];
-
-        if (locSearch[0] !== '') {
-          const arg = locSearch[0].substr(1);
-          const argPair = arg.split('=');
-          const argKey = argPair[0];
-          // const argVal = arg[1];
-
-          if (argKey === 'second') {
-            return `?prev=${questionId}&${arg}`;
-          }
-          return '';
-        }
-        return `?prev=${questionId}`;
-      }
-    }
-    if (locPath[1] === 'faq' || locPath[1] === 'all_questions') {
-      if (locPath[2] !== undefined) {
-        const questionId = locPath[2];
-
-        if (locSearch[0] !== '') {
-          const arg = locSearch[0].substr(1);
-          const argPair = arg.split('=');
-          const argKey = argPair[0];
-          // const argVal = arg[1];
-
-          if (argKey === 'second') {
-            return `?prev=${questionId}&${arg}`;
-          }
-          return '';
-        }
-        return `?prev=${questionId}`;
-      }
-      return '';
-    }
-    if (locPath[1] === 'search') {
-      if (locSearch[1] !== '') {
-        const arg = locSearch[1];
-        const argPair = arg.split('=');
-        const argKey = argPair[0];
-        const questionId = argPair[1];
-
-        // console.log('search!!!', arg);
-
-        if (argKey === 'first') {
-          if (locSearch[2] !== undefined) {
-            const arg2 = locSearch[2];
-            const arg2Pair = arg2.split('=');
-            const arg2Key = arg2Pair[0];
-            // const questionId2 = arg2[1];
-
-            if (arg2Key === 'second') {
-              return `?prev=${questionId}&${arg2}`;
-            }
-            return '';
-          }
-          return `?prev=${questionId}`;
-        }
-        return '';
-      }
-    }
-    return '';
-  };
-
-  console.log(linkPicker());
+  const { search } = location;
 
   return (
     <TopicListContainer>
-      <Link to="/faq">
+      {/* <Link to="/faq"> */}
+      <Link to={`/faq${search}`}>
         <FAQItem button>
           <ListItemIcon>
             <ChatBubbleIcon />
@@ -109,7 +38,8 @@ export const TopicList: FC<TopicListProp> = ({ topicList, onClickAdd, onContextM
           </ListItemText>
         </FAQItem>
       </Link>
-      <Link to="/all_questions">
+      {/* <Link to="/all_questions"> */}
+      <Link to={`/all_questions${search}`}>
         <AllQuestionsItem button>
           <ListItemIcon>
             <ClearAllIcon />

@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import { Box } from '@material-ui/core';
 import { NewTopicDialog, EditTopicDialog, DeleteTopicDialog, ContextMenu } from 'components/General';
 import { Header, MainDrawer } from 'components/BaseView';
-import { MousePosition, PageType, Question, Topic } from 'utils/types';
+import { MousePosition, Question, Topic } from 'utils/types';
 import { deleteTopic, updateTopic } from 'apis/Topic';
 import { useTopicList } from 'hooks/useTopicList';
 import { Questions } from './Questions';
@@ -23,10 +23,8 @@ export const Home: FC = () => {
   const [isHover, setHover] = useState(false);
   const [isHoverDual, setHoverDual] = useState(false);
   const [questionList, setQuestionList] = useState<Question[]>([]);
-  const [pageType, setPageType] = useState<PageType>(0);
 
   const onToggle = useCallback(() => setListShown(!isListShown), []);
-
   const onHoverIn = () => setHover(true);
   const onHoverOut = () => setHover(false);
   const onHoverInDual = () => setHoverDual(true);
@@ -113,11 +111,8 @@ export const Home: FC = () => {
             setEditTopicValue(item.topicName);
           }}
         />
-
         <Questions
           setQuestionList={setQuestionList}
-          setPageType={setPageType}
-          pageType={pageType}
           questionList={questionList}
           isListShown={isListShown}
           isHover={isHover}
@@ -128,208 +123,6 @@ export const Home: FC = () => {
           onHoverInDual={onHoverInDual}
           onHoverOutDual={onHoverOutDual}
         />
-
-        {/* <Route exact path="/">
-          <Redirect to="/faq" />
-        </Route>
-        <Route exact path="/faq" render={() => <Questions pageType={PageType.FAQ} />} />
-        <Route
-          exact
-          path="/faq/:questionId"
-          render={({ match, location }) => {
-            const { questionId } = match.params;
-
-            if (!Number.isNaN(Number(questionId))) {
-              if (location.search !== '') {
-                const searchQuery = location.search.split('=');
-                const key = searchQuery[0].substr(1);
-                const questionId2Query = searchQuery[1];
-
-                if (key === 'second') {
-                  const questionId2 = Number(questionId2Query);
-                  if (!Number.isNaN(questionId2)) {
-                    return (
-                      <Questions pageType={PageType.FAQ} questionId={Number(questionId)} questionId2={questionId2} />
-                    );
-                  }
-                }
-                // eslint-disable-next-line no-console
-                console.log('query error');
-                return <Questions pageType={PageType.NONE} />;
-              }
-              return <Questions pageType={PageType.FAQ} questionId={Number(questionId)} />;
-            }
-            // eslint-disable-next-line no-console
-            console.log('query error');
-            return <Questions pageType={PageType.NONE} />;
-          }}
-        />
-
-        <Route exact path="/all_questions" render={() => <Questions pageType={PageType.ALL_QUESTIONS} />} />
-
-        <Route
-          exact
-          path="/all_questions/:questionId"
-          render={({ match, location }) => {
-            const { questionId } = match.params;
-
-            if (!Number.isNaN(Number(questionId))) {
-              if (location.search !== '') {
-                const searchQuery = location.search.split('=');
-                const key = searchQuery[0].substr(1);
-                const questionId2Query = searchQuery[1];
-
-                if (key === 'second') {
-                  const questionId2 = Number(questionId2Query);
-                  if (!Number.isNaN(questionId2)) {
-                    return (
-                      <Questions
-                        pageType={PageType.ALL_QUESTIONS}
-                        questionId={Number(questionId)}
-                        questionId2={questionId2}
-                      />
-                    );
-                  }
-                }
-                // eslint-disable-next-line no-console
-                console.log('query error');
-                return <Questions pageType={PageType.NONE} />;
-              }
-              return <Questions pageType={PageType.ALL_QUESTIONS} questionId={Number(questionId)} />;
-            }
-            // eslint-disable-next-line no-console
-            console.log('query error');
-            return <Questions pageType={PageType.NONE} />;
-          }}
-        />
-
-        <Route
-          exact
-          path="/search"
-          render={({ location }) => {
-            if (location.search !== '') {
-              const searchQuery = location.search.split('&');
-
-              const searchPair = searchQuery[0].split('=');
-              const key = searchPair[0].substr(1);
-              const search = searchPair[1];
-              if (key === 'q') {
-                // eslint-disable-next-line no-console
-                console.log('search query is', search);
-
-                if (searchQuery[1] !== undefined) {
-                  const firstQ = searchQuery[1].split('=');
-                  const firstKey = firstQ[0];
-                  const firstValue = firstQ[1];
-
-                  if (firstKey === 'first') {
-                    // eslint-disable-next-line no-console
-                    console.log('first question is', firstValue);
-
-                    const questionId = Number(firstValue);
-                    if (!Number.isNaN(questionId)) {
-                      if (searchQuery[2] !== undefined) {
-                        const secondQ = searchQuery[2].split('=');
-                        const secondKey = secondQ[0];
-                        const secondValue = secondQ[1];
-
-                        if (secondKey === 'second') {
-                          // eslint-disable-next-line no-console
-                          console.log('second question is', secondValue);
-
-                          const questionId2 = Number(secondValue);
-                          if (!Number.isNaN(questionId2)) {
-                            return (
-                              <Questions
-                                pageType={PageType.SEARCH}
-                                search={search}
-                                questionId={questionId}
-                                questionId2={questionId2}
-                              />
-                            );
-                          }
-                        }
-                        return <Questions pageType={PageType.NONE} />;
-                      }
-                      return <Questions pageType={PageType.SEARCH} search={search} questionId={questionId} />;
-                    }
-                  }
-                  return <Questions pageType={PageType.NONE} />;
-                }
-                return <Questions pageType={PageType.SEARCH} search={search} />;
-              }
-            }
-            // eslint-disable-next-line no-console
-            console.log('query error');
-            return <Questions pageType={PageType.NONE} />;
-          }}
-        />
-
-        <Route
-          exact
-          path="/topic/:topicId/subtopic/:subTopicId"
-          render={({ match }) => {
-            const { topicId, subTopicId } = match.params;
-            if (!Number.isNaN(Number(topicId)) && !Number.isNaN(Number(subTopicId))) {
-              return <Questions pageType={PageType.NORMAL} topicId={Number(topicId)} subTopicId={Number(subTopicId)} />;
-            }
-            // eslint-disable-next-line no-console
-            console.log('query error');
-            return <Questions pageType={PageType.NONE} />;
-          }}
-        />
-
-        <Route
-          exact
-          path="/topic/:topicId/subtopic/:subTopicId/question/:questionId"
-          render={({ match, location }) => {
-            const { topicId, subTopicId, questionId } = match.params;
-
-            if (
-              !Number.isNaN(Number(topicId)) &&
-              !Number.isNaN(Number(subTopicId)) &&
-              !Number.isNaN(Number(questionId))
-            ) {
-              if (location.search !== '') {
-                const searchQuery = location.search.split('=');
-                const key = searchQuery[0].substr(1);
-                const questionId2Query = searchQuery[1];
-
-                if (key === 'second') {
-                  const questionId2 = Number(questionId2Query);
-                  if (!Number.isNaN(questionId2)) {
-                    // eslint-disable-next-line no-console
-                    console.log('this is a double sided view and the second one is', questionId2);
-                    return (
-                      <Questions
-                        pageType={PageType.NORMAL}
-                        topicId={Number(topicId)}
-                        subTopicId={Number(subTopicId)}
-                        questionId={Number(questionId)}
-                        questionId2={questionId2}
-                      />
-                    );
-                  }
-                }
-                // eslint-disable-next-line no-console
-                console.log('query error');
-                return <Questions pageType={PageType.NONE} />;
-              }
-
-              return (
-                <Questions
-                  pageType={PageType.NORMAL}
-                  topicId={Number(topicId)}
-                  subTopicId={Number(subTopicId)}
-                  questionId={Number(questionId)}
-                />
-              );
-            }
-            // eslint-disable-next-line no-console
-            console.log('query error');
-            return <Questions pageType={PageType.NONE} />;
-          }}
-        /> */}
       </Main>
       <NewTopicDialog
         open={openNewTopic}

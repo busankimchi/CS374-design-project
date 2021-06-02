@@ -1,14 +1,13 @@
-import { FC, Dispatch, SetStateAction, useState } from 'react';
+import { FC, Dispatch, SetStateAction } from 'react';
 import styled from 'styled-components';
-import { PageType, Question } from 'utils/types';
+import { Question } from 'utils/types';
 import { Box } from '@material-ui/core';
 import { MainQuestionList } from './MainQuestionList';
 import { QuestionDetail } from './QuestionDetail';
 
 interface QuestionsProps {
   setQuestionList: Dispatch<SetStateAction<Question[]>>;
-  setPageType: Dispatch<SetStateAction<PageType>>;
-  pageType: PageType;
+
   questionList: Question[];
   isListShown: boolean;
   isHover: boolean;
@@ -22,8 +21,7 @@ interface QuestionsProps {
 
 export const Questions: FC<QuestionsProps> = ({
   setQuestionList,
-  setPageType,
-  pageType,
+
   questionList,
   isListShown,
   isHover,
@@ -34,16 +32,10 @@ export const Questions: FC<QuestionsProps> = ({
   onHoverInDual,
   onHoverOutDual,
 }) => {
-  const [questionId, setQuestionId] = useState<number>();
-  const [questionId2, setQuestionId2] = useState<number>();
-
   return (
     <QuestionContainer>
       <MainQuestionList
-        setQuestionId={setQuestionId}
-        setQuestionId2={setQuestionId2}
         setQuestionList={setQuestionList}
-        setPageType={setPageType}
         isListShown={isListShown}
         onToggle={onToggle}
         onHoverIn={onHoverIn}
@@ -53,10 +45,8 @@ export const Questions: FC<QuestionsProps> = ({
       />
 
       <QuestionDetail
-        pageType={pageType}
         questionList={questionList}
-        questionId={questionId}
-        questionId2={questionId2}
+        setQuestionList={setQuestionList}
         isHover={isHover}
         isHoverDual={isHoverDual}
       />

@@ -1,17 +1,15 @@
 import { BaseDialog } from './BaseDialog';
-import { BaseQuestionView } from './BaseQuestionView';
-import { BaseQuestionContainer } from './BaseQuestionContainer';
+import { BaseSpecialQuestion } from './BaseSpecialQuestion';
 import { ContextMenu } from './ContextMenu';
 import { DeleteTopicDialog } from './DeleteTopicDialog';
 import { EditTopicDialog } from './EditTopicDialog';
+import { Loading } from './Loading';
 import { NewTopicDialog } from './NewTopicDialog';
 import { TopAppBar } from './TopAppBar';
-import { Loading } from './Loading';
 
 export {
   BaseDialog,
-  BaseQuestionView,
-  BaseQuestionContainer,
+  BaseSpecialQuestion,
   ContextMenu,
   DeleteTopicDialog,
   EditTopicDialog,

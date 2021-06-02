@@ -2,17 +2,11 @@ import { FC, Dispatch, SetStateAction } from 'react';
 import { Redirect, Route } from 'react-router-dom';
 import styled from 'styled-components';
 import { Box } from '@material-ui/core';
-import { PageType, Question } from 'utils/types';
-import { FAQQuestionList } from 'components/QuestionList/FAQQuestionList';
-import { AllQuestionList } from 'components/QuestionList/AllQuestionList';
-import { SearchQuestionList } from 'components/QuestionList/SearchQuestionsList';
-import { NormalQuestionList } from 'components/QuestionList/NormalQuestionList';
+import { Question } from 'utils/types';
+import { FAQQuestionList, AllQuestionList, SearchQuestionList, NormalQuestionList } from 'components/QuestionList';
 
 interface MainQuestionListProps {
-  setQuestionId: Dispatch<SetStateAction<number | undefined>>;
-  setQuestionId2: Dispatch<SetStateAction<number | undefined>>;
   setQuestionList: Dispatch<SetStateAction<Question[]>>;
-  setPageType: Dispatch<SetStateAction<PageType>>;
   isListShown: boolean;
   onToggle?: () => void;
   onHoverIn?: () => void;
@@ -22,10 +16,7 @@ interface MainQuestionListProps {
 }
 
 export const MainQuestionList: FC<MainQuestionListProps> = ({
-  setQuestionId,
-  setQuestionId2,
   setQuestionList,
-  setPageType,
   isListShown,
   onToggle,
   onHoverIn,
@@ -42,11 +33,8 @@ export const MainQuestionList: FC<MainQuestionListProps> = ({
       <Route
         path="/faq"
         render={() => {
-          setPageType(PageType.FAQ);
           return (
             <FAQQuestionList
-              setQuestionId={setQuestionId}
-              setQuestionId2={setQuestionId2}
               setQuestionList={setQuestionList}
               isListShown={isListShown}
               onToggle={onToggle}
@@ -61,11 +49,8 @@ export const MainQuestionList: FC<MainQuestionListProps> = ({
       <Route
         path="/all_questions"
         render={() => {
-          setPageType(PageType.ALL_QUESTIONS);
           return (
             <AllQuestionList
-              setQuestionId={setQuestionId}
-              setQuestionId2={setQuestionId2}
               setQuestionList={setQuestionList}
               isListShown={isListShown}
               onToggle={onToggle}
@@ -81,7 +66,6 @@ export const MainQuestionList: FC<MainQuestionListProps> = ({
       <Route
         path="/search"
         render={({ location }) => {
-          setPageType(PageType.SEARCH);
           if (location.search !== '') {
             const searchQuery = location.search.split('&');
             const searchPair = searchQuery[0].split('=');
@@ -93,8 +77,6 @@ export const MainQuestionList: FC<MainQuestionListProps> = ({
 
               return (
                 <SearchQuestionList
-                  setQuestionId={setQuestionId}
-                  setQuestionId2={setQuestionId2}
                   setQuestionList={setQuestionList}
                   search={search}
                   isListShown={isListShown}
@@ -112,18 +94,13 @@ export const MainQuestionList: FC<MainQuestionListProps> = ({
       />
 
       <Route
-        path="/topic/:topicId/subtopic/:subTopicId"
+        path="/topic/:topicId/subTopic/:subTopicId"
         render={({ match }) => {
-          setPageType(PageType.NORMAL);
           const { topicId, subTopicId } = match.params;
-
-          console.log(match.params);
 
           if (!Number.isNaN(Number(topicId)) && !Number.isNaN(Number(subTopicId))) {
             return (
               <NormalQuestionList
-                setQuestionId={setQuestionId}
-                setQuestionId2={setQuestionId2}
                 setQuestionList={setQuestionList}
                 topicId={Number(topicId)}
                 subTopicId={Number(subTopicId)}
@@ -140,8 +117,6 @@ export const MainQuestionList: FC<MainQuestionListProps> = ({
           console.log('query error');
           return (
             <NormalQuestionList
-              setQuestionId={setQuestionId}
-              setQuestionId2={setQuestionId2}
               setQuestionList={setQuestionList}
               topicId={Number(topicId)}
               subTopicId={Number(subTopicId)}

@@ -3,12 +3,10 @@ import { useHistory, useLocation } from 'react-router-dom';
 import styled from 'styled-components';
 import { Box } from '@material-ui/core';
 import { Question } from 'utils/types';
-import { SpecialQuestionList } from 'components/QuestionList/SpecialQuestionList';
+import { SpecialQuestionList } from 'components/QuestionList';
 import { useQuestionList } from 'apis/Question/useQuestionList';
 
 interface AllQuestionListProps {
-  setQuestionId: Dispatch<SetStateAction<number | undefined>>;
-  setQuestionId2: Dispatch<SetStateAction<number | undefined>>;
   setQuestionList: Dispatch<SetStateAction<Question[]>>;
   isListShown: boolean;
   onToggle?: () => void;
@@ -19,8 +17,6 @@ interface AllQuestionListProps {
 }
 
 export const AllQuestionList: FC<AllQuestionListProps> = ({
-  setQuestionId,
-  setQuestionId2,
   setQuestionList,
   isListShown,
   onToggle,
@@ -35,8 +31,8 @@ export const AllQuestionList: FC<AllQuestionListProps> = ({
   const { questionList } = useQuestionList(setIsLoading);
 
   const onClickItemDual = (item: Question) => {
-    const { pathname } = location;
-    history.push(`${pathname}?second=${item.questionId}`);
+    const { pathname, search } = location;
+    history.push(`${pathname}${search}&second=${item.questionId}`);
   };
 
   useEffect(() => {
@@ -46,12 +42,10 @@ export const AllQuestionList: FC<AllQuestionListProps> = ({
   return (
     <QuestionDetails>
       <SpecialQuestionList
-        setQuestionId={setQuestionId}
-        setQuestionId2={setQuestionId2}
         isLoading={isLoading}
         questionList={questionList}
         title="ALL QUESTIONS"
-        itemLink={(item) => `/all_questions/${item.questionId}`}
+        itemLink={(item) => `/all_questions?first=${item.questionId}`}
         isListShown={isListShown}
         onToggle={onToggle}
         onHoverIn={onHoverIn}

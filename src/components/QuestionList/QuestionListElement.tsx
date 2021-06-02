@@ -1,4 +1,4 @@
-import { FC, useState, Dispatch, SetStateAction } from 'react';
+import { FC, useState } from 'react';
 import { Link as DefaultLink } from 'react-router-dom';
 import styled from 'styled-components';
 import { Icon } from '@iconify/react';
@@ -9,8 +9,6 @@ import { Question } from 'utils/types';
 import { timeForToday } from 'utils/functions';
 
 interface QuestionListElementProp {
-  setQuestionId: Dispatch<SetStateAction<number | undefined>>;
-  setQuestionId2: Dispatch<SetStateAction<number | undefined>>;
   question: Question;
   topicId: number;
   subTopicId: number;
@@ -23,8 +21,6 @@ interface QuestionListElementProp {
 }
 
 export const QuestionListElement: FC<QuestionListElementProp> = ({
-  setQuestionId,
-  setQuestionId2,
   question,
   topicId,
   subTopicId,
@@ -54,10 +50,7 @@ export const QuestionListElement: FC<QuestionListElementProp> = ({
   return (
     <QuestionListElementContainer>
       <TextBox onMouseEnter={onHoverIn} onMouseLeave={onHoverOut}>
-        <Link
-          to={`/topic/${topicId}/subTopic/${subTopicId}/question/${question.questionId}`}
-          onClick={() => setQuestionId(question.questionId)}
-        >
+        <Link to={`/topic/${topicId}/subTopic/${subTopicId}?first=${question.questionId}`}>
           <Header>
             <Title notAnswered={notAnswered}>
               <TitleText>
@@ -78,10 +71,7 @@ export const QuestionListElement: FC<QuestionListElementProp> = ({
         <DoubleSidedViewButton
           onMouseEnter={setShadowIn}
           onMouseLeave={setShadowOut}
-          onClick={() => {
-            onClickItemDual(question);
-            setQuestionId2(question.questionId);
-          }}
+          onClick={() => onClickItemDual(question)}
           disabled={dualDisable}
         >
           <Icon icon={squareHalf} />
