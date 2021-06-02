@@ -10,7 +10,7 @@ import { QuestionList } from 'components/QuestionList/QuestionList';
 import { Hover, Contents, NotSelected } from 'components/Contents';
 import { useTopicList } from 'hooks/useTopicList';
 import { useQuestionList } from 'apis/Question/useQuestionList';
-import { Loading } from 'components/General/Loading'
+import { Loading } from 'components/General/Loading';
 
 interface NormalQuestionProp {
   pageType: PageType;
@@ -29,7 +29,6 @@ interface NormalQuestionProp {
 }
 
 export const NormalQuestion: FC<NormalQuestionProp> = ({
-
   pageType,
   topicId,
   subTopicId,
@@ -47,7 +46,7 @@ export const NormalQuestion: FC<NormalQuestionProp> = ({
   const [topicInfo, setTopicInfo] = useState<Topic>();
   const [subTopicInfo, setSubTopicInfo] = useState<SubTopic>();
   const [questionIdList, setQuestionIdList] = useState<number[]>();
-  const [questionList, setQuestionList] = useState<Question[]>();
+  const [questionList, setQuestionList] = useState<Question[]>([]);
   const [question1, setQuestion1] = useState<Question>();
   const [question2, setQuestion2] = useState<Question>();
   const [isLoading, setIsLoading] = useState(true);
@@ -165,14 +164,26 @@ export const NormalQuestion: FC<NormalQuestionProp> = ({
           {questionId !== undefined && (
             <QBox>
               {questionList !== undefined && question1 !== undefined && (
-                <Contents question={question1} setQuestion={setQuestion1} closeThisContent={onCloseLeftContent} />
+                <Contents
+                  question={question1}
+                  setQuestion={setQuestion1}
+                  allQuestionList={questionList}
+                  setQuestionList={setQuestionList}
+                  closeThisContent={onCloseLeftContent}
+                />
               )}
             </QBox>
           )}
           {questionId2 !== undefined && (
             <QBox>
               {questionList !== undefined && question2 !== undefined && (
-                <Contents question={question2} setQuestion={setQuestion2} closeThisContent={onCloseRightContent} />
+                <Contents
+                  question={question2}
+                  setQuestion={setQuestion2}
+                  allQuestionList={questionList}
+                  setQuestionList={setQuestionList}
+                  closeThisContent={onCloseRightContent}
+                />
               )}
             </QBox>
           )}
@@ -206,7 +217,7 @@ const QuestionDetails = styled(Box)`
   height: 100%;
 `;
 
-const DoubleSidedPaper = styled(Backdrop) <{ fullsize: boolean }>`
+const DoubleSidedPaper = styled(Backdrop)<{ fullsize: boolean }>`
   position: reletive;
   ${({ fullsize }) => (fullsize ? 'left: 37vw' : 'left: 68vw')} !important;
   z-index: 999 !important;
