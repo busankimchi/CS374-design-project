@@ -4,7 +4,6 @@ import { useHistory } from 'react-router';
 import styled from 'styled-components';
 import { Backdrop, Box, Fade, Paper } from '@material-ui/core';
 import firebase from 'firebase';
-import { H1 } from 'utils/themes';
 import ResizePanel from 'react-resize-panel-ts';
 import { PageType, Topic, SubTopic, Question, QuestionFB, QuestionContent, AnswerContent } from 'utils/types';
 import { TimestampToDate } from 'utils/functions';
@@ -13,7 +12,7 @@ import { Hover, Contents, NotSelected } from 'components/Contents';
 import { useTopicList } from 'hooks/useTopicList';
 import { useQuestionList } from 'apis/Question/useQuestionList';
 import { Loading } from 'components/General/Loading';
-import { BROWN, H3, PINK_1, PINK_2, PINK_4 } from 'utils/themes';
+import { H1, BROWN, H3, PINK_1, PINK_2, PINK_4 } from 'utils/themes';
 
 interface NormalQuestionProp {
   pageType: PageType;
@@ -181,20 +180,20 @@ export const NormalQuestion: FC<NormalQuestionProp> = ({
           {questionId2 !== undefined && (
             <ResizeContainer>
               <ResizePanel direction="w" style={{ width: '31vw' }}>
-            <QBox>
-              {questionList !== undefined && question2 !== undefined && (
+                <QBox>
+                  {questionList !== undefined && question2 !== undefined && (
 
-                <Contents
-                  question={question2}
-                  setQuestion={setQuestion2}
-                  allQuestionList={questionList}
-                  setQuestionList={setQuestionList}
-                  closeThisContent={onCloseRightContent}
-                />
+                    <Contents
+                      question={question2}
+                      setQuestion={setQuestion2}
+                      allQuestionList={questionList}
+                      setQuestionList={setQuestionList}
+                      closeThisContent={onCloseRightContent}
+                    />
 
-              )}
-            </QBox>
-            </ResizePanel>
+                  )}
+                </QBox>
+              </ResizePanel>
             </ResizeContainer>
           )}
         </QQBox>
@@ -202,7 +201,7 @@ export const NormalQuestion: FC<NormalQuestionProp> = ({
 
       {isHover && (<DoubleSidedPaper open={isHover} fullsize={!isHoverDual}>
         Open Here
-        </DoubleSidedPaper>
+      </DoubleSidedPaper>
       )}
     </QuestionsContainer>
   );
@@ -235,7 +234,7 @@ const QuestionDetails = styled(Box)`
   height: 100%;
 `;
 
-const DoubleSidedPaper = styled(Backdrop)<{ fullsize: boolean }>`
+const DoubleSidedPaper = styled(Backdrop) <{ fullsize: boolean }>`
   left: ${({ fullsize }) => (fullsize ? '37vw' : '68vw')} !important;
   z-index: 999 !important;
   ${H1};
