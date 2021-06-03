@@ -46,6 +46,13 @@ export const SearchQuestionList: FC<SearchQuestionListProps> = ({
 
   const onClickItemDual = (item: Question) => {
     const { pathname, search } = location;
+
+    const searchQuery = search.split('&');
+
+    if (searchQuery[1] !== undefined) {
+      history.push(`${pathname}${searchQuery[0]}&second=${item.questionId}`);
+      return;
+    }
     history.push(`${pathname}${search}&second=${item.questionId}`);
   };
 

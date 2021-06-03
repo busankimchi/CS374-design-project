@@ -24,7 +24,7 @@ export const Home: FC = () => {
   const [isHoverDual, setHoverDual] = useState(false);
   const [questionList, setQuestionList] = useState<Question[]>([]);
 
-  const onToggle = useCallback(() => setListShown(!isListShown), []);
+  const onToggle = () => setListShown(!isListShown);
   const onHoverIn = () => setHover(true);
   const onHoverOut = () => setHover(false);
   const onHoverInDual = () => setHoverDual(true);

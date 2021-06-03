@@ -11,8 +11,8 @@ import { QuestionListElement } from './QuestionListElement';
 interface QuestionListProp {
   isLoading: boolean;
   setIsLoading: Dispatch<SetStateAction<boolean>>;
-  topic: Topic | undefined;
-  subTopic: SubTopic | undefined;
+  topic: Topic;
+  subTopic: SubTopic;
   questionList: Question[] | undefined;
   isListShown: boolean;
   onToggle?: () => void;
@@ -42,56 +42,44 @@ export const QuestionList: FC<QuestionListProp> = ({
 
   const onClickItemDual = (item: Question) => {
     const { pathname, search } = location;
+
+    const searchQuery = search.split('&');
+
+    if (searchQuery[1] !== undefined) {
+      history.push(`${pathname}${searchQuery[0]}&second=${item.questionId}`);
+      return;
+    }
     history.push(`${pathname}${search}&second=${item.questionId}`);
   };
 
-  if (subTopic !== undefined && topic !== undefined) {
-    const renderQuestionListElement = (item: Question) => (
-      <QuestionListElement
-        key={item.questionId}
-        question={item}
-        topicId={topic.id}
-        subTopicId={subTopic.id}
-        onClickItemDual={onClickItemDual}
-        onHoverIn={onHoverIn}
-        onHoverOut={onHoverOut}
-        onHoverInDual={onHoverInDual}
-        onHoverOutDual={onHoverOutDual}
-        dualDisable={Number.isNaN(firstQIdNum)}
-      />
-    );
+  console.log(isLoading, subTopic, topic);
 
-    const drawerBody =
-      questionList === undefined || isLoading ? (
-        <Loading />
-      ) : (
-        questionList.map((item) => renderQuestionListElement(item))
-      );
+  const renderQuestionListElement = (item: Question) => (
+    <QuestionListElement
+      key={item.questionId}
+      question={item}
+      topicId={topic.id}
+      subTopicId={subTopic.id}
+      onClickItemDual={onClickItemDual}
+      onHoverIn={onHoverIn}
+      onHoverOut={onHoverOut}
+      onHoverInDual={onHoverInDual}
+      onHoverOutDual={onHoverOutDual}
+      dualDisable={Number.isNaN(firstQIdNum)}
+    />
+  );
 
-    return (
-      <QuestionListContainer>
-        <QuestionListDrawer isListShown={isListShown}>
-          <QuestionListHeader>
-            <QuestionListHeaderText>
-              {topic.topicName} {'>'} {subTopic.subTopicName}
-            </QuestionListHeaderText>
-          </QuestionListHeader>
-          <QuestionListDrawerBody isLoading={isLoading}>{drawerBody}</QuestionListDrawerBody>
-        </QuestionListDrawer>
+  const drawerHeader = isLoading ? '...' : `${topic.topicName} > ${subTopic.subTopicName}`;
+  const drawerBody =
+    questionList === undefined || isLoading ? <Loading /> : questionList.map((item) => renderQuestionListElement(item));
 
-        <Hover showQuestionList={onToggle} iconFlip={isListShown} />
-      </QuestionListContainer>
-    );
-  }
   return (
     <QuestionListContainer>
       <QuestionListDrawer isListShown={isListShown}>
         <QuestionListHeader>
-          <QuestionListHeaderText>...</QuestionListHeaderText>
+          <QuestionListHeaderText>{drawerHeader}</QuestionListHeaderText>
         </QuestionListHeader>
-        <QuestionListDrawerBody isLoading={isLoading}>
-          <Loading />
-        </QuestionListDrawerBody>
+        <QuestionListDrawerBody isLoading={isLoading}>{drawerBody}</QuestionListDrawerBody>
       </QuestionListDrawer>
 
       <Hover showQuestionList={onToggle} iconFlip={isListShown} />

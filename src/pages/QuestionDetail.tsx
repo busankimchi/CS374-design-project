@@ -83,5 +83,5 @@ export const QuestionDetail: FC<QuestionDetailProp> = ({ questionList, setQuesti
 
 const QuestionDetailContainer = styled(Box)`
   display: flex;
-  width: auto;
+  width: 100%;
 `;

@@ -97,7 +97,7 @@ export const NormalQuestionList: FC<NormalQuestionListProp> = ({
 
   return (
     <QuestionDetails>
-      {topicInfo !== undefined && subTopicInfo !== undefined && finalQuestionList !== undefined && (
+      {topicInfo !== undefined && subTopicInfo !== undefined && (
         <QuestionList
           isLoading={isLoading}
           setIsLoading={setIsLoading}
