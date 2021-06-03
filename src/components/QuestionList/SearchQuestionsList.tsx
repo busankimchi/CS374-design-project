@@ -49,8 +49,10 @@ export const SearchQuestionList: FC<SearchQuestionListProps> = ({
 
     const searchQuery = search.split('&');
 
-    if (searchQuery[1] !== undefined) {
-      history.push(`${pathname}${searchQuery[0]}&second=${item.questionId}`);
+    if (searchQuery[2] !== undefined) {
+      console.log('2321312', searchQuery.slice(0, 2).join('&'));
+
+      history.push(`${pathname}${searchQuery.slice(0, 2).join('&')}&second=${item.questionId}`);
       return;
     }
     history.push(`${pathname}${search}&second=${item.questionId}`);

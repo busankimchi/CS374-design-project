@@ -14,11 +14,21 @@ export const SubTopicListItem: FC<SubTopicListItemProp> = ({ topicId, subTopic }
   const location = useLocation();
   const { search } = location;
 
-  // eslint-disable-next-line no-console
-  console.log(search);
+  const suffixPicker = (search: string) => {
+    const searchQuery = search.split('&');
+
+    const firstQuery = searchQuery[0].split('=');
+    const firstKey = firstQuery[0].substr(1);
+    const firstValue = firstQuery[1];
+
+    if (firstKey === 'q') {
+      return `?${searchQuery.slice(1).join('&')}`;
+    }
+    return search;
+  };
 
   return (
-    <Link to={`/topic/${topicId}/subTopic/${subTopic.id}${search}`}>
+    <Link to={`/topic/${topicId}/subTopic/${subTopic.id}${suffixPicker(search)}`}>
       <SubTopicListItemContainer button>
         <ListItemText>
           <SubTopicItemText noWrap>{subTopic.subTopicName}</SubTopicItemText>

@@ -25,10 +25,23 @@ export const TopicList: FC<TopicListProp> = ({ topicList, onClickAdd, onContextM
   const location = useLocation();
   const { search } = location;
 
+  const suffixPicker = (search: string) => {
+    const searchQuery = search.split('&');
+
+    const firstQuery = searchQuery[0].split('=');
+    const firstKey = firstQuery[0].substr(1);
+    const firstValue = firstQuery[1];
+
+    if (firstKey === 'q') {
+      return `?${searchQuery.slice(1).join('&')}`;
+    }
+    return search;
+  };
+
   return (
     <TopicListContainer>
       {/* <Link to="/faq"> */}
-      <Link to={`/faq${search}`}>
+      <Link to={`/faq${suffixPicker(search)}`}>
         <FAQItem button>
           <ListItemIcon>
             <ChatBubbleIcon />
@@ -39,7 +52,7 @@ export const TopicList: FC<TopicListProp> = ({ topicList, onClickAdd, onContextM
         </FAQItem>
       </Link>
       {/* <Link to="/all_questions"> */}
-      <Link to={`/all_questions${search}`}>
+      <Link to={`/all_questions${suffixPicker(search)}`}>
         <AllQuestionsItem button>
           <ListItemIcon>
             <ClearAllIcon />

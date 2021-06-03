@@ -36,9 +36,28 @@ export const SpecialQuestionList: FC<SpecialQuestionListProp> = ({
   onClickItemDual,
 }) => {
   const location = useLocation();
-  const locationSearch = location.search.split('&');
-  const firstQId = locationSearch[0].substr(1).split('=')[1];
-  const firstQIdNum = Number(firstQId);
+  const { search } = location;
+
+  const dualDisable = (search: string) => {
+    const searchQuery = search.split('&');
+
+    const firstQuery = searchQuery[0].substr(1).split('=');
+    const firstKey = firstQuery[0];
+    const firstValue = firstQuery[1];
+
+    if (firstKey === 'q') {
+      if (searchQuery[1] !== undefined) {
+        const secondQuery = searchQuery[1].split('=');
+        const secondValue = secondQuery[1];
+
+        const firstQIdNum = Number(secondValue);
+
+        return Number.isNaN(firstQIdNum);
+      }
+    }
+    const firstQIdNum = Number(firstValue);
+    return Number.isNaN(firstQIdNum);
+  };
 
   const renderQuestionListElement = (item: Question) => (
     <SpecialQuestionListElement
@@ -50,7 +69,7 @@ export const SpecialQuestionList: FC<SpecialQuestionListProp> = ({
       onHoverInDual={onHoverInDual}
       onHoverOutDual={onHoverOutDual}
       onClickItemDual={onClickItemDual}
-      dualDisable={Number.isNaN(firstQIdNum)}
+      dualDisable={dualDisable(search)}
     />
   );
 
