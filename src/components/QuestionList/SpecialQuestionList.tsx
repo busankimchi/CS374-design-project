@@ -75,7 +75,7 @@ const QuestionListContainer = styled(Box)`
   height: 100%;
 `;
 
-const QuestionListDrawer = styled(Box) <{ isListShown: boolean }>`
+const QuestionListDrawer = styled(Box)<{ isListShown: boolean }>`
   display: flex;
   flex-direction: column;
   width: ${({ isListShown }) => (isListShown ? '20vw' : '0vw')};
@@ -84,7 +84,7 @@ const QuestionListDrawer = styled(Box) <{ isListShown: boolean }>`
   transition: all 0.15s ease-in-out !important;
 `;
 
-const QuestionListDrawerBody = styled(List) <{ isLoading: boolean }>`
+const QuestionListDrawerBody = styled(List)<{ isLoading: boolean }>`
   overflow-y: scroll;
   overflow-x: hidden;
   padding: 0 !important;
@@ -97,7 +97,6 @@ const QuestionListDrawerBody = styled(List) <{ isLoading: boolean }>`
   ::-webkit-scrollbar-thumb {
     background-color: ${GRAY};
     border-radius: 10rem;
-    border: 1px solid #ffffff;
   }
 `;
 
