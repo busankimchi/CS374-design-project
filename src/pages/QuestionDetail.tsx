@@ -11,11 +11,24 @@ import { NormalQuestion } from './NormalQuestion';
 interface QuestionDetailProp {
   questionList: Question[];
   setQuestionList: Dispatch<SetStateAction<Question[]>>;
+  question1: Question | undefined;
+  question2: Question | undefined;
+  setQuestion1: Dispatch<SetStateAction<Question | undefined>>;
+  setQuestion2: Dispatch<SetStateAction<Question | undefined>>;
   isHover: boolean;
   isHoverDual: boolean;
 }
 
-export const QuestionDetail: FC<QuestionDetailProp> = ({ questionList, setQuestionList, isHover, isHoverDual }) => {
+export const QuestionDetail: FC<QuestionDetailProp> = ({
+  questionList,
+  setQuestionList,
+  question1,
+  question2,
+  setQuestion1,
+  setQuestion2,
+  isHover,
+  isHoverDual,
+}) => {
   return (
     <QuestionDetailContainer>
       <Route
@@ -24,6 +37,10 @@ export const QuestionDetail: FC<QuestionDetailProp> = ({ questionList, setQuesti
           <FAQ
             questionList={questionList}
             setQuestionList={setQuestionList}
+            question1={question1}
+            question2={question2}
+            setQuestion1={setQuestion1}
+            setQuestion2={setQuestion2}
             isHover={isHover}
             isHoverDual={isHoverDual}
           />
@@ -37,6 +54,10 @@ export const QuestionDetail: FC<QuestionDetailProp> = ({ questionList, setQuesti
           <AllQuestions
             questionList={questionList}
             setQuestionList={setQuestionList}
+            question1={question1}
+            question2={question2}
+            setQuestion1={setQuestion1}
+            setQuestion2={setQuestion2}
             isHover={isHover}
             isHoverDual={isHoverDual}
           />
@@ -50,6 +71,10 @@ export const QuestionDetail: FC<QuestionDetailProp> = ({ questionList, setQuesti
           <Search
             questionList={questionList}
             setQuestionList={setQuestionList}
+            question1={question1}
+            question2={question2}
+            setQuestion1={setQuestion1}
+            setQuestion2={setQuestion2}
             isHover={isHover}
             isHoverDual={isHoverDual}
           />
@@ -67,6 +92,10 @@ export const QuestionDetail: FC<QuestionDetailProp> = ({ questionList, setQuesti
               <NormalQuestion
                 questionList={questionList}
                 setQuestionList={setQuestionList}
+                question1={question1}
+                question2={question2}
+                setQuestion1={setQuestion1}
+                setQuestion2={setQuestion2}
                 topicId={topicIdNum}
                 subTopicId={subTopicIdNum}
                 isHover={isHover}

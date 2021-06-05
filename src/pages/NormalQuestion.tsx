@@ -9,6 +9,10 @@ interface NormalQuestionProp {
   setQuestionList: Dispatch<SetStateAction<Question[]>>;
   topicId?: number;
   subTopicId?: number;
+  question1: Question | undefined;
+  question2: Question | undefined;
+  setQuestion1: Dispatch<SetStateAction<Question | undefined>>;
+  setQuestion2: Dispatch<SetStateAction<Question | undefined>>;
   isHover: boolean;
   isHoverDual: boolean;
 }
@@ -18,6 +22,10 @@ export const NormalQuestion: FC<NormalQuestionProp> = ({
   setQuestionList,
   topicId,
   subTopicId,
+  question1,
+  question2,
+  setQuestion1,
+  setQuestion2,
   isHover,
   isHoverDual,
 }) => {
@@ -83,6 +91,10 @@ export const NormalQuestion: FC<NormalQuestionProp> = ({
       setQuestionList={setQuestionList}
       questionId={questionId}
       questionId2={questionId2}
+      question1={question1}
+      question2={question2}
+      setQuestion1={setQuestion1}
+      setQuestion2={setQuestion2}
       isHover={isHover}
       isHoverDual={isHoverDual}
       onCloseLeftContent={onCloseLeftContent}

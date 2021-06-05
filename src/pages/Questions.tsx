@@ -6,10 +6,13 @@ import { MainQuestionList } from './MainQuestionList';
 import { QuestionDetail } from './QuestionDetail';
 
 interface QuestionsProps {
-  setQuestionList: Dispatch<SetStateAction<Question[]>>;
-
   questionList: Question[];
+  setQuestionList: Dispatch<SetStateAction<Question[]>>;
   isListShown: boolean;
+  question1: Question | undefined;
+  question2: Question | undefined;
+  setQuestion1: Dispatch<SetStateAction<Question | undefined>>;
+  setQuestion2: Dispatch<SetStateAction<Question | undefined>>;
   isHover: boolean;
   isHoverDual: boolean;
   onToggle?: () => void;
@@ -20,10 +23,13 @@ interface QuestionsProps {
 }
 
 export const Questions: FC<QuestionsProps> = ({
-  setQuestionList,
-
   questionList,
+  setQuestionList,
   isListShown,
+  question1,
+  question2,
+  setQuestion1,
+  setQuestion2,
   isHover,
   isHoverDual,
   onToggle,
@@ -47,6 +53,10 @@ export const Questions: FC<QuestionsProps> = ({
       <QuestionDetail
         questionList={questionList}
         setQuestionList={setQuestionList}
+        question1={question1}
+        question2={question2}
+        setQuestion1={setQuestion1}
+        setQuestion2={setQuestion2}
         isHover={isHover}
         isHoverDual={isHoverDual}
       />

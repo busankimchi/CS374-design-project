@@ -4,7 +4,7 @@ import { Backdrop, Box } from '@material-ui/core';
 import { Question } from 'utils/types';
 import { Contents, NotSelected } from 'components/Contents';
 
-interface BaseQuestionViewProp {
+interface BaseContentViewProp {
   questionList: Question[] | undefined;
   setQuestionList: Dispatch<SetStateAction<Question[]>>;
   setQuestion1: Dispatch<SetStateAction<Question | undefined>>;
@@ -19,7 +19,7 @@ interface BaseQuestionViewProp {
   onCloseRightContent?: () => void;
 }
 
-export const BaseQuestionView: FC<BaseQuestionViewProp> = ({
+export const BaseContentView: FC<BaseContentViewProp> = ({
   questionList,
   setQuestionList,
   setQuestion1,

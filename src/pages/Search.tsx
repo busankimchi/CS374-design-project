@@ -7,11 +7,24 @@ import { useLocation } from 'react-router-dom';
 interface SearchProp {
   questionList: Question[];
   setQuestionList: Dispatch<SetStateAction<Question[]>>;
+  question1: Question | undefined;
+  question2: Question | undefined;
+  setQuestion1: Dispatch<SetStateAction<Question | undefined>>;
+  setQuestion2: Dispatch<SetStateAction<Question | undefined>>;
   isHover: boolean;
   isHoverDual: boolean;
 }
 
-export const Search: FC<SearchProp> = ({ questionList, setQuestionList, isHover, isHoverDual }) => {
+export const Search: FC<SearchProp> = ({
+  questionList,
+  setQuestionList,
+  question1,
+  question2,
+  setQuestion1,
+  setQuestion2,
+  isHover,
+  isHoverDual,
+}) => {
   const history = useHistory();
   const location = useLocation();
 
@@ -88,6 +101,10 @@ export const Search: FC<SearchProp> = ({ questionList, setQuestionList, isHover,
       setQuestionList={setQuestionList}
       questionId={questionId}
       questionId2={questionId2}
+      question1={question1}
+      question2={question2}
+      setQuestion1={setQuestion1}
+      setQuestion2={setQuestion2}
       isHover={isHover}
       isHoverDual={isHoverDual}
       onCloseLeftContent={onCloseLeftContent}

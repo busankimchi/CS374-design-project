@@ -2,13 +2,17 @@ import { FC, useEffect, useState, Dispatch, SetStateAction } from 'react';
 import styled from 'styled-components';
 import { Box } from '@material-ui/core';
 import { Question } from 'utils/types';
-import { BaseQuestionView } from 'components/Contents';
+import { BaseContentView } from 'components/Contents';
 
 interface BaseQuestionProp {
   questionList: Question[];
   setQuestionList: Dispatch<SetStateAction<Question[]>>;
   questionId?: number;
   questionId2?: number;
+  question1: Question | undefined;
+  question2: Question | undefined;
+  setQuestion1: Dispatch<SetStateAction<Question | undefined>>;
+  setQuestion2: Dispatch<SetStateAction<Question | undefined>>;
   isHover: boolean;
   isHoverDual: boolean;
   onCloseLeftContent?: () => void;
@@ -20,14 +24,15 @@ export const BaseQuestionContainer: FC<BaseQuestionProp> = ({
   setQuestionList,
   questionId,
   questionId2,
+  question1,
+  question2,
+  setQuestion1,
+  setQuestion2,
   isHover,
   isHoverDual,
   onCloseLeftContent,
   onCloseRightContent,
 }) => {
-  const [question1, setQuestion1] = useState<Question>();
-  const [question2, setQuestion2] = useState<Question>();
-
   useEffect(() => {
     if (questionList !== undefined) {
       setQuestion1(questionList.find((question) => question.questionId === questionId));
@@ -42,7 +47,7 @@ export const BaseQuestionContainer: FC<BaseQuestionProp> = ({
 
   return (
     <QuestionsContainer>
-      <BaseQuestionView
+      <BaseContentView
         questionList={questionList}
         setQuestionList={setQuestionList}
         setQuestion1={setQuestion1}

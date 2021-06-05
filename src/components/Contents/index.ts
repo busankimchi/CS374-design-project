@@ -1,7 +1,7 @@
 import { AnswerDisplay } from './AnswerDisplay';
 import { AnswerDivider } from './AnswerDivider';
 import { BaseQuestionContainer } from './BaseQuestionContainer';
-import { BaseQuestionView } from './BaseQuestionView';
+import { BaseContentView } from './BaseContentView';
 import { Contents } from './Contents';
 import { FAQButton } from './FAQButton';
 import { Hover } from './Hover';
@@ -14,7 +14,7 @@ export {
   AnswerDisplay,
   AnswerDivider,
   BaseQuestionContainer,
-  BaseQuestionView,
+  BaseContentView,
   Contents,
   FAQButton,
   Hover,

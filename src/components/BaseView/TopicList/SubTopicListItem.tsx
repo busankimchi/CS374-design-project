@@ -19,7 +19,6 @@ export const SubTopicListItem: FC<SubTopicListItemProp> = ({ topicId, subTopic }
 
     const firstQuery = searchQuery[0].split('=');
     const firstKey = firstQuery[0].substr(1);
-    const firstValue = firstQuery[1];
 
     if (firstKey === 'q') {
       return `?${searchQuery.slice(1).join('&')}`;

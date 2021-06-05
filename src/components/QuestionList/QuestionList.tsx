@@ -52,8 +52,6 @@ export const QuestionList: FC<QuestionListProp> = ({
     history.push(`${pathname}${search}&second=${item.questionId}`);
   };
 
-  console.log(isLoading, subTopic, topic);
-
   const renderQuestionListElement = (item: Question) => (
     <QuestionListElement
       key={item.questionId}

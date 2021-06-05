@@ -7,11 +7,24 @@ import { useLocation } from 'react-router-dom';
 interface FAQProp {
   questionList: Question[];
   setQuestionList: Dispatch<SetStateAction<Question[]>>;
+  question1: Question | undefined;
+  question2: Question | undefined;
+  setQuestion1: Dispatch<SetStateAction<Question | undefined>>;
+  setQuestion2: Dispatch<SetStateAction<Question | undefined>>;
   isHover: boolean;
   isHoverDual: boolean;
 }
 
-export const FAQ: FC<FAQProp> = ({ questionList, setQuestionList, isHover, isHoverDual }) => {
+export const FAQ: FC<FAQProp> = ({
+  questionList,
+  setQuestionList,
+  question1,
+  question2,
+  setQuestion1,
+  setQuestion2,
+  isHover,
+  isHoverDual,
+}) => {
   const history = useHistory();
   const location = useLocation();
 
@@ -74,6 +87,10 @@ export const FAQ: FC<FAQProp> = ({ questionList, setQuestionList, isHover, isHov
       setQuestionList={setQuestionList}
       questionId={questionId}
       questionId2={questionId2}
+      question1={question1}
+      question2={question2}
+      setQuestion1={setQuestion1}
+      setQuestion2={setQuestion2}
       isHover={isHover}
       isHoverDual={isHoverDual}
       onCloseLeftContent={onCloseLeftContent}
