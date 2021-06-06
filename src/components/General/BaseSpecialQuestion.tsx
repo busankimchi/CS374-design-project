@@ -2,6 +2,7 @@ import { FC, useEffect, useState, Dispatch, SetStateAction } from 'react';
 import styled from 'styled-components';
 import { Backdrop, Box } from '@material-ui/core';
 import { H1 } from 'utils/themes';
+import ResizePanel from 'react-resize-panel-ts';
 import { Question } from 'utils/types';
 import { Contents, NotSelected } from 'components/Contents';
 import { SpecialQuestionList } from 'components/QuestionList';
@@ -99,6 +100,8 @@ export const BaseSpecialQuestion: FC<BaseQuestionProp> = ({
           </QBox>
         )}
         {questionId2 !== undefined && (
+           <ResizeContainer>
+           <ResizePanel direction="w" style={{ width: '31vw' }}>
           <QBox>
             {questionList !== undefined && question2 !== undefined && (
               <Contents
@@ -110,6 +113,8 @@ export const BaseSpecialQuestion: FC<BaseQuestionProp> = ({
               />
             )}
           </QBox>
+          </ResizePanel>
+          </ResizeContainer>
         )}
       </QQBox>
       {/* </QuestionDetails> */}
@@ -118,6 +123,11 @@ export const BaseSpecialQuestion: FC<BaseQuestionProp> = ({
     </QuestionsContainer>
   );
 };
+
+const ResizeContainer = styled.div`
+  border-left: solid;
+  display: flex;
+`;
 
 const QuestionsContainer = styled(Box)`
   display: flex;
