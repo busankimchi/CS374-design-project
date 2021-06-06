@@ -9,14 +9,15 @@ import { HistoryQuery } from 'utils/types';
 
 interface HistoryListItemProp {
   history: HistoryQuery;
+  suffix: string;
   onClickHistory?: () => void;
   onClickDelete?: () => void;
 }
 
-export const HistoryListItem: FC<HistoryListItemProp> = ({ history, onClickHistory, onClickDelete }) => {
+export const HistoryListItem: FC<HistoryListItemProp> = ({ history, suffix, onClickHistory, onClickDelete }) => {
   return (
     <HistoryListItemContainer button>
-      <Link to={`/search?q=${history.history}`}>
+      <Link to={`/search?q=${history.history}${suffix}`}>
         <HistoryButton onClick={onClickHistory}>
           <HistoryIcon />
           <HistoryItem>
