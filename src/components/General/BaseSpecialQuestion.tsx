@@ -71,8 +71,6 @@ export const BaseSpecialQuestion: FC<BaseQuestionProp> = ({
         <SpecialQuestionList
           isLoading={isLoading}
           questionList={questionList}
-          questionId={questionId}
-          questionId2={questionId2}
           title={title}
           itemLink={itemLink}
           isListShown={isListShown}

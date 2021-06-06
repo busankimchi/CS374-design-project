@@ -4,12 +4,9 @@ import { Question } from 'utils/types';
 import { BaseQuestionContainer } from 'components/Contents';
 import { useLocation } from 'react-router-dom';
 
-
-interface NormalQuestionProp {
+interface FAQProp {
   questionList: Question[];
   setQuestionList: Dispatch<SetStateAction<Question[]>>;
-  topicId?: number;
-  subTopicId?: number;
   question1: Question | undefined;
   question2: Question | undefined;
   setQuestion1: Dispatch<SetStateAction<Question | undefined>>;
@@ -18,11 +15,9 @@ interface NormalQuestionProp {
   isHoverDual: boolean;
 }
 
-export const NormalQuestion: FC<NormalQuestionProp> = ({
+export const FAQ: FC<FAQProp> = ({
   questionList,
   setQuestionList,
-  topicId,
-  subTopicId,
   question1,
   question2,
   setQuestion1,
@@ -72,17 +67,17 @@ export const NormalQuestion: FC<NormalQuestionProp> = ({
 
   const onCloseLeftContent = () => {
     if (questionId2 !== undefined) {
-      history.push(`/topic/${topicId}/subTopic/${subTopicId}?first=${questionId2}`);
+      history.push(`/faq?first=${questionId2}`);
     } else {
-      history.push(`/topic/${topicId}/subTopic/${subTopicId}`);
+      history.push(`/faq`);
     }
   };
 
   const onCloseRightContent = () => {
     if (questionId !== undefined) {
-      history.push(`/topic/${topicId}/subTopic/${subTopicId}?first=${questionId}`);
+      history.push(`/faq?first=${questionId}`);
     } else {
-      history.push(`/topic/${topicId}/subTopic/${subTopicId}`);
+      history.push(`/faq`);
     }
   };
 
@@ -103,4 +98,3 @@ export const NormalQuestion: FC<NormalQuestionProp> = ({
     />
   );
 };
-

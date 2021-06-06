@@ -108,7 +108,7 @@ const Header = styled(Box)`
   justify-content: space-between !important;
 `;
 
-const Title = styled(Box) <{ notAnswered: boolean }>`
+const Title = styled(Box)<{ notAnswered: boolean }>`
   width: 10em;
   .MuiTypography-root {
     ${({ notAnswered }) => (notAnswered ? H5I : H5)};
@@ -122,7 +122,7 @@ const TitleText = styled(Typography)`
   ${TRUNCATE_ONE};
 `;
 
-const Time = styled(Box) <{ notAnswered: boolean }>`
+const Time = styled(Box)<{ notAnswered: boolean }>`
   margin-right: 0.1em !important;
   ${({ notAnswered }) => (notAnswered ? B3I : B3)};
 `;
@@ -137,7 +137,7 @@ const Body = styled(Box)`
   }
 `;
 
-const BodyText = styled(Typography) <{ notAnswered: boolean }>`
+const BodyText = styled(Typography)<{ notAnswered: boolean }>`
   .MuiTypography-root {
     ${({ notAnswered }) => (notAnswered ? B2I : B2)};
   }
@@ -148,7 +148,6 @@ const DoubleSidedViewButton = styled(IconButton)`
   height: 100% !important;
   padding: 1.2em 0.3em !important;
   margin-right: 0.1em !important;
-
   border-radius: 0 !important;
   :hover {
     background-color: ${LIGHT_GRAY_2} !important;

@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
 import { FC, Dispatch, SetStateAction } from 'react';
 import { useHistory, useLocation } from 'react-router';
 import styled from 'styled-components';
@@ -6,18 +5,16 @@ import { Box, List, Typography } from '@material-ui/core';
 import { H3, TRUNCATE_ONE, GRAY, LIGHT_GRAY_1, LIGHT_GRAY_2 } from 'utils/themes';
 import { Topic, SubTopic, Question } from 'utils/types';
 import { Hover } from 'components/Contents';
+import { Loading } from 'components/General';
 import { QuestionListElement } from './QuestionListElement';
-import { Loading } from '../General/Loading';
 
-interface QuestionListHeaderProp {
+interface QuestionListProp {
   isLoading: boolean;
   setIsLoading: Dispatch<SetStateAction<boolean>>;
-  topic: Topic | undefined;
-  subTopic: SubTopic | undefined;
+  topic: Topic;
+  subTopic: SubTopic;
   questionList: Question[] | undefined;
   isListShown: boolean;
-  questionId?: number;
-  questionId2?: number;
   onToggle?: () => void;
   onHoverIn?: () => void;
   onHoverOut?: () => void;
@@ -25,15 +22,12 @@ interface QuestionListHeaderProp {
   onHoverOutDual: () => void;
 }
 
-export const QuestionList: FC<QuestionListHeaderProp> = ({
+export const QuestionList: FC<QuestionListProp> = ({
   isLoading,
-  setIsLoading,
   topic,
   subTopic,
   questionList,
   isListShown,
-  questionId,
-  questionId2,
   onToggle,
   onHoverIn,
   onHoverOut,
@@ -42,59 +36,50 @@ export const QuestionList: FC<QuestionListHeaderProp> = ({
 }) => {
   const history = useHistory();
   const location = useLocation();
+  const locationSearch = location.search.split('&');
+  const firstQId = locationSearch[0].substr(1).split('=')[1];
+  const firstQIdNum = Number(firstQId);
 
-  const onClickItem = (item: Question) => {
-    const path = location.pathname;
-    history.push(`${path}?second=${item.questionId}`);
+  const onClickItemDual = (item: Question) => {
+    const { pathname, search } = location;
+
+    const searchQuery = search.split('&');
+
+    if (searchQuery[1] !== undefined) {
+      history.push(`${pathname}${searchQuery[0]}&second=${item.questionId}`);
+      return;
+    }
+    history.push(`${pathname}${search}&second=${item.questionId}`);
   };
 
-  if (subTopic !== undefined && topic !== undefined) {
-    const renderQuestionListElement = (item: Question) => (
-      <QuestionListElement
-        key={item.questionId}
-        question={item}
-        topicId={topic.id}
-        subTopicId={subTopic.id}
-        onHoverIn={onHoverIn}
-        onHoverOut={onHoverOut}
-        onHoverInDual={onHoverInDual}
-        onHoverOutDual={onHoverOutDual}
-        dualDisable={questionId === undefined}
-        onClickItem={onClickItem}
-      />
-    );
 
-    const drawerBody =
-      questionList === undefined || isLoading ? (
-        <Loading />
-      ) : (
-        questionList.map((item) => renderQuestionListElement(item))
-      );
+  const renderQuestionListElement = (item: Question) => (
+    <QuestionListElement
+      key={item.questionId}
+      question={item}
+      topicId={topic.id}
+      subTopicId={subTopic.id}
+      onClickItemDual={onClickItemDual}
+      onHoverIn={onHoverIn}
+      onHoverOut={onHoverOut}
+      onHoverInDual={onHoverInDual}
+      onHoverOutDual={onHoverOutDual}
+      dualDisable={Number.isNaN(firstQIdNum)}
+    />
+  );
 
-    return (
-      <QuestionListContainer>
-        <QuestionListDrawer isListShown={isListShown}>
-          <QuestionListHeader>
-            <QuestionListHeaderText>
-              {topic.topicName} {'>'} {subTopic.subTopicName}
-            </QuestionListHeaderText>
-          </QuestionListHeader>
-          <QuestionListDrawerBody isLoading={isLoading}>{drawerBody}</QuestionListDrawerBody>
-        </QuestionListDrawer>
+  const drawerHeader = isLoading ? '...' : `${topic.topicName} > ${subTopic.subTopicName}`;
+  const drawerBody =
+    questionList === undefined || isLoading ? <Loading /> : questionList.map((item) => renderQuestionListElement(item));
 
-        <Hover showQuestionList={onToggle} iconFlip={isListShown} />
-      </QuestionListContainer>
-    );
-  }
+
   return (
     <QuestionListContainer>
       <QuestionListDrawer isListShown={isListShown}>
         <QuestionListHeader>
-          <QuestionListHeaderText>...</QuestionListHeaderText>
+          <QuestionListHeaderText>{drawerHeader}</QuestionListHeaderText>
         </QuestionListHeader>
-        <QuestionListDrawerBody isLoading={isLoading}>
-          <Loading />
-        </QuestionListDrawerBody>
+        <QuestionListDrawerBody isLoading={isLoading}>{drawerBody}</QuestionListDrawerBody>
       </QuestionListDrawer>
 
       <Hover showQuestionList={onToggle} iconFlip={isListShown} />
