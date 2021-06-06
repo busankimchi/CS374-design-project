@@ -1,12 +1,12 @@
 import { FC } from 'react';
-import { Link as DefaultLink } from 'react-router-dom';
+import { Link as DefaultLink, useLocation } from 'react-router-dom';
 import styled from 'styled-components';
 import { List, ListItem, ListItemIcon as DefaultListItemIcon, ListItemText, Typography } from '@material-ui/core';
 import ChatBubbleIcon from '@material-ui/icons/ChatBubble';
 import ClearAllIcon from '@material-ui/icons/ClearAll';
 import AddCircleIcon from '@material-ui/icons/AddCircle';
 import { Topic } from 'utils/types';
-import { H4, BROWN, PINK_1, PINK_4 } from 'utils/themes';
+import { H4, GRAY, BROWN, PINK_1, PINK_4 } from 'utils/themes';
 import { TopicListItem } from './TopicListItem';
 
 interface TopicListProp {
@@ -22,27 +22,44 @@ export const TopicList: FC<TopicListProp> = ({ topicList, onClickAdd, onContextM
     <TopicListItem key={index} topic={item} onContextMenu={onContextMenu} setTopic={setTopic} />
   );
 
+  const location = useLocation();
+  const { search } = location;
+
+  const suffixPicker = (search: string) => {
+    const searchQuery = search.split('&');
+
+    const firstQuery = searchQuery[0].split('=');
+    const firstKey = firstQuery[0].substr(1);
+
+    if (firstKey === 'q') {
+      return `?${searchQuery.slice(1).join('&')}`;
+    }
+    return search;
+  };
+
   return (
     <TopicListContainer>
-      <Link to="/faq">
-        <FAQ button>
+      {/* <Link to="/faq"> */}
+      <Link to={`/faq${suffixPicker(search)}`}>
+        <FAQItem button>
           <ListItemIcon>
             <ChatBubbleIcon />
           </ListItemIcon>
           <ListItemText>
             <TopicItemText noWrap>FAQ</TopicItemText>
           </ListItemText>
-        </FAQ>
+        </FAQItem>
       </Link>
-      <Link to="/all_questions">
-        <AllQuestions button>
+      {/* <Link to="/all_questions"> */}
+      <Link to={`/all_questions${suffixPicker(search)}`}>
+        <AllQuestionsItem button>
           <ListItemIcon>
             <ClearAllIcon />
           </ListItemIcon>
           <ListItemText>
             <TopicItemText noWrap>All Questions</TopicItemText>
           </ListItemText>
-        </AllQuestions>
+        </AllQuestionsItem>
       </Link>
       {topicList.map((item, index) => renderTopicItems(item, index))}
       <AddTopic button onClick={onClickAdd}>
@@ -60,7 +77,12 @@ export const TopicList: FC<TopicListProp> = ({ topicList, onClickAdd, onContextM
 const TopicListContainer = styled(List)`
   overflow-y: scroll;
   ::-webkit-scrollbar {
-    display: none;
+    width: 4px;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background-color: ${GRAY};
+    border-radius: 10rem;
   }
 `;
 
@@ -73,7 +95,7 @@ const ListItemIcon = styled(DefaultListItemIcon)`
   min-width: 2.5em;
 `;
 
-const FAQ = styled(ListItem)`
+const FAQItem = styled(ListItem)`
   display: flex;
 
   :hover {
@@ -90,7 +112,7 @@ const TopicItemText = styled(Typography)`
   ${H4}
 `;
 
-const AllQuestions = styled(ListItem)`
+const AllQuestionsItem = styled(ListItem)`
   :hover {
     background-color: ${PINK_4} !important;
   }

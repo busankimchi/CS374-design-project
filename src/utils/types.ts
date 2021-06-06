@@ -84,3 +84,10 @@ export interface HistoryQueryFB {
   history: string;
   time: firebase.firestore.Timestamp;
 }
+
+export interface ParamProp {
+  topicId?: string;
+  subTopicId?: string;
+  questionId?: string;
+  questionId2?: string;
+}

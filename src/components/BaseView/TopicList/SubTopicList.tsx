@@ -18,7 +18,7 @@ export const SubTopicList: FC<SubTopicListProp> = ({ topicId, subTopicList }) =>
     <SubTopicListContainer disablePadding>
       {(subTopicList === undefined || subTopicList.length === 0) && (
         <Empty button disabled>
-          <Typography>Empty! Add a new subtopic</Typography>
+          <Typography>Students will add subtopics</Typography>
         </Empty>
       )}
       {subTopicList !== undefined && subTopicList.map((item, index) => renderSubTopicItems(item, index))}

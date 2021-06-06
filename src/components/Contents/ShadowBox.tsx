@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import { FC } from 'react';
 import styled from 'styled-components';
 // import { Redirect, Route } from 'react-router-dom';
@@ -10,7 +11,7 @@ interface ShadowBoxProps {
 
 export const ShadowBox: FC<ShadowBoxProps> = ({ isVisible }) => {
   // eslint-disable-next-line no-console
-  console.log(isVisible);
+  // console.log(isVisible);
   return <ShadowContainer />;
 };
 

@@ -1,4 +1,5 @@
 import { FC } from 'react';
+import { useLocation } from 'react-router-dom';
 import styled from 'styled-components';
 import { Box, List, Typography } from '@material-ui/core';
 import { Question } from 'utils/types';
@@ -7,28 +8,23 @@ import { Hover } from 'components/Contents';
 import { SpecialQuestionListElement } from './SpecialQuestionListElement';
 import { Loading } from '../General/Loading';
 
-interface QuestionListProp {
+interface SpecialQuestionListProp {
   isLoading: boolean;
   questionList: Question[];
-  questionId?: number;
-  questionId2?: number;
   title: string;
   itemLink: (item: Question) => string;
+  onClickItemDual: (item: Question) => void;
   isListShown: boolean;
   onToggle?: () => void;
   onHoverIn?: () => void;
   onHoverOut?: () => void;
   onHoverInDual: () => void;
   onHoverOutDual: () => void;
-  onClickItemDual: (item: Question) => void;
 }
 
-export const SpecialQuestionList: FC<QuestionListProp> = ({
+export const SpecialQuestionList: FC<SpecialQuestionListProp> = ({
   isLoading,
   questionList,
-  questionId,
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  questionId2,
   title,
   itemLink,
   isListShown,
@@ -39,17 +35,41 @@ export const SpecialQuestionList: FC<QuestionListProp> = ({
   onHoverOutDual,
   onClickItemDual,
 }) => {
+  const location = useLocation();
+  const { search } = location;
+
+  const dualDisable = (search: string) => {
+    const searchQuery = search.split('&');
+
+    const firstQuery = searchQuery[0].substr(1).split('=');
+    const firstKey = firstQuery[0];
+    const firstValue = firstQuery[1];
+
+    if (firstKey === 'q') {
+      if (searchQuery[1] !== undefined) {
+        const secondQuery = searchQuery[1].split('=');
+        const secondValue = secondQuery[1];
+
+        const firstQIdNum = Number(secondValue);
+
+        return Number.isNaN(firstQIdNum);
+      }
+    }
+    const firstQIdNum = Number(firstValue);
+    return Number.isNaN(firstQIdNum);
+  };
+
   const renderQuestionListElement = (item: Question) => (
     <SpecialQuestionListElement
       key={item.questionId}
       question={item}
       link={itemLink(item)}
-      dualDisable={questionId === undefined}
       onHoverIn={onHoverIn}
       onHoverOut={onHoverOut}
       onHoverInDual={onHoverInDual}
       onHoverOutDual={onHoverOutDual}
       onClickItemDual={onClickItemDual}
+      dualDisable={dualDisable(search)}
     />
   );
 
@@ -75,7 +95,7 @@ const QuestionListContainer = styled(Box)`
   height: 100%;
 `;
 
-const QuestionListDrawer = styled(Box) <{ isListShown: boolean }>`
+const QuestionListDrawer = styled(Box)<{ isListShown: boolean }>`
   display: flex;
   flex-direction: column;
   width: ${({ isListShown }) => (isListShown ? '20vw' : '0vw')};
@@ -84,7 +104,7 @@ const QuestionListDrawer = styled(Box) <{ isListShown: boolean }>`
   transition: all 0.15s ease-in-out !important;
 `;
 
-const QuestionListDrawerBody = styled(List) <{ isLoading: boolean }>`
+const QuestionListDrawerBody = styled(List)<{ isLoading: boolean }>`
   overflow-y: scroll;
   overflow-x: hidden;
   padding: 0 !important;
@@ -97,7 +117,6 @@ const QuestionListDrawerBody = styled(List) <{ isLoading: boolean }>`
   ::-webkit-scrollbar-thumb {
     background-color: ${GRAY};
     border-radius: 10rem;
-    border: 1px solid #ffffff;
   }
 `;
 
