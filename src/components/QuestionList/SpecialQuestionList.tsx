@@ -117,7 +117,6 @@ const QuestionListDrawerBody = styled(List)<{ isLoading: boolean }>`
   ::-webkit-scrollbar-thumb {
     background-color: ${GRAY};
     border-radius: 10rem;
-    border: 1px solid #ffffff;
   }
 `;
 

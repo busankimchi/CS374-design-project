@@ -4,6 +4,7 @@ import { Question } from 'utils/types';
 import { BaseQuestionContainer } from 'components/Contents';
 import { useLocation } from 'react-router-dom';
 
+
 interface NormalQuestionProp {
   questionList: Question[];
   setQuestionList: Dispatch<SetStateAction<Question[]>>;
@@ -102,3 +103,4 @@ export const NormalQuestion: FC<NormalQuestionProp> = ({
     />
   );
 };
+

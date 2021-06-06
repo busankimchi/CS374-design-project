@@ -52,6 +52,7 @@ export const QuestionList: FC<QuestionListProp> = ({
     history.push(`${pathname}${search}&second=${item.questionId}`);
   };
 
+
   const renderQuestionListElement = (item: Question) => (
     <QuestionListElement
       key={item.questionId}
@@ -70,6 +71,7 @@ export const QuestionList: FC<QuestionListProp> = ({
   const drawerHeader = isLoading ? '...' : `${topic.topicName} > ${subTopic.subTopicName}`;
   const drawerBody =
     questionList === undefined || isLoading ? <Loading /> : questionList.map((item) => renderQuestionListElement(item));
+
 
   return (
     <QuestionListContainer>
@@ -112,7 +114,6 @@ const QuestionListDrawerBody = styled(List)<{ isLoading: boolean }>`
   ::-webkit-scrollbar-thumb {
     background-color: ${GRAY};
     border-radius: 10rem;
-    border: 1px solid #ffffff;
   }
 `;
 
