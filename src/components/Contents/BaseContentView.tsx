@@ -1,7 +1,9 @@
 import { FC, Dispatch, SetStateAction } from 'react';
 import styled from 'styled-components';
 import { Backdrop, Box } from '@material-ui/core';
+import ResizePanel from 'react-resize-panel-ts';
 import { Question } from 'utils/types';
+import { H1, LIGHT_GRAY_1 } from 'utils/themes';
 import { Contents, NotSelected } from 'components/Contents';
 
 interface BaseContentViewProp {
@@ -51,20 +53,28 @@ export const BaseContentView: FC<BaseContentViewProp> = ({
           </QBox>
         )}
         {questionId2 !== undefined && (
-          <QBox>
-            {questionList !== undefined && question2 !== undefined && (
-              <Contents
-                allQuestionList={questionList}
-                setQuestionList={setQuestionList}
-                question={question2}
-                setQuestion={setQuestion2}
-                closeThisContent={onCloseRightContent}
-              />
-            )}
-          </QBox>
+          <ResizeContainer>
+            <ResizePanel direction="w" style={{ width: '31vw' }}>
+              <QBox>
+                {questionList !== undefined && question2 !== undefined && (
+                  <Contents
+                    allQuestionList={questionList}
+                    setQuestionList={setQuestionList}
+                    question={question2}
+                    setQuestion={setQuestion2}
+                    closeThisContent={onCloseRightContent}
+                  />
+                )}
+              </QBox>
+            </ResizePanel>
+          </ResizeContainer>
         )}
       </QQBox>
-      {isHover && <DoubleSidedPaper open={isHover} fullsize={!isHoverDual} />}
+      {isHover && (
+        <DoubleSidedPaper open={isHover} fullsize={!isHoverDual}>
+          Open Here
+        </DoubleSidedPaper>
+      )}
     </QuestionsContainer>
   );
 };
@@ -88,4 +98,11 @@ const QQBox = styled(Box)`
 const DoubleSidedPaper = styled(Backdrop)<{ fullsize: boolean }>`
   left: ${({ fullsize }) => (fullsize ? '37vw' : '68vw')} !important;
   z-index: 999 !important;
+  ${H1};
+  color: #ffffff;
+`;
+
+const ResizeContainer = styled.div`
+  border-left: 1px solid ${LIGHT_GRAY_1};
+  display: flex;
 `;
