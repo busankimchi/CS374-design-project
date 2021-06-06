@@ -1,4 +1,4 @@
-import { FC, useEffect, useState, Dispatch, SetStateAction } from 'react';
+import { FC, useEffect, Dispatch, SetStateAction } from 'react';
 import styled from 'styled-components';
 import { Box } from '@material-ui/core';
 import { Question } from 'utils/types';

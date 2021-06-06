@@ -6,6 +6,7 @@ import { Question } from 'utils/types';
 import { FAQQuestionList, AllQuestionList, SearchQuestionList, NormalQuestionList } from 'components/QuestionList';
 
 interface MainQuestionListProps {
+  setTotalQuestionList: Dispatch<SetStateAction<Question[]>>;
   setQuestionList: Dispatch<SetStateAction<Question[]>>;
   isListShown: boolean;
   onToggle?: () => void;
@@ -16,6 +17,7 @@ interface MainQuestionListProps {
 }
 
 export const MainQuestionList: FC<MainQuestionListProps> = ({
+  setTotalQuestionList,
   setQuestionList,
   isListShown,
   onToggle,
@@ -35,6 +37,7 @@ export const MainQuestionList: FC<MainQuestionListProps> = ({
         render={() => {
           return (
             <FAQQuestionList
+              setTotalQuestionList={setTotalQuestionList}
               setQuestionList={setQuestionList}
               isListShown={isListShown}
               onToggle={onToggle}
@@ -51,6 +54,7 @@ export const MainQuestionList: FC<MainQuestionListProps> = ({
         render={() => {
           return (
             <AllQuestionList
+              setTotalQuestionList={setTotalQuestionList}
               setQuestionList={setQuestionList}
               isListShown={isListShown}
               onToggle={onToggle}
@@ -77,6 +81,7 @@ export const MainQuestionList: FC<MainQuestionListProps> = ({
 
               return (
                 <SearchQuestionList
+                  setTotalQuestionList={setTotalQuestionList}
                   setQuestionList={setQuestionList}
                   search={search}
                   isListShown={isListShown}
@@ -101,6 +106,7 @@ export const MainQuestionList: FC<MainQuestionListProps> = ({
           if (!Number.isNaN(Number(topicId)) && !Number.isNaN(Number(subTopicId))) {
             return (
               <NormalQuestionList
+                setTotalQuestionList={setTotalQuestionList}
                 setQuestionList={setQuestionList}
                 topicId={Number(topicId)}
                 subTopicId={Number(subTopicId)}
@@ -117,6 +123,7 @@ export const MainQuestionList: FC<MainQuestionListProps> = ({
           console.log('query error');
           return (
             <NormalQuestionList
+              setTotalQuestionList={setTotalQuestionList}
               setQuestionList={setQuestionList}
               topicId={Number(topicId)}
               subTopicId={Number(subTopicId)}

@@ -7,6 +7,7 @@ import { useQuestionList } from 'apis/Question/useQuestionList';
 import { SpecialQuestionList } from 'components/QuestionList';
 
 interface SearchQuestionListProps {
+  setTotalQuestionList: Dispatch<SetStateAction<Question[]>>;
   setQuestionList: Dispatch<SetStateAction<Question[]>>;
   search: string;
   isListShown: boolean;
@@ -18,6 +19,7 @@ interface SearchQuestionListProps {
 }
 
 export const SearchQuestionList: FC<SearchQuestionListProps> = ({
+  setTotalQuestionList,
   setQuestionList,
   search,
   isListShown,
@@ -57,6 +59,7 @@ export const SearchQuestionList: FC<SearchQuestionListProps> = ({
 
   useEffect(() => {
     setQuestionList(searchList);
+    setTotalQuestionList(questionList);
   }, [questionList]);
 
   return (

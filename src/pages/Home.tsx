@@ -25,11 +25,12 @@ export const Home: FC = () => {
   const [isListShown, setListShown] = useState(true);
   const [isHover, setHover] = useState(false);
   const [isHoverDual, setHoverDual] = useState(false);
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [questionList, setQuestionList] = useState<Question[]>([]);
+  const [totalQuestionList, setTotalQuestionList] = useState<Question[]>([]);
 
   const [question1, setQuestion1] = useState<Question>();
   const [question2, setQuestion2] = useState<Question>();
-  const [isPrev, setPrev] = useState(false);
 
   const onToggle = () => setListShown(!isListShown);
   const onHoverIn = () => setHover(true);
@@ -120,6 +121,7 @@ export const Home: FC = () => {
         />
         <QuestionContainer>
           <MainQuestionList
+            setTotalQuestionList={setTotalQuestionList}
             setQuestionList={setQuestionList}
             isListShown={isListShown}
             onToggle={onToggle}
@@ -130,7 +132,7 @@ export const Home: FC = () => {
           />
 
           <QuestionDetail
-            questionList={questionList}
+            questionList={totalQuestionList}
             setQuestionList={setQuestionList}
             question1={question1}
             question2={question2}

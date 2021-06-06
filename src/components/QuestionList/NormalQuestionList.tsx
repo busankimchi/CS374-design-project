@@ -1,13 +1,13 @@
 import { FC, useEffect, useState, Dispatch, SetStateAction } from 'react';
 import styled from 'styled-components';
 import { Box } from '@material-ui/core';
-import firebase from 'firebase';
-import { Topic, SubTopic, Question, QuestionFB, QuestionContent, AnswerContent } from 'utils/types';
-import { TimestampToDate } from 'utils/functions';
+import { Topic, SubTopic, Question } from 'utils/types';
 import { QuestionList } from 'components/QuestionList';
 import { useTopicList } from 'hooks/useTopicList';
+import { useQuestionList } from 'apis/Question/useQuestionList';
 
 interface NormalQuestionListProp {
+  setTotalQuestionList: Dispatch<SetStateAction<Question[]>>;
   setQuestionList: Dispatch<SetStateAction<Question[]>>;
   topicId: number;
   subTopicId: number;
@@ -20,6 +20,7 @@ interface NormalQuestionListProp {
 }
 
 export const NormalQuestionList: FC<NormalQuestionListProp> = ({
+  setTotalQuestionList,
   setQuestionList,
   topicId,
   subTopicId,
@@ -33,9 +34,9 @@ export const NormalQuestionList: FC<NormalQuestionListProp> = ({
   const [topicInfo, setTopicInfo] = useState<Topic>();
   const [subTopicInfo, setSubTopicInfo] = useState<SubTopic>();
   const [questionIdList, setQuestionIdList] = useState<number[]>();
-  const [finalQuestionList, setFinalQuestionList] = useState<Question[]>();
+  const [normalList, setNormalList] = useState<Question[]>();
   const [isLoading, setIsLoading] = useState(true);
-
+  const { questionList } = useQuestionList(setIsLoading);
   const { topicList } = useTopicList();
 
   useEffect(() => {
@@ -54,44 +55,23 @@ export const NormalQuestionList: FC<NormalQuestionListProp> = ({
     }
   }, [topicInfo, topicId, subTopicId]);
 
-  /** Get Question list */
-
   useEffect(() => {
     if (subTopicInfo !== undefined) {
       setQuestionIdList(subTopicInfo.questionList as number[]);
     }
   }, [subTopicInfo]);
 
+  /** Get Question list */
+
+  useEffect(() => {
+    setTotalQuestionList(questionList);
+  }, [questionList]);
+
   useEffect(() => {
     if (questionIdList !== undefined) {
-      setIsLoading(true);
-      firebase
-        .firestore()
-        .collection('questions')
-        .get()
-        .then((doc) => {
-          const questionListCustom = [] as Question[];
-          doc.docs.filter((item) => {
-            const { question, answers, ...rest } = item.data() as QuestionFB;
-            const questionContent = { ...question, time: TimestampToDate(question.time) } as QuestionContent;
-            const answerContents = answers.map(
-              (item) => ({ ...item, time: TimestampToDate(item.time) } as AnswerContent),
-            );
-
-            const finalQuestion = { question: questionContent, answers: answerContents, ...rest } as Question;
-
-            if (questionIdList.includes(finalQuestion.questionId)) {
-              questionListCustom.push(finalQuestion);
-            }
-
-            return finalQuestion;
-          });
-          questionListCustom.sort((a, b) => b.questionId - a.questionId);
-          setFinalQuestionList(questionListCustom);
-          setIsLoading(false);
-          setQuestionList(questionListCustom);
-        })
-        .catch();
+      const newNormalList = questionList.filter((item) => questionIdList.includes(item.questionId));
+      setQuestionList(newNormalList);
+      setNormalList(newNormalList);
     }
   }, [questionIdList]);
 
@@ -103,7 +83,7 @@ export const NormalQuestionList: FC<NormalQuestionListProp> = ({
           setIsLoading={setIsLoading}
           topic={topicInfo}
           subTopic={subTopicInfo}
-          questionList={finalQuestionList}
+          questionList={normalList}
           isListShown={isListShown}
           onToggle={onToggle}
           onHoverIn={onHoverIn}

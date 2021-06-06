@@ -6,6 +6,7 @@ import { MainQuestionList } from './MainQuestionList';
 import { QuestionDetail } from './QuestionDetail';
 
 interface QuestionsProps {
+  setTotalQuestionList: Dispatch<SetStateAction<Question[]>>;
   questionList: Question[];
   setQuestionList: Dispatch<SetStateAction<Question[]>>;
   isListShown: boolean;
@@ -23,6 +24,7 @@ interface QuestionsProps {
 }
 
 export const Questions: FC<QuestionsProps> = ({
+  setTotalQuestionList,
   questionList,
   setQuestionList,
   isListShown,
@@ -41,6 +43,7 @@ export const Questions: FC<QuestionsProps> = ({
   return (
     <QuestionContainer>
       <MainQuestionList
+        setTotalQuestionList={setTotalQuestionList}
         setQuestionList={setQuestionList}
         isListShown={isListShown}
         onToggle={onToggle}

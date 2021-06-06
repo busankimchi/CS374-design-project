@@ -7,6 +7,7 @@ import { SpecialQuestionList } from 'components/QuestionList';
 import { useQuestionList } from 'apis/Question/useQuestionList';
 
 interface FAQQuestionListProps {
+  setTotalQuestionList: Dispatch<SetStateAction<Question[]>>;
   setQuestionList: Dispatch<SetStateAction<Question[]>>;
   isListShown: boolean;
   onToggle?: () => void;
@@ -17,6 +18,7 @@ interface FAQQuestionListProps {
 }
 
 export const FAQQuestionList: FC<FAQQuestionListProps> = ({
+  setTotalQuestionList,
   setQuestionList,
   isListShown,
   onToggle,
@@ -45,6 +47,7 @@ export const FAQQuestionList: FC<FAQQuestionListProps> = ({
 
   useEffect(() => {
     setQuestionList(FAQList);
+    setTotalQuestionList(questionList);
   }, [questionList]);
 
   return (
