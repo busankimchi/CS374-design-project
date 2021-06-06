@@ -1,66 +1,73 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
-import { FC, useState } from 'react';
-import { PageType } from 'utils/types';
-import { SpecialQuestion } from './SpecialQuestion';
-import { NormalQuestion } from './NormalQuestion';
+import { FC, Dispatch, SetStateAction } from 'react';
+import styled from 'styled-components';
+import { Question } from 'utils/types';
+import { Box } from '@material-ui/core';
+import { MainQuestionList } from './MainQuestionList';
+import { QuestionDetail } from './QuestionDetail';
 
-interface QuestionsProp {
-  pageType: PageType;
-  search?: string;
-  topicId?: number;
-  subTopicId?: number;
-  questionId?: number;
-  questionId2?: number;
+interface QuestionsProps {
+  setTotalQuestionList: Dispatch<SetStateAction<Question[]>>;
+  questionList: Question[];
+  setQuestionList: Dispatch<SetStateAction<Question[]>>;
+  isListShown: boolean;
+  question1: Question | undefined;
+  question2: Question | undefined;
+  setQuestion1: Dispatch<SetStateAction<Question | undefined>>;
+  setQuestion2: Dispatch<SetStateAction<Question | undefined>>;
+  isHover: boolean;
+  isHoverDual: boolean;
+  onToggle?: () => void;
+  onHoverIn?: () => void;
+  onHoverOut?: () => void;
+  onHoverInDual: () => void;
+  onHoverOutDual: () => void;
 }
 
-export const Questions: FC<QuestionsProp> = ({ pageType, search, topicId, subTopicId, questionId, questionId2 }) => {
-  // eslint-disable-next-line no-console
-  // console.log({ pageType, search, topicId, subTopicId, questionId, questionId2 });
-
-  const [isListShown, setListShown] = useState(true);
-  const [isHover, setHover] = useState(false);
-  const [isHoverDual, setHoverDual] = useState(false);
-
-  const onToggle = () => setListShown(!isListShown);
-  const onHoverIn = () => setHover(true);
-  const onHoverOut = () => setHover(false);
-  const onHoverInDual = () => setHoverDual(true);
-  const onHoverOutDual = () => setHoverDual(false);
-
-  if (pageType === PageType.FAQ || pageType === PageType.ALL_QUESTIONS || pageType === PageType.SEARCH) {
-    return (
-      <SpecialQuestion
-        pageType={pageType}
-        search={search}
-        questionId={questionId}
-        questionId2={questionId2}
+export const Questions: FC<QuestionsProps> = ({
+  setTotalQuestionList,
+  questionList,
+  setQuestionList,
+  isListShown,
+  question1,
+  question2,
+  setQuestion1,
+  setQuestion2,
+  isHover,
+  isHoverDual,
+  onToggle,
+  onHoverIn,
+  onHoverOut,
+  onHoverInDual,
+  onHoverOutDual,
+}) => {
+  return (
+    <QuestionContainer>
+      <MainQuestionList
+        setTotalQuestionList={setTotalQuestionList}
+        setQuestionList={setQuestionList}
         isListShown={isListShown}
-        isHover={isHover}
-        isHoverDual={isHoverDual}
         onToggle={onToggle}
         onHoverIn={onHoverIn}
         onHoverOut={onHoverOut}
         onHoverInDual={onHoverInDual}
         onHoverOutDual={onHoverOutDual}
       />
-    );
-  }
 
-  return (
-    <NormalQuestion
-      pageType={pageType}
-      topicId={topicId}
-      subTopicId={subTopicId}
-      questionId={questionId}
-      questionId2={questionId2}
-      isListShown={isListShown}
-      isHover={isHover}
-      isHoverDual={isHoverDual}
-      onToggle={onToggle}
-      onHoverIn={onHoverIn}
-      onHoverOut={onHoverOut}
-      onHoverInDual={onHoverInDual}
-      onHoverOutDual={onHoverOutDual}
-    />
+      <QuestionDetail
+        questionList={questionList}
+        setQuestionList={setQuestionList}
+        question1={question1}
+        question2={question2}
+        setQuestion1={setQuestion1}
+        setQuestion2={setQuestion2}
+        isHover={isHover}
+        isHoverDual={isHoverDual}
+      />
+    </QuestionContainer>
   );
 };
+
+const QuestionContainer = styled(Box)`
+  display: flex;
+  width: 100%;
+`;

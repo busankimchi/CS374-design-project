@@ -17,7 +17,7 @@ interface QuestionListElementProp {
   onHoverOut?: () => void;
   onHoverInDual: () => void;
   onHoverOutDual: () => void;
-  onClickItem: (question: Question) => void;
+  onClickItemDual: (question: Question) => void;
 }
 
 export const QuestionListElement: FC<QuestionListElementProp> = ({
@@ -29,7 +29,7 @@ export const QuestionListElement: FC<QuestionListElementProp> = ({
   onHoverOut,
   onHoverInDual,
   onHoverOutDual,
-  onClickItem,
+  onClickItemDual,
 }) => {
   const [shadowPreview, setShadowPreview] = useState(true);
 
@@ -50,7 +50,7 @@ export const QuestionListElement: FC<QuestionListElementProp> = ({
   return (
     <QuestionListElementContainer>
       <TextBox onMouseEnter={onHoverIn} onMouseLeave={onHoverOut}>
-        <Link to={`/topic/${topicId}/subTopic/${subTopicId}/question/${question.questionId}`}>
+        <Link to={`/topic/${topicId}/subTopic/${subTopicId}?first=${question.questionId}`}>
           <Header>
             <Title notAnswered={notAnswered}>
               <TitleText>
@@ -71,7 +71,7 @@ export const QuestionListElement: FC<QuestionListElementProp> = ({
         <DoubleSidedViewButton
           onMouseEnter={setShadowIn}
           onMouseLeave={setShadowOut}
-          onClick={() => onClickItem(question)}
+          onClick={() => onClickItemDual(question)}
           disabled={dualDisable}
         >
           <Icon icon={squareHalf} />
@@ -109,7 +109,7 @@ const Header = styled(Box)`
   justify-content: space-between !important;
 `;
 
-const Title = styled(Box) <{ notAnswered: boolean }>`
+const Title = styled(Box)<{ notAnswered: boolean }>`
   width: 10em;
   .MuiTypography-root {
     ${({ notAnswered }) => (notAnswered ? H5I : H5)};
@@ -123,7 +123,7 @@ const TitleText = styled(Typography)`
   ${TRUNCATE_ONE};
 `;
 
-const Time = styled(Box) <{ notAnswered: boolean }>`
+const Time = styled(Box)<{ notAnswered: boolean }>`
   margin-right: 0.1em !important;
   ${({ notAnswered }) => (notAnswered ? B3I : B3)};
 `;
@@ -137,7 +137,7 @@ const Body = styled(Box)`
   }
 `;
 
-const BodyText = styled(Typography) <{ notAnswered: boolean }>`
+const BodyText = styled(Typography)<{ notAnswered: boolean }>`
   .MuiTypography-root {
     ${({ notAnswered }) => (notAnswered ? B2I : B2)};
   }

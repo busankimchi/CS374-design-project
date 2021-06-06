@@ -2,14 +2,14 @@ import { FC } from 'react';
 import styled from 'styled-components';
 import { makeStyles } from '@material-ui/core/styles';
 import { Box, Avatar } from '@material-ui/core';
-import { timeForToday } from '../../utils/functions'
-import { H3, B2, COLORS } from '../../utils/themes'
+import { timeForToday } from '../../utils/functions';
+import { H3, B2, COLORS } from '../../utils/themes';
 
 interface UserInfoProp {
-  userName: string,
-  time: Date,
-  image: number,
-};
+  userName: string;
+  time: Date;
+  image: number;
+}
 
 const us = (c: number) => {
   return makeStyles((theme) => ({
@@ -18,7 +18,7 @@ const us = (c: number) => {
       backgroundColor: COLORS[c],
     },
   }));
-}
+};
 
 export const UserInfo: FC<UserInfoProp> = ({ userName, time, image }) => {
   const classes = us(image)();

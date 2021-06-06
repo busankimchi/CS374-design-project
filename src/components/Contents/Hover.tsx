@@ -1,5 +1,4 @@
 import { Button } from '@material-ui/core';
-// import DeleteIcon from '@material-ui/icons/Delete';
 import styled from 'styled-components';
 import { FC } from 'react';
 import { PINK_4 } from 'utils/themes';
@@ -19,8 +18,7 @@ export const Hover: FC<HoverProps> = ({ showQuestionList, iconFlip }) => {
 
 // important Hover
 
-const HoverContainer = styled(Button)` 
-
+const HoverContainer = styled(Button)`
   display: flex !important;
   padding: 0px !important;
   margin: 0px !important;

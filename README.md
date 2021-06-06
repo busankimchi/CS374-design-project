@@ -86,7 +86,7 @@ _**[Task 5] After doing so, check if the question is properly added to the FAQ.*
 ## Working Process
 
 ### Dev Notes (Korean)
-[Dev Notes](https://github.com/busankimchi/CS374-design-project/blob/feature/theme/dev-notes/DEV.md)
+[Dev Notes](https://github.com/busankimchi/CS374-design-project/blob/master/dev-notes/DEV.md)
 
 ### Git flow
 

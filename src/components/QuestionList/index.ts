@@ -1,6 +1,4 @@
-import { QuestionList } from './QuestionList';
-import { QuestionListElement } from './QuestionListElement';
-import { SpecialQuestionList } from './SpecialQuestionList';
-import { SpecialQuestionListElement } from './SpecialQuestionListElement';
+import * as NormalQuestionList from './NormalQuestionList';
+import * as SpecialQuestionList from './SpecialQuestionList';
 
-export { QuestionList, QuestionListElement, SpecialQuestionList, SpecialQuestionListElement };
+export { SpecialQuestionList, NormalQuestionList };

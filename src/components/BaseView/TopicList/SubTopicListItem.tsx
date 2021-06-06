@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import { ListItem, ListItemText, Typography } from '@material-ui/core';
 import { SubTopic } from 'utils/types';
 import { BROWN, H4, PINK_1, PINK_4 } from 'utils/themes';
-import { Link as DefaultLink } from 'react-router-dom';
+import { Link as DefaultLink, useLocation } from 'react-router-dom';
 
 interface SubTopicListItemProp {
   topicId: number;
@@ -11,8 +11,23 @@ interface SubTopicListItemProp {
 }
 
 export const SubTopicListItem: FC<SubTopicListItemProp> = ({ topicId, subTopic }) => {
+  const location = useLocation();
+  const { search } = location;
+
+  const suffixPicker = (search: string) => {
+    const searchQuery = search.split('&');
+
+    const firstQuery = searchQuery[0].split('=');
+    const firstKey = firstQuery[0].substr(1);
+
+    if (firstKey === 'q') {
+      return `?${searchQuery.slice(1).join('&')}`;
+    }
+    return search;
+  };
+
   return (
-    <Link to={`/topic/${topicId}/subTopic/${subTopic.id}`}>
+    <Link to={`/topic/${topicId}/subTopic/${subTopic.id}${suffixPicker(search)}`}>
       <SubTopicListItemContainer button>
         <ListItemText>
           <SubTopicItemText noWrap>{subTopic.subTopicName}</SubTopicItemText>

@@ -1,6 +1,6 @@
 import { useState, Dispatch, SetStateAction, useEffect, useCallback } from 'react';
 import { Question } from 'utils/types';
-import { getQuestionList } from './getQuestionList';
+import { getQuestionList } from 'apis/Question/getQuestionList';
 
 interface QuestionListHookResponse {
   questionList: Question[];

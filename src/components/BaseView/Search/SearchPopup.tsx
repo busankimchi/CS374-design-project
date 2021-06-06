@@ -8,7 +8,7 @@ import CloseIcon from '@material-ui/icons/Close';
 import SearchIcon from '@material-ui/icons/Search';
 import { HistoryQuery } from 'utils/types';
 import { H3, B4 } from 'utils/themes';
-import { useHistoryList } from 'hooks/useHistoryList';
+import { useHistoryList } from 'hooks';
 import { deleteHistory, updateHistory } from 'apis/History';
 import { DateToTimestamp } from 'utils/functions';
 import { HistoryListItem } from './HistoryListItem';
