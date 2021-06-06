@@ -1,19 +1,19 @@
-import { FC, Dispatch, SetStateAction } from 'react';
-import { useHistory, useLocation } from 'react-router';
+import { FC } from 'react';
+import { useLocation } from 'react-router-dom';
 import styled from 'styled-components';
 import { Box, List, Typography } from '@material-ui/core';
+import { Question } from 'utils/types';
 import { H3, TRUNCATE_ONE, GRAY, LIGHT_GRAY_1, LIGHT_GRAY_2 } from 'utils/themes';
-import { Topic, SubTopic, Question } from 'utils/types';
 import { Hover } from 'components/Contents';
 import { Loading } from 'components/General';
-import { QuestionListElement } from './QuestionListElement';
+import { SpecialQuestionListElement } from './SpecialQuestionListElement';
 
-interface QuestionListProp {
+interface SpecialQuestionListProp {
   isLoading: boolean;
-  setIsLoading: Dispatch<SetStateAction<boolean>>;
-  topic: Topic;
-  subTopic: SubTopic;
-  questionList: Question[] | undefined;
+  questionList: Question[];
+  title: string;
+  itemLink: (item: Question) => string;
+  onClickItemDual: (item: Question) => void;
   isListShown: boolean;
   onToggle?: () => void;
   onHoverIn?: () => void;
@@ -22,62 +22,65 @@ interface QuestionListProp {
   onHoverOutDual: () => void;
 }
 
-export const QuestionList: FC<QuestionListProp> = ({
+export const SpecialQuestionList: FC<SpecialQuestionListProp> = ({
   isLoading,
-  topic,
-  subTopic,
   questionList,
+  title,
+  itemLink,
   isListShown,
   onToggle,
   onHoverIn,
   onHoverOut,
   onHoverInDual,
   onHoverOutDual,
+  onClickItemDual,
 }) => {
-  const history = useHistory();
   const location = useLocation();
-  const locationSearch = location.search.split('&');
-  const firstQId = locationSearch[0].substr(1).split('=')[1];
-  const firstQIdNum = Number(firstQId);
+  const { search } = location;
 
-  const onClickItemDual = (item: Question) => {
-    const { pathname, search } = location;
-
+  const dualDisable = (search: string) => {
     const searchQuery = search.split('&');
 
-    if (searchQuery[1] !== undefined) {
-      history.push(`${pathname}${searchQuery[0]}&second=${item.questionId}`);
-      return;
+    const firstQuery = searchQuery[0].substr(1).split('=');
+    const firstKey = firstQuery[0];
+    const firstValue = firstQuery[1];
+
+    if (firstKey === 'q') {
+      if (searchQuery[1] !== undefined) {
+        const secondQuery = searchQuery[1].split('=');
+        const secondValue = secondQuery[1];
+
+        const firstQIdNum = Number(secondValue);
+
+        return Number.isNaN(firstQIdNum);
+      }
     }
-    history.push(`${pathname}${search}&second=${item.questionId}`);
+    const firstQIdNum = Number(firstValue);
+    return Number.isNaN(firstQIdNum);
   };
 
-
   const renderQuestionListElement = (item: Question) => (
-    <QuestionListElement
+    <SpecialQuestionListElement
       key={item.questionId}
       question={item}
-      topicId={topic.id}
-      subTopicId={subTopic.id}
-      onClickItemDual={onClickItemDual}
+      link={itemLink(item)}
       onHoverIn={onHoverIn}
       onHoverOut={onHoverOut}
       onHoverInDual={onHoverInDual}
       onHoverOutDual={onHoverOutDual}
-      dualDisable={Number.isNaN(firstQIdNum)}
+      onClickItemDual={onClickItemDual}
+      dualDisable={dualDisable(search)}
     />
   );
 
-  const drawerHeader = isLoading ? '...' : `${topic.topicName} > ${subTopic.subTopicName}`;
   const drawerBody =
     questionList === undefined || isLoading ? <Loading /> : questionList.map((item) => renderQuestionListElement(item));
-
 
   return (
     <QuestionListContainer>
       <QuestionListDrawer isListShown={isListShown}>
         <QuestionListHeader>
-          <QuestionListHeaderText>{drawerHeader}</QuestionListHeaderText>
+          <QuestionListHeaderText>{title}</QuestionListHeaderText>
         </QuestionListHeader>
         <QuestionListDrawerBody isLoading={isLoading}>{drawerBody}</QuestionListDrawerBody>
       </QuestionListDrawer>
@@ -107,7 +110,7 @@ const QuestionListDrawerBody = styled(List)<{ isLoading: boolean }>`
   padding: 0 !important;
 
   ::-webkit-scrollbar {
-    width: 4px;
+    width: 6px;
     ${({ isLoading }) => !isLoading && `background-color: ${LIGHT_GRAY_2};`}
   }
 

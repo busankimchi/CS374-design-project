@@ -3,7 +3,7 @@ import { Link as DefaultLink } from 'react-router-dom';
 import styled from 'styled-components';
 import { List, ListItem, Typography, Divider as DefaultDivider } from '@material-ui/core';
 import { Topic } from 'utils/types';
-import { BROWN, H3, PINK_1, PINK_2, PINK_4 } from 'utils/themes';
+import { BROWN, H3, PINK_2, PINK_4 } from 'utils/themes';
 import { TopicList } from './TopicList/TopicList';
 
 interface MainDrawerProp {

@@ -5,7 +5,7 @@ import { NewTopicDialog, EditTopicDialog, DeleteTopicDialog, ContextMenu } from 
 import { Header, MainDrawer } from 'components/BaseView';
 import { MousePosition, Question, Topic } from 'utils/types';
 import { deleteTopic, updateTopic } from 'apis/Topic';
-import { useTopicList } from 'hooks/useTopicList';
+import { useTopicList } from 'hooks';
 import { MainQuestionList } from './MainQuestionList';
 import { QuestionDetail } from './QuestionDetail';
 

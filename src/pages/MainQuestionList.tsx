@@ -3,7 +3,8 @@ import { Redirect, Route } from 'react-router-dom';
 import styled from 'styled-components';
 import { Box } from '@material-ui/core';
 import { Question } from 'utils/types';
-import { FAQQuestionList, AllQuestionList, SearchQuestionList, NormalQuestionList } from 'components/QuestionList';
+import { NormalQuestionList } from 'components/QuestionList/NormalQuestionList';
+import { FAQQuestionList, AllQuestionList, SearchQuestionList } from 'components/QuestionList/SpecialQuestionList';
 
 interface MainQuestionListProps {
   setTotalQuestionList: Dispatch<SetStateAction<Question[]>>;

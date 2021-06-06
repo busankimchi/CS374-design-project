@@ -3,10 +3,10 @@ import { useHistory, useLocation } from 'react-router-dom';
 import styled from 'styled-components';
 import { Box } from '@material-ui/core';
 import { Question } from 'utils/types';
-import { SpecialQuestionList } from 'components/QuestionList';
-import { useQuestionList } from 'apis/Question/useQuestionList';
+import { useQuestionList } from 'hooks';
+import { SpecialQuestionList } from './SpecialQuestionList';
 
-interface AllQuestionListProps {
+interface FAQQuestionListProps {
   setTotalQuestionList: Dispatch<SetStateAction<Question[]>>;
   setQuestionList: Dispatch<SetStateAction<Question[]>>;
   isListShown: boolean;
@@ -17,7 +17,7 @@ interface AllQuestionListProps {
   onHoverOutDual: () => void;
 }
 
-export const AllQuestionList: FC<AllQuestionListProps> = ({
+export const FAQQuestionList: FC<FAQQuestionListProps> = ({
   setTotalQuestionList,
   setQuestionList,
   isListShown,
@@ -31,6 +31,7 @@ export const AllQuestionList: FC<AllQuestionListProps> = ({
   const location = useLocation();
   const [isLoading, setIsLoading] = useState(true);
   const { questionList } = useQuestionList(setIsLoading);
+  const FAQList = questionList.filter((question) => question.isFaq);
 
   const onClickItemDual = (item: Question) => {
     const { pathname, search } = location;
@@ -45,7 +46,7 @@ export const AllQuestionList: FC<AllQuestionListProps> = ({
   };
 
   useEffect(() => {
-    setQuestionList(questionList);
+    setQuestionList(FAQList);
     setTotalQuestionList(questionList);
   }, [questionList]);
 
@@ -53,9 +54,9 @@ export const AllQuestionList: FC<AllQuestionListProps> = ({
     <QuestionDetails>
       <SpecialQuestionList
         isLoading={isLoading}
-        questionList={questionList}
-        title="ALL QUESTIONS"
-        itemLink={(item) => `/all_questions?first=${item.questionId}`}
+        questionList={FAQList}
+        title="FAQ"
+        itemLink={(item) => `/faq?first=${item.questionId}`}
         isListShown={isListShown}
         onToggle={onToggle}
         onHoverIn={onHoverIn}

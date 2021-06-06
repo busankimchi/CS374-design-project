@@ -1,15 +1,14 @@
 import { FC, useState, Dispatch, SetStateAction, useEffect } from 'react';
-import { useHistory, useLocation } from 'react-router';
+import { useHistory, useLocation } from 'react-router-dom';
 import styled from 'styled-components';
 import { Box } from '@material-ui/core';
 import { Question } from 'utils/types';
-import { useQuestionList } from 'apis/Question/useQuestionList';
-import { SpecialQuestionList } from 'components/QuestionList';
+import { useQuestionList } from 'hooks';
+import { SpecialQuestionList } from './SpecialQuestionList';
 
-interface SearchQuestionListProps {
+interface AllQuestionListProps {
   setTotalQuestionList: Dispatch<SetStateAction<Question[]>>;
   setQuestionList: Dispatch<SetStateAction<Question[]>>;
-  search: string;
   isListShown: boolean;
   onToggle?: () => void;
   onHoverIn?: () => void;
@@ -18,10 +17,9 @@ interface SearchQuestionListProps {
   onHoverOutDual: () => void;
 }
 
-export const SearchQuestionList: FC<SearchQuestionListProps> = ({
+export const AllQuestionList: FC<AllQuestionListProps> = ({
   setTotalQuestionList,
   setQuestionList,
-  search,
   isListShown,
   onToggle,
   onHoverIn,
@@ -34,31 +32,20 @@ export const SearchQuestionList: FC<SearchQuestionListProps> = ({
   const [isLoading, setIsLoading] = useState(true);
   const { questionList } = useQuestionList(setIsLoading);
 
-  const searchList = questionList.filter((item) => {
-    const { question, answers } = item;
-
-    const contentHas = question.content.includes(search as string);
-    const titleHas = question.title.includes(search as string);
-    const answerHas = answers
-      .map((ans) => ans.content.includes(search as string))
-      .reduce((prev, next) => prev || next, false);
-
-    return contentHas || titleHas || answerHas;
-  });
-
   const onClickItemDual = (item: Question) => {
     const { pathname, search } = location;
+
     const searchQuery = search.split('&');
 
-    if (searchQuery[2] !== undefined) {
-      history.push(`${pathname}${searchQuery.slice(0, 2).join('&')}&second=${item.questionId}`);
+    if (searchQuery[1] !== undefined) {
+      history.push(`${pathname}${searchQuery[0]}&second=${item.questionId}`);
       return;
     }
     history.push(`${pathname}${search}&second=${item.questionId}`);
   };
 
   useEffect(() => {
-    setQuestionList(searchList);
+    setQuestionList(questionList);
     setTotalQuestionList(questionList);
   }, [questionList]);
 
@@ -66,9 +53,9 @@ export const SearchQuestionList: FC<SearchQuestionListProps> = ({
     <QuestionDetails>
       <SpecialQuestionList
         isLoading={isLoading}
-        questionList={searchList}
-        title="SEARCH RESULT"
-        itemLink={(item) => `/search?q=${search}&first=${item.questionId}`}
+        questionList={questionList}
+        title="ALL QUESTIONS"
+        itemLink={(item) => `/all_questions?first=${item.questionId}`}
         isListShown={isListShown}
         onToggle={onToggle}
         onHoverIn={onHoverIn}

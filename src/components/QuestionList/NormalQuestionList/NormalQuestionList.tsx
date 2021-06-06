@@ -2,9 +2,8 @@ import { FC, useEffect, useState, Dispatch, SetStateAction } from 'react';
 import styled from 'styled-components';
 import { Box } from '@material-ui/core';
 import { Topic, SubTopic, Question } from 'utils/types';
-import { QuestionList } from 'components/QuestionList';
-import { useTopicList } from 'hooks/useTopicList';
-import { useQuestionList } from 'apis/Question/useQuestionList';
+import { useTopicList, useQuestionList } from 'hooks';
+import { QuestionList } from './QuestionList';
 
 interface NormalQuestionListProp {
   setTotalQuestionList: Dispatch<SetStateAction<Question[]>>;

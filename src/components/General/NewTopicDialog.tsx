@@ -1,7 +1,16 @@
 import { FC } from 'react';
 import styled from 'styled-components';
-import { Button, DialogActions, Dialog, DialogTitle, DialogContent, DialogContentText, Typography, InputBase } from '@material-ui/core';
-import { H2, H4, GRAY } from '../../utils/themes'
+import {
+  Button,
+  DialogActions,
+  Dialog,
+  DialogTitle,
+  DialogContent,
+  DialogContentText,
+  Typography,
+  InputBase,
+} from '@material-ui/core';
+import { H2, H4, GRAY } from '../../utils/themes';
 
 interface NewTopicDialogProp {
   open: boolean;
@@ -15,10 +24,14 @@ interface NewTopicDialogProp {
 export const NewTopicDialog: FC<NewTopicDialogProp> = ({ open, onClose, onAddTopic, value, onChange }) => {
   return (
     <Dialog open={open} onClose={onClose} aria-labelledby="form-dialog-title">
-      <DialogTitle><StyledTitle>Add New Topic</StyledTitle></DialogTitle>
+      <DialogTitle>
+        <StyledTitle>Add New Topic</StyledTitle>
+      </DialogTitle>
       <DialogContent>
         <StyledDialogContentText>
-          In order to add a new topic, please enter the new topic name below.<br />Note that only students are allowed to add subtopics.
+          In order to add a new topic, please enter the new topic name below.
+          <br />
+          Note that only students are allowed to add subtopics.
         </StyledDialogContentText>
         <StyledTextField
           autoFocus
