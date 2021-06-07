@@ -1,6 +1,6 @@
 /* eslint-disable react/jsx-props-no-spreading */
 import { FC, useState } from 'react';
-import { useHistory } from 'react-router';
+import { useHistory, useLocation } from 'react-router';
 import styled from 'styled-components';
 import { Box, Dialog, Divider, InputBase, IconButton, Typography, List } from '@material-ui/core';
 import useAutocomplete from '@material-ui/lab/useAutocomplete';
@@ -8,7 +8,7 @@ import CloseIcon from '@material-ui/icons/Close';
 import SearchIcon from '@material-ui/icons/Search';
 import { HistoryQuery } from 'utils/types';
 import { H3, B4 } from 'utils/themes';
-import { useHistoryList } from 'hooks/useHistoryList';
+import { useHistoryList } from 'hooks';
 import { deleteHistory, updateHistory } from 'apis/History';
 import { DateToTimestamp } from 'utils/functions';
 import { HistoryListItem } from './HistoryListItem';
@@ -19,11 +19,22 @@ interface SearchPopupProp {
 }
 
 export const SearchPopup: FC<SearchPopupProp> = ({ open, onClose }) => {
-  // const [historyList, setHistoryList] = useState<HistoryQuery[]>(dummySearchHistory);
-
   const { historyList, setHistoryList, maxHistoryId, setMaxHistoryId } = useHistoryList();
   const [search, setSearch] = useState('');
   const browserHistory = useHistory();
+  const location = useLocation();
+
+  const suffixPicker = (search: string) => {
+    const searchQuery = search.split('&');
+
+    const firstQuery = searchQuery[0].split('=');
+    const firstKey = firstQuery[0].substr(1);
+
+    if (firstKey === 'q') {
+      return `&${searchQuery.slice(1).join('&')}`;
+    }
+    return `&${search.substr(1)}`;
+  };
 
   const { getRootProps, getInputProps, getListboxProps, getOptionProps, groupedOptions, focused, popupOpen } =
     useAutocomplete({
@@ -86,7 +97,7 @@ export const SearchPopup: FC<SearchPopupProp> = ({ open, onClose }) => {
             inputProps={{ 'aria-label': 'search' }}
             onKeyPress={(event) => {
               if (event.key === 'Enter') {
-                browserHistory.push(`/search?q=${search}`);
+                browserHistory.push(`/search?q=${search}${suffixPicker(location.search)}`);
                 addHistoryBySearch();
 
                 if (onClose !== undefined) {
@@ -116,6 +127,7 @@ export const SearchPopup: FC<SearchPopupProp> = ({ open, onClose }) => {
                   key={option.id}
                   {...getOptionProps({ option, index })}
                   history={option}
+                  suffix={suffixPicker(location.search)}
                   onClickHistory={() => {
                     addHistoryByClick(option);
                     if (onClose !== undefined) {

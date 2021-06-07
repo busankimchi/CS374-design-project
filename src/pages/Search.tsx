@@ -4,12 +4,9 @@ import { Question } from 'utils/types';
 import { BaseQuestionContainer } from 'components/Contents';
 import { useLocation } from 'react-router-dom';
 
-
-interface NormalQuestionProp {
+interface SearchProp {
   questionList: Question[];
   setQuestionList: Dispatch<SetStateAction<Question[]>>;
-  topicId?: number;
-  subTopicId?: number;
   question1: Question | undefined;
   question2: Question | undefined;
   setQuestion1: Dispatch<SetStateAction<Question | undefined>>;
@@ -18,11 +15,9 @@ interface NormalQuestionProp {
   isHoverDual: boolean;
 }
 
-export const NormalQuestion: FC<NormalQuestionProp> = ({
+export const Search: FC<SearchProp> = ({
   questionList,
   setQuestionList,
-  topicId,
-  subTopicId,
   question1,
   question2,
   setQuestion1,
@@ -35,54 +30,68 @@ export const NormalQuestion: FC<NormalQuestionProp> = ({
 
   const [questionId, setQuestionId] = useState<number | undefined>();
   const [questionId2, setQuestionId2] = useState<number | undefined>();
+  const [search, setSearch] = useState('');
 
   useEffect(() => {
     const searchQuery = location.search.split('&');
+    const searchPair = searchQuery[0].split('=');
+    const key = searchPair[0].substr(1);
+    const search = searchPair[1];
 
-    const firstPair = searchQuery[0].split('=');
-    const firstKey = firstPair[0].substr(1);
-    const firstValue = firstPair[1];
+    if (key === 'q') {
+      // eslint-disable-next-line no-console
+      console.log('search query is', search);
 
-    if (firstKey === 'first') {
-      const qId = Number(firstValue);
+      if (searchQuery[1] !== undefined) {
+        const firstQ = searchQuery[1].split('=');
+        const firstKey = firstQ[0];
+        const firstValue = firstQ[1];
 
-      if (!Number.isNaN(qId)) {
-        if (searchQuery[1] !== undefined) {
-          const secondPair = searchQuery[1].split('=');
-          const secondKey = secondPair[0];
-          const secondValue = secondPair[1];
+        if (firstKey === 'first') {
+          const qId = Number(firstValue);
 
-          if (secondKey === 'second') {
-            const qId2 = Number(secondValue);
-            if (!Number.isNaN(qId2)) {
-              setQuestionId(qId);
-              setQuestionId2(qId2);
-              return;
+          if (!Number.isNaN(qId)) {
+            if (searchQuery[2] !== undefined) {
+              const secondQ = searchQuery[2].split('=');
+              const secondKey = secondQ[0];
+              const secondValue = secondQ[1];
+
+              if (secondKey === 'second') {
+                const qId2 = Number(secondValue);
+                if (!Number.isNaN(qId2)) {
+                  setSearch(search);
+                  setQuestionId(qId);
+                  setQuestionId2(qId2);
+                  return;
+                }
+              }
             }
+            setSearch(search);
+            setQuestionId(qId);
+            setQuestionId2(undefined);
+            return;
           }
         }
-        setQuestionId(qId);
-        setQuestionId2(undefined);
-        return;
       }
+      setSearch(search);
+      setQuestionId(undefined);
+      setQuestionId2(undefined);
     }
-    setQuestionId(undefined);
-    setQuestionId2(undefined);
   }, [location]);
 
   const onCloseLeftContent = () => {
     if (questionId2 !== undefined) {
-      history.push(`/topic/${topicId}/subTopic/${subTopicId}?first=${questionId2}`);
+      history.push(`/search?q=${search}&first=${questionId2}`);
     } else {
-      history.push(`/topic/${topicId}/subTopic/${subTopicId}`);
+      history.push(`/search?q=${search}`);
     }
   };
 
   const onCloseRightContent = () => {
     if (questionId !== undefined) {
-      history.push(`/topic/${topicId}/subTopic/${subTopicId}?first=${questionId}`);
+      history.push(`/search?q=${search}&first=${questionId}`);
     } else {
-      history.push(`/topic/${topicId}/subTopic/${subTopicId}`);
+      history.push(`/search?q=${search}`);
     }
   };
 
@@ -103,4 +112,3 @@ export const NormalQuestion: FC<NormalQuestionProp> = ({
     />
   );
 };
-

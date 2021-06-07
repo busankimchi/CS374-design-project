@@ -1,7 +1,16 @@
 import { FC } from 'react';
 import styled from 'styled-components';
-import { Button, DialogActions, Dialog, DialogTitle, DialogContent, DialogContentText, Typography, InputBase } from '@material-ui/core';
-import { H2, H4, GRAY } from '../../utils/themes'
+import {
+  Button,
+  DialogActions,
+  Dialog,
+  DialogTitle,
+  DialogContent,
+  DialogContentText,
+  Typography,
+  InputBase,
+} from '@material-ui/core';
+import { H2, H4, GRAY } from '../../utils/themes';
 
 interface EditTopicDialogProp {
   open: boolean;
@@ -15,11 +24,13 @@ interface EditTopicDialogProp {
 export const EditTopicDialog: FC<EditTopicDialogProp> = ({ open, onClose, value, onChange, changeTopicName }) => {
   return (
     <Dialog open={open} onClose={onClose} aria-labelledby="form-dialog-title">
-      <DialogTitle><StyledTitle>Edit Topic Name</StyledTitle></DialogTitle>
+      <DialogTitle>
+        <StyledTitle>Edit Topic Name</StyledTitle>
+      </DialogTitle>
       <DialogContent>
         <StyledDialogContentText>
           In order to edit the topic name, please enter the new topic name below.
-      </StyledDialogContentText>
+        </StyledDialogContentText>
         <StyledTextField
           autoFocus
           margin="dense"
@@ -34,10 +45,10 @@ export const EditTopicDialog: FC<EditTopicDialogProp> = ({ open, onClose, value,
       <DialogActions>
         <StyledButton onClick={onClose} color="primary">
           Cancel
-      </StyledButton>
+        </StyledButton>
         <StyledButton onClick={changeTopicName} color="primary">
           Edit
-      </StyledButton>
+        </StyledButton>
       </DialogActions>
     </Dialog>
   );

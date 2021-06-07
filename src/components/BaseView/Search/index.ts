@@ -1,4 +1,5 @@
+import { HistoryListItem } from './HistoryListItem';
 import { SearchBar } from './SearchBar';
 import { SearchPopup } from './SearchPopup';
 
-export { SearchBar, SearchPopup };
+export { HistoryListItem, SearchBar, SearchPopup };
