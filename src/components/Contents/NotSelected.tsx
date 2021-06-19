@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import { Box } from '@material-ui/core';
 import { Icon } from '@iconify/react';
 import documentText from '@iconify-icons/grommet-icons/document-text';
-import { B1 } from '../../utils/themes';
+import { B1 } from 'utils/themes';
 
 export const NotSelected: FC = () => {
   return (

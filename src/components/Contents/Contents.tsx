@@ -4,15 +4,16 @@ import { Box, Breadcrumbs, Typography, InputBase, IconButton } from '@material-u
 import SendIcon from '@material-ui/icons/Send';
 import NavigateNextIcon from '@material-ui/icons/NavigateNext';
 import CloseIcon from '@material-ui/icons/Close';
-import { LIGHT_GRAY_1, GRAY, H1, B1, B2 } from '../../utils/themes';
+import { ParsedString } from 'components/General';
+import { LIGHT_GRAY_1, GRAY, H1, B1, B2 } from 'utils/themes';
+import { Question, AnswerContent } from 'utils/types';
+import { updateIsFaqDB } from 'apis/Question/updateIsFaqDB';
+import { appendAnswerDB } from 'apis/Question/appendAnswerDB';
 import { UserInfo } from './UserInfo';
 import { AnswerDivider } from './AnswerDivider';
 import { FAQButton } from './FAQButton';
 import { AnswerDisplay } from './AnswerDisplay';
 import { NoAnswer } from './NoAnswer';
-import { Question, AnswerContent } from '../../utils/types';
-import { updateIsFaqDB } from '../../apis/Question/updateIsFaqDB';
-import { appendAnswerDB } from '../../apis/Question/appendAnswerDB';
 
 interface ContentsProp {
   question: Question;
@@ -30,12 +31,12 @@ export const Contents: FC<ContentsProp> = ({
   closeThisContent,
 }) => {
   const [text, setText] = useState('');
-
-  const questionContent = question.question;
   const [answers, setAnswers] = useState(question.answers);
   const [isFaq, setIsFaq] = useState(question.isFaq);
   const [shouldScroll, setShouldScroll] = useState(false);
   const divRef = useRef<HTMLDivElement>(null);
+
+  const questionContent = question.question;
 
   useEffect(() => {
     setAnswers(question.answers);
@@ -49,18 +50,7 @@ export const Contents: FC<ContentsProp> = ({
     }
   }, [answers]);
 
-  const questionText: Array<JSX.Element> = [];
-
-  questionContent.content.split('\n').forEach((line) => {
-    questionText.push(
-      <Box>
-        {line}
-        <br />
-      </Box>,
-    );
-  });
-
-  const answersElem: Array<JSX.Element> = [];
+  const answersElem: JSX.Element[] = [];
 
   if (answers.length === 0) {
     answersElem.push(<NoAnswer />);
@@ -135,7 +125,11 @@ export const Contents: FC<ContentsProp> = ({
               <QuestionTitleBox>
                 Q{question.questionId}. {questionContent.title}
               </QuestionTitleBox>
-              <QuestionContentBox>{questionText}</QuestionContentBox>
+              <QuestionContentBox>
+                {questionContent.content.split('\n').map((line) => (
+                  <ParsedString content={line} />
+                ))}
+              </QuestionContentBox>
             </QuestionBox>
           </Box>
           <AnswerDivider />
