@@ -127,7 +127,7 @@ export const Contents: FC<ContentsProp> = ({
               </QuestionTitleBox>
               <QuestionContentBox>
                 {questionContent.content.split('\n').map((line) => (
-                  <ParsedString content={line} />
+                  <ParsedString key={line} content={line} />
                 ))}
               </QuestionContentBox>
             </QuestionBox>

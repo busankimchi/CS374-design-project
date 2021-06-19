@@ -17,7 +17,7 @@ export const AnswerDisplay: FC<AnswerDisplayProp> = ({ answer }) => {
       <AnswerContentWrapper>
         <AnswerContentBox>
           {answer.content.split('\n').map((line) => (
-            <ParsedString content={line} />
+            <ParsedString key={line} content={line} />
           ))}
         </AnswerContentBox>
       </AnswerContentWrapper>

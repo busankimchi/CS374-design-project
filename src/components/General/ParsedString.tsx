@@ -43,10 +43,11 @@ export const ParsedString: FC<ParsedStringProps> = ({ content }) => {
     input: content,
   });
 
-  const result: JSX.Element[] = regexString.map((item) =>
-    typeof item === 'string' ? <ContentText>{item}</ContentText> : item,
+  return (
+    <ParsedStringContainer>
+      {regexString.map((item) => (typeof item === 'string' ? <ContentText key={item}>{item}</ContentText> : item))}
+    </ParsedStringContainer>
   );
-  return <ParsedStringContainer>{result}</ParsedStringContainer>;
 };
 
 const Link = styled(DefaultLink)`
