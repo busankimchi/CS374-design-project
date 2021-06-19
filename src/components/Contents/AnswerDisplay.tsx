@@ -1,33 +1,24 @@
 import { FC } from 'react';
 import styled from 'styled-components';
 import { Box } from '@material-ui/core';
-import { AnswerContent } from '../../utils/types';
+import { AnswerContent } from 'utils/types';
+import { LIGHT_GRAY_1 } from 'utils/themes';
+import { ParsedString } from 'components/General';
 import { UserInfo } from './UserInfo';
-import { LIGHT_GRAY_1, B1 } from '../../utils/themes';
 
 interface AnswerDisplayProp {
   answer: AnswerContent;
 }
 
 export const AnswerDisplay: FC<AnswerDisplayProp> = ({ answer }) => {
-  const textElem: Array<JSX.Element> = [];
-
-  answer.content.split('\n').forEach((line) => {
-    textElem.push(
-      <Box>
-        {line}
-        <br />
-      </Box>,
-    );
-  });
-
   return (
     <AnswerBox>
       <UserInfo userName={answer.name} time={answer.time} image={answer.image} />
       <AnswerContentWrapper>
         <AnswerContentBox>
-          {/* {answer.content.split("\n").join("</br>")} */}
-          {textElem}
+          {answer.content.split('\n').map((line) => (
+            <ParsedString key={line} content={line} />
+          ))}
         </AnswerContentBox>
       </AnswerContentWrapper>
     </AnswerBox>
@@ -49,5 +40,4 @@ const AnswerContentWrapper = styled(Box)`
 
 const AnswerContentBox = styled(Box)`
   margin-left: 15px;
-  ${B1};
 `;
