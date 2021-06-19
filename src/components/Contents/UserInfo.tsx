@@ -2,8 +2,8 @@ import { FC } from 'react';
 import styled from 'styled-components';
 import { makeStyles } from '@material-ui/core/styles';
 import { Box, Avatar } from '@material-ui/core';
-import { timeForToday } from '../../utils/functions';
-import { H3, B2, COLORS } from '../../utils/themes';
+import { timeForToday } from 'utils/functions';
+import { H3, B2, COLORS } from 'utils/themes';
 
 interface UserInfoProp {
   userName: string;

@@ -1,9 +1,9 @@
 import { FC } from 'react';
+import { Link as DefaultLink, useLocation } from 'react-router-dom';
 import styled from 'styled-components';
 import { ListItem, ListItemText, Typography } from '@material-ui/core';
 import { SubTopic } from 'utils/types';
 import { BROWN, H4, PINK_1, PINK_4 } from 'utils/themes';
-import { Link as DefaultLink, useLocation } from 'react-router-dom';
 
 interface SubTopicListItemProp {
   topicId: number;
