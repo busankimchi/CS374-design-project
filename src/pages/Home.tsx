@@ -6,10 +6,16 @@ import { Header, MainDrawer } from 'components/BaseView';
 import { MousePosition, Question, Topic } from 'utils/types';
 import { deleteTopic, updateTopic } from 'apis/Topic';
 import { useTopicList } from 'hooks';
+import { GRAY } from '../utils/themes'
 import { MainQuestionList } from './MainQuestionList';
 import { QuestionDetail } from './QuestionDetail';
+import tut1Image from '../tutorial/normal-view-example.png';
+import tut2Image from '../tutorial/hover-double-sided-view-example.png';
+import tut3Image from '../tutorial/double-sided-view-example.png';
 
 export const Home: FC = () => {
+  const [tutorial, setTutorial] = useState(0);
+
   const [openNewTopic, setOpenNewTopic] = useState(false);
   const [openEditTopic, setOpenEditTopic] = useState(false);
   const [openDeleteTopic, setOpenDeleteTopic] = useState(false);
@@ -37,6 +43,10 @@ export const Home: FC = () => {
   const onHoverOut = () => setHover(false);
   const onHoverInDual = () => setHoverDual(true);
   const onHoverOutDual = () => setHoverDual(false);
+
+  const moveToNextTutorial = () => {
+    setTutorial(tutorial + 1);
+  }
 
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const handleMenuTrigger = (event: any) => {
@@ -106,6 +116,28 @@ export const Home: FC = () => {
     }
   };
 
+  if (tutorial === 0) {
+    return (
+      <TutorialContainer>
+        <TutorialImgContainer src={tut1Image} alt='Tutorial 1 image.' onClick={moveToNextTutorial}/>
+      </TutorialContainer>
+    );
+  }    
+  if (tutorial === 1) {
+    return (
+      <TutorialContainer>
+        <TutorialImgContainer src={tut2Image} alt='Tutorial 2 image.' onClick={moveToNextTutorial}/>
+      </TutorialContainer>
+    );
+  }
+  if (tutorial === 2) {
+    return (
+      <TutorialContainer>
+        <TutorialImgContainer src={tut3Image} alt='Tutorial 2 image.' onClick={moveToNextTutorial}/>
+      </TutorialContainer>
+    );
+  }
+
   return (
     <HomeContainer>
       <Header />
@@ -173,4 +205,17 @@ const Main = styled(Box)`
 const QuestionContainer = styled(Box)`
   display: flex;
   width: 100%;
+`;
+
+const TutorialContainer = styled(Box)`
+  width: 100vw;
+  height: 100vh;,
+  background-color: ${GRAY},
+`;
+
+const TutorialImgContainer = styled.img`
+  display: flex;
+  width: 100%;
+  height: 100%;
+  cursor: pointer;
 `;
